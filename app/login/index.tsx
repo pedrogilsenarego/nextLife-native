@@ -1,19 +1,23 @@
 import { Text, View } from "@/components/Themed";
-import { SafeAreaView } from "react-native";
+import { Keyboard, SafeAreaView, TouchableWithoutFeedback } from "react-native";
+import LoginForm from "./LoginForm";
 
 const Login = () => {
   return (
     <SafeAreaView>
-      <View
-        style={{
-          display: "flex",
-          height: "100%",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Text>Teste</Text>
-      </View>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <View
+          style={{
+            display: "flex",
+            height: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Text>Teste</Text>
+          <LoginForm />
+        </View>
+      </TouchableWithoutFeedback>
     </SafeAreaView>
   );
 };
