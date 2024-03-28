@@ -1,16 +1,36 @@
 import { supabase } from "@/lib/supabase";
-import { Session } from "@supabase/supabase-js";
 import React, { useState } from "react";
+import {
+  FormProvider,
+  SubmitErrorHandler,
+  SubmitHandler,
+  useForm,
+} from "react-hook-form";
 import { Alert, StyleSheet, View } from "react-native";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Button, Input } from "react-native-elements";
+import { LoginSchema, LoginType } from "./validation";
+import { defaultValues } from "./constants";
+import ControlledInput from "@/components/inputs/TextField";
 
 export default function EmailForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [session, setSession] = useState<Session | null>();
-  console.log(session);
+
+  const methods = useForm<LoginType>({
+    resolver: zodResolver(LoginSchema),
+    defaultValues,
+  });
+
+  const onSubmit: SubmitHandler<LoginType> = (data) =>
+    console.log("data", { data });
+
+  const onError: SubmitErrorHandler<LoginType> = (errors, e) => {
+    return console.log("errors", errors);
+  };
+
   async function signInWithEmail() {
     setLoading(true);
     const { error } = await supabase.auth.signInWithPassword({
@@ -19,10 +39,7 @@ export default function EmailForm() {
     });
 
     if (error) Alert.alert(error.message);
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-    setSession(session);
+
     setLoading(false);
   }
 
@@ -44,6 +61,14 @@ export default function EmailForm() {
 
   return (
     <View style={styles.container}>
+      <FormProvider {...methods}>
+        <ControlledInput name="email" label="E-mail" />
+        <ControlledInput name="password" label="Password" />
+        <Button
+          title="Login"
+          onPress={methods.handleSubmit(onSubmit, onError)}
+        />
+      </FormProvider>
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <Input
           label="Email"

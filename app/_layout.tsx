@@ -7,10 +7,14 @@ import {
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Text } from "@/components/Themed";
 
 import { useColorScheme } from "@/components/useColorScheme";
 import Login from "./login";
+import { supabase } from "@/lib/supabase";
+import { Session } from "@supabase/supabase-js";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -30,8 +34,18 @@ export default function RootLayout() {
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,
   });
+  const [session, setSession] = useState<Session | null>(null);
 
-  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+  }, []);
+
   useEffect(() => {
     if (error) throw error;
   }, [error]);
@@ -46,7 +60,7 @@ export default function RootLayout() {
     return null;
   }
 
-  return <LoginLayout />;
+  return session ? <RootLayoutNav /> : <LoginLayout />;
 }
 
 function LoginLayout() {
