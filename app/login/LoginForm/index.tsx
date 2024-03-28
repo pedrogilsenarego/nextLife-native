@@ -9,7 +9,7 @@ import {
 import { Alert, StyleSheet, View } from "react-native";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Button, Input } from "react-native-elements";
+import { Button } from "react-native-elements";
 import { LoginSchema, LoginType } from "./validation";
 import { defaultValues } from "./constants";
 import ControlledInput from "@/components/inputs/TextField";

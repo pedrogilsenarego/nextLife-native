@@ -12,6 +12,7 @@ const Login = () => {
             height: "100%",
             alignItems: "center",
             justifyContent: "center",
+            backgroundColor: "orangered",
           }}
         >
           <LoginForm />
