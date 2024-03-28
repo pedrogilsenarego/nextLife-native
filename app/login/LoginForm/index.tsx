@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase";
-import React, { useState } from "react";
+import React from "react";
 import {
   FormProvider,
   SubmitErrorHandler,
@@ -9,10 +9,10 @@ import {
 import { Alert, StyleSheet, View } from "react-native";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Button } from "react-native-elements";
 import { LoginSchema, LoginType } from "./validation";
 import { defaultValues } from "./constants";
 import ControlledInput from "@/components/inputs/TextField";
+import Button from "@/components/button/ButtonComponent";
 
 export default function EmailForm() {
   const methods = useForm<LoginType>({
@@ -70,7 +70,7 @@ export default function EmailForm() {
           placeholder="Insert your password..."
         />
         <Button
-          title="Login"
+          label="Login"
           onPress={methods.handleSubmit(onSubmit, onError)}
         />
       </FormProvider>
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 40,
     padding: 12,
-    width: "80%",
+    width: "90%",
   },
   verticallySpaced: {
     paddingTop: 4,

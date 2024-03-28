@@ -63,6 +63,6 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   error: {
-    color: "red",
+    color: "white",
   },
 });
