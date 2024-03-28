@@ -13,6 +13,7 @@ import { LoginSchema, LoginType } from "./validation";
 import { defaultValues } from "./constants";
 import ControlledInput from "@/components/inputs/TextField";
 import Button from "@/components/button/ButtonComponent";
+import { Button as Button2 } from "react-native-elements";
 
 export default function EmailForm() {
   const methods = useForm<LoginType>({
@@ -68,6 +69,11 @@ export default function EmailForm() {
           name="password"
           label="Password"
           placeholder="Insert your password..."
+        />
+        <Button2
+          style={{ backgroundColor: "black" }}
+          title="Login"
+          onPress={methods.handleSubmit(onSubmit, onError)}
         />
         <Button
           label="Login"
