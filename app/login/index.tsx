@@ -14,7 +14,6 @@ const Login = () => {
             justifyContent: "center",
           }}
         >
-          <Text>Teste</Text>
           <LoginForm />
         </View>
       </TouchableWithoutFeedback>

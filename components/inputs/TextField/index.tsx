@@ -47,7 +47,7 @@ export default ControlledInput;
 
 const styles = StyleSheet.create({
   label: {
-    color: "white",
+    color: "black",
     margin: 20,
     marginLeft: 0,
   },
@@ -59,10 +59,10 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: "white",
     borderColor: "red",
-    borderWidth: 1,
+    borderWidth: 2,
     height: 40,
     padding: 10,
-    borderRadius: 4,
+    borderRadius: 20,
   },
   error: {
     color: "red",
