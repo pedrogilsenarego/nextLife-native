@@ -66,8 +66,8 @@ const styles = StyleSheet.create({
 
     fontWeight: "bold",
 
-    paddingTop: 7,
-    paddingBottom: 7,
+    paddingTop: 9,
+    paddingBottom: 9,
     paddingLeft: 20,
     borderRadius: 30,
   },
