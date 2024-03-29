@@ -30,8 +30,8 @@ const Button = ({
   ...rest
 }: Props) => {
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={onPress} {...rest}>
+    <TouchableOpacity onPress={onPress} {...rest}>
+      <View style={styles.container}>
         {isLoading ? (
           <View
             style={{
@@ -68,15 +68,15 @@ const Button = ({
             style={{
               color: "white",
 
-              fontSize: 20,
+              fontSize: 16,
               ...textStyle,
             }}
           >
             {label}
           </Text>
         )}
-      </TouchableOpacity>
-    </View>
+      </View>
+    </TouchableOpacity>
   );
 };
 
@@ -88,8 +88,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     margin: 8,
-    padding: 8,
-    backgroundColor: "black",
-    borderRadius: 4,
+    padding: 12,
+    backgroundColor: "orangered",
+
+    borderRadius: 30,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5, // Android only
   },
 });

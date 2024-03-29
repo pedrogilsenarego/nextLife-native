@@ -12,7 +12,7 @@ import {
 } from "react-native";
 
 interface TextInputProps extends RNTextInputProps, UseControllerProps {
-  label: string;
+  label?: string;
   defaultValue?: string;
 }
 
@@ -38,7 +38,11 @@ const ControlledInput = (props: TextInputProps) => {
           {...inputProps}
         />
       </View>
-      {error && <Text style={styles.error}>{error?.message?.toString()}</Text>}
+      {error && (
+        <View style={{ paddingLeft: 10 }}>
+          <Text style={styles.error}>{error?.message?.toString()}</Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -57,12 +61,13 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: "white",
-
+    borderWidth: 2,
+    borderColor: "gray",
     height: 40,
     padding: 10,
-    borderRadius: 4,
+    borderRadius: 30,
   },
   error: {
-    color: "white",
+    color: "orangered",
   },
 });

@@ -25,10 +25,6 @@ export default function EmailForm() {
     signInWithEmail2({ data });
   };
 
-  const onError: SubmitErrorHandler<LoginType> = (errors, e) => {
-    return console.log("errors", errors);
-  };
-
   async function signInWithEmail2(data: {
     data: { password: string; email: string };
   }) {
@@ -59,26 +55,18 @@ export default function EmailForm() {
   return (
     <View style={styles.container}>
       <FormProvider {...methods}>
-        <ControlledInput
-          name="email"
-          label="E-mail"
-          placeholder="Insert your email..."
-        />
+        <ControlledInput name="email" placeholder="E-mail" />
         <ControlledInput
           secureTextEntry
           name="password"
-          label="Password"
-          placeholder="Insert your password..."
+          placeholder="Password"
         />
         <Button2
           style={{ backgroundColor: "black" }}
           title="Login"
-          onPress={methods.handleSubmit(onSubmit, onError)}
+          onPress={methods.handleSubmit(onSubmit)}
         />
-        <Button
-          label="Login"
-          onPress={methods.handleSubmit(onSubmit, onError)}
-        />
+        <Button label="Login" onPress={methods.handleSubmit(onSubmit)} />
       </FormProvider>
     </View>
   );
@@ -86,7 +74,7 @@ export default function EmailForm() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 40,
+    marginTop: 0,
     padding: 12,
     width: "90%",
   },
