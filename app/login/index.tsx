@@ -18,10 +18,10 @@ const Login = () => {
           style={{
             display: "flex",
             height: "100%",
-            paddingTop: 160,
+            paddingTop: 120,
             alignItems: "center",
-
-            borderRadius: 40,
+            marginHorizontal: 8,
+            borderRadius: 30,
             shadowColor: "#000",
             shadowOffset: {
               width: 0,
@@ -40,7 +40,7 @@ const Login = () => {
             style={{
               display: "flex",
               flexDirection: "row",
-              columnGap: 40,
+              columnGap: 30,
               marginTop: 20,
             }}
           >
