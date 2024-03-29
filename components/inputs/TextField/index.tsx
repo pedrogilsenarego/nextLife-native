@@ -63,8 +63,12 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderWidth: 2,
     borderColor: "gray",
-    height: 40,
-    padding: 10,
+
+    fontWeight: "bold",
+
+    paddingTop: 7,
+    paddingBottom: 7,
+    paddingLeft: 20,
     borderRadius: 30,
   },
   error: {

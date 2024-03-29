@@ -1,11 +1,6 @@
 import { supabase } from "@/lib/supabase";
 import React from "react";
-import {
-  FormProvider,
-  SubmitErrorHandler,
-  SubmitHandler,
-  useForm,
-} from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { Alert, StyleSheet, View } from "react-native";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -13,7 +8,6 @@ import { LoginSchema, LoginType } from "./validation";
 import { defaultValues } from "./constants";
 import ControlledInput from "@/components/inputs/TextField";
 import Button from "@/components/button/ButtonComponent";
-import { Button as Button2 } from "react-native-elements";
 
 export default function EmailForm() {
   const methods = useForm<LoginType>({
@@ -61,11 +55,7 @@ export default function EmailForm() {
           name="password"
           placeholder="Password"
         />
-        <Button2
-          style={{ backgroundColor: "black" }}
-          title="Login"
-          onPress={methods.handleSubmit(onSubmit)}
-        />
+
         <Button label="Login" onPress={methods.handleSubmit(onSubmit)} />
       </FormProvider>
     </View>

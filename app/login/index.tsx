@@ -18,12 +18,22 @@ const Login = () => {
           style={{
             display: "flex",
             height: "100%",
-            paddingTop: 140,
+            paddingTop: 160,
             alignItems: "center",
+
+            borderRadius: 40,
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+            elevation: 5, // Android only
           }}
         >
           <Image
-            style={{ width: 120, objectFit: "contain" }}
+            style={{ width: 150, objectFit: "contain" }}
             source={require("../../assets/images/logo.png")}
           />
           <View
@@ -34,26 +44,42 @@ const Login = () => {
               marginTop: 20,
             }}
           >
-            <Text
-              style={{
-                borderBottomWidth: 3,
-                fontSize: 18,
-                borderColor: "orangered",
-                fontWeight: "500",
-              }}
-            >
-              LOGIN
-            </Text>
-            <Text
-              style={{
-                borderBottomWidth: 3,
-                fontSize: 18,
-                borderColor: "white",
-                fontWeight: "500",
-              }}
-            >
-              SIGNUP
-            </Text>
+            <View>
+              <Text
+                style={{
+                  fontSize: 18,
+
+                  fontWeight: "500",
+                }}
+              >
+                LOGIN
+              </Text>
+              <View
+                style={{
+                  height: 3,
+                  backgroundColor: "orangered",
+                  borderRadius: 2,
+                }}
+              />
+            </View>
+            <View>
+              <Text
+                style={{
+                  fontSize: 18,
+
+                  fontWeight: "500",
+                }}
+              >
+                SIGNUP
+              </Text>
+              <View
+                style={{
+                  height: 3,
+                  backgroundColor: "white",
+                  borderRadius: 2,
+                }}
+              />
+            </View>
           </View>
           <LoginForm />
           <Text
