@@ -31,6 +31,7 @@ const ControlledInput = (props: TextInputProps) => {
       {label && <Text style={styles.label}>{label}</Text>}
       <View>
         <RNTextInput
+          keyboardAppearance="dark"
           style={styles.input}
           onChangeText={field.onChange}
           onBlur={field.onBlur}
