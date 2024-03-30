@@ -8,13 +8,11 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
-import { Text } from "@/components/Themed";
 
 import { useColorScheme } from "@/components/useColorScheme";
 import Login from "./login";
 import { supabase } from "@/lib/supabase";
 import { Session } from "@supabase/supabase-js";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export {
   // Catch any errors thrown by the Layout component.

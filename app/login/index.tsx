@@ -6,16 +6,21 @@ import {
   Image,
   Text,
   TouchableWithoutFeedback,
+  TouchableOpacity,
 } from "react-native";
 import LoginForm from "./LoginForm";
+import { useState } from "react";
+import BottomPopup from "@/components/BottomPopup";
+import Info from "./Info";
 
 const Login = () => {
+  const [openModal, setOpenModal] = useState<boolean>(false);
   return (
     <SafeAreaView style={{ backgroundColor: "orangered" }}>
       <StatusBar barStyle={"light-content"} />
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View
-          style={{ backgroundColor: "orangered", display: "flex", rowGap: 4 }}
+          style={{ backgroundColor: "orangered", display: "flex", rowGap: 3 }}
         >
           <View
             style={{
@@ -93,49 +98,42 @@ const Login = () => {
               Forgot Password?
             </Text>
           </View>
-          <View
-            style={{
-              display: "flex",
-              height: "15%",
-              marginHorizontal: 4,
-              alignItems: "center",
-              justifyContent: "center",
-
-              borderRadius: 12,
-              shadowColor: "#000",
-
-              paddingTop: 8,
-              paddingBottom: 100,
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-              elevation: 5, // Android only
-            }}
-          >
-            <Image
-              style={{ width: 150, objectFit: "contain" }}
-              source={require("../../assets/images/logo.png")}
-            />
+          <TouchableOpacity onPress={() => setOpenModal(true)}>
             <View
               style={{
                 display: "flex",
-                flexDirection: "row",
-                marginTop: -20,
-
+                height: "15%",
+                marginHorizontal: 4,
                 alignItems: "center",
-                columnGap: 4,
+                justifyContent: "center",
+
+                borderRadius: 12,
+                shadowColor: "#000",
+
+                paddingTop: 14,
+                paddingBottom: 100,
+                shadowOffset: {
+                  width: 0,
+                  height: 2,
+                },
+
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5, // Android only
               }}
             >
-              <Text style={{ color: "gray", fontSize: 9 }}>v.1.0.0</Text>
-              <Text style={{ fontSize: 9 }}>Powered by Pedro Sena Rego</Text>
+              <Info />
             </View>
-          </View>
+          </TouchableOpacity>
         </View>
       </TouchableWithoutFeedback>
+      <BottomPopup openModal={openModal} onClose={() => setOpenModal(false)}>
+        <View style={{ display: "flex", alignItems: "center" }}>
+          <Info />
+          <Text style={{ marginTop: 10 }}>This is the first version.</Text>
+          <Text>Only Basic functionality is present for testing purposes</Text>
+        </View>
+      </BottomPopup>
     </SafeAreaView>
   );
 };
