@@ -17,7 +17,7 @@ const StatusButtons = ({ setMode, mode }: Props) => {
   const handlePress = (selectedMode: "login" | "signup") => {
     Animated.timing(animation, {
       toValue: selectedMode === "login" ? 0 : 1,
-      duration: 200,
+      duration: 1000,
       useNativeDriver: false,
     }).start();
     setMode(selectedMode);
@@ -59,13 +59,13 @@ const StatusButtons = ({ setMode, mode }: Props) => {
           {
             width: animation.interpolate({
               inputRange: [0, 1],
-              outputRange: [loginWidth, signupWidth],
+              outputRange: [loginWidth + 8, signupWidth + 8],
             }),
             transform: [
               {
                 translateX: animation.interpolate({
                   inputRange: [0, 1],
-                  outputRange: [barStart, loginWidth + 30],
+                  outputRange: [barStart - 4, loginWidth + 30 - 4],
                 }),
               },
             ],
