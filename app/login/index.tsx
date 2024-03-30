@@ -15,10 +15,12 @@ import LoginForm from "./LoginForm";
 import { useState } from "react";
 import BottomPopup from "@/components/BottomPopup";
 import Info from "./Info";
+import StatusButtons from "./StatusButtons";
 
 const Login = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const { width } = Dimensions.get("screen");
+  const [mode, setMode] = useState<"login" | "signup">("login");
+
   const MainCard = () => {
     return (
       <View
@@ -41,51 +43,7 @@ const Login = () => {
           elevation: 5, // Android only
         }}
       >
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            columnGap: 30,
-            marginTop: 60,
-          }}
-        >
-          <View>
-            <Text
-              style={{
-                fontSize: 18,
-
-                fontWeight: "500",
-              }}
-            >
-              LOGIN
-            </Text>
-            <View
-              style={{
-                height: 3,
-                backgroundColor: "orangered",
-                borderRadius: 2,
-              }}
-            />
-          </View>
-          <View>
-            <Text
-              style={{
-                fontSize: 18,
-
-                fontWeight: "500",
-              }}
-            >
-              SIGNUP
-            </Text>
-            <View
-              style={{
-                height: 3,
-                backgroundColor: "white",
-                borderRadius: 2,
-              }}
-            />
-          </View>
-        </View>
+        <StatusButtons mode={mode} setMode={setMode} />
         <LoginForm />
         <Text
           style={{
