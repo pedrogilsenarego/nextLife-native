@@ -19,8 +19,8 @@ export default function EmailForm() {
 
   const { mutate, isPending } = useMutation({
     mutationFn: signinUser,
-    onError: (error) => {
-      Alert.alert(error.message);
+    onError: (error: string) => {
+      Alert.alert(error);
     },
   });
 

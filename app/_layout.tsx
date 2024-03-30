@@ -14,6 +14,7 @@ import Login from "./login";
 import { supabase } from "@/lib/supabase";
 import { Session } from "@supabase/supabase-js";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Snackbar from "@/components/SnackBar";
 
 export {
   // Catch any errors thrown by the Layout component.
