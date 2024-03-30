@@ -26,6 +26,7 @@ const Login = () => {
           <View
             style={{
               display: "flex",
+
               height: "88%",
               justifyContent: "center",
               alignItems: "center",
@@ -130,15 +131,15 @@ const Login = () => {
       </TouchableWithoutFeedback>
       <BottomPopup openModal={openModal} onClose={() => setOpenModal(false)}>
         <View style={{ display: "flex" }}>
+          <View style={{ display: "flex", alignItems: "center" }}>
+            <Info />
+          </View>
           <Text style={{ marginTop: 15, fontWeight: "600" }}>
             Version (1.0.0)
           </Text>
           <Text>Adding Expenses and Incomes</Text>
           <Text>Checking main Metrics</Text>
           <Text>Login, Logout and Register New User</Text>
-          <View style={{ display: "flex", alignItems: "center" }}>
-            <Info />
-          </View>
         </View>
       </BottomPopup>
     </SafeAreaView>
