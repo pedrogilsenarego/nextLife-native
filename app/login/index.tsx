@@ -7,6 +7,7 @@ import {
   Text,
   TouchableWithoutFeedback,
   TouchableOpacity,
+  Pressable,
 } from "react-native";
 import LoginForm from "./LoginForm";
 import { useState } from "react";
@@ -98,7 +99,7 @@ const Login = () => {
               Forgot Password?
             </Text>
           </View>
-          <TouchableOpacity onPress={() => setOpenModal(true)}>
+          <Pressable onPress={() => setOpenModal(true)}>
             <View
               style={{
                 display: "flex",
@@ -110,7 +111,7 @@ const Login = () => {
                 borderRadius: 12,
                 shadowColor: "#000",
 
-                paddingTop: 14,
+                paddingTop: 18,
                 paddingBottom: 100,
                 shadowOffset: {
                   width: 0,
@@ -124,14 +125,20 @@ const Login = () => {
             >
               <Info />
             </View>
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </TouchableWithoutFeedback>
       <BottomPopup openModal={openModal} onClose={() => setOpenModal(false)}>
-        <View style={{ display: "flex", alignItems: "center" }}>
-          <Info />
-          <Text style={{ marginTop: 10 }}>This is the first version.</Text>
-          <Text>Only Basic functionality is present for testing purposes</Text>
+        <View style={{ display: "flex" }}>
+          <Text style={{ marginTop: 15, fontWeight: "600" }}>
+            Version (1.0.0)
+          </Text>
+          <Text>Adding Expenses and Incomes</Text>
+          <Text>Checking main Metrics</Text>
+          <Text>Login, Logout and Register New User</Text>
+          <View style={{ display: "flex", alignItems: "center" }}>
+            <Info />
+          </View>
         </View>
       </BottomPopup>
     </SafeAreaView>

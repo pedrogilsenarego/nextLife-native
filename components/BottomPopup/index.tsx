@@ -34,16 +34,20 @@ const BottomPopup = ({ children, onClose, openModal }: IProps) => {
               backgroundColor: "white",
               marginHorizontal: 4,
               borderTopLeftRadius: 12,
-              borderTopRightRadius: 1,
-              paddingHorizontal: 20,
+              borderTopRightRadius: 12,
+              paddingHorizontal: 30,
 
-              paddingBottom: 80,
+              paddingBottom: 40,
 
-              elevation: 10,
               shadowColor: "#000",
-              shadowOffset: { width: 0, height: -20 },
-              shadowOpacity: 1,
-              shadowRadius: 10,
+              shadowOffset: {
+                width: 0,
+                height: 10,
+              },
+              shadowOpacity: 0.51,
+              shadowRadius: 13.16,
+
+              elevation: 20,
             }}
           >
             {children}
