@@ -6,20 +6,16 @@ import {
   Image,
   Text,
   TouchableWithoutFeedback,
-  TouchableOpacity,
   Pressable,
-  Dimensions,
-  FlatList,
 } from "react-native";
-import LoginForm from "./LoginForm";
+
 import { useState } from "react";
 import BottomPopup from "@/components/BottomPopup";
 import Info from "./Info";
-import StatusButtons from "./StatusButtons";
+import Forms from "./Forms";
 
 const Login = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [mode, setMode] = useState<"login" | "signup">("login");
 
   const MainCard = () => {
     return (
@@ -43,8 +39,7 @@ const Login = () => {
           elevation: 5, // Android only
         }}
       >
-        <StatusButtons mode={mode} setMode={setMode} />
-        <LoginForm />
+        <Forms />
         <Text
           style={{
             borderBottomWidth: 2,
