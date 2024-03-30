@@ -40,7 +40,7 @@ const ControlledInput = (props: TextInputProps) => {
         />
       </View>
       {error && (
-        <View style={{ paddingLeft: 10 }}>
+        <View style={{ paddingLeft: 20, paddingTop: 2 }}>
           <Text style={styles.error}>{error?.message?.toString()}</Text>
         </View>
       )}

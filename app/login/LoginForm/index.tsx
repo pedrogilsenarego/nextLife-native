@@ -8,6 +8,8 @@ import { LoginSchema, LoginType } from "./validation";
 import { defaultValues } from "./constants";
 import ControlledInput from "@/components/inputs/TextField";
 import Button from "@/components/button/ButtonComponent";
+import { signinUser } from "@/actions/userActions";
+import { useMutation } from "@tanstack/react-query";
 
 export default function EmailForm() {
   const methods = useForm<LoginType>({
@@ -15,20 +17,16 @@ export default function EmailForm() {
     defaultValues,
   });
 
+  const { mutate, isPending } = useMutation({
+    mutationFn: signinUser,
+    onError: (error) => {
+      Alert.alert(error.message);
+    },
+  });
+
   const onSubmit: SubmitHandler<LoginType> = (data) => {
-    signInWithEmail2({ data });
+    mutate(data);
   };
-
-  async function signInWithEmail2(data: {
-    data: { password: string; email: string };
-  }) {
-    const { error } = await supabase.auth.signInWithPassword({
-      email: data.data.email,
-      password: data.data.password,
-    });
-
-    if (error) Alert.alert(error.message);
-  }
 
   async function signUpWithEmail(data: {
     data: { password: string; email: string };
@@ -56,7 +54,11 @@ export default function EmailForm() {
           placeholder="Password"
         />
 
-        <Button label="Login" onPress={methods.handleSubmit(onSubmit)} />
+        <Button
+          isLoading={isPending}
+          label="Login"
+          onPress={methods.handleSubmit(onSubmit)}
+        />
       </FormProvider>
     </View>
   );

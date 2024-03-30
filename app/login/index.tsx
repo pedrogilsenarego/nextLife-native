@@ -134,6 +134,20 @@ const Login = () => {
           <View style={{ display: "flex", alignItems: "center" }}>
             <Info />
           </View>
+          <Text style={{ marginTop: 15, fontWeight: "600" }}>About</Text>
+          <Text>
+            This project aims to foster a vibrant community by continually
+            enhancing the application with new features and improved user
+            experiences. Our goal is to provide users with a dynamic and
+            evolving platform that adapts to their needs over time. To ensure
+            the highest level of security for user data, we leverage third-party
+            data centers, which entail associated costs. As the application
+            grows, it may become necessary to implement monetization strategies
+            to sustain its operation and further development efforts.
+          </Text>
+          <Text style={{ fontWeight: "600", marginTop: 3 }}>
+            pedrogilsenarego@gmail.com
+          </Text>
           <Text style={{ marginTop: 15, fontWeight: "600" }}>
             Version (1.0.0)
           </Text>

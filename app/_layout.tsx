@@ -13,6 +13,7 @@ import { useColorScheme } from "@/components/useColorScheme";
 import Login from "./login";
 import { supabase } from "@/lib/supabase";
 import { Session } from "@supabase/supabase-js";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -33,7 +34,7 @@ export default function RootLayout() {
     ...FontAwesome.font,
   });
   const [session, setSession] = useState<Session | null>(null);
-
+  const queryClient = new QueryClient();
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
@@ -58,7 +59,11 @@ export default function RootLayout() {
     return null;
   }
 
-  return session ? <RootLayoutNav /> : <LoginLayout />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      {session ? <RootLayoutNav /> : <LoginLayout />}
+    </QueryClientProvider>
+  );
 }
 
 function LoginLayout() {
