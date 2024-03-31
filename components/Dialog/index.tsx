@@ -13,6 +13,7 @@ const Dialog = ({ title, message, isVisible, setIsVisible }: Props) => {
   return (
     <Modal
       swipeDirection={["down", "left", "right", "up"]}
+      backdropOpacity={0.8}
       swipeThreshold={30}
       onSwipeComplete={() => setIsVisible(false)}
       isVisible={isVisible}
@@ -41,7 +42,7 @@ const Dialog = ({ title, message, isVisible, setIsVisible }: Props) => {
         }}
       >
         <Text style={{ fontSize: 20, fontWeight: "600" }}>{title}</Text>
-        <Text style={{ color: "gray" }}>{message}</Text>
+        <Text style={{ color: "gray", marginTop: 5 }}>{message}</Text>
       </View>
     </Modal>
   );
