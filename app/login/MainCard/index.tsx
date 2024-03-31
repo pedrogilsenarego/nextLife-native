@@ -1,6 +1,7 @@
 import { View, Text, Pressable } from "react-native";
 import Forms from "../Forms";
 import { useModal } from "@/providers/ModalContext";
+import LottieView from "lottie-react-native";
 
 const MainCard = () => {
   const { createDialog } = useModal();
@@ -25,6 +26,11 @@ const MainCard = () => {
         elevation: 5,
       }}
     >
+      <LottieView
+        autoPlay
+        style={{ width: "50%", aspectRatio: 1 }}
+        source={require("../../../assets/images/Initial.json")}
+      />
       <Forms />
       <Text
         style={{

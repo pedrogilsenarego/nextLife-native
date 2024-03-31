@@ -1,3 +1,4 @@
+import LottieView from "lottie-react-native";
 import { useState } from "react";
 import { Text, View } from "react-native";
 import Modal from "react-native-modal/dist/modal";
@@ -14,7 +15,7 @@ const Dialog = ({ title, message, isVisible, setIsVisible }: Props) => {
     <Modal
       swipeDirection={["down", "left", "right", "up"]}
       backdropOpacity={0.8}
-      swipeThreshold={30}
+      swipeThreshold={50}
       onSwipeComplete={() => setIsVisible(false)}
       isVisible={isVisible}
       backdropColor="white"
@@ -41,6 +42,14 @@ const Dialog = ({ title, message, isVisible, setIsVisible }: Props) => {
           elevation: 5,
         }}
       >
+        <LottieView
+          source={require("../../assets/images/Error.json")}
+          autoPlay
+          style={{
+            width: "30%",
+            aspectRatio: 1,
+          }}
+        />
         <Text style={{ fontSize: 20, fontWeight: "600" }}>{title}</Text>
         <Text style={{ color: "gray", marginTop: 5 }}>{message}</Text>
       </View>
