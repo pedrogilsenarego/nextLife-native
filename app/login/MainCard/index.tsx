@@ -6,8 +6,7 @@ import { Entypo } from "@expo/vector-icons";
 
 const MainCard = () => {
   const flipAnim = useRef(new Animated.Value(0)).current;
-  const fadeAnim = useRef(new Animated.Value(1)).current;
-
+  const fadeAnim = useRef(new Animated.Value(0)).current;
   const [flipped, setFlipped] = useState<boolean>(false);
   const flip = () => {
     Animated.timing(flipAnim, {
@@ -17,7 +16,7 @@ const MainCard = () => {
     }).start();
     Animated.timing(fadeAnim, {
       toValue: flipped ? 0 : 1,
-      duration: flipped ? 2300 : 400,
+      duration: flipped ? 2200 : 400,
       useNativeDriver: true,
     }).start();
     setFlipped(flipped ? false : true);
