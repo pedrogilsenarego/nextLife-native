@@ -10,6 +10,7 @@ const MainCard = () => {
       style={{
         display: "flex",
         backgroundColor: "white",
+
         height: "88%",
         justifyContent: "center",
         alignItems: "center",
@@ -26,22 +27,34 @@ const MainCard = () => {
         elevation: 5,
       }}
     >
-      <LottieView
-        autoPlay
-        style={{ width: "50%", aspectRatio: 1 }}
-        source={require("../../../assets/images/Initial.json")}
-      />
       <Forms />
-      <Text
+      <View
         style={{
-          borderBottomWidth: 2,
-          borderColor: "white",
-          fontWeight: "500",
-          color: "gray",
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "flex-end",
+          columnGap: 10,
         }}
       >
-        Forgot Password?
-      </Text>
+        <Text
+          style={{
+            fontWeight: "500",
+            color: "gray",
+            lineHeight: 27,
+          }}
+        >
+          Forgot Password?
+        </Text>
+        <LottieView
+          autoPlay
+          style={{
+            width: 40,
+            aspectRatio: 1,
+            opacity: 0.2,
+          }}
+          source={require("../../../assets/images/Initial.json")}
+        />
+      </View>
     </View>
   );
 };
