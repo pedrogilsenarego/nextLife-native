@@ -15,6 +15,7 @@ import { supabase } from "@/lib/supabase";
 import { Session } from "@supabase/supabase-js";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Snackbar from "@/components/SnackBar";
+import { ModalProvider } from "@/providers/ModalContext";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -62,7 +63,9 @@ export default function RootLayout() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {session ? <RootLayoutNav /> : <LoginLayout />}
+      <ModalProvider>
+        {session ? <RootLayoutNav /> : <LoginLayout />}
+      </ModalProvider>
     </QueryClientProvider>
   );
 }

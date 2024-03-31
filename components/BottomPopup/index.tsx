@@ -1,6 +1,5 @@
 import React, { ReactNode, useState } from "react";
 import {
-  Dimensions,
   Modal,
   StyleSheet,
   TouchableWithoutFeedback,
