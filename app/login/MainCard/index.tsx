@@ -1,20 +1,15 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Text, ImageBackground } from "react-native";
 import Forms from "../Forms";
-import { useModal } from "@/providers/ModalContext";
 import LottieView from "lottie-react-native";
 
 const MainCard = () => {
-  const { createDialog } = useModal();
   return (
-    <View
+    <ImageBackground
+      source={require("../../../assets/images/pattern.png")}
       style={{
         display: "flex",
-        backgroundColor: "white",
-
-        height: "88%",
-        justifyContent: "center",
-        alignItems: "center",
         marginHorizontal: 4,
+        overflow: "hidden",
         borderRadius: 12,
         shadowColor: "#000",
         shadowOffset: {
@@ -27,35 +22,44 @@ const MainCard = () => {
         elevation: 5,
       }}
     >
-      <Forms />
       <View
         style={{
           display: "flex",
-          flexDirection: "row",
-          alignItems: "flex-end",
-          columnGap: 10,
+          height: "88%",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        <Text
+        <Forms />
+        <View
           style={{
-            fontWeight: "500",
-            color: "gray",
-            lineHeight: 27,
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "flex-end",
+            columnGap: 10,
           }}
         >
-          Forgot Password?
-        </Text>
-        <LottieView
-          autoPlay
-          style={{
-            width: 40,
-            aspectRatio: 1,
-            opacity: 0.2,
-          }}
-          source={require("../../../assets/images/Initial.json")}
-        />
+          <Text
+            style={{
+              fontWeight: "500",
+              color: "gray",
+              lineHeight: 27,
+            }}
+          >
+            Forgot Password?
+          </Text>
+          <LottieView
+            autoPlay
+            style={{
+              width: 40,
+              aspectRatio: 1,
+              opacity: 0.2,
+            }}
+            source={require("../../../assets/images/Initial.json")}
+          />
+        </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 
