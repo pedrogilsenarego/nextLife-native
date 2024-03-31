@@ -12,6 +12,9 @@ type Props = {
 const Dialog = ({ title, message, isVisible, setIsVisible }: Props) => {
   return (
     <Modal
+      swipeDirection={["down", "left", "right", "up"]}
+      swipeThreshold={30}
+      onSwipeComplete={() => setIsVisible(false)}
       isVisible={isVisible}
       backdropColor="white"
       onBackdropPress={() => setIsVisible(false)}
