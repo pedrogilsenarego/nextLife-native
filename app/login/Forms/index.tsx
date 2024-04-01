@@ -8,8 +8,10 @@ import {
   Easing,
 } from "react-native";
 import LoginForm from "../LoginForm";
+import { useTheme } from "@/providers/ThemeContext";
 
 const Forms = () => {
+  const { mainColor } = useTheme();
   const [loginWidth, setLoginWidth] = useState(0);
   const [signupWidth, setSignupWidth] = useState(0);
   const [mode, setMode] = useState<"login" | "signup">("login");
@@ -76,6 +78,7 @@ const Forms = () => {
                 },
               ],
             },
+            { backgroundColor: mainColor },
           ]}
         />
       </View>
@@ -101,7 +104,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: -3,
     height: 3,
-    backgroundColor: "orangered",
+
     borderRadius: 2,
   },
 });

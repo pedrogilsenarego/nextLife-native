@@ -148,6 +148,12 @@ const MainCard = () => {
             <Pressable onPress={() => changeMainColor("orangeRed")}>
               <Text>Change Orangered</Text>
             </Pressable>
+            <Pressable onPress={() => changeMainColor("fuchsia")}>
+              <Text>Change Pink</Text>
+            </Pressable>
+            <Pressable onPress={() => changeMainColor("tealc")}>
+              <Text>Change Tealc</Text>
+            </Pressable>
           </Animated.View>
         </ImageBackground>
       </Animated.View>

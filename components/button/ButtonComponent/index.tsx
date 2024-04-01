@@ -1,3 +1,4 @@
+import { useTheme } from "@/providers/ThemeContext";
 import React from "react";
 import {
   ActivityIndicator,
@@ -29,9 +30,10 @@ const Button = ({
   textStyle,
   ...rest
 }: Props) => {
+  const { mainColor } = useTheme();
   return (
     <TouchableOpacity onPress={onPress} {...rest}>
-      <View style={styles.container}>
+      <View style={[styles.container, { backgroundColor: mainColor }]}>
         {isLoading ? (
           <View
             style={{
@@ -89,7 +91,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     margin: 8,
     padding: 12,
-    backgroundColor: "orangered",
 
     borderRadius: 30,
     shadowColor: "#000",
