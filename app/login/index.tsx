@@ -25,17 +25,18 @@ const Login = () => {
           style={{
             backgroundColor: "orangered",
             display: "flex",
-            rowGap: 3,
+            rowGap: -5,
           }}
         >
           <View
             style={{
-              height: "88.5%",
+              height: "89.5%",
               backgroundColor: "orangered",
             }}
           >
             <Carousel
               width={width}
+              style={{ paddingBottom: 10 }}
               data={[...new Array(2).keys()]}
               scrollAnimationDuration={1000}
               onSnapToItem={(index) => console.log("current index:", index)}
