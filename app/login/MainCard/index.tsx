@@ -10,11 +10,13 @@ import Forms from "../Forms";
 import LottieView from "lottie-react-native";
 import { useRef, useState } from "react";
 import { Entypo } from "@expo/vector-icons";
+import { useTheme } from "@/providers/ThemeContext";
 
 const MainCard = () => {
   const flipAnim = useRef(new Animated.Value(0)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const [flipped, setFlipped] = useState<boolean>(false);
+  const { changeMainColor } = useTheme();
   const flip = () => {
     Animated.timing(flipAnim, {
       toValue: flipped ? 0 : 1,
@@ -140,6 +142,12 @@ const MainCard = () => {
                 source={require("../../../assets/images/Initial.json")}
               />
             </View>
+            <Pressable onPress={() => changeMainColor("black")}>
+              <Text>Change Black</Text>
+            </Pressable>
+            <Pressable onPress={() => changeMainColor("orangeRed")}>
+              <Text>Change Orangered</Text>
+            </Pressable>
           </Animated.View>
         </ImageBackground>
       </Animated.View>

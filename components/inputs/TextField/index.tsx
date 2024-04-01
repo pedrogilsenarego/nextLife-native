@@ -61,17 +61,14 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   input: {
-    backgroundColor: "white",
-
-    borderWidth: 2,
-    borderColor: "gray",
-
+    backgroundColor: "transparent",
     fontWeight: "bold",
-
     paddingTop: 11,
     paddingBottom: 11,
     paddingLeft: 20,
     borderRadius: 30,
+    borderWidth: 2,
+    borderColor: "gray",
   },
   error: {
     color: "orangered",

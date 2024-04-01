@@ -13,17 +13,18 @@ import BottomCard from "./BottomCard";
 import MainCard from "./MainCard";
 import React from "react";
 import Carousel from "react-native-reanimated-carousel";
+import { useTheme } from "@/providers/ThemeContext";
 
 const Login = () => {
   const width = Dimensions.get("window").width;
-  const height = Dimensions.get("window").height;
+  const { mainColor } = useTheme();
   return (
-    <SafeAreaView style={{ backgroundColor: "orangered" }}>
+    <SafeAreaView style={{ backgroundColor: mainColor }}>
       <StatusBar barStyle={"light-content"} />
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View
           style={{
-            backgroundColor: "orangered",
+            backgroundColor: mainColor,
             display: "flex",
             rowGap: -5,
           }}
@@ -31,7 +32,7 @@ const Login = () => {
           <View
             style={{
               height: "89.5%",
-              backgroundColor: "orangered",
+              backgroundColor: mainColor,
             }}
           >
             <Carousel
