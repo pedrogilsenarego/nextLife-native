@@ -1,4 +1,11 @@
-import { View, Text, ImageBackground, Animated, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  ImageBackground,
+  Animated,
+  Pressable,
+  Keyboard,
+} from "react-native";
 import Forms from "../Forms";
 import LottieView from "lottie-react-native";
 import { useRef, useState } from "react";
@@ -16,7 +23,7 @@ const MainCard = () => {
     }).start();
     Animated.timing(fadeAnim, {
       toValue: flipped ? 0 : 1,
-      duration: flipped ? 2200 : 400,
+      duration: flipped ? 2000 : 400,
       useNativeDriver: true,
     }).start();
     setFlipped(flipped ? false : true);
@@ -38,99 +45,105 @@ const MainCard = () => {
   };
 
   return (
-    <Animated.View
-      style={[
-        animatedStyle,
-        {
-          height: "88.5%",
-          display: "flex",
-          justifyContent: "center",
-          backgroundColor: "white",
-          borderRadius: 12,
+    <Pressable onPress={Keyboard.dismiss}>
+      <Animated.View
+        style={[
+          animatedStyle,
+          {
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            backgroundColor: "white",
+            borderRadius: 12,
 
-          marginHorizontal: 4,
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 0,
-            height: 2,
-          },
-
-          shadowOpacity: 0.25,
-          shadowRadius: 3.84,
-          elevation: 5,
-        },
-      ]}
-    >
-      <ImageBackground
-        imageStyle={{
-          opacity: 0.9,
-          borderRadius: 12,
-          borderWidth: 4,
-          borderColor: "white",
-          height: "100%",
-        }}
-        source={require("../../../assets/images/pattern.png")}
-        style={{}}
-      >
-        <Animated.View
-          style={[
-            animatedStyleFade,
-            {
-              display: "flex",
-              height: "100%",
-              position: "relative",
-              justifyContent: "center",
-
-              alignItems: "center",
+            marginHorizontal: 4,
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 2,
             },
-          ]}
-        >
-          <Pressable
-            onPress={flip}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              position: "absolute",
-              bottom: 15,
-              right: 20,
-              padding: 4,
-            }}
-          >
-            <Entypo name={"arrow-with-circle-right"} size={34} color={"gray"} />
-            <Text style={{ color: "gray" }}>Options</Text>
-          </Pressable>
-          <Forms />
 
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "flex-end",
-              columnGap: 10,
-            }}
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+            elevation: 5,
+          },
+        ]}
+      >
+        <ImageBackground
+          imageStyle={{
+            opacity: 0.9,
+            borderRadius: 12,
+            borderWidth: 4,
+            borderColor: "white",
+            height: "100%",
+          }}
+          source={require("../../../assets/images/pattern.png")}
+          style={{}}
+        >
+          <Animated.View
+            style={[
+              animatedStyleFade,
+              {
+                display: "flex",
+                height: "100%",
+                position: "relative",
+                justifyContent: "center",
+
+                alignItems: "center",
+              },
+            ]}
           >
-            <Text
+            <Pressable
+              onPress={flip}
               style={{
-                fontWeight: "500",
-                color: "gray",
-                lineHeight: 27,
+                display: "flex",
+                alignItems: "center",
+                position: "absolute",
+                bottom: 15,
+                right: 20,
+                padding: 4,
               }}
             >
-              Forgot Password?
-            </Text>
-            <LottieView
-              autoPlay
+              <Entypo
+                name={"arrow-with-circle-right"}
+                size={34}
+                color={"gray"}
+              />
+              <Text style={{ color: "gray" }}>Options</Text>
+            </Pressable>
+            <Forms />
+
+            <View
               style={{
-                width: 40,
-                aspectRatio: 1,
-                opacity: 0.2,
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "flex-end",
+                columnGap: 10,
               }}
-              source={require("../../../assets/images/Initial.json")}
-            />
-          </View>
-        </Animated.View>
-      </ImageBackground>
-    </Animated.View>
+            >
+              <Text
+                style={{
+                  fontWeight: "500",
+                  color: "gray",
+                  lineHeight: 27,
+                }}
+              >
+                Forgot Password?
+              </Text>
+              <LottieView
+                autoPlay
+                style={{
+                  width: 40,
+                  aspectRatio: 1,
+                  opacity: 0.2,
+                }}
+                source={require("../../../assets/images/Initial.json")}
+              />
+            </View>
+          </Animated.View>
+        </ImageBackground>
+      </Animated.View>
+    </Pressable>
   );
 };
 

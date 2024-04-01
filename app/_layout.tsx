@@ -14,7 +14,6 @@ import Login from "./login";
 import { supabase } from "@/lib/supabase";
 import { Session } from "@supabase/supabase-js";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Snackbar from "@/components/SnackBar";
 import { ModalProvider } from "@/providers/ModalContext";
 
 export {
