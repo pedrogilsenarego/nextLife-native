@@ -10,7 +10,7 @@ import ControlledInput from "@/components/inputs/TextField";
 import Button from "@/components/button/ButtonComponent";
 import { signinUser } from "@/actions/userActions";
 import { useMutation } from "@tanstack/react-query";
-import Dialog from "@/components/Dialog";
+
 import { useModal } from "@/providers/ModalContext";
 
 export default function EmailForm() {

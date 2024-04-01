@@ -10,13 +10,17 @@ import Forms from "../Forms";
 import LottieView from "lottie-react-native";
 import { useRef, useState } from "react";
 import { Entypo } from "@expo/vector-icons";
-import { useTheme } from "@/providers/ThemeContext";
+import { Colors, ColorsProp, useTheme } from "@/providers/ThemeContext";
+import SelectColorItem from "./ColorPicker/SelectColorItem";
+import ColorPicker from "./ColorPicker";
 
 const MainCard = () => {
   const flipAnim = useRef(new Animated.Value(0)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
+  const backFadeAnim = useRef(new Animated.Value(0)).current;
+
   const [flipped, setFlipped] = useState<boolean>(false);
-  const { changeMainColor } = useTheme();
+  const { changeMainColor, theme } = useTheme();
   const flip = () => {
     Animated.timing(flipAnim, {
       toValue: flipped ? 0 : 1,
@@ -28,7 +32,14 @@ const MainCard = () => {
       duration: flipped ? 2000 : 400,
       useNativeDriver: true,
     }).start();
-    setFlipped(flipped ? false : true);
+    Animated.timing(backFadeAnim, {
+      toValue: flipped ? 0 : 1,
+      duration: flipped ? 400 : 2000,
+      useNativeDriver: true,
+    }).start();
+    setTimeout(() => {
+      setFlipped(flipped ? false : true);
+    }, 400);
   };
   const rotateInterpolate = flipAnim.interpolate({
     inputRange: [0, 1],
@@ -38,12 +49,19 @@ const MainCard = () => {
     inputRange: [0, 1],
     outputRange: [1, 0],
   });
+  const rotateInterpolateBackFade = backFadeAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 1],
+  });
 
   const animatedStyle = {
     transform: [{ rotateY: rotateInterpolate }],
   };
   const animatedStyleFade = {
     opacity: rotateInterpolateFade,
+  };
+  const animatedStyleBackFade = {
+    opacity: rotateInterpolateBackFade,
   };
 
   return (
@@ -55,9 +73,9 @@ const MainCard = () => {
             height: "100%",
             display: "flex",
             justifyContent: "center",
-            backgroundColor: "white",
+            backgroundColor: theme === "light" ? "white" : "black",
             borderRadius: 12,
-
+            position: "relative",
             marginHorizontal: 4,
             shadowColor: "#000",
             shadowOffset: {
@@ -73,7 +91,7 @@ const MainCard = () => {
       >
         <ImageBackground
           imageStyle={{
-            opacity: 0.9,
+            opacity: theme === "light" ? 0.9 : 0,
             borderRadius: 12,
             borderWidth: 4,
             borderColor: "white",
@@ -102,12 +120,12 @@ const MainCard = () => {
                 alignItems: "center",
                 position: "absolute",
                 bottom: 15,
-                right: 20,
+                left: 20,
                 padding: 4,
               }}
             >
               <Entypo
-                name={"arrow-with-circle-right"}
+                name={"arrow-with-circle-left"}
                 size={34}
                 color={"gray"}
               />
@@ -142,17 +160,41 @@ const MainCard = () => {
                 source={require("../../../assets/images/Initial.json")}
               />
             </View>
-            <Pressable onPress={() => changeMainColor("black")}>
-              <Text>Change Black</Text>
-            </Pressable>
-            <Pressable onPress={() => changeMainColor("orangeRed")}>
-              <Text>Change Orangered</Text>
-            </Pressable>
-            <Pressable onPress={() => changeMainColor("fuchsia")}>
-              <Text>Change Pink</Text>
-            </Pressable>
-            <Pressable onPress={() => changeMainColor("tealc")}>
-              <Text>Change Tealc</Text>
+          </Animated.View>
+
+          <Animated.View
+            style={[
+              animatedStyleBackFade,
+              {
+                display: flipped ? "flex" : "none",
+                height: "100%",
+                width: "100%",
+                position: "absolute",
+                justifyContent: "center",
+                //transform: [{ rotateY: "180deg" }],
+                alignItems: "center",
+              },
+            ]}
+          >
+            <ColorPicker />
+
+            <Pressable
+              onPress={flip}
+              style={{
+                display: "flex",
+                position: "absolute",
+                alignItems: "center",
+                bottom: 15,
+                left: 20,
+                padding: 4,
+              }}
+            >
+              <Entypo
+                name={"arrow-with-circle-left"}
+                size={34}
+                color={"gray"}
+              />
+              <Text style={{ color: "gray" }}>Back Main</Text>
             </Pressable>
           </Animated.View>
         </ImageBackground>

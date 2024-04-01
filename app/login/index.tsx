@@ -1,5 +1,5 @@
-import { View } from "@/components/Themed";
 import {
+  View,
   Keyboard,
   SafeAreaView,
   StatusBar,
@@ -60,21 +60,28 @@ const Login = () => {
                         marginTop: 20,
                         fontWeight: "600",
                         color: "white",
+                        fontSize: 20,
                       }}
                     >
                       About
                     </Text>
-                    <Text style={{ color: "white" }}>
+                    <Text style={{ color: "whitesmoke", marginTop: 6 }}>
                       This project aims to foster a vibrant community by
                       continually enhancing the application with new features
-                      and improved user experiences. Our goal is to provide
-                      users with a dynamic and evolving platform that adapts to
-                      their needs over time. To ensure the highest level of
-                      security for user data, we leverage third-party data
-                      centers, which entail associated costs. As the application
-                      grows, it may become necessary to implement monetization
-                      strategies to sustain its operation and further
-                      development efforts.
+                      and improved user experiences.
+                      {`\n`}
+                      {`\n`} Our goal is to provide users with a dynamic and
+                      evolving platform that adapts to their needs over time. To
+                      ensure the highest level of security for user data, we
+                      leverage third-party data centers, which entail associated
+                      costs.{`\n`}
+                      {`\n`} As the application grows, it may become necessary
+                      to implement monetization strategies to sustain its
+                      operation and further development efforts.{`\n`}
+                      {"\n"}
+                      <Text style={{ fontWeight: "600" }}>
+                        pedrogilsenarego@gmail.com
+                      </Text>
                     </Text>
                   </Pressable>
                 )

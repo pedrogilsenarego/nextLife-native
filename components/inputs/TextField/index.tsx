@@ -1,3 +1,4 @@
+import { useTheme } from "@/providers/ThemeContext";
 import {
   UseControllerProps,
   useController,
@@ -18,6 +19,7 @@ interface TextInputProps extends RNTextInputProps, UseControllerProps {
 
 const ControlledInput = (props: TextInputProps) => {
   const formContext = useFormContext();
+  const { theme } = useTheme();
   const { formState } = formContext;
 
   const { name, label, rules, defaultValue, ...inputProps } = props;
@@ -31,8 +33,9 @@ const ControlledInput = (props: TextInputProps) => {
       {label && <Text style={styles.label}>{label}</Text>}
       <View>
         <RNTextInput
+          editable={!inputProps.disabled}
           keyboardAppearance="dark"
-          style={styles.input}
+          style={[styles.input, { borderWidth: theme === "light" ? 2 : 0 }]}
           onChangeText={field.onChange}
           onBlur={field.onBlur}
           value={field.value}
@@ -61,13 +64,13 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   input: {
-    backgroundColor: "transparent",
+    backgroundColor: "white",
     fontWeight: "bold",
     paddingTop: 11,
     paddingBottom: 11,
     paddingLeft: 20,
     borderRadius: 30,
-    borderWidth: 2,
+
     borderColor: "gray",
   },
   error: {

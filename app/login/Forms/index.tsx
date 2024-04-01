@@ -11,7 +11,7 @@ import LoginForm from "../LoginForm";
 import { useTheme } from "@/providers/ThemeContext";
 
 const Forms = () => {
-  const { mainColor } = useTheme();
+  const { mainColor, theme } = useTheme();
   const [loginWidth, setLoginWidth] = useState(0);
   const [signupWidth, setSignupWidth] = useState(0);
   const [mode, setMode] = useState<"login" | "signup">("login");
@@ -52,14 +52,28 @@ const Forms = () => {
           style={styles.button}
           onLayout={handleLoginLayout}
         >
-          <Text style={styles.text}>LOGIN</Text>
+          <Text
+            style={[
+              styles.text,
+              { color: theme === "light" ? "black" : "white" },
+            ]}
+          >
+            LOGIN
+          </Text>
         </Pressable>
         <Pressable
           onPress={() => handlePress("signup")}
           style={styles.button}
           onLayout={handleSignupLayout}
         >
-          <Text style={styles.text}>SIGNUP</Text>
+          <Text
+            style={[
+              styles.text,
+              { color: theme === "light" ? "black" : "white" },
+            ]}
+          >
+            SIGNUP
+          </Text>
         </Pressable>
         <Animated.View
           style={[
