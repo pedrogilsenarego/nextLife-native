@@ -24,6 +24,7 @@ export const Colors = {
   fuchsia: "#ca2c92",
   tealc: "#009ca6",
   purple: "#800080",
+  white: "#ffffff",
 };
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {

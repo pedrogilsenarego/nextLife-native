@@ -4,7 +4,14 @@ import SelectColorItem from "./SelectColorItem";
 const ColorPicker = () => {
   return (
     <View style={{ display: "flex", rowGap: 8 }}>
-      <Text style={{ color: "gray", textAlign: "center", fontSize: 20 }}>
+      <Text
+        style={{
+          color: "gray",
+          textAlign: "center",
+          fontSize: 20,
+          transform: [{ rotateY: "180deg" }],
+        }}
+      >
         Choose your Color
       </Text>
       <View style={{ display: "flex", flexDirection: "row", columnGap: 10 }}>

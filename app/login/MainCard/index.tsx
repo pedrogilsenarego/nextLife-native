@@ -185,16 +185,20 @@ const MainCard = () => {
                 position: "absolute",
                 alignItems: "center",
                 bottom: 15,
-                left: 20,
+                right: 20,
                 padding: 4,
               }}
             >
               <Entypo
-                name={"arrow-with-circle-left"}
+                name={"arrow-with-circle-right"}
                 size={34}
                 color={"gray"}
               />
-              <Text style={{ color: "gray" }}>Back Main</Text>
+              <Text
+                style={{ color: "gray", transform: [{ rotateY: "180deg" }] }}
+              >
+                Back
+              </Text>
             </Pressable>
           </Animated.View>
         </ImageBackground>
