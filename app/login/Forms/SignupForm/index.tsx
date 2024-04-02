@@ -8,12 +8,12 @@ import { LoginSchema, LoginType } from "./validation";
 import { defaultValues } from "./constants";
 import ControlledInput from "@/components/inputs/TextField";
 import Button from "@/components/button/ButtonComponent";
-import { signinUser } from "@/actions/userActions";
+import { signinUser, signupUser } from "@/actions/userActions";
 import { useMutation } from "@tanstack/react-query";
 
 import { useModal } from "@/providers/ModalContext";
 
-export default function EmailForm() {
+export default function SignupForm() {
   const { createDialog } = useModal();
   const methods = useForm<LoginType>({
     resolver: zodResolver(LoginSchema),
@@ -21,9 +21,16 @@ export default function EmailForm() {
   });
 
   const { mutate, isPending } = useMutation({
-    mutationFn: signinUser,
+    mutationFn: signupUser,
     onError: (error: string) => {
-      createDialog({ title: "Error Login", message: error });
+      createDialog({ title: "Error Signup", message: error, type: "error" });
+    },
+    onSuccess: (message: string) => {
+      createDialog({
+        title: "Success Signup",
+        message: message,
+        type: "success",
+      });
     },
   });
 
@@ -31,35 +38,24 @@ export default function EmailForm() {
     mutate(data);
   };
 
-  async function signUpWithEmail(data: {
-    data: { password: string; email: string };
-  }) {
-    const {
-      data: { session },
-      error,
-    } = await supabase.auth.signUp({
-      email: data.data.email,
-      password: data.data.password,
-    });
-
-    if (error) Alert.alert(error.message);
-    if (!session)
-      Alert.alert("Please check your inbox for email verification!");
-  }
-
   return (
     <View style={styles.container}>
       <FormProvider {...methods}>
         <ControlledInput name="email" placeholder="E-mail" />
+        <ControlledInput name="username" placeholder="Username" />
         <ControlledInput
           secureTextEntry
           name="password"
           placeholder="Password"
         />
-
+        <ControlledInput
+          secureTextEntry
+          name="confirmPassword"
+          placeholder="Confirm Password"
+        />
         <Button
           isLoading={isPending}
-          label="Login"
+          label="Signup"
           onPress={methods.handleSubmit(onSubmit)}
         />
       </FormProvider>

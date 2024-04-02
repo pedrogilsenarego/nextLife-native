@@ -4,13 +4,18 @@ import Dialog from "@/components/Dialog";
 interface DialogContent {
   title: string;
   message: string;
+  type: "error" | "success";
 }
 
 interface ModalContextType {
   createDialog: (content: DialogContent) => void;
 }
 
-const defaultDialogContent: DialogContent = { title: "", message: "" };
+const defaultDialogContent: DialogContent = {
+  title: "",
+  message: "",
+  type: "success",
+};
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
 
@@ -30,6 +35,7 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
       <Dialog
         title={dialogContent.title}
         message={dialogContent.message}
+        type={dialogContent.type}
         isVisible={dialogVisible}
         setIsVisible={setDialogVisible}
       />

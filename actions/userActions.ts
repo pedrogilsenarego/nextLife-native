@@ -23,3 +23,35 @@ export const signinUser = async ({
     }
   });
 };
+
+export const signupUser = async ({
+  email,
+  password,
+  username,
+}: {
+  email: string;
+  password: string;
+  username: string;
+}): Promise<string> => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            displayName: username,
+          },
+        },
+      });
+
+      if (error) {
+        reject(error?.message);
+      }
+      return resolve("Welcome to NextLife enjoy");
+    } catch (error: any) {
+      console.error("error", error);
+      reject(error.message);
+    }
+  });
+};

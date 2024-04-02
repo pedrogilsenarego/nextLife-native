@@ -7,8 +7,9 @@ import {
   StyleSheet,
   Easing,
 } from "react-native";
-import LoginForm from "../LoginForm";
+import LoginForm from "./LoginForm";
 import { useTheme } from "@/providers/ThemeContext";
+import SignupForm from "./SignupForm";
 
 const Forms = () => {
   const { mainColor, theme } = useTheme();
@@ -96,7 +97,7 @@ const Forms = () => {
           ]}
         />
       </View>
-      <LoginForm />
+      {mode === "login" ? <LoginForm /> : <SignupForm />}
     </>
   );
 };
