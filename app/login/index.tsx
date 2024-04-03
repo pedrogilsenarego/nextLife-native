@@ -27,12 +27,12 @@ const Login = () => {
             backgroundColor: mainColor,
             display: "flex",
             rowGap: -5,
+            height: "100%",
           }}
         >
           <View
             style={{
-              height: "89.5%",
-              backgroundColor: mainColor,
+              height: "93.5%",
             }}
           >
             <Carousel
@@ -88,6 +88,7 @@ const Login = () => {
               }
             />
           </View>
+
           <BottomCard />
         </View>
       </TouchableWithoutFeedback>
