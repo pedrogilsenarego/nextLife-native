@@ -16,14 +16,13 @@ const BottomCard = () => {
   const { theme } = useTheme();
   const componentRef = useRef(null);
   const [pan] = useState(new Animated.ValueXY());
-
+  const position = -(componentHeight - 110);
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
     onPanResponderMove: (_, gesture) => {
-      pan.setValue({ x: 0, y: gesture.dy });
+      pan.setValue({ x: 0, y: openModal ? position + gesture.dy : gesture.dy });
     },
     onPanResponderRelease: (_, gesture) => {
-      const position = -(componentHeight - 80);
       if (!openModal) {
         if (-gesture.dy > 60) {
           setOpenModal(true);
@@ -37,7 +36,7 @@ const BottomCard = () => {
             useNativeDriver: false,
           }).start();
       } else {
-        if (Math.abs(gesture.dy) > 60) {
+        if (Math.abs(gesture.dy) > 40) {
           setOpenModal(false);
           Animated.spring(pan, {
             toValue: { x: 0, y: 0 },
