@@ -25,6 +25,7 @@ export const Colors = {
   tealc: "#009ca6",
   purple: "#800080",
   white: "#ffffff",
+  saphire: "#0F52BA",
 };
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {

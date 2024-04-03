@@ -68,7 +68,7 @@ const BottomCard = () => {
             borderRadius: 12,
             shadowColor: "#000",
 
-            paddingBottom: 30,
+            paddingBottom: 100,
             shadowOffset: {
               width: 0,
               height: 2,

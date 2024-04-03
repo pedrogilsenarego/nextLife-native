@@ -32,7 +32,7 @@ const Login = () => {
         >
           <View
             style={{
-              height: "94.5%",
+              height: "95.5%",
             }}
           >
             <Carousel
