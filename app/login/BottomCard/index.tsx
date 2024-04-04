@@ -1,12 +1,5 @@
 import React, { useRef, useState } from "react";
-import {
-  Animated,
-  PanResponder,
-  Pressable,
-  View,
-  Text,
-  Dimensions,
-} from "react-native";
+import { Animated, PanResponder, View, Text, Pressable } from "react-native";
 import Info from "../Info";
 import { useTheme } from "@/providers/ThemeContext";
 
@@ -17,6 +10,14 @@ const BottomCard = () => {
   const componentRef = useRef(null);
   const [pan] = useState(new Animated.ValueXY());
   const position = -(componentHeight - 110);
+
+  const runSpringAnimation = (toValueX: number, toValueY: number) => {
+    return Animated.spring(pan, {
+      toValue: { x: toValueX, y: toValueY },
+      useNativeDriver: false,
+    }).start();
+  };
+
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
     onPanResponderMove: (_, gesture) => {
@@ -24,29 +25,15 @@ const BottomCard = () => {
     },
     onPanResponderRelease: (_, gesture) => {
       if (!openModal) {
-        if (-gesture.dy > 60) {
+        if (-gesture.dy > 60 || -gesture.dy === 0) {
           setOpenModal(true);
-          Animated.spring(pan, {
-            toValue: { x: 0, y: position },
-            useNativeDriver: false,
-          }).start();
-        } else
-          Animated.spring(pan, {
-            toValue: { x: 0, y: 0 },
-            useNativeDriver: false,
-          }).start();
+          runSpringAnimation(0, position);
+        } else runSpringAnimation(0, 0);
       } else {
         if (Math.abs(gesture.dy) > 40) {
           setOpenModal(false);
-          Animated.spring(pan, {
-            toValue: { x: 0, y: 0 },
-            useNativeDriver: false,
-          }).start();
-        } else
-          Animated.spring(pan, {
-            toValue: { x: 0, y: position },
-            useNativeDriver: false,
-          }).start();
+          runSpringAnimation(0, 0);
+        } else runSpringAnimation(0, position);
       }
     },
   });
