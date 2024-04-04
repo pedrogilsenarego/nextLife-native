@@ -39,49 +39,69 @@ const BottomCard = () => {
   });
 
   return (
-    <Animated.View style={[{ transform: pan.getTranslateTransform() }]}>
-      <View {...panResponder.panHandlers} style={{ height: "100%" }}>
-        <View
-          ref={componentRef}
-          onLayout={(event) => {
-            const { height } = event.nativeEvent.layout;
-            setComponentHeight(height);
-          }}
-          style={{
-            backgroundColor: theme === "light" ? "white" : "black",
-            marginHorizontal: 4,
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: 12,
-            shadowColor: "#000",
+    <>
+      <Animated.View
+        style={[{ transform: pan.getTranslateTransform() }, { zIndex: 1000 }]}
+      >
+        <View {...panResponder.panHandlers} style={{ height: "100%" }}>
+          <View
+            ref={componentRef}
+            onLayout={(event) => {
+              const { height } = event.nativeEvent.layout;
+              setComponentHeight(height);
+            }}
+            style={{
+              backgroundColor: theme === "light" ? "white" : "black",
+              marginHorizontal: 4,
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 12,
+              shadowColor: "#000",
 
-            paddingBottom: 100,
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-            elevation: 5, // Android only
-          }}
-        >
-          <Info />
+              paddingBottom: 100,
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 3.84,
+              elevation: 5, // Android only
+            }}
+          >
+            <Info />
 
-          <View style={{ width: "100%", paddingHorizontal: 30 }}>
-            <Text style={{ marginTop: 20, fontWeight: "600" }}>
-              Version (1.0.0)
-            </Text>
-            <Text style={{ marginTop: 5 }}>
-              &#183; Adding Expenses and Incomes
-            </Text>
-            <Text>&#183; Checking main Metrics</Text>
-            <Text>&#183; Login, Logout and Register New User</Text>
-            <Text>&#183; Change Main Color</Text>
-            <Text>&#183; Change Theme</Text>
+            <View style={{ width: "100%", paddingHorizontal: 30 }}>
+              <Text style={{ marginTop: 20, fontWeight: "600" }}>
+                Version (1.0.0)
+              </Text>
+              <Text style={{ marginTop: 5 }}>
+                &#183; Adding Expenses and Incomes
+              </Text>
+              <Text>&#183; Checking main Metrics</Text>
+              <Text>&#183; Login, Logout and Register New User</Text>
+              <Text>&#183; Change Main Color</Text>
+              <Text>&#183; Change Theme</Text>
+            </View>
           </View>
         </View>
-      </View>
-    </Animated.View>
+      </Animated.View>
+      {openModal && (
+        <Pressable
+          onPress={() => {
+            setOpenModal(false);
+            runSpringAnimation(0, 0);
+          }}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.1)", // transparent overlay
+          }}
+        />
+      )}
+    </>
   );
 };
 
