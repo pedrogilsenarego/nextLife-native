@@ -1,13 +1,13 @@
 import { useTheme } from "@/providers/ThemeContext";
 import { useEffect, useRef, useState } from "react";
-import { Animated, Dimensions, PanResponder } from "react-native";
+import { Animated, PanResponder } from "react-native";
 
 const useMainLayout = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [componentHeight, setComponentHeight] = useState<number>(0);
   const { theme, mainColor } = useTheme();
   const componentRef = useRef(null);
-  const width = Dimensions.get("window").width;
+
   const scaleAnim = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     animateScale();
@@ -66,7 +66,6 @@ const useMainLayout = () => {
   });
 
   return {
-    width,
     animatedStyle,
     mainColor,
     pan,
