@@ -1,4 +1,6 @@
 import useExpenses from "@/hooks/useExpenses";
+import useIncomes from "@/hooks/useIncomes";
+import useMetrics from "@/hooks/useMetrics";
 import useUser from "@/hooks/useUser";
 import { supabase } from "@/lib/supabase";
 import { View, Text, Pressable } from "react-native";
@@ -8,7 +10,7 @@ const MainCard = () => {
     await supabase.auth.signOut();
   };
   const userQuery = useUser();
-  const expenses = useExpenses();
+  const { totalExpenses, totalIncomes } = useMetrics();
   return (
     <View style={{ padding: 22 }}>
       <Text style={{ color: "white", fontSize: 20 }}>
@@ -18,13 +20,9 @@ const MainCard = () => {
         </Text>
       </Text>
       <Text style={{ color: "whitesmoke" }}>Your monthly balance</Text>
-      {expenses &&
-        expenses?.data?.map((expense, index) => (
-          <Text key={index} style={{ color: "white", fontSize: 12 }}>
-            {expense.category}
-            {expense.amount}
-          </Text>
-        ))}
+      <Text style={{ color: "white", fontSize: 30, fontWeight: "bold" }}>
+        {(totalIncomes() - totalExpenses()).toFixed(1)}
+      </Text>
       <Pressable onPress={logout} style={{ marginTop: 30 }}>
         <Text style={{ color: "whitesmoke" }}>Logout</Text>
       </Pressable>

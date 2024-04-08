@@ -1,17 +1,20 @@
 import { queryKeys } from "@/constants/queryKeys";
-import { ExpensesQuery } from "@/types/expensesTypes";
+
 import { useQuery } from "@tanstack/react-query";
 import { dateQueriesMap } from "@/utils/dateFormat";
-import { getExpenses } from "@/actions/expensesActions";
+
 import useUser from "./useUser";
 
-const useExpenses = () => {
+import { getIncomes } from "@/actions/incomesActions";
+import { IncomesQuery } from "@/types/incomesTypes";
+
+const useIncomes = () => {
   const user = useUser();
   const datesToQuery = dateQueriesMap("currentMonth");
-  const expenses = useQuery<ExpensesQuery, Error>({
-    queryKey: [queryKeys.expenses],
+  const expenses = useQuery<IncomesQuery, Error>({
+    queryKey: [queryKeys.incomes],
     queryFn: () =>
-      getExpenses({
+      getIncomes({
         timeRange: {
           startDate: datesToQuery.startDate,
           endDate: datesToQuery.endDate,
@@ -22,4 +25,4 @@ const useExpenses = () => {
   return expenses;
 };
 
-export default useExpenses;
+export default useIncomes;

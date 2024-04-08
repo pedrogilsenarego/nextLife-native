@@ -1,6 +1,6 @@
 import { useTheme } from "@/providers/ThemeContext";
 import { useEffect, useRef, useState } from "react";
-import { Animated, PanResponder } from "react-native";
+import { Animated, Keyboard, PanResponder } from "react-native";
 
 const useMainLayout = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -60,7 +60,10 @@ const useMainLayout = () => {
         if (Math.abs(gesture.dy) > 40) {
           setOpenModal(false);
           runSpringAnimation(0, 0);
-        } else runSpringAnimation(0, position);
+        } else {
+          runSpringAnimation(0, position);
+          Keyboard.dismiss();
+        }
       }
     },
   });

@@ -93,6 +93,7 @@ const MainLayout = ({ mainContent, secondaryContent }: Props) => {
             {openModal && (
               <Pressable
                 onPress={() => {
+                  Keyboard.dismiss();
                   setOpenModal(false);
                   runSpringAnimation(0, 0);
                 }}
@@ -107,6 +108,7 @@ const MainLayout = ({ mainContent, secondaryContent }: Props) => {
               />
             )}
           </>
+
           {Platform.OS === "ios" && (
             <View
               style={{

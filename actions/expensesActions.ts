@@ -2,10 +2,8 @@ import { supabase } from "@/lib/supabase";
 
 export const getExpenses = async ({
   timeRange,
-  userId,
 }: {
   timeRange?: { startDate: Date; endDate: Date };
-  userId: string;
 }): Promise<any> => {
   return new Promise(async (resolve, reject) => {
     console.log(
@@ -13,6 +11,13 @@ export const getExpenses = async ({
     );
 
     try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        return reject(new Error("User not authenticated"));
+      }
       const currentDate = timeRange?.endDate || new Date();
       const currentMonthStart =
         timeRange?.startDate ||
@@ -21,7 +26,7 @@ export const getExpenses = async ({
       const { data: expenses, error: expensesError } = await supabase
         .from("expenses")
         .select("*")
-        .eq("user_id", userId)
+        .eq("user_id", user.id)
         .gt("created_at", currentMonthStart.toISOString())
         .lt("created_at", currentDate.toISOString())
         .order("created_at", { ascending: false });
@@ -32,6 +37,55 @@ export const getExpenses = async ({
       }
 
       resolve(expenses);
+    } catch (error) {
+      console.error(error);
+      reject(error);
+    }
+  });
+};
+
+type AddExpenseProps = {
+  businessId: string;
+  category: string;
+  note?: string;
+  amount: number;
+  created_at: Date;
+};
+
+export const addExpense = async (
+  newExpenseData: AddExpenseProps
+): Promise<string> => {
+  return new Promise(async (resolve, reject) => {
+    console.log("addExpense", newExpenseData.amount);
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        return reject(new Error("User not authenticated"));
+      }
+
+      const { businessId, note, amount, category, created_at } = newExpenseData;
+      const user_id = user.id;
+
+      const { error: userError } = await supabase.from("expenses").upsert([
+        {
+          businessId,
+          note,
+          amount,
+          category,
+          user_id: user_id,
+          created_at,
+        },
+      ]);
+
+      if (userError) {
+        console.error(userError);
+        return reject(userError);
+      }
+
+      resolve("Success");
     } catch (error) {
       console.error(error);
       reject(error);

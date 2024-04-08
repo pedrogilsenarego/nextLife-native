@@ -34,6 +34,7 @@ const ControlledInput = (props: TextInputProps) => {
       <View>
         <RNTextInput
           editable={!inputProps.disabled}
+          keyboardType={inputProps.keyboardType}
           keyboardAppearance="dark"
           style={[styles.input, { borderWidth: theme === "light" ? 2 : 0 }]}
           onChangeText={field.onChange}
