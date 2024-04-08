@@ -20,7 +20,7 @@ const MainCard = () => {
   const backFadeAnim = useRef(new Animated.Value(0)).current;
 
   const [flipped, setFlipped] = useState<boolean>(false);
-  const { changeMainColor, theme } = useTheme();
+  const { theme } = useTheme();
   const flip = () => {
     Animated.timing(flipAnim, {
       toValue: flipped ? 0 : 1,
