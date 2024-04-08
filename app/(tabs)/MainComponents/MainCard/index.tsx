@@ -1,7 +1,11 @@
 import useUser from "@/hooks/useUser";
-import { View, Text } from "react-native";
+import { supabase } from "@/lib/supabase";
+import { View, Text, Pressable } from "react-native";
 
 const MainCard = () => {
+  const logout = async () => {
+    await supabase.auth.signOut();
+  };
   const userQuery = useUser();
   return (
     <View style={{ padding: 22 }}>
@@ -11,7 +15,10 @@ const MainCard = () => {
           {userQuery?.data?.username}
         </Text>
       </Text>
-      <Text style={{ color: "whitesmoke" }}>Your balance</Text>
+      <Text style={{ color: "whitesmoke" }}>Your monthly balance</Text>
+      <Pressable onPress={logout} style={{ marginTop: 30 }}>
+        <Text style={{ color: "whitesmoke" }}>Logout</Text>
+      </Pressable>
     </View>
   );
 };
