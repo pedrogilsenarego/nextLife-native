@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { defaultValues } from "./constants";
 import ControlledInput from "@/components/inputs/TextField";
 import Button from "@/components/button/ButtonComponent";
+import DatePicker from "@/components/inputs/DateTimePicker";
 
 const BottomCard = () => {
   const methods = useForm<NewEntryType>({
@@ -27,16 +28,17 @@ const BottomCard = () => {
       <Text style={{ fontSize: 30, fontWeight: "bold", marginTop: 10 }}>
         New
       </Text>
-      <View>
+      <View style={{ marginTop: 40 }}>
         <FormProvider {...methods}>
           {/* {business?.data?.map((business, index) => (
             <Text key={index}>{business.businessName}</Text>
           ))} */}
           <ControlledInput
-            keyboardType="number-pad"
+            keyboardType="decimal-pad"
             name="amount"
             placeholder="Value"
           />
+          <DatePicker />
           <ControlledInput label="Note" name="note" placeholder="Note" />
           <Button
             //isLoading={true}
