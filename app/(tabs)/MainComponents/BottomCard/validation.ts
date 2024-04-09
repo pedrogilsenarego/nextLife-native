@@ -10,6 +10,8 @@ const NumberStringSchema = z
 export const NewEntrySchema = z.object({
   amount: NumberStringSchema,
   note: z.string().optional(),
+  created_at: z.date(),
+  category: z.string(),
 });
 
 export type NewEntryType = z.infer<typeof NewEntrySchema>;

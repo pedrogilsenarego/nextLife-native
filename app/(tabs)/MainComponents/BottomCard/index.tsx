@@ -3,10 +3,11 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { View, Text } from "react-native";
 import { NewEntrySchema, NewEntryType } from "./validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { defaultValues } from "./constants";
+import { defaultCategories, defaultValues } from "./constants";
 import ControlledInput from "@/components/inputs/TextField";
 import Button from "@/components/button/ButtonComponent";
 import DatePicker from "@/components/inputs/DateTimePicker";
+import Select from "@/components/inputs/Select";
 
 const BottomCard = () => {
   const methods = useForm<NewEntryType>({
@@ -38,8 +39,8 @@ const BottomCard = () => {
             name="amount"
             placeholder="Value"
           />
-
-          <DatePicker />
+          <Select name="category" listOptions={defaultCategories} />
+          <DatePicker name="created_at" value={new Date()} />
           <ControlledInput label="Note" name="note" placeholder="Note" />
           <Button
             //isLoading={true}

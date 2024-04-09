@@ -1,22 +1,38 @@
-import Button from "@/components/button/ButtonComponent";
-import { useTheme } from "@/providers/ThemeContext";
 import RNDateTimePicker, {
   DateTimePickerEvent,
+  DatePickerOptions,
 } from "@react-native-community/datetimepicker";
 
 import { useState } from "react";
+import {
+  UseControllerProps,
+  useController,
+  useFormContext,
+} from "react-hook-form";
 import { View, TextInput, Pressable, Platform, Text } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
-const DatePicker = () => {
+interface DatePickerProps extends DatePickerOptions, UseControllerProps {
+  label?: string;
+  defaultValue?: string;
+}
+
+const DatePicker = (props: DatePickerProps) => {
   const [show, setShow] = useState<boolean>(false);
-  const [date, setDate] = useState<Date>(new Date());
-  const { mainColor } = useTheme();
-  const formatDate = (rawDate: Date) => {
-    let date = new Date(rawDate);
+
+  const formContext = useFormContext();
+
+  const { formState } = formContext;
+
+  const { name, label, rules, defaultValue, ...inputProps } = props;
+
+  const { field } = useController({ name, rules, defaultValue });
+
+  const error = formState.errors[name];
+
+  const formatDate = (date: Date) => {
     let year = date.getFullYear();
     let month = date.getMonth() + 1;
-    let day = date.getDay();
+    let day = date.getDate();
 
     const newMonth = month < 10 ? `0${month}` : month;
     const newDay = day < 10 ? `0${day}` : day;
@@ -33,23 +49,17 @@ const DatePicker = () => {
   ) => {
     if (type === "set" && selectedDate) {
       const currentDate = selectedDate;
-      setDate(currentDate);
-      if (Platform.OS === "android") {
-        toggleDatePicker(), setDate(currentDate);
-      }
-    } else {
-      toggleDatePicker();
+      field.onChange(currentDate);
+      setShow(false);
     }
   };
-  const confirmIosDate = () => {
-    toggleDatePicker();
-  };
+
   return (
     <View>
       {Platform.OS !== "ios" && (
         <Pressable onPress={toggleDatePicker}>
           <TextInput
-            value={formatDate(date)}
+            value={formatDate(field.value)}
             style={{
               borderWidth: 2,
               borderColor: "lightGray",
@@ -71,7 +81,7 @@ const DatePicker = () => {
         <RNDateTimePicker
           mode="date"
           display="spinner"
-          value={date}
+          value={field.value}
           onChange={onChange}
           style={{
             height: 120,
@@ -83,12 +93,11 @@ const DatePicker = () => {
           //minimumDate={}
         />
       )}
-      {/* {show && Platform.OS === "ios" && (
-        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
-          <Button onPress={toggleDatePicker} label="Cancel" />
-          <Button onPress={confirmIosDate} label="Confirm" />
+      {error && (
+        <View>
+          <Text style={{ color: "red" }}>{error?.message?.toString()}</Text>
         </View>
-      )} */}
+      )}
     </View>
   );
 };
