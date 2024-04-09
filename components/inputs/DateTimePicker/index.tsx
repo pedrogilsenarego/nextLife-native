@@ -1,4 +1,5 @@
 import Button from "@/components/button/ButtonComponent";
+import { useTheme } from "@/providers/ThemeContext";
 import RNDateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
@@ -10,6 +11,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 const DatePicker = () => {
   const [show, setShow] = useState<boolean>(false);
   const [date, setDate] = useState<Date>(new Date());
+  const { mainColor } = useTheme();
   const formatDate = (rawDate: Date) => {
     let date = new Date(rawDate);
     let year = date.getFullYear();
@@ -44,42 +46,49 @@ const DatePicker = () => {
   };
   return (
     <View>
-      <Pressable onPress={toggleDatePicker}>
-        <TextInput
-          value={formatDate(date)}
-          style={{
-            borderWidth: 2,
-            borderColor: "lightGray",
-            padding: 10,
-            backgroundColor: "transparent",
-            height: 50,
-            fontSize: 14,
-            color: "lightGray",
-            borderRadius: 50,
-          }}
-          placeholder="teste"
-          editable={false}
-          onPressIn={toggleDatePicker}
-        />
-      </Pressable>
+      {Platform.OS !== "ios" && (
+        <Pressable onPress={toggleDatePicker}>
+          <TextInput
+            value={formatDate(date)}
+            style={{
+              borderWidth: 2,
+              borderColor: "lightGray",
+              padding: 10,
+              backgroundColor: "transparent",
+              height: 50,
+              fontSize: 14,
+              color: "lightGray",
+              borderRadius: 50,
+            }}
+            placeholder="teste"
+            editable={false}
+            onPressIn={toggleDatePicker}
+          />
+        </Pressable>
+      )}
 
-      {show && (
+      {(show || Platform.OS === "ios") && (
         <RNDateTimePicker
           mode="date"
           display="spinner"
           value={date}
           onChange={onChange}
-          style={{ marginTop: -10, height: 120 }}
+          style={{
+            height: 120,
+            borderWidth: 2,
+            borderColor: "gray",
+            borderRadius: 30,
+          }}
           //maximumDate={}
           //minimumDate={}
         />
       )}
-      {show && Platform.OS === "ios" && (
+      {/* {show && Platform.OS === "ios" && (
         <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
           <Button onPress={toggleDatePicker} label="Cancel" />
           <Button onPress={confirmIosDate} label="Confirm" />
         </View>
-      )}
+      )} */}
     </View>
   );
 };

@@ -38,6 +38,7 @@ const BottomCard = () => {
             name="amount"
             placeholder="Value"
           />
+
           <DatePicker />
           <ControlledInput label="Note" name="note" placeholder="Note" />
           <Button
