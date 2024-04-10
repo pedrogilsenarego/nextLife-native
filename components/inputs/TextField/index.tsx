@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
   },
   container: {
     justifyContent: "center",
+
     padding: 8,
   },
   input: {
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
     paddingBottom: 11,
     paddingLeft: 20,
     borderRadius: 30,
-
+    width: "100%",
     borderColor: "gray",
   },
   inputBig: {

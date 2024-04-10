@@ -1,10 +1,3 @@
-export const defaultValues = {
-  amount: undefined,
-  note: undefined,
-  created_at: new Date(),
-  category: "java",
-};
-
 export const defaultCategories = [
   { value: "books", label: "Books" },
   { value: "car", label: "Car" },
