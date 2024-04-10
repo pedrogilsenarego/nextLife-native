@@ -15,33 +15,46 @@ import {
 interface TextInputProps extends RNTextInputProps, UseControllerProps {
   label?: string;
   defaultValue?: string;
+  variant?: "default" | "big";
+  units?: string;
 }
 
-const ControlledInput = (props: TextInputProps) => {
+const ControlledInput = ({ variant = "default", ...props }: TextInputProps) => {
   const formContext = useFormContext();
   const { theme } = useTheme();
   const { formState } = formContext;
-
   const { name, label, rules, defaultValue, ...inputProps } = props;
-
   const { field } = useController({ name, rules, defaultValue });
-
   const error = formState.errors[name];
+
+  const inputStyles = variant === "default" ? styles.input : styles.inputBig;
 
   return (
     <View style={styles.container}>
       {label && <Text style={styles.label}>{label}</Text>}
-      <View>
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          columnGap: 5,
+        }}
+      >
         <RNTextInput
           editable={!inputProps.disabled}
           keyboardType={inputProps.keyboardType}
           keyboardAppearance="dark"
-          style={[styles.input, { borderWidth: theme === "light" ? 2 : 0 }]}
+          style={[inputStyles, { borderWidth: theme === "light" ? 2 : 0 }]}
           onChangeText={field.onChange}
           onBlur={field.onBlur}
           value={field.value}
           {...inputProps}
         />
+        {props.units && (
+          <Text style={{ fontSize: 34, fontWeight: "600", color: "gray" }}>
+            {props.units}
+          </Text>
+        )}
       </View>
       {error && (
         <View style={{ paddingLeft: 20, paddingTop: 2 }}>
@@ -73,6 +86,16 @@ const styles = StyleSheet.create({
     borderRadius: 30,
 
     borderColor: "gray",
+  },
+  inputBig: {
+    backgroundColor: "white",
+    fontWeight: "bold",
+    paddingTop: 11,
+    fontSize: 40,
+    paddingBottom: 11,
+    paddingLeft: 20,
+    borderWidth: 0,
+    borderColor: "white",
   },
   error: {
     color: "orangered",

@@ -25,23 +25,29 @@ const BottomCard = () => {
     console.log(newData);
   };
   return (
-    <View style={{ alignItems: "center" }}>
+    <View
+      style={{ alignItems: "center", width: "100%", paddingHorizontal: 12 }}
+    >
       <Text style={{ fontSize: 30, fontWeight: "bold", marginTop: 10 }}>
         New
       </Text>
-      <View style={{ marginTop: 40 }}>
+      <View style={{ marginTop: 35, width: "100%" }}>
         <FormProvider {...methods}>
           {/* {business?.data?.map((business, index) => (
             <Text key={index}>{business.businessName}</Text>
           ))} */}
-          <ControlledInput
-            keyboardType="decimal-pad"
-            name="amount"
-            placeholder="Value"
-          />
-          <Select name="category" listOptions={defaultCategories} />
-          <DatePicker name="created_at" value={new Date()} />
-          <ControlledInput label="Note" name="note" placeholder="Note" />
+          <View style={{ width: "100%" }}>
+            <ControlledInput
+              variant="big"
+              keyboardType="decimal-pad"
+              name="amount"
+              placeholder="0.0"
+              units="€"
+            />
+            <Select name="category" listOptions={defaultCategories} />
+            <DatePicker name="created_at" value={new Date()} />
+            <ControlledInput label="Note" name="note" placeholder="Note" />
+          </View>
           <Button
             //isLoading={true}
             label="Submit"
