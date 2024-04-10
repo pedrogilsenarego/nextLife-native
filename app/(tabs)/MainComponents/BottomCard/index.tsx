@@ -14,7 +14,9 @@ const BottomCard = () => {
   return business.isError || business.isFetching || !listBusiness ? (
     <></>
   ) : (
-    <Form listBusiness={listBusiness} />
+    <>
+      <Form listBusiness={listBusiness} />
+    </>
   );
 };
 

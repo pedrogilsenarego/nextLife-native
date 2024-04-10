@@ -17,12 +17,10 @@ const Select = (props: PickerPropsI) => {
   const formContext = useFormContext();
 
   const { formState } = formContext;
-
   const { name, label, rules, defaultValue, ...inputProps } = props;
-
   const { field } = useController({ name, rules, defaultValue });
-
   const error = formState.errors[name];
+
   return (
     <Pressable
       onStartShouldSetResponder={() => true}
@@ -31,9 +29,9 @@ const Select = (props: PickerPropsI) => {
         e.stopPropagation();
         e.preventDefault();
       }}
-      style={{ borderWidth: 2 }}
     >
       <Picker
+        style={{ height: 30 }}
         selectedValue={field.value}
         onValueChange={(itemValue, itemIndex) => field.onChange(itemValue)}
       >

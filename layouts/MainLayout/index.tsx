@@ -75,7 +75,8 @@ const MainLayout = ({ mainContent, secondaryContent }: Props) => {
                     justifyContent: "center",
                     borderRadius: 12,
                     shadowColor: "#000",
-
+                    maxHeight: "90%",
+                    overflow: "scroll",
                     paddingBottom: 100,
                     shadowOffset: {
                       width: 0,

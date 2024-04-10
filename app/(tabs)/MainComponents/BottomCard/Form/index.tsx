@@ -7,12 +7,16 @@ import ControlledInput from "@/components/inputs/TextField";
 import Select from "@/components/inputs/Select";
 import DatePicker from "@/components/inputs/DateTimePicker";
 import Button from "@/components/button/ButtonComponent";
+import { useMutation } from "@tanstack/react-query";
+import { addExpense } from "@/actions/expensesActions";
+import useExpenses from "@/hooks/useExpenses";
 
 type Props = {
   listBusiness: { value: string; label: string }[];
 };
 
 const Form = ({ listBusiness }: Props) => {
+  const expenses = useExpenses();
   const defaultValues = {
     amount: undefined,
     note: undefined,
@@ -25,14 +29,27 @@ const Form = ({ listBusiness }: Props) => {
     defaultValues,
   });
 
+  const { mutate: addExpenseMutation, isPending } = useMutation({
+    mutationFn: addExpense,
+    onError: (error: any) => {
+      console.log("error", error);
+    },
+    onSuccess: (data: any) => {
+      methods.reset();
+      expenses.refetch();
+    },
+    onSettled: async () => {},
+  });
+
   const onSubmit: SubmitHandler<NewEntryType> = (data) => {
     const newData = {
       ...data,
 
-      amount: data.amount.replace(",", "."),
+      amount: Number(data.amount.replace(",", ".")),
     };
 
     console.log(newData);
+    addExpenseMutation(newData);
   };
 
   return (
@@ -58,7 +75,7 @@ const Form = ({ listBusiness }: Props) => {
             <ControlledInput label="Note" name="note" placeholder="Note" />
           </View>
           <Button
-            //isLoading={true}
+            isLoading={isPending}
             label="Submit"
             onPress={methods.handleSubmit(onSubmit)}
           />
