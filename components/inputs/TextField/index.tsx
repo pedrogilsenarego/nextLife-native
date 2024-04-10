@@ -41,6 +41,7 @@ const ControlledInput = ({ variant = "default", ...props }: TextInputProps) => {
         }}
       >
         <RNTextInput
+          caretHidden
           editable={!inputProps.disabled}
           keyboardType={inputProps.keyboardType}
           keyboardAppearance="dark"

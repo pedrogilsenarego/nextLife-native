@@ -31,7 +31,7 @@ const BottomCard = () => {
       <Text style={{ fontSize: 30, fontWeight: "bold", marginTop: 10 }}>
         New
       </Text>
-      <View style={{ marginTop: 35, width: "100%" }}>
+      <View style={{ marginTop: 30, width: "100%" }}>
         <FormProvider {...methods}>
           {/* {business?.data?.map((business, index) => (
             <Text key={index}>{business.businessName}</Text>
