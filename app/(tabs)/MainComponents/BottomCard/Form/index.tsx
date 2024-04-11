@@ -100,15 +100,23 @@ const Form = ({ listBusiness }: Props) => {
             </View>
 
             {/* <SelectMine name="businessId" listOptions={defaultCategories} /> */}
-            <View style={{ flexDirection: "row", marginTop: -40 }}>
+            <View style={{ flexDirection: "row" }}>
               <View style={{ width: "50%" }}>
-                <Select name="businessId" listOptions={listBusiness} />
+                <Select
+                  name="businessId"
+                  listOptions={listBusiness}
+                  label={"Business"}
+                />
               </View>
               <View style={{ width: "50%" }}>
-                <Select name="category" listOptions={defaultCategories} />
+                <Select
+                  name="category"
+                  listOptions={defaultCategories}
+                  label={"Category"}
+                />
               </View>
             </View>
-            <DatePicker name="created_at" value={new Date()} />
+            <DatePicker name="created_at" value={new Date()} label="Date" />
           </View>
           <Button
             isLoading={isPending}

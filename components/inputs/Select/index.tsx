@@ -5,7 +5,7 @@ import {
   useController,
   useFormContext,
 } from "react-hook-form";
-import { Pressable, View } from "react-native";
+import { Pressable, View, Text } from "react-native";
 
 interface PickerPropsI extends PickerProps, UseControllerProps {
   label?: string;
@@ -30,15 +30,17 @@ const Select = (props: PickerPropsI) => {
         e.preventDefault();
       }}
       style={{
-        borderWidth: 2,
         height: 120,
         justifyContent: "center",
         overflow: "hidden",
       }}
     >
+      {label && (
+        <Text style={{ fontSize: 16, fontWeight: "600" }}>{label}</Text>
+      )}
       <Picker
         itemStyle={{
-          fontSize: 16,
+          fontSize: 18,
           padding: 0,
           margin: 0,
           textTransform: "capitalize",
