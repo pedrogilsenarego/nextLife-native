@@ -1,16 +1,19 @@
 import { Picker, PickerProps } from "@react-native-picker/picker";
-import { useState } from "react";
+import { CSSProperties, useState } from "react";
 import {
   UseControllerProps,
   useController,
   useFormContext,
 } from "react-hook-form";
+import { PressableProps } from "react-native";
 import { Pressable, View, Text } from "react-native";
 
 interface PickerPropsI extends PickerProps, UseControllerProps {
   label?: string;
   defaultValue?: string;
   listOptions: { label: string; value: string }[];
+  left?: boolean;
+  right?: boolean;
 }
 
 const Select = (props: PickerPropsI) => {
@@ -24,7 +27,7 @@ const Select = (props: PickerPropsI) => {
   return (
     <>
       {label && (
-        <Text style={{ fontSize: 18, fontWeight: "600", marginLeft: 10 }}>
+        <Text style={{ fontSize: 18, fontWeight: "600", marginLeft: 13 }}>
           {label}
         </Text>
       )}
@@ -39,6 +42,11 @@ const Select = (props: PickerPropsI) => {
           height: 120,
           justifyContent: "center",
           overflow: "hidden",
+          backgroundColor: "#0000000D",
+          borderTopLeftRadius: props.left ? 6 : undefined,
+          borderBottomLeftRadius: props.left ? 6 : undefined,
+          borderTopRightRadius: props.right ? 6 : undefined,
+          borderBottomRightRadius: props.right ? 6 : undefined,
         }}
       >
         <Picker

@@ -57,7 +57,7 @@ const DatePicker = (props: DatePickerProps) => {
   return (
     <View>
       {label && (
-        <Text style={{ fontSize: 18, fontWeight: "600", marginLeft: 10 }}>
+        <Text style={{ fontSize: 18, fontWeight: "600", marginLeft: 13 }}>
           {label}
         </Text>
       )}
@@ -71,7 +71,6 @@ const DatePicker = (props: DatePickerProps) => {
               height: 50,
               fontSize: 14,
             }}
-            placeholder="teste"
             editable={false}
             onPressIn={toggleDatePicker}
           />
@@ -86,6 +85,8 @@ const DatePicker = (props: DatePickerProps) => {
           onChange={onChange}
           style={{
             height: 120,
+            backgroundColor: "#0000000D",
+            borderRadius: 6,
           }}
           //maximumDate={}
           //minimumDate={}

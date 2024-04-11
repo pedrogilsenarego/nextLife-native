@@ -64,12 +64,13 @@ const Form = ({ listBusiness }: Props) => {
       <View
         style={{
           width: "100%",
-          height: 2,
+          height: 1,
+
           backgroundColor: "gray",
-          marginTop: 6,
+          marginTop: 20,
         }}
       />
-      <View style={{ marginTop: 25, width: "100%" }}>
+      <View style={{ width: "100%" }}>
         <FormProvider {...methods}>
           <View style={{ width: "100%" }}>
             <View
@@ -108,9 +109,13 @@ const Form = ({ listBusiness }: Props) => {
             </View>
 
             {/* <SelectMine name="businessId" listOptions={defaultCategories} /> */}
-            <View style={{ flexDirection: "row" }}>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
               <View style={{ width: "50%" }}>
                 <Select
+                  left
+                  style={{ borderTopRightRadius: 6 }}
                   name="businessId"
                   listOptions={listBusiness}
                   label={"Business"}
@@ -118,13 +123,16 @@ const Form = ({ listBusiness }: Props) => {
               </View>
               <View style={{ width: "50%" }}>
                 <Select
+                  right
                   name="category"
                   listOptions={defaultCategories}
                   label={"Category"}
                 />
               </View>
             </View>
-            <DatePicker name="created_at" value={new Date()} label="Date" />
+            <View style={{ marginTop: 20 }}>
+              <DatePicker name="created_at" value={new Date()} label="Date" />
+            </View>
           </View>
           <View style={{ marginTop: 20 }}>
             <Button
