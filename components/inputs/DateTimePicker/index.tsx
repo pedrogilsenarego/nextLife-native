@@ -57,7 +57,9 @@ const DatePicker = (props: DatePickerProps) => {
   return (
     <View>
       {label && (
-        <Text style={{ fontSize: 16, fontWeight: "600" }}>{label}</Text>
+        <Text style={{ fontSize: 18, fontWeight: "600", marginLeft: 10 }}>
+          {label}
+        </Text>
       )}
       {Platform.OS !== "ios" && (
         <Pressable onPress={toggleDatePicker}>

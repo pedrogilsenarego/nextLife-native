@@ -61,6 +61,14 @@ const Form = ({ listBusiness }: Props) => {
       <Text style={{ fontSize: 30, fontWeight: "bold", marginTop: 10 }}>
         New
       </Text>
+      <View
+        style={{
+          width: "100%",
+          height: 2,
+          backgroundColor: "gray",
+          marginTop: 6,
+        }}
+      />
       <View style={{ marginTop: 25, width: "100%" }}>
         <FormProvider {...methods}>
           <View style={{ width: "100%" }}>
@@ -118,11 +126,13 @@ const Form = ({ listBusiness }: Props) => {
             </View>
             <DatePicker name="created_at" value={new Date()} label="Date" />
           </View>
-          <Button
-            isLoading={isPending}
-            label="Submit"
-            onPress={methods.handleSubmit(onSubmit)}
-          />
+          <View style={{ marginTop: 20 }}>
+            <Button
+              isLoading={isPending}
+              label="Submit"
+              onPress={methods.handleSubmit(onSubmit)}
+            />
+          </View>
         </FormProvider>
       </View>
     </View>

@@ -22,41 +22,45 @@ const Select = (props: PickerPropsI) => {
   const error = formState.errors[name];
 
   return (
-    <Pressable
-      onStartShouldSetResponder={() => true}
-      onTouchEnd={(e) => e.stopPropagation()}
-      onTouchStart={(e) => {
-        e.stopPropagation();
-        e.preventDefault();
-      }}
-      style={{
-        height: 120,
-        justifyContent: "center",
-        overflow: "hidden",
-      }}
-    >
+    <>
       {label && (
-        <Text style={{ fontSize: 16, fontWeight: "600" }}>{label}</Text>
+        <Text style={{ fontSize: 18, fontWeight: "600", marginLeft: 10 }}>
+          {label}
+        </Text>
       )}
-      <Picker
-        itemStyle={{
-          fontSize: 18,
-          padding: 0,
-          margin: 0,
-          textTransform: "capitalize",
-          marginHorizontal: 0,
-          marginVertical: 0,
+      <Pressable
+        onStartShouldSetResponder={() => true}
+        onTouchEnd={(e) => e.stopPropagation()}
+        onTouchStart={(e) => {
+          e.stopPropagation();
+          e.preventDefault();
         }}
-        selectedValue={field.value}
-        onValueChange={(itemValue, itemIndex) => field.onChange(itemValue)}
+        style={{
+          height: 120,
+          justifyContent: "center",
+          overflow: "hidden",
+        }}
       >
-        {props.listOptions.map((item, index) => {
-          return (
-            <Picker.Item key={index} label={item.label} value={item.value} />
-          );
-        })}
-      </Picker>
-    </Pressable>
+        <Picker
+          itemStyle={{
+            fontSize: 18,
+            padding: 0,
+            margin: 0,
+            textTransform: "capitalize",
+            marginHorizontal: 0,
+            marginVertical: 0,
+          }}
+          selectedValue={field.value}
+          onValueChange={(itemValue, itemIndex) => field.onChange(itemValue)}
+        >
+          {props.listOptions.map((item, index) => {
+            return (
+              <Picker.Item key={index} label={item.label} value={item.value} />
+            );
+          })}
+        </Picker>
+      </Pressable>
+    </>
   );
 };
 
