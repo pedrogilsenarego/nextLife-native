@@ -5,6 +5,7 @@ import useUser from "@/hooks/useUser";
 import { supabase } from "@/lib/supabase";
 import { View, Text, Pressable, ScrollView } from "react-native";
 import moment from "moment";
+import BarChart from "@/components/Charts/BarChart";
 
 const MainCard = () => {
   const logout = async () => {
@@ -36,6 +37,9 @@ const MainCard = () => {
         <Text style={{ color: "white", fontSize: 30, fontWeight: "bold" }}>
           {(totalIncomes() - totalExpenses()).toFixed(1)}
         </Text>
+        <View style={{ marginVertical: 20 }}>
+          <BarChart />
+        </View>
         {expenses?.data &&
           expenses?.data.map((expense, index) => {
             return (

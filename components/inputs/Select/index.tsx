@@ -29,6 +29,12 @@ const Select = (props: PickerPropsI) => {
         e.stopPropagation();
         e.preventDefault();
       }}
+      style={{
+        borderWidth: 2,
+        height: 120,
+        justifyContent: "center",
+        overflow: "hidden",
+      }}
     >
       <Picker
         itemStyle={{
