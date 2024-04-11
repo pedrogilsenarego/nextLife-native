@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { NewEntrySchema, NewEntryType } from "../validation";
 import { defaultCategories } from "../constants";
-import { View, Text } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import ControlledInput from "@/components/inputs/TextField";
 import Select from "@/components/inputs/Select";
 import DatePicker from "@/components/inputs/DateTimePicker";
@@ -10,6 +10,7 @@ import Button from "@/components/button/ButtonComponent";
 import { useMutation } from "@tanstack/react-query";
 import { addExpense } from "@/actions/expensesActions";
 import useExpenses from "@/hooks/useExpenses";
+import { Link } from "expo-router";
 
 type Props = {
   listBusiness: { value: string; label: string }[];
@@ -69,6 +70,11 @@ const Form = ({ listBusiness }: Props) => {
               placeholder="0.0"
               units="€"
             />
+            <Link href="/modal" asChild>
+              <Pressable>
+                <Text>click</Text>
+              </Pressable>
+            </Link>
             <Select name="businessId" listOptions={listBusiness} />
             <Select name="category" listOptions={defaultCategories} />
             <DatePicker name="created_at" value={new Date()} />

@@ -11,6 +11,7 @@ const MainCard = () => {
   };
   const userQuery = useUser();
   const { totalExpenses, totalIncomes } = useMetrics();
+  const expenses = useExpenses();
   return (
     <View style={{ padding: 22 }}>
       <Text style={{ color: "white", fontSize: 20 }}>
@@ -23,6 +24,10 @@ const MainCard = () => {
       <Text style={{ color: "white", fontSize: 30, fontWeight: "bold" }}>
         {(totalIncomes() - totalExpenses()).toFixed(1)}
       </Text>
+      {expenses?.data &&
+        expenses?.data.map((expense) => {
+          return <Text>{expense.amount}</Text>;
+        })}
       <Pressable onPress={logout} style={{ marginTop: 30 }}>
         <Text style={{ color: "whitesmoke" }}>Logout</Text>
       </Pressable>
