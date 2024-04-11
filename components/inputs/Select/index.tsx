@@ -31,6 +31,14 @@ const Select = (props: PickerPropsI) => {
       }}
     >
       <Picker
+        itemStyle={{
+          fontSize: 16,
+          padding: 0,
+          margin: 0,
+          textTransform: "capitalize",
+          marginHorizontal: 0,
+          marginVertical: 0,
+        }}
         selectedValue={field.value}
         onValueChange={(itemValue, itemIndex) => field.onChange(itemValue)}
       >

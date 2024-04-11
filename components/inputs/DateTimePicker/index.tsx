@@ -61,14 +61,10 @@ const DatePicker = (props: DatePickerProps) => {
           <TextInput
             value={formatDate(field.value)}
             style={{
-              borderWidth: 2,
-              borderColor: "lightGray",
               padding: 10,
               backgroundColor: "transparent",
               height: 50,
               fontSize: 14,
-              color: "lightGray",
-              borderRadius: 50,
             }}
             placeholder="teste"
             editable={false}
@@ -85,9 +81,6 @@ const DatePicker = (props: DatePickerProps) => {
           onChange={onChange}
           style={{
             height: 120,
-            borderWidth: 2,
-            borderColor: "gray",
-            borderRadius: 30,
           }}
           //maximumDate={}
           //minimumDate={}

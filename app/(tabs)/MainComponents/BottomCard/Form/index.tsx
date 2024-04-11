@@ -11,6 +11,7 @@ import { useMutation } from "@tanstack/react-query";
 import { addExpense } from "@/actions/expensesActions";
 import useExpenses from "@/hooks/useExpenses";
 import { Link } from "expo-router";
+import SelectMine from "@/components/inputs/SelectMine";
 
 type Props = {
   listBusiness: { value: string; label: string }[];
@@ -60,31 +61,54 @@ const Form = ({ listBusiness }: Props) => {
       <Text style={{ fontSize: 30, fontWeight: "bold", marginTop: 10 }}>
         New
       </Text>
-      <View style={{ marginTop: 30, width: "100%" }}>
+      <View style={{ marginTop: 25, width: "100%" }}>
         <FormProvider {...methods}>
           <View style={{ width: "100%" }}>
-            <ControlledInput
-              variant="big"
-              keyboardType="decimal-pad"
-              name="amount"
-              placeholder="0.0"
-              units="€"
-            />
-            <Link href="/modal" asChild>
-              <Pressable>
-                <Text>click</Text>
-              </Pressable>
-            </Link>
-            <View style={{ flexDirection: "row" }}>
-              <View style={{ borderWidth: 2, width: "50%" }}>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                width: "100%",
+
+                justifyContent: "space-between",
+              }}
+            >
+              <View style={{ width: "30%" }}>
+                <ControlledInput
+                  variant="big"
+                  keyboardType="decimal-pad"
+                  name="amount"
+                  placeholder="0.0"
+                  units="€"
+                />
+              </View>
+              <View
+                style={{
+                  height: "100%",
+                  width: "70%",
+                  paddingRight: 5,
+                  alignItems: "flex-end",
+                }}
+              >
+                <ControlledInput
+                  variant="edit"
+                  label="Note"
+                  name="note"
+                  placeholder="Note"
+                />
+              </View>
+            </View>
+
+            {/* <SelectMine name="businessId" listOptions={defaultCategories} /> */}
+            <View style={{ flexDirection: "row", marginTop: -40 }}>
+              <View style={{ width: "50%" }}>
                 <Select name="businessId" listOptions={listBusiness} />
               </View>
-              <View style={{ borderWidth: 2, width: "50%" }}>
+              <View style={{ width: "50%" }}>
                 <Select name="category" listOptions={defaultCategories} />
               </View>
             </View>
             <DatePicker name="created_at" value={new Date()} />
-            <ControlledInput label="Note" name="note" placeholder="Note" />
           </View>
           <Button
             isLoading={isPending}

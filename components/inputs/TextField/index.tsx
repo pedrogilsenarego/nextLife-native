@@ -1,4 +1,5 @@
 import { useTheme } from "@/providers/ThemeContext";
+import { FontAwesome } from "@expo/vector-icons";
 import {
   UseControllerProps,
   useController,
@@ -15,7 +16,7 @@ import {
 interface TextInputProps extends RNTextInputProps, UseControllerProps {
   label?: string;
   defaultValue?: string;
-  variant?: "default" | "big";
+  variant?: "default" | "big" | "edit";
   units?: string;
 }
 
@@ -27,7 +28,12 @@ const ControlledInput = ({ variant = "default", ...props }: TextInputProps) => {
   const { field } = useController({ name, rules, defaultValue });
   const error = formState.errors[name];
 
-  const inputStyles = variant === "default" ? styles.input : styles.inputBig;
+  const inputStyles =
+    variant === "default"
+      ? styles.input
+      : variant === "big"
+      ? styles.inputBig
+      : styles.edit;
 
   return (
     <View style={styles.container}>
@@ -51,6 +57,9 @@ const ControlledInput = ({ variant = "default", ...props }: TextInputProps) => {
           value={field.value}
           {...inputProps}
         />
+        {variant === "edit" && (
+          <FontAwesome name={"edit"} size={34} color={"black"} />
+        )}
         {props.units && (
           <Text style={{ fontSize: 34, fontWeight: "600", color: "gray" }}>
             {props.units}
@@ -99,6 +108,7 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     borderColor: "white",
   },
+  edit: { fontSize: 20, borderWidth: 0, borderColor: "red" },
   error: {
     color: "orangered",
   },
