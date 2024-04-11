@@ -32,17 +32,11 @@ const Select = (props: PickerPropsI) => {
     >
       <Picker
         selectedValue={field.value}
-        style={{ padding: 0 }}
         onValueChange={(itemValue, itemIndex) => field.onChange(itemValue)}
       >
         {props.listOptions.map((item, index) => {
           return (
-            <Picker.Item
-              style={{ fontSize: 12 }}
-              key={index}
-              label={item.label}
-              value={item.value}
-            />
+            <Picker.Item key={index} label={item.label} value={item.value} />
           );
         })}
       </Picker>

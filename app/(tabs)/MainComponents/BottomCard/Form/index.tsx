@@ -75,8 +75,14 @@ const Form = ({ listBusiness }: Props) => {
                 <Text>click</Text>
               </Pressable>
             </Link>
-            <Select name="businessId" listOptions={listBusiness} />
-            <Select name="category" listOptions={defaultCategories} />
+            <View style={{ flexDirection: "row" }}>
+              <View style={{ borderWidth: 2, width: "50%" }}>
+                <Select name="businessId" listOptions={listBusiness} />
+              </View>
+              <View style={{ borderWidth: 2, width: "50%" }}>
+                <Select name="category" listOptions={defaultCategories} />
+              </View>
+            </View>
             <DatePicker name="created_at" value={new Date()} />
             <ControlledInput label="Note" name="note" placeholder="Note" />
           </View>
