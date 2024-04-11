@@ -28,6 +28,43 @@ const ControlledInput = ({ variant = "default", ...props }: TextInputProps) => {
   const { field } = useController({ name, rules, defaultValue });
   const error = formState.errors[name];
 
+  const styles = StyleSheet.create({
+    label: {
+      color: "white",
+      fontSize: 20,
+      fontWeight: "bold",
+    },
+    container: {
+      justifyContent: "center",
+
+      padding: 8,
+    },
+    input: {
+      backgroundColor: "white",
+      fontWeight: "bold",
+      paddingTop: 11,
+      paddingBottom: 11,
+      paddingLeft: 20,
+      borderRadius: 30,
+      width: "100%",
+      borderColor: "gray",
+    },
+    inputBig: {
+      backgroundColor: "white",
+      fontWeight: "bold",
+      paddingTop: 11,
+      fontSize: 40,
+      paddingBottom: 11,
+
+      borderWidth: 0,
+      borderColor: "white",
+    },
+    edit: { fontSize: 20, borderWidth: 0, borderColor: "white" },
+    error: {
+      color: "orangered",
+    },
+  });
+
   const inputStyles =
     variant === "default"
       ? styles.input

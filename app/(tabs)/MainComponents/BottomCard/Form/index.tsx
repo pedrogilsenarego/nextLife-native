@@ -56,21 +56,13 @@ const Form = ({ listBusiness }: Props) => {
 
   return (
     <View
-      style={{ alignItems: "center", width: "100%", paddingHorizontal: 12 }}
+      style={{ alignItems: "center", width: "100%", paddingHorizontal: 20 }}
     >
       <Text style={{ fontSize: 30, fontWeight: "bold", marginTop: 10 }}>
         New
       </Text>
-      <View
-        style={{
-          width: "100%",
-          height: 1,
 
-          backgroundColor: "gray",
-          marginTop: 20,
-        }}
-      />
-      <View style={{ width: "100%" }}>
+      <View style={{ width: "100%", marginTop: 10 }}>
         <FormProvider {...methods}>
           <View style={{ width: "100%" }}>
             <View
@@ -82,6 +74,15 @@ const Form = ({ listBusiness }: Props) => {
                 justifyContent: "space-between",
               }}
             >
+              <View
+                style={{
+                  height: "100%",
+                  width: "70%",
+                  paddingRight: 5,
+                }}
+              >
+                <ControlledInput variant="edit" label="Note" name="note" />
+              </View>
               <View style={{ width: "30%" }}>
                 <ControlledInput
                   variant="big"
@@ -91,28 +92,17 @@ const Form = ({ listBusiness }: Props) => {
                   units="€"
                 />
               </View>
-              <View
-                style={{
-                  height: "100%",
-                  width: "70%",
-                  paddingRight: 5,
-                  alignItems: "flex-end",
-                }}
-              >
-                <ControlledInput
-                  variant="edit"
-                  label="Note"
-                  name="note"
-                  placeholder="Note"
-                />
-              </View>
             </View>
 
             {/* <SelectMine name="businessId" listOptions={defaultCategories} /> */}
             <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                marginTop: 20,
+              }}
             >
-              <View style={{ width: "50%" }}>
+              <View style={{ width: "49%" }}>
                 <Select
                   left
                   style={{ borderTopRightRadius: 6 }}
@@ -121,7 +111,7 @@ const Form = ({ listBusiness }: Props) => {
                   label={"Business"}
                 />
               </View>
-              <View style={{ width: "50%" }}>
+              <View style={{ width: "49%" }}>
                 <Select
                   right
                   name="category"
@@ -134,7 +124,7 @@ const Form = ({ listBusiness }: Props) => {
               <DatePicker name="created_at" value={new Date()} label="Date" />
             </View>
           </View>
-          <View style={{ marginTop: 20 }}>
+          <View style={{ marginTop: 40 }}>
             <Button
               isLoading={isPending}
               label="Submit"

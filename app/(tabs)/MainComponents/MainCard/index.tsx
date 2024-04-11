@@ -21,7 +21,7 @@ const MainCard = () => {
     <ScrollView
       style={{
         paddingVertical: 22,
-        paddingHorizontal: 4,
+        paddingHorizontal: 8,
 
         height: "100%",
       }}

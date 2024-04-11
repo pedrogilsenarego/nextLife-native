@@ -86,7 +86,7 @@ const DatePicker = (props: DatePickerProps) => {
           style={{
             height: 120,
             backgroundColor: "#0000000D",
-            borderRadius: 6,
+            marginTop: 5,
           }}
           //maximumDate={}
           //minimumDate={}

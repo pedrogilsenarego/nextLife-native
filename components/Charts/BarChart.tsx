@@ -16,8 +16,6 @@ const BarChart = () => {
   return (
     <View
       style={{
-        borderWidth: 2,
-
         height: 200,
         width: "100%",
         flexDirection: "row",
