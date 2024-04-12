@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { NewEntrySchema, NewEntryType } from "../validation";
 import { defaultCategories } from "../constants";
-import { View, Text, Pressable } from "react-native";
+import { View, Text } from "react-native";
 import ControlledInput from "@/components/inputs/TextField";
 import Select from "@/components/inputs/Select";
 import DatePicker from "@/components/inputs/DateTimePicker";
@@ -10,8 +10,6 @@ import Button from "@/components/button/ButtonComponent";
 import { useMutation } from "@tanstack/react-query";
 import { addExpense } from "@/actions/expensesActions";
 import useExpenses from "@/hooks/useExpenses";
-import { Link } from "expo-router";
-import SelectMine from "@/components/inputs/SelectMine";
 
 type Props = {
   listBusiness: { value: string; label: string }[];
@@ -19,6 +17,7 @@ type Props = {
 
 const Form = ({ listBusiness }: Props) => {
   const expenses = useExpenses();
+
   const defaultValues = {
     amount: undefined,
     note: undefined,
@@ -93,13 +92,20 @@ const Form = ({ listBusiness }: Props) => {
                 />
               </View>
             </View>
-
+            <View
+              style={{
+                height: 1,
+                backgroundColor: "#0000000D",
+                width: "100%",
+                marginTop: -20,
+              }}
+            />
             {/* <SelectMine name="businessId" listOptions={defaultCategories} /> */}
             <View
               style={{
                 flexDirection: "row",
                 justifyContent: "space-between",
-                marginTop: 20,
+                marginTop: 30,
               }}
             >
               <View style={{ width: "49%" }}>
@@ -120,7 +126,7 @@ const Form = ({ listBusiness }: Props) => {
                 />
               </View>
             </View>
-            <View style={{ marginTop: 20 }}>
+            <View style={{ marginTop: 10 }}>
               <DatePicker name="created_at" value={new Date()} label="Date" />
             </View>
           </View>

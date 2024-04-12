@@ -1,11 +1,12 @@
 import useExpenses from "@/hooks/useExpenses";
-import useIncomes from "@/hooks/useIncomes";
 import useMetrics from "@/hooks/useMetrics";
 import useUser from "@/hooks/useUser";
 import { supabase } from "@/lib/supabase";
 import { View, Text, Pressable, ScrollView } from "react-native";
 import moment from "moment";
 import BarChart from "@/components/Charts/BarChart";
+import { useTheme } from "@/providers/ThemeContext";
+import LineChart from "@/components/Charts/LineChart/LineChart";
 
 const MainCard = () => {
   const logout = async () => {
@@ -14,6 +15,7 @@ const MainCard = () => {
   const dateFormatter = (date: Date) => {
     return moment(date).format("DD MMM HH:MM");
   };
+  const { mainColor } = useTheme();
   const userQuery = useUser();
   const { totalExpenses, totalIncomes } = useMetrics();
   const expenses = useExpenses();
@@ -21,7 +23,7 @@ const MainCard = () => {
     <ScrollView
       style={{
         paddingVertical: 22,
-        paddingHorizontal: 8,
+        paddingHorizontal: mainColor === "black" ? 4 : 18,
 
         height: "100%",
       }}
@@ -40,6 +42,7 @@ const MainCard = () => {
         <View style={{ marginVertical: 20 }}>
           <BarChart />
         </View>
+        <LineChart />
         {expenses?.data &&
           expenses?.data.map((expense, index) => {
             return (

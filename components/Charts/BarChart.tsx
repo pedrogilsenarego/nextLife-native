@@ -20,7 +20,7 @@ const BarChart = () => {
         width: "100%",
         flexDirection: "row",
 
-        justifyContent: "space-around",
+        justifyContent: "space-between",
       }}
     >
       {data.map((item, index) => {

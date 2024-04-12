@@ -57,7 +57,7 @@ const DatePicker = (props: DatePickerProps) => {
   return (
     <View>
       {label && (
-        <Text style={{ fontSize: 18, fontWeight: "600", marginLeft: 13 }}>
+        <Text style={{ fontSize: 18, fontWeight: "600", marginLeft: 8 }}>
           {label}
         </Text>
       )}

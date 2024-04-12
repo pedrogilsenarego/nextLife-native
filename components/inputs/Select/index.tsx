@@ -27,7 +27,7 @@ const Select = (props: PickerPropsI) => {
   return (
     <>
       {label && (
-        <Text style={{ fontSize: 18, fontWeight: "600", marginLeft: 13 }}>
+        <Text style={{ fontSize: 18, fontWeight: "600", marginLeft: 8 }}>
           {label}
         </Text>
       )}
