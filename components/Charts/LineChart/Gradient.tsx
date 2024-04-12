@@ -42,7 +42,11 @@ const Gradient = ({
       <LinearGradient
         start={{ x: 0, y: 0 }}
         end={animationGradient}
-        colors={["rgba(255, 255, 255, 0.4)", "rgba(255, 255, 255, 0)"]}
+        colors={[
+          "rgba(255, 255, 255, 0.4)",
+          "rgba(255, 255, 255, 0.05)",
+          "rgba(255, 255, 255, 0)",
+        ]}
       />
     </Path>
   );

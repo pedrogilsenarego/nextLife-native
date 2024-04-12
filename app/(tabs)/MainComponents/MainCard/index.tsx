@@ -7,6 +7,8 @@ import moment from "moment";
 import BarChart from "@/components/Charts/BarChart";
 import { useTheme } from "@/providers/ThemeContext";
 import LineChart from "@/components/Charts/LineChart/LineChart";
+import { useState } from "react";
+import { useSharedValue } from "react-native-reanimated";
 
 const MainCard = () => {
   const logout = async () => {
@@ -17,6 +19,8 @@ const MainCard = () => {
   };
   const { mainColor } = useTheme();
   const userQuery = useUser();
+  const [selectedDate, setSelectedDate] = useState<string>("Total");
+  const selectedValue = useSharedValue(0);
   const { totalExpenses, totalIncomes } = useMetrics();
   const expenses = useExpenses();
   return (
@@ -42,7 +46,10 @@ const MainCard = () => {
         <View style={{ marginVertical: 20 }}>
           <BarChart />
         </View>
-        <LineChart />
+        <LineChart
+          selectedValue={selectedValue}
+          setSelectedDate={setSelectedDate}
+        />
         {expenses?.data &&
           expenses?.data.map((expense, index) => {
             return (
