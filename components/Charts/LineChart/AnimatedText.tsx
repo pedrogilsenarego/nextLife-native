@@ -10,10 +10,10 @@ type Props = {
 
 const AnimatedText = ({ selectedValue, font }: Props) => {
   const { width } = useWindowDimensions();
-  const MARGIN_VERTICAL = 80;
+  const MARGIN_VERTICAL = 0;
 
   const animatedText = useDerivedValue(() => {
-    return `$${Math.round(selectedValue.value)}`;
+    return `€${Math.round(selectedValue.value)}`;
   });
 
   const fontSize = font?.measureText("0");
@@ -27,9 +27,9 @@ const AnimatedText = ({ selectedValue, font }: Props) => {
     <Canvas style={{ height: fontSize!.height + MARGIN_VERTICAL }}>
       <Text
         text={animatedText}
-        font={font}
+        font={null}
         color={"white"}
-        x={textX}
+        x={0}
         y={fontSize!.height + MARGIN_VERTICAL / 2}
       />
     </Canvas>

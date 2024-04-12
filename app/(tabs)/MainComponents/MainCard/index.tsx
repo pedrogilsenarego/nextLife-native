@@ -12,7 +12,6 @@ const MainCard = () => {
     await supabase.auth.signOut();
   };
 
-  const { mainColor } = useTheme();
   const userQuery = useUser();
 
   const { totalExpenses, totalIncomes } = useMetrics();
@@ -21,7 +20,7 @@ const MainCard = () => {
     <ScrollView
       style={{
         paddingVertical: 22,
-        paddingHorizontal: mainColor === "black" ? 4 : 18,
+        paddingHorizontal: 18,
 
         height: "100%",
       }}
@@ -37,10 +36,12 @@ const MainCard = () => {
         <Text style={{ color: "white", fontSize: 30, fontWeight: "bold" }}>
           {(totalIncomes() - totalExpenses()).toFixed(1)}
         </Text>
-        <View style={{ marginVertical: 20 }}>
+        <View>
           <ChartInitial />
         </View>
-        <ExpensesTable />
+        <View style={{ marginTop: 20 }}>
+          <ExpensesTable />
+        </View>
         <Pressable
           onPress={logout}
           style={{ marginTop: 30, marginBottom: 200 }}

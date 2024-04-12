@@ -1,3 +1,4 @@
+import { useTheme } from "@/providers/ThemeContext";
 import { LinearGradient, Path, Skia } from "@shopify/react-native-skia";
 import { SharedValue } from "react-native-reanimated";
 
@@ -7,6 +8,7 @@ type Props = {
   chartMargin: number;
   curvedLine: string;
   animationGradient: SharedValue<{ x: number; y: number }>;
+  color: string;
 };
 const Gradient = ({
   chartHeight,
@@ -14,6 +16,7 @@ const Gradient = ({
   chartMargin,
   curvedLine,
   animationGradient,
+  color,
 }: Props) => {
   const getGradientArea = (
     chartLine: string,
@@ -43,7 +46,7 @@ const Gradient = ({
         start={{ x: 0, y: 0 }}
         end={animationGradient}
         colors={[
-          "rgba(255, 255, 255, 0.4)",
+          `${color}66`,
           "rgba(255, 255, 255, 0.2)",
           "rgba(255, 255, 255, 0)",
         ]}

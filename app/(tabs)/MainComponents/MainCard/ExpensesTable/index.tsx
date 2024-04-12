@@ -18,6 +18,7 @@ const ExpensesTable = () => {
       console.log("error", error);
     },
     onSuccess: (data: any) => {
+      setListDelete([]);
       expenses.refetch();
     },
     onSettled: async () => {},

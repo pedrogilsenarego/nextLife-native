@@ -8,22 +8,24 @@ type Props = {
 };
 
 const XAxisText = ({ x, y, text }: Props) => {
-  const font = useFont(
-    require("../../../assets/fonts/SpaceMono-Regular.ttf"),
-    18
-  );
+  //   const font = useFont(
+  //     require("../../../assets/fonts/SpaceMono-Regular.ttf"),
+  //     18
+  //   );
 
-  if (!font) {
-    return null;
-  }
+  //   if (!font) {
+  //     return null;
+  //   }
 
-  const fontSize = font.measureText(text);
+  //   const fontSize = font.measureText(text);
 
   return (
     <Text
-      font={font}
-      x={x - fontSize.width / 2}
-      y={y}
+      font={null}
+      //x={x - fontSize.width / 2}
+
+      x={x - 8}
+      y={y - 15}
       text={text}
       color={"white"}
     />

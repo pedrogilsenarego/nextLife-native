@@ -21,16 +21,17 @@ const ChartInitial = () => {
   }
 
   return (
-    <View style={{ flexDirection: "column", rowGap: 10 }}>
+    <View
+      style={{
+        flexDirection: "column",
+      }}
+    >
       <LineChart
         data={expensesPerDay}
         selectedValue={selectedValue}
         setSelectedDate={setSelectedDate}
       />
-      <View style={{ flexDirection: "row" }}>
-        <Text style={{ color: "white", fontSize: 28, textAlign: "center" }}>
-          {selectedDate}
-        </Text>
+      <View style={{ flexDirection: "column" }}>
         <AnimatedText font={font} selectedValue={selectedValue} />
       </View>
     </View>

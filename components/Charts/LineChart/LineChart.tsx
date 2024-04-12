@@ -20,6 +20,7 @@ import {
 } from "react-native-gesture-handler";
 import { getYForX, parse } from "react-native-redash";
 import { Dimensions } from "react-native";
+import { useTheme } from "@/providers/ThemeContext";
 type DataType = {
   label: string;
   value: number;
@@ -33,26 +34,26 @@ const LineChart = ({
   selectedValue: SharedValue<number>;
   data: DataType[];
 }) => {
-  const CHART_WIDTH = 380;
-  const CHART_HEIGHT = 150;
   const CHART_MARGIN = 20;
-
+  const CHART_WIDTH = Dimensions.get("screen").width - 2 * 18;
+  const CHART_HEIGHT = 170;
+  const { contrastColor } = useTheme();
   const [showCursor, setShowCursor] = useState(false);
 
   const animationLine = useSharedValue(0);
   const animationGradient = useSharedValue({ x: 0, y: 0 });
-  const cx = useSharedValue(20);
-  const cy = useSharedValue(0);
-  const totalValue = data.reduce((acc, cur) => acc + cur.value, 0);
+  const cx = useSharedValue(CHART_MARGIN);
+  const cy = useSharedValue(CHART_HEIGHT - data[0].value - 10);
 
   useEffect(() => {
     // Animate the line and the gradient
     animationLine.value = withTiming(1, { duration: 1000 });
     animationGradient.value = withDelay(
       1000,
-      withTiming({ x: 0, y: CHART_HEIGHT }, { duration: 500 })
+      withTiming({ x: 0, y: CHART_HEIGHT - 15 }, { duration: 500 })
     );
-    selectedValue.value = withTiming(totalValue);
+
+    selectedValue.value = withTiming(data[0].value);
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -66,7 +67,7 @@ const LineChart = ({
   const min = Math.min(...data.map((val) => val.value));
 
   const yDomain = [min, max];
-  const yRange = [CHART_HEIGHT - 50, 0];
+  const yRange = [CHART_HEIGHT - 35, -25];
   const y = scaleLinear().domain(yDomain).range(yRange);
 
   const curvedLine = line<DataType>()
@@ -102,8 +103,8 @@ const LineChart = ({
     })
     .onTouchesUp(() => {
       runOnJS(setShowCursor)(false);
-      selectedValue.value = withTiming(totalValue);
-      runOnJS(setSelectedDate)("Total");
+      //selectedValue.value = withTiming(totalValue);
+      //runOnJS(setSelectedDate)("Total");
     })
     .onBegin(handleGestureEvent)
     .onChange(handleGestureEvent);
@@ -120,12 +121,13 @@ const LineChart = ({
           path={linePath!}
           style={"stroke"}
           strokeWidth={2}
-          color="white"
+          color={contrastColor}
           strokeCap={"round"}
           start={0}
           end={animationLine}
         />
         <Gradient
+          color={contrastColor}
           chartHeight={CHART_HEIGHT}
           chartWidth={CHART_WIDTH}
           chartMargin={CHART_MARGIN}
@@ -141,6 +143,7 @@ const LineChart = ({
           />
         ))}
         <Cursor
+          color={contrastColor}
           cx={cx}
           cy={cy}
           chartHeight={CHART_HEIGHT}
