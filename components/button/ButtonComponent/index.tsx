@@ -33,7 +33,12 @@ const Button = ({
   const { mainColor } = useTheme();
   return (
     <TouchableOpacity onPress={onPress} {...rest}>
-      <View style={[styles.container, { backgroundColor: mainColor }]}>
+      <View
+        style={[
+          styles.container,
+          { backgroundColor: mainColor, ...buttonStyle },
+        ]}
+      >
         {isLoading ? (
           <View
             style={{

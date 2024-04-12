@@ -6,7 +6,6 @@ import { deleteExpenses } from "@/actions/expensesActions";
 import { useState } from "react";
 import { View, Text, Touchable, TouchableOpacity } from "react-native";
 import Button from "@/components/button/ButtonComponent";
-import { useTheme } from "@/providers/ThemeContext";
 
 const ExpensesTable = () => {
   const expenses = useExpenses();
@@ -34,14 +33,6 @@ const ExpensesTable = () => {
 
   return (
     <View>
-      {listDelete.length > 0 && (
-        <Button
-          onPress={() => deleteExpensesMutation(listDelete)}
-          label="Confirm Delete"
-          style={{ backgroundColor: "#ffffff66" }}
-          isLoading={isPending}
-        />
-      )}
       <FlatList
         data={expenses.data}
         keyExtractor={(item) => item.id}
@@ -53,6 +44,15 @@ const ExpensesTable = () => {
           />
         )}
       />
+      {listDelete.length > 0 && (
+        <Button
+          buttonStyle={{ backgroundColor: "red" }}
+          onPress={() => deleteExpensesMutation(listDelete)}
+          label="Confirm Delete"
+          style={{ position: "absolute", top: 0 }}
+          isLoading={isPending}
+        />
+      )}
     </View>
   );
 };

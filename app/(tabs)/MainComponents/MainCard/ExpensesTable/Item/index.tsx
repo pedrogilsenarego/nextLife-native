@@ -18,23 +18,24 @@ const Item = ({ expense, handleDelete, handleRemoveDelete }: Props) => {
 
   const RightAction = (percentage: any, dragX: any) => {
     const scale = dragX.interpolate({
-      inputRange: [0, 100],
-      outputRange: [0, -1],
+      inputRange: [-100, 0],
+      outputRange: [1, 0],
+      extrapolate: "clamp",
     });
+
     return (
       <View
         style={{
           borderWidth: 1,
           borderColor: "#ffffff66",
           backgroundColor: "red",
-          flex: 1,
           justifyContent: "center",
           alignItems: "flex-end",
-          paddingHorizontal: 30,
+          paddingHorizontal: 20,
         }}
       >
         <Animated.Text
-          style={[{ color: "white", fontSize: 20 }, { transform: [{ scale }] }]}
+          style={[{ color: "white", fontSize: 16 }, { transform: [{ scale }] }]}
         >
           Delete
         </Animated.Text>
