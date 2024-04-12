@@ -1,4 +1,5 @@
 import { supabase } from "@/lib/supabase";
+import { Expense } from "@/types/expensesTypes";
 
 export const getExpenses = async ({
   timeRange,
@@ -83,6 +84,42 @@ export const addExpense = async (
       if (userError) {
         console.error(userError);
         return reject(userError);
+      }
+
+      resolve("Success");
+    } catch (error) {
+      console.error(error);
+      reject(error);
+    }
+  });
+};
+
+export const deleteExpenses = async (
+  expensesToDelete: string[]
+): Promise<string> => {
+  console.log("deleting Expenses");
+  return new Promise(async (resolve, reject) => {
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        return reject(new Error("User not authenticated"));
+      }
+
+      // Delete expenses based on the provided IDs
+      const { error: deleteError } = await supabase
+        .from("expenses")
+        .delete()
+        .in(
+          "id",
+          expensesToDelete.map((expense) => expense)
+        );
+
+      if (deleteError) {
+        console.error(deleteError);
+        return reject(deleteError);
       }
 
       resolve("Success");

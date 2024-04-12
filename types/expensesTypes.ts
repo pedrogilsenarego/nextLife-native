@@ -1,4 +1,4 @@
-export type ExpensesQuery = {
+export type Expense = {
   businessId: string;
   note: string;
   user_id: string;
@@ -6,4 +6,6 @@ export type ExpensesQuery = {
   id: string;
   category: string;
   amount: number;
-}[];
+};
+
+export type ExpensesQuery = Expense[];

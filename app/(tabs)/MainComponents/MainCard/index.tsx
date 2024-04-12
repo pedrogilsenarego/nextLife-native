@@ -1,25 +1,21 @@
-import useExpenses from "@/hooks/useExpenses";
 import useMetrics from "@/hooks/useMetrics";
 import useUser from "@/hooks/useUser";
 import { supabase } from "@/lib/supabase";
 import { View, Text, Pressable, ScrollView } from "react-native";
-import moment from "moment";
-
 import { useTheme } from "@/providers/ThemeContext";
 import ChartInitial from "./Chart";
+import React from "react";
+import ExpensesTable from "./ExpensesTable";
 
 const MainCard = () => {
   const logout = async () => {
     await supabase.auth.signOut();
   };
-  const dateFormatter = (date: Date) => {
-    return moment(date).format("DD MMM HH:MM");
-  };
+
   const { mainColor } = useTheme();
   const userQuery = useUser();
 
   const { totalExpenses, totalIncomes } = useMetrics();
-  const expenses = useExpenses();
 
   return (
     <ScrollView
@@ -44,42 +40,7 @@ const MainCard = () => {
         <View style={{ marginVertical: 20 }}>
           <ChartInitial />
         </View>
-
-        {expenses?.data &&
-          expenses?.data.map((expense, index) => {
-            return (
-              <View
-                key={index}
-                style={{
-                  borderWidth: 1,
-                  borderColor: "#ffffff66",
-                  padding: 10,
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Text
-                  style={{
-                    color: "white",
-                    fontSize: 14,
-                    textTransform: "capitalize",
-                  }}
-                >
-                  {expense.category}
-                </Text>
-                <View style={{ alignItems: "flex-end" }}>
-                  <Text
-                    style={{ color: "white", fontSize: 16, fontWeight: "600" }}
-                  >
-                    {expense.amount}€
-                  </Text>
-                  <Text style={{ color: "white", fontSize: 12 }}>
-                    {dateFormatter(expense.created_at)}
-                  </Text>
-                </View>
-              </View>
-            );
-          })}
+        <ExpensesTable />
         <Pressable
           onPress={logout}
           style={{ marginTop: 30, marginBottom: 200 }}
