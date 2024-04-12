@@ -44,7 +44,7 @@ const Gradient = ({
         end={animationGradient}
         colors={[
           "rgba(255, 255, 255, 0.4)",
-          "rgba(255, 255, 255, 0.05)",
+          "rgba(255, 255, 255, 0.2)",
           "rgba(255, 255, 255, 0)",
         ]}
       />

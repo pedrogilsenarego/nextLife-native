@@ -1,7 +1,7 @@
 import AnimatedText from "@/components/Charts/LineChart/AnimatedText";
 import useMetrics from "@/hooks/useMetrics";
 import { useState } from "react";
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 import { useFont } from "@shopify/react-native-skia";
 import LineChart from "@/components/Charts/LineChart/LineChart";
@@ -21,17 +21,19 @@ const ChartInitial = () => {
   }
 
   return (
-    <>
-      <Text style={{ color: "white", fontSize: 28, textAlign: "center" }}>
-        {selectedDate}
-      </Text>
-      <AnimatedText font={font} selectedValue={selectedValue} />
+    <View style={{ flexDirection: "column", rowGap: 10 }}>
       <LineChart
         data={expensesPerDay}
         selectedValue={selectedValue}
         setSelectedDate={setSelectedDate}
       />
-    </>
+      <View style={{ flexDirection: "row" }}>
+        <Text style={{ color: "white", fontSize: 28, textAlign: "center" }}>
+          {selectedDate}
+        </Text>
+        <AnimatedText font={font} selectedValue={selectedValue} />
+      </View>
+    </View>
   );
 };
 

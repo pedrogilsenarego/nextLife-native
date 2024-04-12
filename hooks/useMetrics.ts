@@ -39,7 +39,7 @@ const useMetrics = () => {
     }));
 
     totalPerDay.sort((a, b) => {
-      return a.value - b.value;
+      return Number(a.label) - Number(b.label);
     });
 
     return totalPerDay;

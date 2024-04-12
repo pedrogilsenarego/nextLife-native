@@ -19,6 +19,7 @@ import {
   PanGestureHandlerEventPayload,
 } from "react-native-gesture-handler";
 import { getYForX, parse } from "react-native-redash";
+import { Dimensions } from "react-native";
 type DataType = {
   label: string;
   value: number;
@@ -32,8 +33,8 @@ const LineChart = ({
   selectedValue: SharedValue<number>;
   data: DataType[];
 }) => {
-  const CHART_WIDTH = 200;
-  const CHART_HEIGHT = 200;
+  const CHART_WIDTH = 380;
+  const CHART_HEIGHT = 150;
   const CHART_MARGIN = 20;
 
   const [showCursor, setShowCursor] = useState(false);
@@ -65,7 +66,7 @@ const LineChart = ({
   const min = Math.min(...data.map((val) => val.value));
 
   const yDomain = [min, max];
-  const yRange = [CHART_HEIGHT, 0];
+  const yRange = [CHART_HEIGHT - 50, 0];
   const y = scaleLinear().domain(yDomain).range(yRange);
 
   const curvedLine = line<DataType>()
@@ -118,7 +119,7 @@ const LineChart = ({
         <Path
           path={linePath!}
           style={"stroke"}
-          strokeWidth={4}
+          strokeWidth={2}
           color="white"
           strokeCap={"round"}
           start={0}
