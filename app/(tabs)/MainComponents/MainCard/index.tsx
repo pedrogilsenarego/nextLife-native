@@ -4,11 +4,9 @@ import useUser from "@/hooks/useUser";
 import { supabase } from "@/lib/supabase";
 import { View, Text, Pressable, ScrollView } from "react-native";
 import moment from "moment";
-import BarChart from "@/components/Charts/BarChart";
+
 import { useTheme } from "@/providers/ThemeContext";
-import LineChart from "@/components/Charts/LineChart/LineChart";
-import { useState } from "react";
-import { useSharedValue } from "react-native-reanimated";
+import ChartInitial from "./Chart";
 
 const MainCard = () => {
   const logout = async () => {
@@ -19,10 +17,10 @@ const MainCard = () => {
   };
   const { mainColor } = useTheme();
   const userQuery = useUser();
-  const [selectedDate, setSelectedDate] = useState<string>("Total");
-  const selectedValue = useSharedValue(0);
+
   const { totalExpenses, totalIncomes } = useMetrics();
   const expenses = useExpenses();
+
   return (
     <ScrollView
       style={{
@@ -44,12 +42,9 @@ const MainCard = () => {
           {(totalIncomes() - totalExpenses()).toFixed(1)}
         </Text>
         <View style={{ marginVertical: 20 }}>
-          <BarChart />
+          <ChartInitial />
         </View>
-        <LineChart
-          selectedValue={selectedValue}
-          setSelectedDate={setSelectedDate}
-        />
+
         {expenses?.data &&
           expenses?.data.map((expense, index) => {
             return (

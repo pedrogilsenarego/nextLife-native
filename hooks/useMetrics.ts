@@ -17,24 +17,38 @@ const useMetrics = () => {
       return acc + item.amount;
     }, 0) ?? 0;
 
-  //   const totalIncomesByBusiness = () =>
-  //     expenses?.data?.reduce((accumulator, expense) => {
-  //       const existingExpense = accumulator.find(
-  //         (item) => item.businessId === expense.businessId
-  //       );
+  const expensesTotalPerDay = () => {
+    const expensesPerDay: { [date: string]: number } = {}; // Type annotation for expensesPerDay
 
-  //       if (existingExpense) {
-  //         existingExpense.amount += expense.amount;
-  //       } else {
-  //         accumulator.push({ ...expense });
-  //       }
+    expenses?.data?.forEach((expense) => {
+      const expenseDate = new Date(expense.created_at).toLocaleDateString(
+        "en-US",
+        { day: "2-digit" }
+      );
 
-  //       return accumulator;
-  //     }, []);
+      if (!expensesPerDay[expenseDate]) {
+        expensesPerDay[expenseDate] = 0;
+      }
+
+      expensesPerDay[expenseDate] += expense.amount;
+    });
+
+    const totalPerDay = Object.entries(expensesPerDay).map(([date, total]) => ({
+      label: date,
+      value: total,
+    }));
+
+    totalPerDay.sort((a, b) => {
+      return a.value - b.value;
+    });
+
+    return totalPerDay;
+  };
 
   return {
     totalExpenses,
     totalIncomes,
+    expensesTotalPerDay,
   };
 };
 

@@ -19,31 +19,23 @@ import {
   PanGestureHandlerEventPayload,
 } from "react-native-gesture-handler";
 import { getYForX, parse } from "react-native-redash";
-
+type DataType = {
+  label: string;
+  value: number;
+};
 const LineChart = ({
   setSelectedDate,
   selectedValue,
+  data,
 }: {
   setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
   selectedValue: SharedValue<number>;
+  data: DataType[];
 }) => {
-  type DataType = {
-    label: string;
-    date: string;
-    value: number;
-  };
-  const CHART_WIDTH = 400;
-  const CHART_HEIGHT = 400;
+  const CHART_WIDTH = 200;
+  const CHART_HEIGHT = 200;
   const CHART_MARGIN = 20;
-  const data: DataType[] = [
-    { label: "Mon", date: "Monday", value: 12987 },
-    { label: "Tue", date: "Tuesday", value: 14321 },
-    { label: "Wed", date: "Wednesday", value: 13456 },
-    { label: "Thu", date: "Thursday", value: 11876 },
-    { label: "Fri", date: "Friday", value: 13789 },
-    { label: "Sat", date: "Saturday", value: 12987 },
-    { label: "Sun", date: "Sunday", value: 13234 },
-  ];
+
   const [showCursor, setShowCursor] = useState(false);
 
   const animationLine = useSharedValue(0);
@@ -59,7 +51,7 @@ const LineChart = ({
       1000,
       withTiming({ x: 0, y: CHART_HEIGHT }, { duration: 500 })
     );
-    //selectedValue.value = withTiming(totalValue);
+    selectedValue.value = withTiming(totalValue);
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -89,8 +81,9 @@ const LineChart = ({
     "worklet";
 
     const index = Math.floor(e.absoluteX / stepX);
-    runOnJS(setSelectedDate)(data[index].date);
+    runOnJS(setSelectedDate)(data[index].label);
     selectedValue.value = withTiming(data[index].value);
+
     const clampValue = clamp(
       Math.floor(e.absoluteX / stepX) * stepX + CHART_MARGIN,
       CHART_MARGIN,
@@ -98,8 +91,7 @@ const LineChart = ({
     );
 
     cx.value = clampValue;
-    // for some device getYForX returns null for the last point
-    // so we need to floor the value
+
     cy.value = getYForX(path, Math.floor(clampValue))!;
   };
 
@@ -147,7 +139,12 @@ const LineChart = ({
             key={index}
           />
         ))}
-        {showCursor && <Cursor cx={cx} cy={cy} chartHeight={CHART_HEIGHT} />}
+        <Cursor
+          cx={cx}
+          cy={cy}
+          chartHeight={CHART_HEIGHT}
+          showCursor={showCursor}
+        />
       </Canvas>
     </GestureDetector>
   );
