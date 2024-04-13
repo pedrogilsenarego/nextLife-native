@@ -6,6 +6,7 @@ import { useTheme } from "@/providers/ThemeContext";
 import ChartInitial from "./Chart";
 import React from "react";
 import ExpensesTable from "./ExpensesTable";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 
 const MainCard = () => {
   const logout = async () => {
@@ -13,6 +14,7 @@ const MainCard = () => {
   };
 
   const userQuery = useUser();
+  const { contrastColor } = useTheme();
 
   const { totalExpenses, totalIncomes } = useMetrics();
 
@@ -26,16 +28,51 @@ const MainCard = () => {
       }}
     >
       <Pressable>
-        <Text style={{ color: "white", fontSize: 20 }}>
-          Hello,{" "}
-          <Text style={{ fontWeight: "bold", textTransform: "capitalize" }}>
-            {userQuery?.data?.username}
-          </Text>
-        </Text>
-        <Text style={{ color: "whitesmoke" }}>Your monthly balance</Text>
-        <Text style={{ color: "white", fontSize: 30, fontWeight: "bold" }}>
-          {(totalIncomes() - totalExpenses()).toFixed(1)}
-        </Text>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <View>
+            <Text style={{ color: "white", fontSize: 20 }}>
+              Hello,{" "}
+              <Text style={{ fontWeight: "bold", textTransform: "capitalize" }}>
+                {userQuery?.data?.username}
+              </Text>
+            </Text>
+            <Text style={{ color: "whitesmoke" }}>Your monthly balance</Text>
+            <Text style={{ color: "white", fontSize: 26, fontWeight: "bold" }}>
+              {(totalIncomes() - totalExpenses()).toFixed(1)} Є
+            </Text>
+          </View>
+          <View style={{ justifyContent: "flex-end", paddingBottom: 5 }}>
+            <View
+              style={{
+                backgroundColor: "#ffffff1A",
+
+                borderRadius: 24,
+                flexDirection: "row",
+                padding: 4,
+
+                columnGap: 8,
+              }}
+            >
+              <View
+                style={{
+                  backgroundColor: "black",
+                  borderRadius: 20,
+                  padding: 10,
+                }}
+              >
+                <AntDesign name="dotchart" color={contrastColor} size={20} />
+              </View>
+              <View
+                style={{
+                  borderRadius: 14,
+                  padding: 10,
+                }}
+              >
+                <AntDesign name="piechart" color="whitesmoke" size={20} />
+              </View>
+            </View>
+          </View>
+        </View>
         <View>
           <ChartInitial />
         </View>
