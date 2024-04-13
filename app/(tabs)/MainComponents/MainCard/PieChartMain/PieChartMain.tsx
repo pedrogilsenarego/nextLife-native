@@ -12,7 +12,7 @@ type Data = {
 };
 
 const PieChartMain = () => {
-  const RADIUS = 80;
+  const RADIUS = 85;
   const STROKE_WIDTH = 35;
   const OUTER_STROKE_WIDTH = 50;
   const GAP = 0.01;
@@ -21,11 +21,11 @@ const PieChartMain = () => {
   const { contrastColor } = useTheme();
   const decimals = useSharedValue<number[]>([]);
   const colors = [
-    `${contrastColor}66`,
-    `${contrastColor}66`,
-    `${contrastColor}66`,
-    `${contrastColor}66`,
-    `${contrastColor}66`,
+    `${contrastColor}B3`,
+    `${contrastColor}B3`,
+    `${contrastColor}B3`,
+    `${contrastColor}B3`,
+    `${contrastColor}B3`,
   ];
 
   const generateData = () => {
