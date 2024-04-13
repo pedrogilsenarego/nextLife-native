@@ -16,7 +16,7 @@ type Props = {
   index: number;
 };
 
-const PathOut = ({
+const PathIn = ({
   radius,
   gap,
 
@@ -25,10 +25,10 @@ const PathOut = ({
   decimals,
   index,
 }: Props) => {
-  const innerRadius = radius - outerStrokeWidth / 2;
-  const gapAdjustment = 0.003;
+  const innerRadius = radius - outerStrokeWidth + 5;
+  const gapAdjustment = 0.01;
   const path = Skia.Path.Make();
-  path.addCircle(radius, radius, innerRadius + outerStrokeWidth / 2 - 5);
+  path.addCircle(radius, radius, innerRadius);
 
   const start = useDerivedValue(() => {
     if (index === 0) {
@@ -76,4 +76,4 @@ const PathOut = ({
   );
 };
 
-export default PathOut;
+export default PathIn;

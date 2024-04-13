@@ -21,8 +21,9 @@ interface ThemeContexType {
 const ThemeContext = createContext<ThemeContexType | undefined>(undefined);
 
 export const Colors = {
+  lightGray: "lightGray",
   orangeRed: "#FF4500",
-  black: "black",
+  black: "#18181B",
   fuchsia: "#ca2c92",
   tealc: "#009ca6",
   purple: "#800080",
@@ -36,7 +37,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     Colors.orangeRed as ColorsProp
   );
   const [contrastColor, setContrastColor] = useState<ColorsProp>(
-    Colors.greenPuke as ColorsProp
+    Colors.lightGray as ColorsProp
   );
   const [theme, setTheme] = useState<"dark" | "light">("light");
 

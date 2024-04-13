@@ -1,10 +1,17 @@
 import React from "react";
-import { Path, Skia } from "@shopify/react-native-skia";
+import {
+  BlurMask,
+  CornerPathEffect,
+  Path,
+  Text,
+  Skia,
+} from "@shopify/react-native-skia";
 import {
   SharedValue,
   useDerivedValue,
   withTiming,
 } from "react-native-reanimated";
+import { style } from "d3";
 
 type Props = {
   strokeWidth: number;
@@ -16,23 +23,24 @@ type Props = {
   index: number;
 };
 
-const PathOut = ({
+const Ball = ({
   radius,
   gap,
-
+  strokeWidth,
   outerStrokeWidth,
   color,
   decimals,
   index,
 }: Props) => {
+  const colors = ["red", "green", "blue", "yellow", "gray", "red"];
   const innerRadius = radius - outerStrokeWidth / 2;
-  const gapAdjustment = 0.003;
+
   const path = Skia.Path.Make();
-  path.addCircle(radius, radius, innerRadius + outerStrokeWidth / 2 - 5);
+  path.addCircle(radius, radius, innerRadius);
 
   const start = useDerivedValue(() => {
     if (index === 0) {
-      return gap + gapAdjustment;
+      return gap + 0.03;
     }
     const decimal = decimals.value.slice(0, index);
 
@@ -41,39 +49,41 @@ const PathOut = ({
       0
     );
 
-    return withTiming(sum + gap + gapAdjustment, {
+    return withTiming(sum + gap + 0.03, {
       duration: 1000,
     });
   }, []);
 
   const end = useDerivedValue(() => {
-    if (index === decimals.value.length - 1) {
-      return withTiming(1 - gapAdjustment, { duration: 1000 });
+    if (index === 0) {
+      return gap + 0.0305;
     }
-
-    const decimal = decimals.value.slice(0, index + 1);
+    const decimal = decimals.value.slice(0, index);
 
     const sum = decimal.reduce(
       (accumulator, currentValue) => accumulator + currentValue,
       0
     );
 
-    return withTiming(sum - gapAdjustment, {
+    return withTiming(sum + gap + 0.0305, {
       duration: 1000,
     });
   }, []);
 
   return (
-    <Path
-      path={path}
-      color={"#0F172A1A"}
-      style="stroke"
-      strokeCap="round"
-      strokeWidth={3}
-      start={start}
-      end={end}
-    />
+    <>
+      <Path
+        path={path}
+        color={colors[index]}
+        style="stroke"
+        strokeJoin="round"
+        strokeCap="round"
+        strokeWidth={6}
+        start={start}
+        end={end}
+      />
+    </>
   );
 };
 
-export default PathOut;
+export default Ball;

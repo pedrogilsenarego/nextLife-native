@@ -4,6 +4,9 @@ import { SharedValue, useDerivedValue } from "react-native-reanimated";
 import { Canvas, Path, SkFont, Skia, Text } from "@shopify/react-native-skia";
 import PiePath from "./Path";
 import PathOut from "./PathOut";
+import PathIn from "./PathIn";
+import XAxisText from "./XAxisText";
+import Ball from "./Ball";
 
 type Props = {
   n: number;
@@ -27,7 +30,9 @@ const PieChart = ({
 }: Props) => {
   const array = Array.from({ length: n });
   const innerRadius = radius - outerStrokeWidth / 2;
-
+  const animatedText = useDerivedValue(() => {
+    return `€`;
+  });
   const path = Skia.Path.Make();
   path.addCircle(radius, radius, innerRadius);
 
@@ -48,7 +53,7 @@ const PieChart = ({
           return (
             <>
               <PathOut
-                key={index + 100}
+                key={index + 20}
                 radius={radius}
                 strokeWidth={strokeWidth}
                 outerStrokeWidth={outerStrokeWidth}
@@ -57,6 +62,7 @@ const PieChart = ({
                 index={index}
                 gap={gap}
               />
+
               <PiePath
                 key={index}
                 radius={radius}
@@ -67,6 +73,32 @@ const PieChart = ({
                 index={index}
                 gap={gap}
               />
+              <Ball
+                key={index + 80}
+                radius={radius}
+                strokeWidth={strokeWidth}
+                outerStrokeWidth={outerStrokeWidth}
+                color={colors[index]}
+                decimals={decimals}
+                index={index}
+                gap={gap}
+              />
+              <PathIn
+                key={index + 40}
+                radius={radius}
+                strokeWidth={strokeWidth}
+                outerStrokeWidth={outerStrokeWidth}
+                color={colors[index]}
+                decimals={decimals}
+                index={index}
+                gap={gap}
+              />
+              {/* <XAxisText
+                index={index}
+                radius={radius}
+                decimals={decimals}
+                key={index + 60}
+              /> */}
             </>
           );
         })}
@@ -80,8 +112,5 @@ export default PieChart;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderWidth: 2,
-    borderColor: "white",
-    justifyContent: "center",
   },
 });

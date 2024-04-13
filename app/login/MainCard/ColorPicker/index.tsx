@@ -21,6 +21,7 @@ const ColorPicker = () => {
         <SelectColorItem color={"tealc"} />
         <SelectColorItem color={"purple"} />
         <SelectColorItem color={"saphire"} />
+        <SelectColorItem color={"white"} />
       </View>
     </View>
   );

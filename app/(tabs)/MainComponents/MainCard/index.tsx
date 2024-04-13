@@ -74,6 +74,7 @@ const MainCard = () => {
             </View>
           </View>
         </View>
+
         <View>
           <PieChartMain />
         </View>

@@ -1,10 +1,17 @@
 import React from "react";
-import { Path, Skia } from "@shopify/react-native-skia";
+import {
+  BlurMask,
+  CornerPathEffect,
+  Path,
+  Text,
+  Skia,
+} from "@shopify/react-native-skia";
 import {
   SharedValue,
   useDerivedValue,
   withTiming,
 } from "react-native-reanimated";
+import { style } from "d3";
 
 type Props = {
   strokeWidth: number;
@@ -64,14 +71,19 @@ const PiePath = ({
   }, []);
 
   return (
-    <Path
-      path={path}
-      color={color}
-      style="stroke"
-      strokeWidth={strokeWidth}
-      start={start}
-      end={end}
-    />
+    <>
+      <Path
+        path={path}
+        color={"#18181B"}
+        style="stroke"
+        strokeJoin="round"
+        strokeWidth={strokeWidth}
+        start={start}
+        end={end}
+      >
+        <BlurMask blur={0.06} style="normal" />
+      </Path>
+    </>
   );
 };
 
