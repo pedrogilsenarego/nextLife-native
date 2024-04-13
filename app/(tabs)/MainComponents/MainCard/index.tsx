@@ -7,6 +7,7 @@ import ChartInitial from "./Chart";
 import React from "react";
 import ExpensesTable from "./ExpensesTable";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
+import PieChartMain from "./PieChartMain/PieChartMain";
 
 const MainCard = () => {
   const logout = async () => {
@@ -74,11 +75,15 @@ const MainCard = () => {
           </View>
         </View>
         <View>
+          <PieChartMain />
+        </View>
+        {/* <View>
           <ChartInitial />
-        </View>
-        <View style={{ marginTop: 20 }}>
+        </View> */}
+
+        {/* <View style={{ marginTop: 20 }}>
           <ExpensesTable />
-        </View>
+        </View> */}
         <Pressable
           onPress={logout}
           style={{ marginTop: 30, marginBottom: 200 }}
