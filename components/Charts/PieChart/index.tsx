@@ -3,6 +3,7 @@ import React from "react";
 import { SharedValue, useDerivedValue } from "react-native-reanimated";
 import { Canvas, Path, SkFont, Skia, Text } from "@shopify/react-native-skia";
 import PiePath from "./Path";
+import PathOut from "./PathOut";
 
 type Props = {
   n: number;
@@ -45,16 +46,28 @@ const PieChart = ({
         />
         {array.map((_, index) => {
           return (
-            <PiePath
-              key={index}
-              radius={radius}
-              strokeWidth={strokeWidth}
-              outerStrokeWidth={outerStrokeWidth}
-              color={colors[index]}
-              decimals={decimals}
-              index={index}
-              gap={gap}
-            />
+            <>
+              <PathOut
+                key={index + 100}
+                radius={radius}
+                strokeWidth={strokeWidth}
+                outerStrokeWidth={outerStrokeWidth}
+                color={colors[index]}
+                decimals={decimals}
+                index={index}
+                gap={gap}
+              />
+              <PiePath
+                key={index}
+                radius={radius}
+                strokeWidth={strokeWidth}
+                outerStrokeWidth={outerStrokeWidth}
+                color={colors[index]}
+                decimals={decimals}
+                index={index}
+                gap={gap}
+              />
+            </>
           );
         })}
       </Canvas>
@@ -67,5 +80,8 @@ export default PieChart;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    borderWidth: 2,
+    borderColor: "white",
+    justifyContent: "center",
   },
 });
