@@ -3,7 +3,7 @@ import useUser from "@/hooks/useUser";
 import { supabase } from "@/lib/supabase";
 import { View, Text, Pressable, ScrollView } from "react-native";
 import { useTheme } from "@/providers/ThemeContext";
-import ChartInitial from "./Chart";
+import ChartInitial from "./ChartInitial";
 import React from "react";
 import ExpensesTable from "./ExpensesTable";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
@@ -13,6 +13,11 @@ const MainCard = () => {
   const logout = async () => {
     await supabase.auth.signOut();
   };
+  const currentDate = new Date();
+  const monthInLetters = currentDate.toLocaleString("default", {
+    month: "long",
+  });
+  const formattedDate = `${currentDate.getDate()}, ${monthInLetters} ${currentDate.getFullYear()}`;
 
   const userQuery = useUser();
   const { contrastColor, mainColor } = useTheme();
@@ -38,11 +43,14 @@ const MainCard = () => {
               </Text>
             </Text>
             <Text style={{ color: "whitesmoke" }}>Your monthly balance</Text>
-            <Text style={{ color: "white", fontSize: 26, fontWeight: "bold" }}>
+            <Text style={{ color: "white", fontSize: 20, fontWeight: "bold" }}>
               {(totalIncomes() - totalExpenses()).toFixed(1)} Є
             </Text>
           </View>
-          <View style={{ justifyContent: "flex-end", paddingBottom: 5 }}>
+          <View
+            style={{ justifyContent: "flex-end", paddingBottom: 5, rowGap: 5 }}
+          >
+            <Text style={{ color: "whitesmoke" }}>{formattedDate}</Text>
             <View
               style={{
                 backgroundColor: "#ffffff1A",
@@ -69,7 +77,12 @@ const MainCard = () => {
                   padding: 10,
                 }}
               >
-                <AntDesign name="piechart" color="whitesmoke" size={20} />
+                <AntDesign
+                  name="piechart"
+                  color={contrastColor}
+                  style={{ opacity: 0.7 }}
+                  size={20}
+                />
               </View>
             </View>
           </View>
@@ -82,7 +95,7 @@ const MainCard = () => {
           <ChartInitial />
         </View>
 
-        <View style={{ marginTop: 20 }}>
+        <View style={{ marginTop: 6 }}>
           <ExpensesTable />
         </View>
         <Pressable

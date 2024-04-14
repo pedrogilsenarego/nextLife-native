@@ -33,7 +33,7 @@ const ExpensesTable = () => {
   };
 
   return (
-    <View>
+    <View style={{ backgroundColor: "#ffffff1A", borderRadius: 4 }}>
       <FlatList
         data={expenses.data}
         keyExtractor={(item) => item.id}

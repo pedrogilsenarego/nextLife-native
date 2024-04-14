@@ -1,5 +1,6 @@
 import { useTheme } from "@/providers/ThemeContext";
 import { Expense } from "@/types/expensesTypes";
+import { FontAwesome6 } from "@expo/vector-icons";
 import moment from "moment";
 import { View, Text, Animated, Dimensions } from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
@@ -26,16 +27,17 @@ const Item = ({ expense, handleDelete, handleRemoveDelete }: Props) => {
     return (
       <View
         style={{
-          borderWidth: 1,
-          borderColor: "#ffffff66",
-          backgroundColor: "red",
+          //backgroundColor: "red",
           justifyContent: "center",
           alignItems: "flex-end",
-          paddingHorizontal: 20,
+          paddingHorizontal: 12,
         }}
       >
         <Animated.Text
-          style={[{ color: "white", fontSize: 16 }, { transform: [{ scale }] }]}
+          style={[
+            { color: "orangered", fontSize: 16 },
+            { transform: [{ scale }] },
+          ]}
         >
           Delete
         </Animated.Text>
@@ -50,23 +52,31 @@ const Item = ({ expense, handleDelete, handleRemoveDelete }: Props) => {
     >
       <View
         style={{
-          borderWidth: 1,
-          borderColor: "#ffffff66",
-          backgroundColor: mainColor,
-          padding: 10,
+          //borderWidth: 1,
+          //borderColor: "#ffffff66",
+          //backgroundColor: mainColor,
+          paddingVertical: 6,
+          paddingHorizontal: 10,
           flexDirection: "row",
           justifyContent: "space-between",
         }}
       >
-        <Text
-          style={{
-            color: "white",
-            fontSize: 14,
-            textTransform: "capitalize",
-          }}
-        >
-          {expense.category}
-        </Text>
+        <View style={{ rowGap: 3 }}>
+          <Text
+            style={{
+              color: "white",
+              fontSize: 14,
+              textTransform: "capitalize",
+            }}
+          >
+            {expense.category}
+          </Text>
+          <FontAwesome6
+            name="turn-down"
+            color="orangered"
+            style={{ opacity: 0.8, marginLeft: 5 }}
+          />
+        </View>
         <View style={{ alignItems: "flex-end" }}>
           <Text style={{ color: "white", fontSize: 16, fontWeight: "600" }}>
             {expense.amount}€

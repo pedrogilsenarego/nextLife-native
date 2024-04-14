@@ -24,7 +24,12 @@ const AnimatedText = ({ selectedValue, font }: Props) => {
   }, []);
 
   return (
-    <Canvas style={{ height: fontSize!.height + MARGIN_VERTICAL }}>
+    <Canvas
+      style={{
+        height: fontSize!.height + MARGIN_VERTICAL,
+        width: 50,
+      }}
+    >
       <Text
         text={animatedText}
         font={null}

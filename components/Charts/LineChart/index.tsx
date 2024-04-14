@@ -28,10 +28,12 @@ type DataType = {
 const LineChart = ({
   setSelectedDate,
   selectedValue,
+  accValue,
   data,
 }: {
   setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
   selectedValue: SharedValue<number>;
+  accValue: SharedValue<number>;
   data: DataType[];
 }) => {
   const CHART_MARGIN = 20;
@@ -54,6 +56,7 @@ const LineChart = ({
     );
 
     selectedValue.value = withTiming(data[0].value);
+    accValue.value = withTiming(data[0].value);
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -83,8 +86,13 @@ const LineChart = ({
     "worklet";
 
     const index = Math.floor(e.absoluteX / stepX);
+    const sum = data
+      .slice(0, index + 1)
+      .reduce((total, item) => total + item.value, 0);
+
     runOnJS(setSelectedDate)(data[index].label);
     selectedValue.value = withTiming(data[index].value);
+    accValue.value = withTiming(sum);
 
     const clampValue = clamp(
       Math.floor(e.absoluteX / stepX) * stepX + CHART_MARGIN,
