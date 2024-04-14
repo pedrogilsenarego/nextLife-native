@@ -56,37 +56,6 @@ const PiePath = ({
       duration: 1000,
     });
   }, []);
-  const start2 = useDerivedValue(() => {
-    if (index === 0) {
-      return gap + 0.0039;
-    }
-    const decimal = decimals.value.slice(0, index);
-
-    const sum = decimal.reduce(
-      (accumulator, currentValue) => accumulator + currentValue,
-      0
-    );
-
-    return withTiming(sum + gap + 0.0039, {
-      duration: 1000,
-    });
-  }, []);
-
-  const start3 = useDerivedValue(() => {
-    if (index === 0) {
-      return gap + 0.0055;
-    }
-    const decimal = decimals.value.slice(0, index);
-
-    const sum = decimal.reduce(
-      (accumulator, currentValue) => accumulator + currentValue,
-      0
-    );
-
-    return withTiming(sum + gap + 0.0055, {
-      duration: 1000,
-    });
-  }, []);
 
   const end = useDerivedValue(() => {
     if (index === decimals.value.length - 1) {
@@ -104,65 +73,15 @@ const PiePath = ({
       duration: 1000,
     });
   }, []);
-  const end2 = useDerivedValue(() => {
-    if (index === decimals.value.length - 1) {
-      return withTiming(1 - 0.0039, { duration: 1000 });
-    }
-
-    const decimal = decimals.value.slice(0, index + 1);
-
-    const sum = decimal.reduce(
-      (accumulator, currentValue) => accumulator + currentValue,
-      0
-    );
-
-    return withTiming(sum - 0.0039, {
-      duration: 1000,
-    });
-  }, []);
-
-  const end3 = useDerivedValue(() => {
-    if (index === decimals.value.length - 1) {
-      return withTiming(1 - 0.0055, { duration: 1000 });
-    }
-
-    const decimal = decimals.value.slice(0, index + 1);
-
-    const sum = decimal.reduce(
-      (accumulator, currentValue) => accumulator + currentValue,
-      0
-    );
-
-    return withTiming(sum - 0.0055, {
-      duration: 1000,
-    });
-  }, []);
 
   return (
     <>
       <Path
-        path={path2}
-        color={"#18181B"}
-        style="stroke"
-        strokeCap="round"
-        strokeWidth={4}
-        start={start2}
-        end={end2}
-      ></Path>
-      <Path
-        path={path3}
-        color={"#18181B"}
-        style="stroke"
-        strokeCap="round"
-        strokeWidth={3}
-        start={start3}
-        end={end3}
-      ></Path>
-      <Path
         path={path}
         color={"#18181B"}
         style="stroke"
-        strokeWidth={strokeWidth - 0.5}
+        strokeWidth={strokeWidth}
+        strokeCap={"round"}
         start={start}
         end={end}
       ></Path>

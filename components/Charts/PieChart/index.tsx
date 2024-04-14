@@ -52,7 +52,7 @@ const PieChart = ({
         {array.map((_, index) => {
           return (
             <>
-              <PathOut
+              {/* <PathOut
                 key={index + 20}
                 radius={radius}
                 strokeWidth={strokeWidth}
@@ -61,7 +61,7 @@ const PieChart = ({
                 decimals={decimals}
                 index={index}
                 gap={gap}
-              />
+              /> */}
 
               <PiePath
                 key={index}
@@ -83,7 +83,7 @@ const PieChart = ({
                 index={index}
                 gap={gap}
               />
-              <PathIn
+              {/* <PathIn
                 key={index + 40}
                 radius={radius}
                 strokeWidth={strokeWidth}
@@ -92,7 +92,7 @@ const PieChart = ({
                 decimals={decimals}
                 index={index}
                 gap={gap}
-              />
+              /> */}
               {/* <XAxisText
                 index={index}
                 radius={radius}

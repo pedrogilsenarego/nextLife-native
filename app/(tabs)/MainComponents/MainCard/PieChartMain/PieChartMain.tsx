@@ -13,13 +13,14 @@ type Data = {
 
 const PieChartMain = () => {
   const RADIUS = 85;
-  const STROKE_WIDTH = 38;
-  const OUTER_STROKE_WIDTH = 55;
-  const GAP = 0.008;
+  const STROKE_WIDTH = 28;
+  const OUTER_STROKE_WIDTH = 33;
+  const GAP = 0.07;
   const n = 5;
   const [data, setData] = useState<Data[]>([]);
-  const { contrastColor } = useTheme();
+  const { contrastColor, mainColor } = useTheme();
   const decimals = useSharedValue<number[]>([]);
+
   const colors = [
     `${contrastColor}E6`,
     `${contrastColor}E6`,
@@ -95,7 +96,7 @@ const PieChartMain = () => {
       </View>
       <TouchableOpacity
         onPress={generateData}
-        style={{ backgroundColor: "red", padding: 20, borderRadius: 10 }}
+        style={{ backgroundColor: mainColor, padding: 20, borderRadius: 10 }}
       >
         <Text style={{ color: "white" }}>dwq</Text>
       </TouchableOpacity>

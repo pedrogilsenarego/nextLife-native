@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, useWindowDimensions } from "react-native";
 import React from "react";
 import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
+import { useTheme } from "@/providers/ThemeContext";
 
 interface Data {
   value: number;
@@ -15,6 +16,34 @@ type Props = {
 
 const RenderItem = ({ item, index }: Props) => {
   const { width } = useWindowDimensions();
+  const { contrastColor } = useTheme();
+  const styles = StyleSheet.create({
+    container: {
+      paddingVertical: 20,
+      marginBottom: 10,
+
+      borderWidth: 1,
+      borderColor: contrastColor,
+      borderRadius: 4,
+    },
+    contentContainer: {
+      flex: 1,
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+      marginHorizontal: 20,
+    },
+    color: {
+      width: 60,
+      height: 60,
+      borderRadius: 4,
+    },
+    text: {
+      fontSize: 22,
+      fontWeight: "bold",
+      color: "white",
+    },
+  });
   return (
     <Animated.View
       style={[styles.container, { width: width * 0.9 }]}
@@ -31,29 +60,3 @@ const RenderItem = ({ item, index }: Props) => {
 };
 
 export default RenderItem;
-
-const styles = StyleSheet.create({
-  container: {
-    paddingVertical: 20,
-    marginBottom: 10,
-    backgroundColor: "#f4f7fc",
-    borderRadius: 20,
-  },
-  contentContainer: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginHorizontal: 20,
-  },
-  color: {
-    width: 60,
-    height: 60,
-    borderRadius: 10,
-  },
-  text: {
-    fontSize: 22,
-    fontWeight: "bold",
-    color: "black",
-  },
-});

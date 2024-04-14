@@ -40,7 +40,7 @@ const Ball = ({
 
   const start = useDerivedValue(() => {
     if (index === 0) {
-      return gap + 0.03;
+      return gap + 0.003;
     }
     const decimal = decimals.value.slice(0, index);
 
@@ -49,14 +49,14 @@ const Ball = ({
       0
     );
 
-    return withTiming(sum + gap + 0.03, {
+    return withTiming(sum + gap + 0.003, {
       duration: 1000,
     });
   }, []);
 
   const end = useDerivedValue(() => {
     if (index === 0) {
-      return gap + 0.0305;
+      return gap + 0.006;
     }
     const decimal = decimals.value.slice(0, index);
 
@@ -65,7 +65,7 @@ const Ball = ({
       0
     );
 
-    return withTiming(sum + gap + 0.0305, {
+    return withTiming(sum + gap + 0.006, {
       duration: 1000,
     });
   }, []);
@@ -78,7 +78,7 @@ const Ball = ({
         style="stroke"
         strokeJoin="round"
         strokeCap="round"
-        strokeWidth={6}
+        strokeWidth={18}
         start={start}
         end={end}
       />

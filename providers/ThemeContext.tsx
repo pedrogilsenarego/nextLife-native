@@ -37,7 +37,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     Colors.orangeRed as ColorsProp
   );
   const [contrastColor, setContrastColor] = useState<ColorsProp>(
-    Colors.lightGray as ColorsProp
+    Colors.greenPuke as ColorsProp
   );
   const [theme, setTheme] = useState<"dark" | "light">("light");
 
