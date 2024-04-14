@@ -2,7 +2,7 @@ import useMetrics from "@/hooks/useMetrics";
 import useUser from "@/hooks/useUser";
 import { supabase } from "@/lib/supabase";
 import { View, Text, Pressable, ScrollView } from "react-native";
-import { useTheme } from "@/providers/ThemeContext";
+import { Colors, useTheme } from "@/providers/ThemeContext";
 import ChartInitial from "./ChartInitial";
 import React from "react";
 import ExpensesTable from "./ExpensesTable";
@@ -27,8 +27,8 @@ const MainCard = () => {
   return (
     <ScrollView
       style={{
-        paddingVertical: 22,
-        paddingHorizontal: 18,
+        paddingVertical: 18,
+        paddingHorizontal: mainColor === Colors.black ? 10 : 18,
 
         height: "100%",
       }}
@@ -48,7 +48,7 @@ const MainCard = () => {
             </Text>
           </View>
           <View
-            style={{ justifyContent: "flex-end", paddingBottom: 5, rowGap: 5 }}
+            style={{ justifyContent: "flex-end", paddingBottom: 5, rowGap: 6 }}
           >
             <Text style={{ color: "whitesmoke" }}>{formattedDate}</Text>
             <View
@@ -69,7 +69,7 @@ const MainCard = () => {
                   padding: 10,
                 }}
               >
-                <AntDesign name="dotchart" color={contrastColor} size={20} />
+                <AntDesign name="dotchart" color={contrastColor} size={18} />
               </View>
               <View
                 style={{
@@ -81,7 +81,7 @@ const MainCard = () => {
                   name="piechart"
                   color={contrastColor}
                   style={{ opacity: 0.7 }}
-                  size={20}
+                  size={18}
                 />
               </View>
             </View>
@@ -95,7 +95,7 @@ const MainCard = () => {
           <ChartInitial />
         </View>
 
-        <View style={{ marginTop: 6 }}>
+        <View>
           <ExpensesTable />
         </View>
         <Pressable

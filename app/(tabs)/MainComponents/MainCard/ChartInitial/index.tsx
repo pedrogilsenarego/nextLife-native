@@ -15,10 +15,9 @@ const ChartInitial = () => {
   const monthName = currentDate.toLocaleDateString("en-US", { month: "long" });
   const { expensesTotalPerDay } = useMetrics();
   const expensesPerDay = expensesTotalPerDay();
-  const totalExpenses = expensesPerDay.reduce(
-    (acc, value) => acc + value.value,
-    0
-  );
+  const totalExpenses = expensesPerDay
+    .reduce((acc, value) => acc + value.value, 0)
+    .toFixed(0);
 
   const { mainColor, contrastColor } = useTheme();
 
@@ -47,11 +46,15 @@ const ChartInitial = () => {
         style={{
           flexDirection: "row",
           backgroundColor: "#ffffff1A",
-          padding: 10,
-          borderRadius: 4,
+          paddingTop: 10,
+          paddingHorizontal: 10,
+          paddingBottom: 4,
+          borderTopEndRadius: 4,
+          borderTopStartRadius: 4,
           justifyContent: "space-between",
           columnGap: 5,
           alignItems: "flex-start",
+          marginTop: 10,
         }}
       >
         <View>
@@ -81,7 +84,7 @@ const ChartInitial = () => {
           </View>
 
           <Text
-            style={{ color: "whitesmoke", fontWeight: "600", marginTop: 10 }}
+            style={{ color: "whitesmoke", fontWeight: "600", marginTop: 4 }}
           >
             Expenses {monthName}: {totalExpenses}
           </Text>

@@ -6,10 +6,11 @@ import { deleteExpenses } from "@/actions/expensesActions";
 import { useState } from "react";
 import { View, Text, Touchable, TouchableOpacity } from "react-native";
 import Button from "@/components/button/ButtonComponent";
+import { useTheme } from "@/providers/ThemeContext";
 
 const ExpensesTable = () => {
   const expenses = useExpenses();
-
+  const { contrastColor } = useTheme();
   const [listDelete, setListDelete] = useState<string[]>([]);
 
   const { mutate: deleteExpensesMutation, isPending } = useMutation({
@@ -33,7 +34,14 @@ const ExpensesTable = () => {
   };
 
   return (
-    <View style={{ backgroundColor: "#ffffff1A", borderRadius: 4 }}>
+    <View
+      style={{
+        backgroundColor: "#ffffff1A",
+        borderTopWidth: 1,
+        paddingTop: 4,
+        borderTopColor: `${contrastColor}66`,
+      }}
+    >
       <FlatList
         data={expenses.data}
         keyExtractor={(item) => item.id}
