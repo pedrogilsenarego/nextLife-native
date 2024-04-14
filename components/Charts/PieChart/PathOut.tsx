@@ -28,7 +28,7 @@ const PathOut = ({
   const innerRadius = radius - outerStrokeWidth / 2;
   const gapAdjustment = 0.003;
   const path = Skia.Path.Make();
-  path.addCircle(radius, radius, innerRadius + outerStrokeWidth / 2 - 5);
+  path.addCircle(radius, radius, innerRadius + outerStrokeWidth / 2 - 4);
 
   const start = useDerivedValue(() => {
     if (index === 0) {
