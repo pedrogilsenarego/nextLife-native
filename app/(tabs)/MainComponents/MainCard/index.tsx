@@ -4,7 +4,7 @@ import { supabase } from "@/lib/supabase";
 import { View, Text, Pressable, ScrollView } from "react-native";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 import ChartInitial from "./ChartInitial";
-import React from "react";
+import React, { useState } from "react";
 import ExpensesTable from "./ExpensesTable";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import PieChartMain from "./PieChartMain/PieChartMain";
@@ -21,7 +21,9 @@ const MainCard = () => {
 
   const userQuery = useUser();
   const { contrastColor, mainColor } = useTheme();
-
+  const [selectedStatus, setSelectedStatus] = useState<
+    "expenses" | "incomes" | "both"
+  >("expenses");
   const { totalExpenses, totalIncomes } = useMetrics();
 
   return (
@@ -92,11 +94,17 @@ const MainCard = () => {
           <PieChartMain />
         </View> */}
         <View>
-          <ChartInitial />
+          <ChartInitial
+            selectedStatus={selectedStatus}
+            setSelectedStatus={setSelectedStatus}
+          />
         </View>
 
         <View>
-          <ExpensesTable />
+          <ExpensesTable
+            selectedStatus={selectedStatus}
+            setSelectedStatus={setSelectedStatus}
+          />
         </View>
         <Pressable
           onPress={logout}

@@ -4,12 +4,19 @@ import useExpenses from "@/hooks/useExpenses";
 import { useMutation } from "@tanstack/react-query";
 import { deleteExpenses } from "@/actions/expensesActions";
 import { useState } from "react";
-import { View, Text, Touchable, TouchableOpacity } from "react-native";
+import { View } from "react-native";
 import Button from "@/components/button/ButtonComponent";
 import { useTheme } from "@/providers/ThemeContext";
+import useIncomes from "@/hooks/useIncomes";
 
-const ExpensesTable = () => {
+type Props = {
+  selectedStatus: "expenses" | "incomes" | "both";
+  setSelectedStatus: (selectedStatus: "expenses" | "incomes" | "both") => void;
+};
+
+const ExpensesTable = ({ selectedStatus, setSelectedStatus }: Props) => {
   const expenses = useExpenses();
+  const incomes = useIncomes();
   const { contrastColor } = useTheme();
   const [listDelete, setListDelete] = useState<string[]>([]);
 
@@ -33,6 +40,19 @@ const ExpensesTable = () => {
     setListDelete((listDelete) => listDelete.filter((item) => item !== id));
   };
 
+  const listData = () => {
+    switch (selectedStatus) {
+      case "expenses":
+        return expenses.data!;
+      case "incomes":
+        return incomes.data!;
+      case "both":
+        return [...incomes.data!, ...expenses.data!];
+      default:
+        return [];
+    }
+  };
+
   return (
     <View
       style={{
@@ -43,7 +63,7 @@ const ExpensesTable = () => {
       }}
     >
       <FlatList
-        data={expenses.data}
+        data={listData()}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <Item
