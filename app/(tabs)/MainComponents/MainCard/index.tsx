@@ -15,7 +15,7 @@ const MainCard = () => {
   };
 
   const userQuery = useUser();
-  const { contrastColor } = useTheme();
+  const { contrastColor, mainColor } = useTheme();
 
   const { totalExpenses, totalIncomes } = useMetrics();
 
@@ -56,7 +56,7 @@ const MainCard = () => {
             >
               <View
                 style={{
-                  backgroundColor: "black",
+                  backgroundColor: mainColor,
                   borderRadius: 20,
                   padding: 10,
                 }}
@@ -75,16 +75,16 @@ const MainCard = () => {
           </View>
         </View>
 
-        <View>
-          <PieChartMain />
-        </View>
         {/* <View>
+          <PieChartMain />
+        </View> */}
+        <View>
           <ChartInitial />
-        </View> */}
+        </View>
 
-        {/* <View style={{ marginTop: 20 }}>
+        <View style={{ marginTop: 20 }}>
           <ExpensesTable />
-        </View> */}
+        </View>
         <Pressable
           onPress={logout}
           style={{ marginTop: 30, marginBottom: 200 }}
