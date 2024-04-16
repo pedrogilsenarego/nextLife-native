@@ -12,7 +12,7 @@ import { addExpense } from "@/actions/expensesActions";
 import useExpenses from "@/hooks/useExpenses";
 import { ArrayButtons } from "@/components/Buttons/ArrayButtons";
 import { useTheme } from "@/providers/ThemeContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { addIncome } from "@/actions/incomesActions";
 import useIncomes from "@/hooks/useIncomes";
 
@@ -25,6 +25,7 @@ const Form = ({ listBusiness }: Props) => {
   const incomes = useIncomes();
   const { mainColor } = useTheme();
   const [mode, setMode] = useState<"expense" | "income">("expense");
+
   const defaultValues = {
     amount: undefined,
     note: undefined,
@@ -44,6 +45,11 @@ const Form = ({ listBusiness }: Props) => {
     },
     onSuccess: (data: any) => {
       methods.reset();
+      if (mode === "expense") {
+        methods.setValue("category", defaultCategories[0].value);
+      } else {
+        methods.setValue("category", defaultIncomesCategories[0].value);
+      }
       mode === "expense" ? expenses.refetch() : incomes.refetch();
     },
     onSettled: async () => {},
@@ -54,10 +60,16 @@ const Form = ({ listBusiness }: Props) => {
       ...data,
       amount: Number(data.amount.replace(",", ".")),
     };
-
-    console.log(newData);
     addExpenseMutation(newData);
   };
+
+  useEffect(() => {
+    if (mode === "expense") {
+      methods.setValue("category", defaultCategories[0].value);
+    } else {
+      methods.setValue("category", defaultIncomesCategories[0].value);
+    }
+  }, [mode, methods]);
 
   return (
     <View

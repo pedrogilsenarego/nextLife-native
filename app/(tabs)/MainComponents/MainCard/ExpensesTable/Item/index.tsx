@@ -6,7 +6,7 @@ import { View, Text, Animated, Dimensions } from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
 
 type Props = {
-  expense: Expense;
+  expense: any;
   handleDelete: (id: string) => void;
   handleRemoveDelete: (id: string) => void;
 };
@@ -72,8 +72,8 @@ const Item = ({ expense, handleDelete, handleRemoveDelete }: Props) => {
             {expense.category}
           </Text>
           <FontAwesome6
-            name="turn-down"
-            color="orangered"
+            name={expense.type === "expense" ? "turn-down" : "turn-up"}
+            color={expense.type === "expense" ? "orangered" : "green"}
             style={{ opacity: 0.8, marginLeft: 5 }}
           />
         </View>

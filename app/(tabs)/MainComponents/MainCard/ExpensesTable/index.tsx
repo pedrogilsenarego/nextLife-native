@@ -43,11 +43,42 @@ const ExpensesTable = ({ selectedStatus, setSelectedStatus }: Props) => {
   const listData = () => {
     switch (selectedStatus) {
       case "expenses":
-        return expenses.data!;
+        return (
+          expenses.data?.map((expense) => ({
+            ...expense,
+            type: "expense",
+          })) || []
+        );
       case "incomes":
-        return incomes.data!;
+        return (
+          incomes.data?.map((income) => ({
+            ...income,
+            type: "income",
+          })) || []
+        );
       case "both":
-        return [...incomes.data!, ...expenses.data!];
+        const combinedData = [
+          ...(incomes.data?.map((income) => ({
+            ...income,
+            type: "income",
+          })) || []),
+          ...(expenses.data?.map((expense) => ({
+            ...expense,
+            type: "expense",
+          })) || []),
+        ];
+
+        // Sort the combined data by created_at
+        const sortedData = combinedData.sort((a, b) => {
+          // Convert created_at to Date objects for comparison
+          const dateA = new Date(a.created_at);
+          const dateB = new Date(b.created_at);
+
+          // Compare the dates
+          return dateB.getTime() - dateA.getTime();
+        });
+
+        return sortedData;
       default:
         return [];
     }
