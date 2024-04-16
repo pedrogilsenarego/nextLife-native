@@ -26,7 +26,7 @@ const ChartInitial = ({ selectedStatus, setSelectedStatus }: Props) => {
     18
   );
 
-  if (!font || !expensesPerDay.length) {
+  if (!font || expensesPerDay.length <= 0 || !expensesPerDay) {
     return null;
   }
 

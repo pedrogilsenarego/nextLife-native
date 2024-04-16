@@ -19,7 +19,7 @@ const useMetrics = () => {
 
   const expensesTotalPerDay = () => {
     const expensesPerDay: { [date: string]: number } = {}; // Type annotation for expensesPerDay
-
+    if (!expenses) return [];
     expenses?.data?.forEach((expense) => {
       const expenseDate = new Date(expense.created_at).toLocaleDateString(
         "en-US",
@@ -43,17 +43,19 @@ const useMetrics = () => {
     });
 
     const result = [];
-    for (let i = 0; i < totalPerDay.length - 1; i++) {
-      result.push(totalPerDay[i]);
-      const currentLabel = parseInt(totalPerDay[i].label);
-      const nextLabel = parseInt(totalPerDay[i + 1].label);
-      if (nextLabel - currentLabel > 1) {
-        for (let j = currentLabel + 1; j < nextLabel; j++) {
-          result.push({ label: j.toString().padStart(2, "0"), value: 0 });
+    if (totalPerDay.length > 0) {
+      for (let i = 0; i < totalPerDay.length - 1; i++) {
+        result.push(totalPerDay[i]);
+        const currentLabel = parseInt(totalPerDay[i].label);
+        const nextLabel = parseInt(totalPerDay[i + 1].label);
+        if (nextLabel - currentLabel > 1) {
+          for (let j = currentLabel + 1; j < nextLabel; j++) {
+            result.push({ label: j.toString().padStart(2, "0"), value: 0 });
+          }
         }
       }
+      result.push(totalPerDay[totalPerDay.length - 1]);
     }
-    result.push(totalPerDay[totalPerDay.length - 1]);
 
     return result;
   };

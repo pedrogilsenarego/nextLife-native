@@ -44,3 +44,52 @@ export const getIncomes = async ({
     }
   });
 };
+
+type AddIncomeProps = {
+  businessId: string;
+  category: string;
+  note?: string;
+  amount: number;
+  created_at: Date;
+};
+
+export const addIncome = async (
+  newExpenseData: AddIncomeProps
+): Promise<string> => {
+  return new Promise(async (resolve, reject) => {
+    console.log("addIncome", newExpenseData.amount);
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        return reject(new Error("User not authenticated"));
+      }
+
+      const { businessId, note, amount, category, created_at } = newExpenseData;
+      const user_id = user.id;
+
+      const { error: userError } = await supabase.from("incomes").upsert([
+        {
+          businessId,
+          note,
+          amount,
+          category,
+          user_id: user_id,
+          created_at,
+        },
+      ]);
+
+      if (userError) {
+        console.error(userError);
+        return reject(userError);
+      }
+
+      resolve("Success");
+    } catch (error) {
+      console.error(error);
+      reject(error);
+    }
+  });
+};

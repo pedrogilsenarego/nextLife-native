@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { NewEntrySchema, NewEntryType } from "../validation";
-import { defaultCategories } from "../constants";
+import { defaultCategories, defaultIncomesCategories } from "../constants";
 import { View, Text } from "react-native";
 import ControlledInput from "@/components/inputs/TextField";
 import Select from "@/components/inputs/Select";
@@ -12,6 +12,9 @@ import { addExpense } from "@/actions/expensesActions";
 import useExpenses from "@/hooks/useExpenses";
 import { ArrayButtons } from "@/components/Buttons/ArrayButtons";
 import { useTheme } from "@/providers/ThemeContext";
+import { useState } from "react";
+import { addIncome } from "@/actions/incomesActions";
+import useIncomes from "@/hooks/useIncomes";
 
 type Props = {
   listBusiness: { value: string; label: string }[];
@@ -19,7 +22,9 @@ type Props = {
 
 const Form = ({ listBusiness }: Props) => {
   const expenses = useExpenses();
+  const incomes = useIncomes();
   const { mainColor } = useTheme();
+  const [mode, setMode] = useState<"expense" | "income">("expense");
   const defaultValues = {
     amount: undefined,
     note: undefined,
@@ -33,13 +38,13 @@ const Form = ({ listBusiness }: Props) => {
   });
 
   const { mutate: addExpenseMutation, isPending } = useMutation({
-    mutationFn: addExpense,
+    mutationFn: mode === "expense" ? addExpense : addIncome,
     onError: (error: any) => {
       console.log("error", error);
     },
     onSuccess: (data: any) => {
       methods.reset();
-      expenses.refetch();
+      mode === "expense" ? expenses.refetch() : incomes.refetch();
     },
     onSettled: async () => {},
   });
@@ -47,7 +52,6 @@ const Form = ({ listBusiness }: Props) => {
   const onSubmit: SubmitHandler<NewEntryType> = (data) => {
     const newData = {
       ...data,
-
       amount: Number(data.amount.replace(",", ".")),
     };
 
@@ -86,7 +90,10 @@ const Form = ({ listBusiness }: Props) => {
                   alignItems: "center",
                 }}
               >
-                <ArrayButtons buttons={["Expenses", "Incomes"]} />
+                <ArrayButtons
+                  buttons={["expense", "income"]}
+                  onSelected={(selected) => setMode(selected)}
+                />
               </View>
               <View style={{ width: "30%" }}>
                 <ControlledInput
@@ -124,12 +131,21 @@ const Form = ({ listBusiness }: Props) => {
                 />
               </View>
               <View style={{ width: "49%" }}>
-                <Select
-                  right
-                  name="category"
-                  listOptions={defaultCategories}
-                  label={"Category"}
-                />
+                {mode === "expense" ? (
+                  <Select
+                    right
+                    name="category"
+                    listOptions={defaultCategories}
+                    label={"Category"}
+                  />
+                ) : (
+                  <Select
+                    right
+                    name="category"
+                    listOptions={defaultIncomesCategories}
+                    label={"Category"}
+                  />
+                )}
               </View>
             </View>
             <View style={{ marginTop: 10 }}>
