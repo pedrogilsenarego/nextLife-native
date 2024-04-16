@@ -45,6 +45,7 @@ const ChartInitial = ({ selectedStatus, setSelectedStatus }: Props) => {
     >
       <LineChart
         data={selectedStatus === "expenses" ? expensesPerDay : incomesPerDay}
+        data2={selectedStatus === "both" ? expensesPerDay : undefined}
         selectedValue={selectedValue}
         accValue={accValue}
         setSelectedDate={setSelectedDate}

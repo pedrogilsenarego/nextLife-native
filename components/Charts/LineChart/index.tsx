@@ -30,11 +30,13 @@ const LineChart = ({
   selectedValue,
   accValue,
   data,
+  data2,
 }: {
   setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
   selectedValue: SharedValue<number>;
   accValue: SharedValue<number>;
   data: DataType[];
+  data2?: DataType[];
 }) => {
   const CHART_MARGIN = 20;
   const CHART_WIDTH = Dimensions.get("screen").width - 2 * 18;
@@ -43,14 +45,21 @@ const LineChart = ({
   const [showCursor, setShowCursor] = useState(false);
 
   const animationLine = useSharedValue(0);
+  const animationLine2 = useSharedValue(0);
   const animationGradient = useSharedValue({ x: 0, y: 0 });
+  const animationGradient2 = useSharedValue({ x: 0, y: 0 });
   const cx = useSharedValue(CHART_MARGIN);
   const cy = useSharedValue(CHART_HEIGHT - data[0].value - 10);
 
   useEffect(() => {
     // Animate the line and the gradient
     animationLine.value = withTiming(1, { duration: 1000 });
+    animationLine2.value = withTiming(1, { duration: 1000 });
     animationGradient.value = withDelay(
+      1000,
+      withTiming({ x: 0, y: CHART_HEIGHT - 15 }, { duration: 500 })
+    );
+    animationGradient2.value = withDelay(
       1000,
       withTiming({ x: 0, y: CHART_HEIGHT - 15 }, { duration: 500 })
     );
@@ -61,24 +70,43 @@ const LineChart = ({
   }, []);
 
   const xDomain = data.map((dataPoint: DataType) => dataPoint.label);
+  const x2Domain = data2
+    ? data2.map((dataPoint: DataType) => dataPoint.label)
+    : xDomain;
   const xRange = [CHART_MARGIN, CHART_WIDTH - CHART_MARGIN];
   const x = scalePoint().domain(xDomain).range(xRange).padding(0);
+  const x2 = scalePoint().domain(x2Domain).range(xRange).padding(0);
 
   const stepX = x.step();
 
   const max = Math.max(...data.map((val) => val.value));
+  const max2 = data2 ? Math.max(...data2.map((val) => val.value)) : max;
   const min = Math.min(...data.map((val) => val.value));
+  const min2 = data2 ? Math.min(...data2.map((val) => val.value)) : min;
 
   const yDomain = [min, max];
+  const y2Domain = data2 ? [min2, max2] : [min, max];
   const yRange = [CHART_HEIGHT - 35, -25];
   const y = scaleLinear().domain(yDomain).range(yRange);
+  const y2 = data2 ? scaleLinear().domain(y2Domain).range(yRange) : null;
 
   const curvedLine = line<DataType>()
     .x((d) => x(d.label)!)
     .y((d) => y(d.value))
     .curve(curveBasis)(data);
 
+  const curvedLine2 =
+    data2 && y2
+      ? line<DataType>()
+          .x((d) => x2(d.label)!)
+          .y((d) => y2(d.value))
+          .curve(curveBasis)(data2)
+      : null;
+
   const linePath = Skia.Path.MakeFromSVGString(curvedLine!);
+  const linePath2 = curvedLine2
+    ? Skia.Path.MakeFromSVGString(curvedLine2!)
+    : null;
 
   const path = parse(linePath!.toSVGString());
 
@@ -134,6 +162,17 @@ const LineChart = ({
           start={0}
           end={animationLine}
         />
+        {data2 && (
+          <Path
+            path={linePath2!}
+            style={"stroke"}
+            strokeWidth={2}
+            color={"red"}
+            strokeCap={"round"}
+            start={0}
+            end={animationLine2}
+          />
+        )}
         <Gradient
           color={contrastColor}
           chartHeight={CHART_HEIGHT}
@@ -142,6 +181,16 @@ const LineChart = ({
           curvedLine={curvedLine!}
           animationGradient={animationGradient}
         />
+        {data2 && (
+          <Gradient
+            color={"red"}
+            chartHeight={CHART_HEIGHT}
+            chartWidth={CHART_WIDTH}
+            chartMargin={CHART_MARGIN}
+            curvedLine={curvedLine2!}
+            animationGradient={animationGradient2}
+          />
+        )}
         {data.map((dataPoint: DataType, index) => (
           <XAxisText
             x={x(dataPoint.label)!}
