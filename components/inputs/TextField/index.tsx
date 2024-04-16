@@ -50,14 +50,13 @@ const ControlledInput = ({ variant = "default", ...props }: TextInputProps) => {
       borderColor: "gray",
     },
     inputBig: {
-      backgroundColor: "white",
       fontWeight: "bold",
       paddingTop: 11,
       fontSize: 40,
       paddingBottom: 11,
-
+      color: "white",
       borderWidth: 0,
-      borderColor: "white",
+      borderColor: "transparent",
     },
     edit: { fontSize: 20, borderWidth: 0, borderColor: "white" },
     error: {
@@ -85,6 +84,7 @@ const ControlledInput = ({ variant = "default", ...props }: TextInputProps) => {
       >
         <RNTextInput
           caretHidden
+          placeholderTextColor={variant === "big" ? "#ffffffCE" : undefined}
           editable={!inputProps.disabled}
           keyboardType={inputProps.keyboardType}
           keyboardAppearance="dark"
@@ -98,7 +98,7 @@ const ControlledInput = ({ variant = "default", ...props }: TextInputProps) => {
           <FontAwesome name={"edit"} size={34} color={"black"} />
         )}
         {props.units && (
-          <Text style={{ fontSize: 34, fontWeight: "600", color: "gray" }}>
+          <Text style={{ fontSize: 34, fontWeight: "600", color: "#ffffffCE" }}>
             {props.units}
           </Text>
         )}
@@ -113,40 +113,3 @@ const ControlledInput = ({ variant = "default", ...props }: TextInputProps) => {
 };
 
 export default ControlledInput;
-
-const styles = StyleSheet.create({
-  label: {
-    color: "white",
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  container: {
-    justifyContent: "center",
-
-    padding: 8,
-  },
-  input: {
-    backgroundColor: "white",
-    fontWeight: "bold",
-    paddingTop: 11,
-    paddingBottom: 11,
-    paddingLeft: 20,
-    borderRadius: 30,
-    width: "100%",
-    borderColor: "gray",
-  },
-  inputBig: {
-    backgroundColor: "white",
-    fontWeight: "bold",
-    paddingTop: 11,
-    fontSize: 40,
-    paddingBottom: 11,
-    paddingLeft: 20,
-    borderWidth: 0,
-    borderColor: "white",
-  },
-  edit: { fontSize: 20, borderWidth: 0, borderColor: "red" },
-  error: {
-    color: "orangered",
-  },
-});

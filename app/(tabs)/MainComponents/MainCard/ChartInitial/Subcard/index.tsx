@@ -1,3 +1,4 @@
+import { ArrayButtons } from "@/components/Buttons/ArrayButtons";
 import AnimatedText from "@/components/Charts/LineChart/AnimatedText";
 import { useTheme } from "@/providers/ThemeContext";
 import { useFont } from "@shopify/react-native-skia";
@@ -81,79 +82,10 @@ const Subcard = ({
           Expenses {monthName}: {totalExpenses}
         </Text>
       </View>
-      <View
-        style={{
-          backgroundColor: "#ffffff1A",
-
-          borderRadius: 24,
-          flexDirection: "row",
-          padding: 4,
-
-          columnGap: 8,
-        }}
-      >
-        <Pressable
-          onPress={() => setSelectedStatus("expenses")}
-          style={{
-            backgroundColor:
-              selectedStatus === "expenses" ? mainColor : "transparent",
-            borderRadius: 20,
-            padding: 6,
-            justifyContent: "center",
-          }}
-        >
-          <Text
-            style={{
-              color: contrastColor,
-              fontSize: 13,
-              lineHeight: 14,
-              opacity: selectedStatus === "expenses" ? 1 : 0.7,
-            }}
-          >
-            Expenses
-          </Text>
-        </Pressable>
-        <Pressable
-          onPress={() => setSelectedStatus("incomes")}
-          style={{
-            backgroundColor:
-              selectedStatus === "incomes" ? mainColor : "transparent",
-            borderRadius: 14,
-            padding: 6,
-          }}
-        >
-          <Text
-            style={{
-              color: contrastColor,
-              opacity: selectedStatus === "incomes" ? 1 : 0.7,
-              fontSize: 13,
-              lineHeight: 14,
-            }}
-          >
-            Incomes
-          </Text>
-        </Pressable>
-        <Pressable
-          onPress={() => setSelectedStatus("both")}
-          style={{
-            backgroundColor:
-              selectedStatus === "both" ? mainColor : "transparent",
-            borderRadius: 14,
-            padding: 6,
-          }}
-        >
-          <Text
-            style={{
-              color: contrastColor,
-              opacity: selectedStatus === "both" ? 1 : 0.7,
-              fontSize: 13,
-              lineHeight: 14,
-            }}
-          >
-            Both
-          </Text>
-        </Pressable>
-      </View>
+      <ArrayButtons
+        buttons={["expenses", "incomes", "both"]}
+        onSelected={(selected) => setSelectedStatus(selected)}
+      />
     </View>
   );
 };

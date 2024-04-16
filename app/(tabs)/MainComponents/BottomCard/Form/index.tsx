@@ -10,6 +10,8 @@ import Button from "@/components/button/ButtonComponent";
 import { useMutation } from "@tanstack/react-query";
 import { addExpense } from "@/actions/expensesActions";
 import useExpenses from "@/hooks/useExpenses";
+import { ArrayButtons } from "@/components/Buttons/ArrayButtons";
+import { useTheme } from "@/providers/ThemeContext";
 
 type Props = {
   listBusiness: { value: string; label: string }[];
@@ -17,7 +19,7 @@ type Props = {
 
 const Form = ({ listBusiness }: Props) => {
   const expenses = useExpenses();
-
+  const { mainColor } = useTheme();
   const defaultValues = {
     amount: undefined,
     note: undefined,
@@ -57,8 +59,8 @@ const Form = ({ listBusiness }: Props) => {
     <View
       style={{ alignItems: "center", width: "100%", paddingHorizontal: 20 }}
     >
-      <Text style={{ fontSize: 30, fontWeight: "bold", marginTop: 10 }}>
-        New
+      <Text style={{ fontSize: 24, fontWeight: "bold", marginTop: 10 }}>
+        Add new entry
       </Text>
 
       <View style={{ width: "100%", marginTop: 10 }}>
@@ -69,7 +71,9 @@ const Form = ({ listBusiness }: Props) => {
                 flexDirection: "row",
                 alignItems: "center",
                 width: "100%",
-
+                backgroundColor: mainColor,
+                borderRadius: 4,
+                padding: 4,
                 justifyContent: "space-between",
               }}
             >
@@ -78,9 +82,11 @@ const Form = ({ listBusiness }: Props) => {
                   height: "100%",
                   width: "70%",
                   paddingRight: 5,
+                  flexDirection: "row",
+                  alignItems: "center",
                 }}
               >
-                <ControlledInput variant="edit" label="Note" name="note" />
+                <ArrayButtons buttons={["Expenses", "Incomes"]} />
               </View>
               <View style={{ width: "30%" }}>
                 <ControlledInput
@@ -129,6 +135,7 @@ const Form = ({ listBusiness }: Props) => {
             <View style={{ marginTop: 10 }}>
               <DatePicker name="created_at" value={new Date()} label="Date" />
             </View>
+            <ControlledInput variant="edit" label="Note" name="note" />
           </View>
           <View style={{ marginTop: 40 }}>
             <Button
