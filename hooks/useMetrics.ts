@@ -1,6 +1,8 @@
+import { Expense } from "@/types/expensesTypes";
 import useBusinesses from "./useBusinesses";
 import useExpenses from "./useExpenses";
 import useIncomes from "./useIncomes";
+import { Income } from "@/types/incomesTypes";
 
 const useMetrics = () => {
   const expenses = useExpenses();
@@ -17,10 +19,10 @@ const useMetrics = () => {
       return acc + item.amount;
     }, 0) ?? 0;
 
-  const expensesTotalPerDay = () => {
-    const expensesPerDay: { [date: string]: number } = {}; // Type annotation for expensesPerDay
-    if (!expenses) return [];
-    expenses?.data?.forEach((expense) => {
+  const valueTotalPerDay = (data: Expense[] | Income[] | undefined) => {
+    const expensesPerDay: { [date: string]: number } = {};
+    if (!data) return [];
+    data?.forEach((expense) => {
       const expenseDate = new Date(expense.created_at).toLocaleDateString(
         "en-US",
         { day: "2-digit" }
@@ -60,10 +62,14 @@ const useMetrics = () => {
     return result;
   };
 
+  const expensesTotalPerDay = () => valueTotalPerDay(expenses?.data);
+  const incomesTotalPerDay = () => valueTotalPerDay(incomes?.data);
+
   return {
     totalExpenses,
     totalIncomes,
     expensesTotalPerDay,
+    incomesTotalPerDay,
   };
 };
 

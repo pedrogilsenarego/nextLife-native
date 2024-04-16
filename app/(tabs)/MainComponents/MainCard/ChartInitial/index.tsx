@@ -18,15 +18,22 @@ const ChartInitial = ({ selectedStatus, setSelectedStatus }: Props) => {
   const selectedValue = useSharedValue(0);
   const accValue = useSharedValue(0);
 
-  const { expensesTotalPerDay } = useMetrics();
+  const { expensesTotalPerDay, incomesTotalPerDay } = useMetrics();
   const expensesPerDay = expensesTotalPerDay();
+  const incomesPerDay = incomesTotalPerDay();
 
   const font = useFont(
     require("../../../../../assets/fonts/SpaceMono-Regular.ttf"),
     18
   );
 
-  if (!font || expensesPerDay.length <= 0 || !expensesPerDay) {
+  if (
+    !font ||
+    expensesPerDay.length <= 0 ||
+    !expensesPerDay ||
+    incomesPerDay.length <= 0 ||
+    !incomesPerDay
+  ) {
     return null;
   }
 
@@ -37,7 +44,7 @@ const ChartInitial = ({ selectedStatus, setSelectedStatus }: Props) => {
       }}
     >
       <LineChart
-        data={expensesPerDay}
+        data={selectedStatus === "expenses" ? expensesPerDay : incomesPerDay}
         selectedValue={selectedValue}
         accValue={accValue}
         setSelectedDate={setSelectedDate}

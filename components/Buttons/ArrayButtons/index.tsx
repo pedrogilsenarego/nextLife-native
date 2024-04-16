@@ -34,6 +34,7 @@ export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = ({
                 selectedStatus === button ? mainColor : "transparent",
               borderRadius: 20,
               padding: 6,
+              paddingHorizontal: 10,
               justifyContent: "center",
             }}
           >

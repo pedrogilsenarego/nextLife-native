@@ -1,4 +1,4 @@
-export type IncomesQuery = {
+export type Income = {
   businessId: string;
   note: string;
   user_id: string;
@@ -6,4 +6,6 @@ export type IncomesQuery = {
   id: string;
   category: string;
   amount: number;
-}[];
+};
+
+export type IncomesQuery = Income[];
