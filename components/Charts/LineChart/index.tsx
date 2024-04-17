@@ -20,7 +20,7 @@ import {
 } from "react-native-gesture-handler";
 import { getYForX, parse } from "react-native-redash";
 import { Dimensions } from "react-native";
-import { useTheme } from "@/providers/ThemeContext";
+import { Colors, useTheme } from "@/providers/ThemeContext";
 type DataType = {
   label: string;
   value: number;
@@ -28,15 +28,21 @@ type DataType = {
 const LineChart = ({
   setSelectedDate,
   selectedValue,
+  selectedDate,
   accValue,
   data,
   data2,
+  color1,
+  color2,
 }: {
   setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
   selectedValue: SharedValue<number>;
   accValue: SharedValue<number>;
   data: DataType[];
   data2?: DataType[];
+  color1: string;
+  color2?: string;
+  selectedDate: string;
 }) => {
   const CHART_MARGIN = 20;
   const CHART_WIDTH = Dimensions.get("screen").width - 2 * 18;
@@ -157,7 +163,7 @@ const LineChart = ({
           path={linePath!}
           style={"stroke"}
           strokeWidth={2}
-          color={contrastColor}
+          color={color1}
           strokeCap={"round"}
           start={0}
           end={animationLine}
@@ -167,14 +173,14 @@ const LineChart = ({
             path={linePath2!}
             style={"stroke"}
             strokeWidth={2}
-            color={"red"}
+            color={color2 || ""}
             strokeCap={"round"}
             start={0}
             end={animationLine2}
           />
         )}
         <Gradient
-          color={contrastColor}
+          color={color1}
           chartHeight={CHART_HEIGHT}
           chartWidth={CHART_WIDTH}
           chartMargin={CHART_MARGIN}
@@ -183,7 +189,7 @@ const LineChart = ({
         />
         {data2 && (
           <Gradient
-            color={"red"}
+            color={color2 || ""}
             chartHeight={CHART_HEIGHT}
             chartWidth={CHART_WIDTH}
             chartMargin={CHART_MARGIN}
@@ -199,13 +205,15 @@ const LineChart = ({
             key={index}
           />
         ))}
-        <Cursor
-          color={contrastColor}
-          cx={cx}
-          cy={cy}
-          chartHeight={CHART_HEIGHT}
-          showCursor={showCursor}
-        />
+        {selectedDate !== "Total" && (
+          <Cursor
+            color={contrastColor}
+            cx={cx}
+            cy={cy}
+            chartHeight={CHART_HEIGHT}
+            showCursor={showCursor}
+          />
+        )}
       </Canvas>
     </GestureDetector>
   );

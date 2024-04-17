@@ -30,6 +30,7 @@ export const Colors = {
   white: "#ffffff",
   saphire: "#0F52BA",
   greenPuke: "#eaf984",
+  red: "#FF0000",
 };
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {

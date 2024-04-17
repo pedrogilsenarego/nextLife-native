@@ -10,6 +10,7 @@ import { AntDesign, Ionicons } from "@expo/vector-icons";
 import PieChartMain from "./PieChartMain/PieChartMain";
 
 const MainCard = () => {
+  const [selectedDate, setSelectedDate] = useState<string>("Total");
   const logout = async () => {
     await supabase.auth.signOut();
   };
@@ -95,6 +96,8 @@ const MainCard = () => {
         </View> */}
         <View>
           <ChartInitial
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
             selectedStatus={selectedStatus}
             setSelectedStatus={setSelectedStatus}
           />
@@ -102,6 +105,7 @@ const MainCard = () => {
 
         <View>
           <ExpensesTable
+            selectedDate={selectedDate}
             selectedStatus={selectedStatus}
             setSelectedStatus={setSelectedStatus}
           />

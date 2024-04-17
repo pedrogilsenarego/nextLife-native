@@ -1,7 +1,6 @@
 import LineChart from "@/components/Charts/LineChart";
-import AnimatedText from "@/components/Charts/LineChart/AnimatedText";
 import useMetrics from "@/hooks/useMetrics";
-import { useTheme } from "@/providers/ThemeContext";
+import { Colors, useTheme } from "@/providers/ThemeContext";
 import { useFont } from "@shopify/react-native-skia";
 import { useState } from "react";
 import { View, Text } from "react-native";
@@ -11,13 +10,19 @@ import Subcard from "./Subcard";
 type Props = {
   selectedStatus: "expenses" | "incomes" | "both";
   setSelectedStatus: (selectedStatus: "expenses" | "incomes" | "both") => void;
+  selectedDate: string;
+  setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const ChartInitial = ({ selectedStatus, setSelectedStatus }: Props) => {
-  const [selectedDate, setSelectedDate] = useState<string>("Total");
+const ChartInitial = ({
+  selectedStatus,
+  setSelectedStatus,
+  selectedDate,
+  setSelectedDate,
+}: Props) => {
   const selectedValue = useSharedValue(0);
   const accValue = useSharedValue(0);
-
+  const { contrastColor } = useTheme();
   const { expensesTotalPerDay, incomesTotalPerDay } = useMetrics();
   const expensesPerDay = expensesTotalPerDay();
   const incomesPerDay = incomesTotalPerDay();
@@ -44,18 +49,23 @@ const ChartInitial = ({ selectedStatus, setSelectedStatus }: Props) => {
       }}
     >
       <LineChart
+        color1={selectedStatus === "expenses" ? Colors.red : contrastColor}
+        color2={selectedStatus === "both" ? Colors.red : undefined}
         data={selectedStatus === "expenses" ? expensesPerDay : incomesPerDay}
         data2={selectedStatus === "both" ? expensesPerDay : undefined}
         selectedValue={selectedValue}
+        selectedDate={selectedDate}
         accValue={accValue}
         setSelectedDate={setSelectedDate}
       />
       <Subcard
         selectedStatus={selectedStatus}
+        setSelectedDate={setSelectedDate}
         setSelectedStatus={setSelectedStatus}
         selectedValue={selectedValue}
         accValue={accValue}
         expensesPerDay={expensesPerDay}
+        incomesPerDay={incomesPerDay}
       />
     </View>
   );

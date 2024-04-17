@@ -11,10 +11,15 @@ import useIncomes from "@/hooks/useIncomes";
 
 type Props = {
   selectedStatus: "expenses" | "incomes" | "both";
+  selectedDate: string;
   setSelectedStatus: (selectedStatus: "expenses" | "incomes" | "both") => void;
 };
 
-const ExpensesTable = ({ selectedStatus, setSelectedStatus }: Props) => {
+const ExpensesTable = ({
+  selectedStatus,
+  setSelectedStatus,
+  selectedDate,
+}: Props) => {
   const expenses = useExpenses();
   const incomes = useIncomes();
   const { contrastColor } = useTheme();
@@ -84,6 +89,15 @@ const ExpensesTable = ({ selectedStatus, setSelectedStatus }: Props) => {
     }
   };
 
+  const dataToShow =
+    selectedDate !== "Total"
+      ? listData().filter((item) => {
+          const date = new Date(item.created_at);
+          const day = String(date.getDate()).padStart(2, "0");
+          return day === selectedDate;
+        })
+      : listData();
+
   return (
     <View
       style={{
@@ -94,7 +108,7 @@ const ExpensesTable = ({ selectedStatus, setSelectedStatus }: Props) => {
       }}
     >
       <FlatList
-        data={listData()}
+        data={dataToShow}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <Item

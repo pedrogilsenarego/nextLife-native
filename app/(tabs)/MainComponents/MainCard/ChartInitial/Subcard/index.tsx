@@ -8,17 +8,21 @@ import { SharedValue } from "react-native-reanimated";
 
 type Props = {
   expensesPerDay: { value: number; label: string }[];
+  incomesPerDay: { value: number; label: string }[];
   accValue: SharedValue<number>;
   selectedValue: SharedValue<number>;
+  setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
   selectedStatus: "expenses" | "incomes" | "both";
   setSelectedStatus: (selectedStatus: "expenses" | "incomes" | "both") => void;
 };
 
 const Subcard = ({
   expensesPerDay,
+  incomesPerDay,
   accValue,
   selectedValue,
   selectedStatus,
+  setSelectedDate,
   setSelectedStatus,
 }: Props) => {
   const currentDate = new Date();
@@ -27,7 +31,10 @@ const Subcard = ({
   const totalExpenses = expensesPerDay
     .reduce((acc, value) => acc + value.value, 0)
     .toFixed(0);
-  const { mainColor, contrastColor } = useTheme();
+
+  const totalIncomes = incomesPerDay
+    .reduce((acc, value) => acc + value.value, 0)
+    .toFixed(0);
 
   const font = useFont(
     require("../../../../../../assets/fonts/SpaceMono-Regular.ttf"),
@@ -78,13 +85,36 @@ const Subcard = ({
 
           <AnimatedText font={font} selectedValue={selectedValue} />
         </View>
-        <Text style={{ color: "whitesmoke", fontWeight: "600", marginTop: 8 }}>
-          Expenses {monthName}: {totalExpenses}
-        </Text>
+        {selectedStatus === "expenses" && (
+          <Text
+            style={{ color: "whitesmoke", fontWeight: "600", marginTop: 8 }}
+          >
+            Expenses {monthName}: {totalExpenses}
+          </Text>
+        )}
+        {selectedStatus === "incomes" && (
+          <Text
+            style={{ color: "whitesmoke", fontWeight: "600", marginTop: 8 }}
+          >
+            Incomes {monthName}: {totalIncomes}
+          </Text>
+        )}
+        {selectedStatus === "both" && (
+          <Text
+            style={{ color: "whitesmoke", fontWeight: "600", marginTop: 8 }}
+          >
+            I/E {monthName}: {totalIncomes}/{totalExpenses}
+          </Text>
+        )}
       </View>
       <ArrayButtons
         buttons={["expenses", "incomes", "both"]}
-        onSelected={(selected) => setSelectedStatus(selected)}
+        onSelected={(selected) => {
+          setSelectedStatus(selected);
+          setSelectedDate("Total");
+          accValue.value = 0;
+          selectedValue.value = 0;
+        }}
       />
     </View>
   );

@@ -20,46 +20,30 @@ const useMetrics = () => {
     }, 0) ?? 0;
 
   const valueTotalPerDay = (data: Expense[] | Income[] | undefined) => {
-    const expensesPerDay: { [date: string]: number } = {};
-    if (!data) return [];
-    data?.forEach((expense) => {
-      const expenseDate = new Date(expense.created_at).toLocaleDateString(
-        "en-US",
-        { day: "2-digit" }
-      );
+    const today = new Date();
+    const currentMonth = today.getMonth();
+    const currentDay = today.getDate();
 
-      if (!expensesPerDay[expenseDate]) {
-        expensesPerDay[expenseDate] = 0;
-      }
+    const totalPerDay: { label: string; value: number }[] = [];
 
-      expensesPerDay[expenseDate] += expense.amount;
-    });
-
-    const totalPerDay = Object.entries(expensesPerDay).map(([date, total]) => ({
-      label: date,
-      value: total,
-    }));
-
-    totalPerDay.sort((a, b) => {
-      return Number(a.label) - Number(b.label);
-    });
-
-    const result = [];
-    if (totalPerDay.length > 0) {
-      for (let i = 0; i < totalPerDay.length - 1; i++) {
-        result.push(totalPerDay[i]);
-        const currentLabel = parseInt(totalPerDay[i].label);
-        const nextLabel = parseInt(totalPerDay[i + 1].label);
-        if (nextLabel - currentLabel > 1) {
-          for (let j = currentLabel + 1; j < nextLabel; j++) {
-            result.push({ label: j.toString().padStart(2, "0"), value: 0 });
-          }
-        }
-      }
-      result.push(totalPerDay[totalPerDay.length - 1]);
+    // Initialize array with 0 values for each day of the month
+    for (let i = 1; i <= currentDay; i++) {
+      const label = i.toString().padStart(2, "0");
+      totalPerDay.push({ label, value: 0 });
     }
 
-    return result;
+    // Update values for days coinciding with original data
+    if (data) {
+      data.forEach((expense) => {
+        const expenseDate = new Date(expense.created_at);
+        if (expenseDate.getMonth() === currentMonth) {
+          const dayOfMonth = expenseDate.getDate();
+          totalPerDay[dayOfMonth - 1].value += expense.amount;
+        }
+      });
+    }
+
+    return totalPerDay;
   };
 
   const expensesTotalPerDay = () => valueTotalPerDay(expenses?.data);
