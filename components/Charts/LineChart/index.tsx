@@ -1,7 +1,19 @@
 import React, { useEffect, useState } from "react";
 
 import { Canvas, Path, Rect, Skia } from "@shopify/react-native-skia";
-import { curveBasis, line, scaleLinear, scalePoint } from "d3";
+import {
+  curveBasis,
+  curveBundle,
+  curveCardinal,
+  curveLinear,
+  curveMonotoneX,
+  curveNatural,
+  curveStep,
+  curveStepAfter,
+  line,
+  scaleLinear,
+  scalePoint,
+} from "d3";
 import {
   SharedValue,
   clamp,
@@ -29,6 +41,7 @@ const LineChart = ({
   setSelectedDate,
   selectedValue,
   selectedDate,
+
   accValue,
   data,
   data2,
@@ -38,6 +51,7 @@ const LineChart = ({
   setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
   selectedValue: SharedValue<number>;
   accValue: SharedValue<number>;
+
   data: DataType[];
   data2?: DataType[];
   color1: string;
@@ -47,7 +61,7 @@ const LineChart = ({
   const CHART_MARGIN = 20;
   const CHART_WIDTH = Dimensions.get("screen").width - 2 * 18;
   const CHART_HEIGHT = 170;
-  const { contrastColor } = useTheme();
+
   const [showCursor, setShowCursor] = useState(false);
 
   const animationLine = useSharedValue(0);
@@ -56,6 +70,9 @@ const LineChart = ({
   const animationGradient2 = useSharedValue({ x: 0, y: 0 });
   const cx = useSharedValue(CHART_MARGIN);
   const cy = useSharedValue(CHART_HEIGHT - data[0].value - 10);
+  const cy2 = data2
+    ? useSharedValue(CHART_HEIGHT - data2[0].value - 10)
+    : useSharedValue(0);
 
   useEffect(() => {
     // Animate the line and the gradient
@@ -95,7 +112,9 @@ const LineChart = ({
   const yRange = [CHART_HEIGHT - 35, -25];
   const y = scaleLinear().domain(yDomain).range(yRange);
   const y2 = data2 ? scaleLinear().domain(y2Domain).range(yRange) : null;
-
+  //curveStep
+  //curveBasis
+  //curveLinear
   const curvedLine = line<DataType>()
     .x((d) => x(d.label)!)
     .y((d) => y(d.value))
@@ -115,6 +134,7 @@ const LineChart = ({
     : null;
 
   const path = parse(linePath!.toSVGString());
+  const path2 = data2 ? parse(linePath2!.toSVGString()) : null;
 
   const handleGestureEvent = (e: PanGestureHandlerEventPayload) => {
     "worklet";
@@ -137,6 +157,7 @@ const LineChart = ({
     cx.value = clampValue;
 
     cy.value = getYForX(path, Math.floor(clampValue))!;
+    if (data2 && path2) cy2.value = getYForX(path2, Math.floor(clampValue))!;
   };
 
   const pan = Gesture.Pan()
@@ -207,9 +228,18 @@ const LineChart = ({
         ))}
         {selectedDate !== "Total" && (
           <Cursor
-            color={contrastColor}
+            color={color1}
             cx={cx}
             cy={cy}
+            chartHeight={CHART_HEIGHT}
+            showCursor={showCursor}
+          />
+        )}
+        {selectedDate !== "Total" && data2 && cy2 && (
+          <Cursor
+            color={color2 || ""}
+            cx={cx}
+            cy={cy2}
             chartHeight={CHART_HEIGHT}
             showCursor={showCursor}
           />

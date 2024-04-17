@@ -13,7 +13,7 @@ const AnimatedText = ({ selectedValue, font }: Props) => {
   const MARGIN_VERTICAL = 0;
 
   const animatedText = useDerivedValue(() => {
-    return `€${Math.round(selectedValue.value)}`;
+    return `${Math.round(selectedValue.value)}€`;
   });
 
   const fontSize = font?.measureText("0");

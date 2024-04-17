@@ -59,6 +59,7 @@ const ChartInitial = ({
         setSelectedDate={setSelectedDate}
       />
       <Subcard
+        selectedDate={selectedDate}
         selectedStatus={selectedStatus}
         setSelectedDate={setSelectedDate}
         setSelectedStatus={setSelectedStatus}

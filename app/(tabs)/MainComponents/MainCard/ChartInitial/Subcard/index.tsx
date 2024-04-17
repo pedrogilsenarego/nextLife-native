@@ -7,6 +7,7 @@ import { View, Text, Pressable } from "react-native";
 import { SharedValue } from "react-native-reanimated";
 
 type Props = {
+  selectedDate: string;
   expensesPerDay: { value: number; label: string }[];
   incomesPerDay: { value: number; label: string }[];
   accValue: SharedValue<number>;
@@ -17,6 +18,7 @@ type Props = {
 };
 
 const Subcard = ({
+  selectedDate,
   expensesPerDay,
   incomesPerDay,
   accValue,
@@ -26,7 +28,7 @@ const Subcard = ({
   setSelectedStatus,
 }: Props) => {
   const currentDate = new Date();
-
+  const { contrastColor } = useTheme();
   const monthName = currentDate.toLocaleDateString("en-US", { month: "long" });
   const totalExpenses = expensesPerDay
     .reduce((acc, value) => acc + value.value, 0)
@@ -44,6 +46,7 @@ const Subcard = ({
   if (!font || !expensesPerDay.length) {
     return null;
   }
+
   return (
     <View
       style={{
@@ -61,50 +64,70 @@ const Subcard = ({
       }}
     >
       <View>
-        <View
-          style={{
-            flexDirection: "row",
+        {selectedDate !== "Total" && (
+          <>
+            <View
+              style={{
+                flexDirection: "row",
 
-            columnGap: 5,
-            alignItems: "center",
-          }}
-        >
-          <Text style={{ color: "whitesmoke" }}>Acc:</Text>
+                columnGap: 5,
+                alignItems: "center",
+              }}
+            >
+              <Text
+                style={{
+                  color: "whitesmoke",
+                  fontWeight: "600",
+                  textDecorationLine: "underline",
+                }}
+              >
+                {selectedDate}:
+              </Text>
 
-          <AnimatedText font={font} selectedValue={accValue} />
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
+              <AnimatedText font={font} selectedValue={selectedValue} />
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
 
-            columnGap: 5,
-            alignItems: "center",
-          }}
-        >
-          <Text style={{ color: "whitesmoke" }}>Day:</Text>
+                columnGap: 5,
+                alignItems: "center",
+              }}
+            >
+              <Text style={{ color: "whitesmoke" }}>Acc:</Text>
 
-          <AnimatedText font={font} selectedValue={selectedValue} />
-        </View>
+              <AnimatedText font={font} selectedValue={accValue} />
+            </View>
+          </>
+        )}
+
         {selectedStatus === "expenses" && (
           <Text
             style={{ color: "whitesmoke", fontWeight: "600", marginTop: 8 }}
           >
-            Expenses {monthName}: {totalExpenses}
+            {monthName}: {totalExpenses}€
           </Text>
         )}
         {selectedStatus === "incomes" && (
           <Text
             style={{ color: "whitesmoke", fontWeight: "600", marginTop: 8 }}
           >
-            Incomes {monthName}: {totalIncomes}
+            {monthName}: {totalIncomes}€
           </Text>
         )}
         {selectedStatus === "both" && (
-          <Text
-            style={{ color: "whitesmoke", fontWeight: "600", marginTop: 8 }}
-          >
-            I/E {monthName}: {totalIncomes}/{totalExpenses}
-          </Text>
+          <View style={{ flexDirection: "row", marginTop: 8 }}>
+            <Text style={{ color: "whitesmoke", fontWeight: "600" }}>
+              {monthName}:{" "}
+            </Text>
+            <Text style={{ color: contrastColor, fontWeight: "600" }}>
+              {totalIncomes}€
+            </Text>
+            <Text style={{ color: "whitesmoke", fontWeight: "600" }}> / </Text>
+            <Text style={{ color: "red", fontWeight: "600" }}>
+              {totalExpenses}€
+            </Text>
+          </View>
         )}
       </View>
       <ArrayButtons
