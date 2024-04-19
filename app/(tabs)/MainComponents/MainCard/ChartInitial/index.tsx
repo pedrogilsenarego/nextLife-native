@@ -3,9 +3,10 @@ import useMetrics from "@/hooks/useMetrics";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 import { useFont } from "@shopify/react-native-skia";
 import { useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 import Subcard from "./Subcard";
+import { MaterialIcons } from "@expo/vector-icons";
 
 type Props = {
   selectedStatus: "expenses" | "incomes" | "both";
@@ -46,8 +47,21 @@ const ChartInitial = ({
     <View
       style={{
         flexDirection: "column",
+        position: "relative",
       }}
     >
+      <Pressable
+        style={{ position: "absolute", right: 15, top: 20, zIndex: 100 }}
+        onPress={() => {
+          setSelectedDate("Total");
+        }}
+      >
+        <MaterialIcons
+          name="settings-backup-restore"
+          color={selectedDate === "Total" ? "#ffffff66" : "whitesmoke"}
+          size={22}
+        />
+      </Pressable>
       <LineChart
         color1={selectedStatus === "expenses" ? Colors.red : contrastColor}
         color2={selectedStatus === "both" ? Colors.red : undefined}

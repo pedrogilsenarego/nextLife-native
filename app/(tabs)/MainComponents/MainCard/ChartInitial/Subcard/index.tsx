@@ -1,6 +1,7 @@
 import { ArrayButtons } from "@/components/Buttons/ArrayButtons";
 import AnimatedText from "@/components/Charts/LineChart/AnimatedText";
 import { useTheme } from "@/providers/ThemeContext";
+import { MaterialIcons } from "@expo/vector-icons";
 import { useFont } from "@shopify/react-native-skia";
 import { useState } from "react";
 import { View, Text, Pressable } from "react-native";
@@ -52,9 +53,9 @@ const Subcard = ({
       style={{
         flexDirection: "row",
         backgroundColor: "#ffffff1A",
-        paddingTop: 10,
+        paddingVertical: 15,
         paddingHorizontal: 10,
-        paddingBottom: 8,
+
         borderTopEndRadius: 4,
         borderTopStartRadius: 4,
         justifyContent: "space-between",
@@ -64,42 +65,44 @@ const Subcard = ({
       }}
     >
       <View>
-        {selectedDate !== "Total" && (
-          <>
-            <View
-              style={{
-                flexDirection: "row",
+        <>
+          <View
+            style={{
+              flexDirection: "row",
 
-                columnGap: 5,
-                alignItems: "center",
+              columnGap: 5,
+              alignItems: "center",
+            }}
+          >
+            <Text
+              style={{
+                color: "whitesmoke",
               }}
             >
-              <Text
-                style={{
-                  color: "whitesmoke",
-                  fontWeight: "600",
-                  textDecorationLine: "underline",
-                }}
-              >
-                {selectedDate}:
-              </Text>
-
+              {selectedDate === "Total" ? "Day:" : `Day(${selectedDate}):`}
+            </Text>
+            {selectedDate !== "Total" ? (
               <AnimatedText font={font} selectedValue={selectedValue} />
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
+            ) : (
+              <Text style={{ color: "whitesmoke" }}> -</Text>
+            )}
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
 
-                columnGap: 5,
-                alignItems: "center",
-              }}
-            >
-              <Text style={{ color: "whitesmoke" }}>Acc:</Text>
-
+              columnGap: 5,
+              alignItems: "center",
+            }}
+          >
+            <Text style={{ color: "whitesmoke" }}>Acc:</Text>
+            {selectedDate !== "Total" ? (
               <AnimatedText font={font} selectedValue={accValue} />
-            </View>
-          </>
-        )}
+            ) : (
+              <Text style={{ color: "whitesmoke" }}> -</Text>
+            )}
+          </View>
+        </>
 
         {selectedStatus === "expenses" && (
           <Text
@@ -130,15 +133,17 @@ const Subcard = ({
           </View>
         )}
       </View>
-      <ArrayButtons
-        buttons={["expenses", "incomes", "both"]}
-        onSelected={(selected) => {
-          setSelectedStatus(selected);
-          setSelectedDate("Total");
-          accValue.value = 0;
-          selectedValue.value = 0;
-        }}
-      />
+      <View>
+        <ArrayButtons
+          buttons={["expenses", "incomes", "both"]}
+          onSelected={(selected) => {
+            setSelectedStatus(selected);
+            setSelectedDate("Total");
+            accValue.value = 0;
+            selectedValue.value = 0;
+          }}
+        />
+      </View>
     </View>
   );
 };

@@ -138,8 +138,10 @@ const LineChart = ({
 
   const handleGestureEvent = (e: PanGestureHandlerEventPayload) => {
     "worklet";
-
     const index = Math.floor(e.absoluteX / stepX);
+
+    if (index > data.length) return;
+
     const sum = data
       .slice(0, index + 1)
       .reduce((total, item) => total + item.value, 0);
@@ -161,13 +163,11 @@ const LineChart = ({
   };
 
   const pan = Gesture.Pan()
-    .onTouchesDown(() => {
+    .onTouchesDown((e) => {
       runOnJS(setShowCursor)(true);
     })
     .onTouchesUp(() => {
       runOnJS(setShowCursor)(false);
-      //selectedValue.value = withTiming(totalValue);
-      //runOnJS(setSelectedDate)("Total");
     })
     .onBegin(handleGestureEvent)
     .onChange(handleGestureEvent);
