@@ -40,8 +40,9 @@ type DataType = {
 const LineChart = ({
   setSelectedDate,
   selectedValue,
+  selectedValue2,
   selectedDate,
-
+  accValue2,
   accValue,
   data,
   data2,
@@ -50,8 +51,9 @@ const LineChart = ({
 }: {
   setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
   selectedValue: SharedValue<number>;
+  selectedValue2: SharedValue<number>;
   accValue: SharedValue<number>;
-
+  accValue2: SharedValue<number>;
   data: DataType[];
   data2?: DataType[];
   color1: string;
@@ -88,7 +90,9 @@ const LineChart = ({
     );
 
     selectedValue.value = withTiming(data[0].value);
+    if (data2) selectedValue2.value = withTiming(data2[0].value);
     accValue.value = withTiming(data[0].value);
+    if (data2) accValue2.value = withTiming(data2[0].value);
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -148,7 +152,9 @@ const LineChart = ({
 
     runOnJS(setSelectedDate)(data[index].label);
     selectedValue.value = withTiming(data[index].value);
+    if (data2) selectedValue2.value = withTiming(data2[index].value);
     accValue.value = withTiming(sum);
+    accValue2.value = withTiming(sum);
 
     const clampValue = clamp(
       Math.floor(e.absoluteX / stepX) * stepX + CHART_MARGIN,

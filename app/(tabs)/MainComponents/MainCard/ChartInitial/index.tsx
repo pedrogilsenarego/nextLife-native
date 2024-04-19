@@ -22,7 +22,9 @@ const ChartInitial = ({
   setSelectedDate,
 }: Props) => {
   const selectedValue = useSharedValue(0);
+  const selectedValue2 = useSharedValue(0);
   const accValue = useSharedValue(0);
+  const accValue2 = useSharedValue(0);
   const { contrastColor } = useTheme();
   const { expensesTotalPerDay, incomesTotalPerDay } = useMetrics();
   const expensesPerDay = expensesTotalPerDay();
@@ -51,7 +53,7 @@ const ChartInitial = ({
       }}
     >
       <Pressable
-        style={{ position: "absolute", right: 15, top: 20, zIndex: 100 }}
+        style={{ position: "absolute", right: 12, top: 20, zIndex: 100 }}
         onPress={() => {
           setSelectedDate("Total");
         }}
@@ -68,8 +70,10 @@ const ChartInitial = ({
         data={selectedStatus === "expenses" ? expensesPerDay : incomesPerDay}
         data2={selectedStatus === "both" ? expensesPerDay : undefined}
         selectedValue={selectedValue}
+        selectedValue2={selectedValue2}
         selectedDate={selectedDate}
         accValue={accValue}
+        accValue2={accValue2}
         setSelectedDate={setSelectedDate}
       />
       <Subcard
@@ -78,7 +82,9 @@ const ChartInitial = ({
         setSelectedDate={setSelectedDate}
         setSelectedStatus={setSelectedStatus}
         selectedValue={selectedValue}
+        selectedValue2={selectedValue2}
         accValue={accValue}
+        accValue2={accValue2}
         expensesPerDay={expensesPerDay}
         incomesPerDay={incomesPerDay}
       />

@@ -6,36 +6,30 @@ import { Canvas, SkFont, Text } from "@shopify/react-native-skia";
 type Props = {
   selectedValue: SharedValue<number>;
   font: SkFont;
+  color?: string;
 };
 
-const AnimatedText = ({ selectedValue, font }: Props) => {
-  const { width } = useWindowDimensions();
-  const MARGIN_VERTICAL = 0;
-
+const AnimatedText = ({ selectedValue, font, color }: Props) => {
   const animatedText = useDerivedValue(() => {
     return `${Math.round(selectedValue.value)}€`;
   });
 
   const fontSize = font?.measureText("0");
 
-  const textX = useDerivedValue(() => {
-    const _fontSize = font?.measureText(animatedText.value);
-    return width / 2 - _fontSize!.width / 2;
-  }, []);
-
   return (
     <Canvas
       style={{
-        height: fontSize!.height + MARGIN_VERTICAL,
-        width: 50,
+        backgroundColor: "blue",
+        height: 25,
+        width: 30,
       }}
     >
       <Text
         text={animatedText}
-        font={null}
-        color={"white"}
+        font={font}
+        color={color || "white"}
         x={0}
-        y={fontSize!.height + MARGIN_VERTICAL / 2}
+        y={fontSize!.height + 9}
       />
     </Canvas>
   );

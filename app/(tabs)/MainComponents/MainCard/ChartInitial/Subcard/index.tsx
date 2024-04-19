@@ -12,7 +12,9 @@ type Props = {
   expensesPerDay: { value: number; label: string }[];
   incomesPerDay: { value: number; label: string }[];
   accValue: SharedValue<number>;
+  accValue2: SharedValue<number>;
   selectedValue: SharedValue<number>;
+  selectedValue2: SharedValue<number>;
   setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
   selectedStatus: "expenses" | "incomes" | "both";
   setSelectedStatus: (selectedStatus: "expenses" | "incomes" | "both") => void;
@@ -23,13 +25,15 @@ const Subcard = ({
   expensesPerDay,
   incomesPerDay,
   accValue,
+  accValue2,
   selectedValue,
+  selectedValue2,
   selectedStatus,
   setSelectedDate,
   setSelectedStatus,
 }: Props) => {
   const currentDate = new Date();
-  const { contrastColor } = useTheme();
+
   const monthName = currentDate.toLocaleDateString("en-US", { month: "long" });
   const totalExpenses = expensesPerDay
     .reduce((acc, value) => acc + value.value, 0)
@@ -40,8 +44,8 @@ const Subcard = ({
     .toFixed(0);
 
   const font = useFont(
-    require("../../../../../../assets/fonts/SpaceMono-Regular.ttf"),
-    18
+    require("../../../../../../assets/fonts/OpenSans-Regular.ttf"),
+    14
   );
 
   if (!font || !expensesPerDay.length) {
@@ -71,6 +75,7 @@ const Subcard = ({
               flexDirection: "row",
 
               columnGap: 5,
+
               alignItems: "center",
             }}
           >
@@ -82,7 +87,30 @@ const Subcard = ({
               {selectedDate === "Total" ? "Day:" : `Day(${selectedDate}):`}
             </Text>
             {selectedDate !== "Total" ? (
-              <AnimatedText font={font} selectedValue={selectedValue} />
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  columnGap: 2,
+                }}
+              >
+                <Text
+                  style={{
+                    color: selectedStatus !== "both" ? "whitesmoke" : "green",
+                  }}
+                >
+                  {selectedValue.value.toFixed(0)}€
+                </Text>
+
+                {selectedStatus === "both" && (
+                  <>
+                    <Text style={{ color: "whitesmoke" }}>/</Text>
+                    <Text style={{ color: "red" }}>
+                      {selectedValue2.value.toFixed(0)}€
+                    </Text>
+                  </>
+                )}
+              </View>
             ) : (
               <Text style={{ color: "whitesmoke" }}> -</Text>
             )}
@@ -97,7 +125,23 @@ const Subcard = ({
           >
             <Text style={{ color: "whitesmoke" }}>Acc:</Text>
             {selectedDate !== "Total" ? (
-              <AnimatedText font={font} selectedValue={accValue} />
+              <>
+                <Text
+                  style={{
+                    color: selectedStatus !== "both" ? "whitesmoke" : "green",
+                  }}
+                >
+                  {accValue.value.toFixed(0)}€
+                </Text>
+                {selectedStatus === "both" && (
+                  <>
+                    <Text style={{ color: "whitesmoke" }}>/</Text>
+                    <Text style={{ color: "red" }}>
+                      {accValue2.value.toFixed(0)}€
+                    </Text>
+                  </>
+                )}
+              </>
             ) : (
               <Text style={{ color: "whitesmoke" }}> -</Text>
             )}
@@ -123,7 +167,7 @@ const Subcard = ({
             <Text style={{ color: "whitesmoke", fontWeight: "600" }}>
               {monthName}:{" "}
             </Text>
-            <Text style={{ color: contrastColor, fontWeight: "600" }}>
+            <Text style={{ color: "green", fontWeight: "600" }}>
               {totalIncomes}€
             </Text>
             <Text style={{ color: "whitesmoke", fontWeight: "600" }}> / </Text>
