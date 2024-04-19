@@ -1,8 +1,14 @@
+import { deleteExpenses } from "@/actions/expensesActions";
+import { deleteIncomes } from "@/actions/incomesActions";
+import LoaderSpinner from "@/components/Atoms/LoaderSpinner";
+import useExpenses from "@/hooks/useExpenses";
+import useIncomes from "@/hooks/useIncomes";
 import { useTheme } from "@/providers/ThemeContext";
 import { Expense } from "@/types/expensesTypes";
 import { FontAwesome6 } from "@expo/vector-icons";
+import { useMutation } from "@tanstack/react-query";
 import moment from "moment";
-import { View, Text, Animated, Dimensions } from "react-native";
+import { View, Text, Animated, Dimensions, Pressable } from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
 
 type Props = {
@@ -12,9 +18,25 @@ type Props = {
 };
 
 const Item = ({ expense, handleDelete, handleRemoveDelete }: Props) => {
-  const { mainColor } = useTheme();
+  const expenses = useExpenses();
+  const incomes = useIncomes();
   const dateFormatter = (date: Date) => {
     return moment(date).format("DD MMM HH:MM");
+  };
+  const { mutate: deleteMutation, isPending } = useMutation({
+    mutationFn: expense.type === "expense" ? deleteExpenses : deleteIncomes,
+    onError: (error: any) => {
+      console.log("error", error);
+    },
+    onSuccess: (data: any) => {
+      expense.type === "expense" ? expenses.refetch() : incomes.refetch();
+    },
+    onSettled: async () => {},
+  });
+
+  const handleLocalDelete = () => {
+    handleRemoveDelete(expense.id);
+    deleteMutation([expense.id]);
   };
 
   const RightAction = (percentage: any, dragX: any) => {
@@ -24,10 +46,16 @@ const Item = ({ expense, handleDelete, handleRemoveDelete }: Props) => {
       extrapolate: "clamp",
     });
 
-    return (
+    return isPending ? (
       <View
+        style={{ flexDirection: "row", alignItems: "center", height: "100%" }}
+      >
+        <LoaderSpinner color={"red"} />
+      </View>
+    ) : (
+      <Pressable
+        onPress={handleLocalDelete}
         style={{
-          //backgroundColor: "red",
           justifyContent: "center",
           alignItems: "flex-end",
           paddingHorizontal: 12,
@@ -41,7 +69,7 @@ const Item = ({ expense, handleDelete, handleRemoveDelete }: Props) => {
         >
           Delete
         </Animated.Text>
-      </View>
+      </Pressable>
     );
   };
   return (

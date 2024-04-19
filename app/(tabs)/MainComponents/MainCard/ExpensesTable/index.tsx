@@ -118,15 +118,15 @@ const ExpensesTable = ({
           />
         )}
       />
-      {listDelete.length > 0 && (
+      {/* {listDelete.length > 1 && selectedStatus === "expenses" && (
         <Button
           buttonStyle={{ backgroundColor: "red" }}
           onPress={() => deleteExpensesMutation(listDelete)}
-          label="Confirm Delete"
-          style={{ position: "absolute", top: 0 }}
+          label="Delete Multiple"
+          style={{ position: "absolute", bottom: "0%" }}
           isLoading={isPending}
         />
-      )}
+      )} */}
     </View>
   );
 };

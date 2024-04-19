@@ -93,3 +93,39 @@ export const addIncome = async (
     }
   });
 };
+
+export const deleteIncomes = async (
+  expensesToDelete: string[]
+): Promise<string> => {
+  console.log("deleting Incomes");
+  return new Promise(async (resolve, reject) => {
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        return reject(new Error("User not authenticated"));
+      }
+
+      // Delete expenses based on the provided IDs
+      const { error: deleteError } = await supabase
+        .from("incomes")
+        .delete()
+        .in(
+          "id",
+          expensesToDelete.map((expense) => expense)
+        );
+
+      if (deleteError) {
+        console.error(deleteError);
+        return reject(deleteError);
+      }
+
+      resolve("Success");
+    } catch (error) {
+      console.error(error);
+      reject(error);
+    }
+  });
+};
