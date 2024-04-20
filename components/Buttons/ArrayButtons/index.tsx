@@ -1,18 +1,18 @@
 import { Pressable, View, Text } from "react-native";
 import { ArrayButtonsProps } from "./arrayButtons.type";
 import { useState } from "react";
-import { useTheme } from "@/providers/ThemeContext";
+import { Colors, useTheme } from "@/providers/ThemeContext";
 
 export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = ({
   buttons,
   onSelected,
 }) => {
   const [selectedStatus, setSelectedStatus] = useState<string>(buttons[0]);
-  const { mainColor, contrastColor } = useTheme();
+  const { mainColor, contrastColor, theme } = useTheme();
   return (
     <View
       style={{
-        backgroundColor: "#ffffff1A",
+        backgroundColor: theme === "light" ? Colors.black : "#ffffff1A",
 
         borderRadius: 24,
         flexDirection: "row",
@@ -40,7 +40,7 @@ export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = ({
           >
             <Text
               style={{
-                color: contrastColor,
+                color: theme === "light" ? "white" : contrastColor,
                 fontSize: 13,
                 lineHeight: 14,
                 opacity: selectedStatus === button ? 1 : 0.7,

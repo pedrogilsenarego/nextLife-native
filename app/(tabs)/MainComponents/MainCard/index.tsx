@@ -50,8 +50,9 @@ const MainCard = () => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{
-          paddingHorizontal: 10,
+          marginHorizontal: 10,
           borderRadius: 8,
+
           position: "relative",
           height: "100%",
         }}
@@ -60,7 +61,7 @@ const MainCard = () => {
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            <View>
+            <View style={{ rowGap: 2 }}>
               <Text
                 style={{
                   color: theme === "light" ? Colors.black : "white",
@@ -107,40 +108,40 @@ const MainCard = () => {
               </Text>
               <View
                 style={{
-                  backgroundColor: theme === "light" ? "white" : "#ffffff1A",
-                  borderWidth: theme === "light" ? 2 : undefined,
+                  backgroundColor:
+                    theme === "light" ? Colors.black : "#ffffff1A",
+
                   borderRadius: 24,
                   flexDirection: "row",
-                  padding: theme === "light" ? 2 : 4,
+                  padding: 4,
 
                   columnGap: 8,
                 }}
               >
                 <View
                   style={{
-                    backgroundColor:
-                      theme === "light" ? Colors.black : mainColor,
-                    borderRadius: 20,
-                    padding: 10,
+                    backgroundColor: mainColor,
+                    borderRadius: 18,
+                    padding: 8,
                   }}
                 >
                   <AntDesign
                     name="dotchart"
                     color={theme === "light" ? "white" : contrastColor}
-                    size={18}
+                    size={16}
                   />
                 </View>
                 <View
                   style={{
-                    borderRadius: 14,
-                    padding: 10,
+                    borderRadius: 18,
+                    padding: 8,
                   }}
                 >
                   <AntDesign
                     name="piechart"
-                    color={theme === "light" ? Colors.black : contrastColor}
+                    color={theme === "light" ? "#ffffff66" : contrastColor}
                     style={{ opacity: 0.7 }}
-                    size={18}
+                    size={16}
                   />
                 </View>
               </View>

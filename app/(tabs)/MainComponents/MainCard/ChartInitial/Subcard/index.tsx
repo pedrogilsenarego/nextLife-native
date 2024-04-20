@@ -101,7 +101,7 @@ const Subcard = ({
                         ? theme === "light"
                           ? Colors.black
                           : "whitesmoke"
-                        : "green",
+                        : "#82ca9d66",
                   }}
                 >
                   {selectedValue.value.toFixed(0)}€
@@ -116,7 +116,7 @@ const Subcard = ({
                     >
                       /
                     </Text>
-                    <Text style={{ color: "red" }}>
+                    <Text style={{ color: "#c8081566" }}>
                       {selectedValue2.value.toFixed(0)}€
                     </Text>
                   </>
@@ -155,7 +155,7 @@ const Subcard = ({
                         ? theme === "light"
                           ? Colors.black
                           : "whitesmoke"
-                        : "green",
+                        : "#82ca9d66",
                   }}
                 >
                   {accValue.value.toFixed(0)}€
@@ -169,7 +169,7 @@ const Subcard = ({
                     >
                       /
                     </Text>
-                    <Text style={{ color: "red" }}>
+                    <Text style={{ color: "#c8081566" }}>
                       {accValue2.value.toFixed(0)}€
                     </Text>
                   </>
@@ -208,14 +208,27 @@ const Subcard = ({
         )}
         {selectedStatus === "both" && (
           <View style={{ flexDirection: "row", marginTop: 8 }}>
-            <Text style={{ color: "whitesmoke", fontWeight: "600" }}>
+            <Text
+              style={{
+                color: theme === "light" ? Colors.black : "whitesmoke",
+                fontWeight: "600",
+              }}
+            >
               {monthName}:{" "}
             </Text>
-            <Text style={{ color: "green", fontWeight: "600" }}>
+            <Text style={{ color: "#82ca9d66", fontWeight: "600" }}>
               {totalIncomes}€
             </Text>
-            <Text style={{ color: "whitesmoke", fontWeight: "600" }}> / </Text>
-            <Text style={{ color: "red", fontWeight: "600" }}>
+            <Text
+              style={{
+                color: theme === "light" ? Colors.black : "whitesmoke",
+                fontWeight: "600",
+              }}
+            >
+              {" "}
+              /{" "}
+            </Text>
+            <Text style={{ color: "#c8081566", fontWeight: "600" }}>
               {totalExpenses}€
             </Text>
           </View>
