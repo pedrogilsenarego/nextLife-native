@@ -25,7 +25,7 @@ const ChartInitial = ({
   const selectedValue2 = useSharedValue(0);
   const accValue = useSharedValue(0);
   const accValue2 = useSharedValue(0);
-  const { contrastColor } = useTheme();
+  const { contrastColor, theme } = useTheme();
   const { expensesTotalPerDay, incomesTotalPerDay } = useMetrics();
   const expensesPerDay = expensesTotalPerDay();
   const incomesPerDay = incomesTotalPerDay();
@@ -60,7 +60,15 @@ const ChartInitial = ({
       >
         <MaterialIcons
           name="settings-backup-restore"
-          color={selectedDate === "Total" ? "#ffffff66" : "whitesmoke"}
+          color={
+            selectedDate === "Total"
+              ? theme === "light"
+                ? "whitesmoke"
+                : "#ffffff66"
+              : theme === "light"
+              ? Colors.lightGray
+              : "whitesmoke"
+          }
           size={22}
         />
       </Pressable>

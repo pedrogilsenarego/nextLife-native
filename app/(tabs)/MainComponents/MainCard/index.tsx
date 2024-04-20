@@ -28,15 +28,12 @@ const MainCard = () => {
   const { totalExpenses, totalIncomes } = useMetrics();
 
   return (
-    <ScrollView
+    <View
       style={{
-        paddingVertical: 18,
-        paddingHorizontal: 10,
-
         height: "100%",
         backgroundColor: theme === "light" ? "white" : "transparent",
         borderRadius: 12,
-        position: "relative",
+
         marginHorizontal: 4,
         shadowColor: "#000",
         shadowOffset: {
@@ -47,115 +44,137 @@ const MainCard = () => {
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
+        paddingVertical: 18,
       }}
     >
-      <Pressable>
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <View>
-            <Text
-              style={{
-                color: theme === "light" ? Colors.black : "white",
-                fontSize: 20,
-              }}
-            >
-              Hello,{" "}
-              <Text style={{ fontWeight: "bold", textTransform: "capitalize" }}>
-                {userQuery?.data?.username}
-              </Text>
-            </Text>
-            <Text
-              style={{
-                color: theme === "light" ? Colors.lightGray : "whitesmoke",
-              }}
-            >
-              Your monthly balance
-            </Text>
-            <Text
-              style={{
-                color: theme === "light" ? Colors.black : "white",
-                fontSize: 20,
-                fontWeight: "bold",
-              }}
-            >
-              {(totalIncomes() - totalExpenses()).toFixed(1)} Є
-            </Text>
-          </View>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{
+          paddingHorizontal: 10,
+          borderRadius: 8,
+          position: "relative",
+          height: "100%",
+        }}
+      >
+        <Pressable>
           <View
-            style={{ justifyContent: "flex-end", paddingBottom: 5, rowGap: 6 }}
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            <Text
-              style={{ color: theme === "light" ? Colors.black : "whitesmoke" }}
-            >
-              {formattedDate}
-            </Text>
+            <View>
+              <Text
+                style={{
+                  color: theme === "light" ? Colors.black : "white",
+                  fontSize: 20,
+                }}
+              >
+                Hello,{" "}
+                <Text
+                  style={{ fontWeight: "bold", textTransform: "capitalize" }}
+                >
+                  {userQuery?.data?.username}
+                </Text>
+              </Text>
+              <Text
+                style={{
+                  color: theme === "light" ? Colors.lightGray : "whitesmoke",
+                }}
+              >
+                Your monthly balance
+              </Text>
+              <Text
+                style={{
+                  color: theme === "light" ? Colors.black : "white",
+                  fontSize: 20,
+                  fontWeight: "bold",
+                }}
+              >
+                {(totalIncomes() - totalExpenses()).toFixed(1)} Є
+              </Text>
+            </View>
             <View
               style={{
-                backgroundColor: theme === "light" ? mainColor : "#ffffff1A",
-
-                borderRadius: 24,
-                flexDirection: "row",
-                padding: 4,
-
-                columnGap: 8,
+                justifyContent: "flex-end",
+                paddingBottom: 5,
+                rowGap: 6,
               }}
             >
-              <View
+              <Text
                 style={{
-                  backgroundColor: theme === "light" ? "white" : mainColor,
-                  borderRadius: 20,
-                  padding: 10,
+                  color: theme === "light" ? Colors.black : "whitesmoke",
                 }}
               >
-                <AntDesign
-                  name="dotchart"
-                  color={theme === "light" ? Colors.black : contrastColor}
-                  size={18}
-                />
-              </View>
+                {formattedDate}
+              </Text>
               <View
                 style={{
-                  borderRadius: 14,
-                  padding: 10,
+                  backgroundColor: theme === "light" ? "white" : "#ffffff1A",
+                  borderWidth: theme === "light" ? 2 : undefined,
+                  borderRadius: 24,
+                  flexDirection: "row",
+                  padding: theme === "light" ? 2 : 4,
+
+                  columnGap: 8,
                 }}
               >
-                <AntDesign
-                  name="piechart"
-                  color={theme === "light" ? Colors.black : contrastColor}
-                  style={{ opacity: 0.7 }}
-                  size={18}
-                />
+                <View
+                  style={{
+                    backgroundColor:
+                      theme === "light" ? Colors.black : mainColor,
+                    borderRadius: 20,
+                    padding: 10,
+                  }}
+                >
+                  <AntDesign
+                    name="dotchart"
+                    color={theme === "light" ? "white" : contrastColor}
+                    size={18}
+                  />
+                </View>
+                <View
+                  style={{
+                    borderRadius: 14,
+                    padding: 10,
+                  }}
+                >
+                  <AntDesign
+                    name="piechart"
+                    color={theme === "light" ? Colors.black : contrastColor}
+                    style={{ opacity: 0.7 }}
+                    size={18}
+                  />
+                </View>
               </View>
             </View>
           </View>
-        </View>
 
-        {/* <View>
+          {/* <View>
           <PieChartMain />
         </View> */}
-        <View>
-          <ChartInitial
-            selectedDate={selectedDate}
-            setSelectedDate={setSelectedDate}
-            selectedStatus={selectedStatus}
-            setSelectedStatus={setSelectedStatus}
-          />
-        </View>
+          <View>
+            <ChartInitial
+              selectedDate={selectedDate}
+              setSelectedDate={setSelectedDate}
+              selectedStatus={selectedStatus}
+              setSelectedStatus={setSelectedStatus}
+            />
+          </View>
 
-        <View>
-          <ExpensesTable
-            selectedDate={selectedDate}
-            selectedStatus={selectedStatus}
-            setSelectedStatus={setSelectedStatus}
-          />
-        </View>
-        <Pressable
-          onPress={logout}
-          style={{ marginTop: 30, marginBottom: 200 }}
-        >
-          <Text style={{ color: "whitesmoke" }}>Logout</Text>
+          <View>
+            <ExpensesTable
+              selectedDate={selectedDate}
+              selectedStatus={selectedStatus}
+              setSelectedStatus={setSelectedStatus}
+            />
+          </View>
+          <Pressable
+            onPress={logout}
+            style={{ marginTop: 30, marginBottom: 200 }}
+          >
+            <Text style={{ color: "whitesmoke" }}>Logout</Text>
+          </Pressable>
         </Pressable>
-      </Pressable>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 };
 
