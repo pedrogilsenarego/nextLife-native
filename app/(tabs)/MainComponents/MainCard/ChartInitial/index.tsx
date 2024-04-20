@@ -65,8 +65,10 @@ const ChartInitial = ({
         />
       </Pressable>
       <LineChart
-        color1={selectedStatus === "expenses" ? Colors.red : contrastColor}
-        color2={selectedStatus === "both" ? Colors.red : undefined}
+        color1={
+          selectedStatus === "expenses" ? Colors.orangeRed : contrastColor
+        }
+        color2={selectedStatus === "both" ? Colors.orangeRed : undefined}
         data={selectedStatus === "expenses" ? expensesPerDay : incomesPerDay}
         data2={selectedStatus === "both" ? expensesPerDay : undefined}
         selectedValue={selectedValue}

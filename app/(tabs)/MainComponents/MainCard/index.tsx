@@ -31,7 +31,7 @@ const MainCard = () => {
     <ScrollView
       style={{
         paddingVertical: 18,
-        paddingHorizontal: mainColor === Colors.black ? 10 : 18,
+        paddingHorizontal: 10,
 
         height: "100%",
         backgroundColor: theme === "light" ? "white" : "transparent",
@@ -90,8 +90,7 @@ const MainCard = () => {
             </Text>
             <View
               style={{
-                backgroundColor:
-                  theme === "light" ? Colors.lightGray : "#ffffff1A",
+                backgroundColor: theme === "light" ? mainColor : "#ffffff1A",
 
                 borderRadius: 24,
                 flexDirection: "row",
@@ -102,14 +101,14 @@ const MainCard = () => {
             >
               <View
                 style={{
-                  backgroundColor: mainColor,
+                  backgroundColor: theme === "light" ? "white" : mainColor,
                   borderRadius: 20,
                   padding: 10,
                 }}
               >
                 <AntDesign
                   name="dotchart"
-                  color={theme === "light" ? "white" : contrastColor}
+                  color={theme === "light" ? Colors.black : contrastColor}
                   size={18}
                 />
               </View>
@@ -121,7 +120,7 @@ const MainCard = () => {
               >
                 <AntDesign
                   name="piechart"
-                  color={theme === "light" ? "white" : contrastColor}
+                  color={theme === "light" ? Colors.black : contrastColor}
                   style={{ opacity: 0.7 }}
                   size={18}
                 />

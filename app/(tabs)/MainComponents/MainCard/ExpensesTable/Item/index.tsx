@@ -84,7 +84,7 @@ const Item = ({ expense, handleDelete, handleRemoveDelete }: Props) => {
           borderWidth: 1,
           borderColor: Colors.lightGray,
 
-          paddingVertical: 6,
+          paddingVertical: 8,
           paddingHorizontal: 10,
           flexDirection: "row",
           justifyContent: "space-between",
@@ -94,7 +94,7 @@ const Item = ({ expense, handleDelete, handleRemoveDelete }: Props) => {
           <Text
             style={{
               color: theme === "light" ? Colors.black : "white",
-              fontSize: 14,
+              fontSize: 16,
               textTransform: "capitalize",
             }}
           >

@@ -87,7 +87,7 @@ const Form = ({ listBusiness }: Props) => {
                 flexDirection: "row",
                 alignItems: "center",
                 width: "100%",
-                backgroundColor: mainColor,
+
                 borderRadius: 4,
                 padding: 4,
                 justifyContent: "space-between",

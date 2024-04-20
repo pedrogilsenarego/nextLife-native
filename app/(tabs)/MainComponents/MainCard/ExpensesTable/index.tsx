@@ -22,7 +22,7 @@ const ExpensesTable = ({
 }: Props) => {
   const expenses = useExpenses();
   const incomes = useIncomes();
-  const { contrastColor } = useTheme();
+  const { contrastColor, theme } = useTheme();
   const [listDelete, setListDelete] = useState<string[]>([]);
 
   const { mutate: deleteExpensesMutation, isPending } = useMutation({
@@ -102,18 +102,9 @@ const ExpensesTable = ({
     <View
       style={{
         backgroundColor: "#ffffff1A",
-        borderTopWidth: 1,
+        borderTopWidth: theme === "light" ? 0 : 1,
         paddingTop: 4,
         borderTopColor: `${contrastColor}66`,
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },
-
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
       }}
     >
       <FlatList
