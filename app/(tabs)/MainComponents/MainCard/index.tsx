@@ -59,7 +59,11 @@ const MainCard = () => {
       >
         <Pressable>
           <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginHorizontal: 4,
+            }}
           >
             <View style={{ rowGap: 2 }}>
               <Text

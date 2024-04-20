@@ -26,14 +26,14 @@ const Cursor = ({ cx, cy, chartHeight, showCursor, color }: Props) => {
     <Group>
       <Path
         path={path}
-        opacity={showCursor ? 1 : 0.3}
+        opacity={showCursor ? 1 : 0.6}
         color={color}
         style="stroke"
         strokeJoin="round"
         strokeWidth={1}
       />
       <Circle
-        opacity={showCursor ? 1 : 0.3}
+        opacity={showCursor ? 1 : 0.6}
         r={6}
         cx={cx}
         cy={cy}

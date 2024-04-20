@@ -1,4 +1,4 @@
-import { useTheme } from "@/providers/ThemeContext";
+import { Colors, useTheme } from "@/providers/ThemeContext";
 import { FontAwesome } from "@expo/vector-icons";
 import {
   UseControllerProps,
@@ -54,7 +54,7 @@ const ControlledInput = ({ variant = "default", ...props }: TextInputProps) => {
       paddingTop: 11,
       fontSize: 40,
       paddingBottom: 11,
-      color: "white",
+      color: theme === "light" ? Colors.black : "white",
       borderWidth: 0,
       borderColor: "transparent",
     },
@@ -84,7 +84,13 @@ const ControlledInput = ({ variant = "default", ...props }: TextInputProps) => {
       >
         <RNTextInput
           caretHidden
-          placeholderTextColor={variant === "big" ? "#ffffffCE" : undefined}
+          placeholderTextColor={
+            variant === "big"
+              ? theme === "light"
+                ? Colors.black
+                : "#ffffffCE"
+              : undefined
+          }
           editable={!inputProps.disabled}
           keyboardType={inputProps.keyboardType}
           keyboardAppearance="dark"

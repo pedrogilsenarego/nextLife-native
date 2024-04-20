@@ -101,7 +101,7 @@ const Subcard = ({
                         ? theme === "light"
                           ? Colors.black
                           : "whitesmoke"
-                        : "#82ca9d66",
+                        : "#82ca9d",
                   }}
                 >
                   {selectedValue.value.toFixed(0)}€
@@ -116,7 +116,7 @@ const Subcard = ({
                     >
                       /
                     </Text>
-                    <Text style={{ color: "#c8081566" }}>
+                    <Text style={{ color: "#c80815" }}>
                       {selectedValue2.value.toFixed(0)}€
                     </Text>
                   </>
@@ -155,7 +155,7 @@ const Subcard = ({
                         ? theme === "light"
                           ? Colors.black
                           : "whitesmoke"
-                        : "#82ca9d66",
+                        : "#82ca9d",
                   }}
                 >
                   {accValue.value.toFixed(0)}€
@@ -169,7 +169,7 @@ const Subcard = ({
                     >
                       /
                     </Text>
-                    <Text style={{ color: "#c8081566" }}>
+                    <Text style={{ color: "#c80815" }}>
                       {accValue2.value.toFixed(0)}€
                     </Text>
                   </>
@@ -216,19 +216,18 @@ const Subcard = ({
             >
               {monthName}:{" "}
             </Text>
-            <Text style={{ color: "#82ca9d66", fontWeight: "600" }}>
+            <Text style={{ color: "#82ca9d", fontWeight: "600" }}>
               {totalIncomes}€
             </Text>
             <Text
               style={{
                 color: theme === "light" ? Colors.black : "whitesmoke",
-                fontWeight: "600",
               }}
             >
               {" "}
               /{" "}
             </Text>
-            <Text style={{ color: "#c8081566", fontWeight: "600" }}>
+            <Text style={{ color: "#c80815", fontWeight: "600" }}>
               {totalExpenses}€
             </Text>
           </View>

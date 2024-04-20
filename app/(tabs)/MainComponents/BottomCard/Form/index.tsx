@@ -75,11 +75,11 @@ const Form = ({ listBusiness }: Props) => {
     <View
       style={{ alignItems: "center", width: "100%", paddingHorizontal: 20 }}
     >
-      <Text style={{ fontSize: 24, fontWeight: "bold", marginTop: 10 }}>
+      <Text style={{ fontSize: 24, fontWeight: "bold", marginTop: 14 }}>
         Add new entry
       </Text>
 
-      <View style={{ width: "100%", marginTop: 10 }}>
+      <View style={{ width: "100%", marginTop: 6 }}>
         <FormProvider {...methods}>
           <View style={{ width: "100%" }}>
             <View
