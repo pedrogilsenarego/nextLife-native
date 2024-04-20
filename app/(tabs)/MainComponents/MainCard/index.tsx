@@ -21,7 +21,7 @@ const MainCard = () => {
   const formattedDate = `${currentDate.getDate()}, ${monthInLetters} ${currentDate.getFullYear()}`;
 
   const userQuery = useUser();
-  const { contrastColor, mainColor } = useTheme();
+  const { contrastColor, mainColor, theme } = useTheme();
   const [selectedStatus, setSelectedStatus] = useState<
     "expenses" | "incomes" | "both"
   >("expenses");
@@ -34,29 +34,64 @@ const MainCard = () => {
         paddingHorizontal: mainColor === Colors.black ? 10 : 18,
 
         height: "100%",
+        backgroundColor: theme === "light" ? "white" : "transparent",
+        borderRadius: 12,
+        position: "relative",
+        marginHorizontal: 4,
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
       }}
     >
       <Pressable>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <View>
-            <Text style={{ color: "white", fontSize: 20 }}>
+            <Text
+              style={{
+                color: theme === "light" ? Colors.black : "white",
+                fontSize: 20,
+              }}
+            >
               Hello,{" "}
               <Text style={{ fontWeight: "bold", textTransform: "capitalize" }}>
                 {userQuery?.data?.username}
               </Text>
             </Text>
-            <Text style={{ color: "whitesmoke" }}>Your monthly balance</Text>
-            <Text style={{ color: "white", fontSize: 20, fontWeight: "bold" }}>
+            <Text
+              style={{
+                color: theme === "light" ? Colors.lightGray : "whitesmoke",
+              }}
+            >
+              Your monthly balance
+            </Text>
+            <Text
+              style={{
+                color: theme === "light" ? Colors.black : "white",
+                fontSize: 20,
+                fontWeight: "bold",
+              }}
+            >
               {(totalIncomes() - totalExpenses()).toFixed(1)} Є
             </Text>
           </View>
           <View
             style={{ justifyContent: "flex-end", paddingBottom: 5, rowGap: 6 }}
           >
-            <Text style={{ color: "whitesmoke" }}>{formattedDate}</Text>
+            <Text
+              style={{ color: theme === "light" ? Colors.black : "whitesmoke" }}
+            >
+              {formattedDate}
+            </Text>
             <View
               style={{
-                backgroundColor: "#ffffff1A",
+                backgroundColor:
+                  theme === "light" ? Colors.lightGray : "#ffffff1A",
 
                 borderRadius: 24,
                 flexDirection: "row",
@@ -72,7 +107,11 @@ const MainCard = () => {
                   padding: 10,
                 }}
               >
-                <AntDesign name="dotchart" color={contrastColor} size={18} />
+                <AntDesign
+                  name="dotchart"
+                  color={theme === "light" ? "white" : contrastColor}
+                  size={18}
+                />
               </View>
               <View
                 style={{
@@ -82,7 +121,7 @@ const MainCard = () => {
               >
                 <AntDesign
                   name="piechart"
-                  color={contrastColor}
+                  color={theme === "light" ? "white" : contrastColor}
                   style={{ opacity: 0.7 }}
                   size={18}
                 />

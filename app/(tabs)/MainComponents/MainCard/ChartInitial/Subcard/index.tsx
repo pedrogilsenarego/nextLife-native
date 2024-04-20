@@ -1,6 +1,6 @@
 import { ArrayButtons } from "@/components/Buttons/ArrayButtons";
 import AnimatedText from "@/components/Charts/LineChart/AnimatedText";
-import { useTheme } from "@/providers/ThemeContext";
+import { Colors, useTheme } from "@/providers/ThemeContext";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useFont } from "@shopify/react-native-skia";
 import { useState } from "react";
@@ -33,7 +33,7 @@ const Subcard = ({
   setSelectedStatus,
 }: Props) => {
   const currentDate = new Date();
-
+  const { theme } = useTheme();
   const monthName = currentDate.toLocaleDateString("en-US", { month: "long" });
   const totalExpenses = expensesPerDay
     .reduce((acc, value) => acc + value.value, 0)
@@ -81,7 +81,7 @@ const Subcard = ({
           >
             <Text
               style={{
-                color: "whitesmoke",
+                color: theme === "light" ? Colors.black : "whitesmoke",
               }}
             >
               {selectedDate === "Total" ? "Day:" : `Day(${selectedDate}):`}
@@ -96,7 +96,12 @@ const Subcard = ({
               >
                 <Text
                   style={{
-                    color: selectedStatus !== "both" ? "whitesmoke" : "green",
+                    color:
+                      selectedStatus !== "both"
+                        ? theme === "light"
+                          ? Colors.black
+                          : "whitesmoke"
+                        : "green",
                   }}
                 >
                   {selectedValue.value.toFixed(0)}€
@@ -104,7 +109,13 @@ const Subcard = ({
 
                 {selectedStatus === "both" && (
                   <>
-                    <Text style={{ color: "whitesmoke" }}>/</Text>
+                    <Text
+                      style={{
+                        color: theme === "light" ? Colors.black : "whitesmoke",
+                      }}
+                    >
+                      /
+                    </Text>
                     <Text style={{ color: "red" }}>
                       {selectedValue2.value.toFixed(0)}€
                     </Text>
@@ -112,7 +123,14 @@ const Subcard = ({
                 )}
               </View>
             ) : (
-              <Text style={{ color: "whitesmoke" }}> -</Text>
+              <Text
+                style={{
+                  color: theme === "light" ? Colors.black : "whitesmoke",
+                }}
+              >
+                {" "}
+                -
+              </Text>
             )}
           </View>
           <View
@@ -123,19 +141,34 @@ const Subcard = ({
               alignItems: "center",
             }}
           >
-            <Text style={{ color: "whitesmoke" }}>Acc:</Text>
+            <Text
+              style={{ color: theme === "light" ? Colors.black : "whitesmoke" }}
+            >
+              Acc:
+            </Text>
             {selectedDate !== "Total" ? (
               <>
                 <Text
                   style={{
-                    color: selectedStatus !== "both" ? "whitesmoke" : "green",
+                    color:
+                      selectedStatus !== "both"
+                        ? theme === "light"
+                          ? Colors.black
+                          : "whitesmoke"
+                        : "green",
                   }}
                 >
                   {accValue.value.toFixed(0)}€
                 </Text>
                 {selectedStatus === "both" && (
                   <>
-                    <Text style={{ color: "whitesmoke" }}>/</Text>
+                    <Text
+                      style={{
+                        color: theme === "light" ? Colors.black : "whitesmoke",
+                      }}
+                    >
+                      /
+                    </Text>
                     <Text style={{ color: "red" }}>
                       {accValue2.value.toFixed(0)}€
                     </Text>
@@ -143,14 +176,25 @@ const Subcard = ({
                 )}
               </>
             ) : (
-              <Text style={{ color: "whitesmoke" }}> -</Text>
+              <Text
+                style={{
+                  color: theme === "light" ? Colors.black : "whitesmoke",
+                }}
+              >
+                {" "}
+                -
+              </Text>
             )}
           </View>
         </>
 
         {selectedStatus === "expenses" && (
           <Text
-            style={{ color: "whitesmoke", fontWeight: "600", marginTop: 8 }}
+            style={{
+              color: theme === "light" ? Colors.black : "whitesmoke",
+              fontWeight: "600",
+              marginTop: 8,
+            }}
           >
             {monthName}: {totalExpenses}€
           </Text>

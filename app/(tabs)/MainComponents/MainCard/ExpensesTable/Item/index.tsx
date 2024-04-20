@@ -3,7 +3,7 @@ import { deleteIncomes } from "@/actions/incomesActions";
 import LoaderSpinner from "@/components/Atoms/LoaderSpinner";
 import useExpenses from "@/hooks/useExpenses";
 import useIncomes from "@/hooks/useIncomes";
-import { useTheme } from "@/providers/ThemeContext";
+import { Colors, useTheme } from "@/providers/ThemeContext";
 import { Expense } from "@/types/expensesTypes";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { useMutation } from "@tanstack/react-query";
@@ -20,6 +20,7 @@ type Props = {
 const Item = ({ expense, handleDelete, handleRemoveDelete }: Props) => {
   const expenses = useExpenses();
   const incomes = useIncomes();
+  const { theme } = useTheme();
   const dateFormatter = (date: Date) => {
     return moment(date).format("DD MMM HH:MM");
   };
@@ -80,9 +81,9 @@ const Item = ({ expense, handleDelete, handleRemoveDelete }: Props) => {
     >
       <View
         style={{
-          //borderWidth: 1,
-          //borderColor: "#ffffff66",
-          //backgroundColor: mainColor,
+          borderWidth: 1,
+          borderColor: Colors.lightGray,
+
           paddingVertical: 6,
           paddingHorizontal: 10,
           flexDirection: "row",
@@ -92,7 +93,7 @@ const Item = ({ expense, handleDelete, handleRemoveDelete }: Props) => {
         <View style={{ rowGap: 3 }}>
           <Text
             style={{
-              color: "white",
+              color: theme === "light" ? Colors.black : "white",
               fontSize: 14,
               textTransform: "capitalize",
             }}
@@ -106,10 +107,21 @@ const Item = ({ expense, handleDelete, handleRemoveDelete }: Props) => {
           />
         </View>
         <View style={{ alignItems: "flex-end" }}>
-          <Text style={{ color: "white", fontSize: 16, fontWeight: "600" }}>
+          <Text
+            style={{
+              color: theme === "light" ? Colors.black : "white",
+              fontSize: 16,
+              fontWeight: "600",
+            }}
+          >
             {expense.amount}€
           </Text>
-          <Text style={{ color: "white", fontSize: 12 }}>
+          <Text
+            style={{
+              color: theme === "light" ? Colors.black : "white",
+              fontSize: 12,
+            }}
+          >
             {dateFormatter(expense.created_at)}
           </Text>
         </View>

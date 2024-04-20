@@ -1,13 +1,15 @@
 import React from "react";
 import { Text, useFont } from "@shopify/react-native-skia";
+import { useTheme } from "@/providers/ThemeContext";
 
 type Props = {
   x: number;
   y: number;
   text: string;
+  color: string;
 };
 
-const XAxisText = ({ x, y, text }: Props) => {
+const XAxisText = ({ x, y, text, color }: Props) => {
   //   const font = useFont(
   //     require("../../../assets/fonts/SpaceMono-Regular.ttf"),
   //     18
@@ -27,7 +29,7 @@ const XAxisText = ({ x, y, text }: Props) => {
       x={x - 8}
       y={y - 15}
       text={text}
-      color={"white"}
+      color={color}
     />
   );
 };

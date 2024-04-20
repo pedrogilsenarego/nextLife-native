@@ -63,7 +63,7 @@ const LineChart = ({
   const CHART_MARGIN = 20;
   const CHART_WIDTH = Dimensions.get("screen").width - 2 * 18;
   const CHART_HEIGHT = 170;
-
+  const { theme } = useTheme();
   const [showCursor, setShowCursor] = useState(false);
 
   const animationLine = useSharedValue(0);
@@ -226,6 +226,7 @@ const LineChart = ({
         )}
         {data.map((dataPoint: DataType, index) => (
           <XAxisText
+            color={theme === "light" ? Colors.black : "white"}
             x={x(dataPoint.label)!}
             y={CHART_HEIGHT}
             text={dataPoint.label}

@@ -21,7 +21,7 @@ interface ThemeContexType {
 const ThemeContext = createContext<ThemeContexType | undefined>(undefined);
 
 export const Colors = {
-  lightGray: "lightGray",
+  lightGray: "#D3D3D3",
   orangeRed: "#FF4500",
   black: "#121212",
   fuchsia: "#ca2c92",
