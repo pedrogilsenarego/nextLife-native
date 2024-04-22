@@ -46,6 +46,36 @@ const useMetrics = () => {
     return totalPerDay;
   };
 
+  const calculateCategoryPercentage = (expensesData: Expense[]) => {
+    const categoryTotal = expensesData.reduce((acc: any, expense) => {
+      acc[expense.category] = (acc[expense.category] || 0) + expense.amount;
+      return acc;
+    }, {});
+
+    const totalExpensesAmount: any = Object.values(categoryTotal).reduce(
+      (total: any, amount: any) => total + amount,
+      0
+    );
+
+    const categoryPercentage = Object.entries(categoryTotal).map(
+      ([category, amount]: any) => ({
+        category,
+        percentage: parseFloat(
+          ((amount / totalExpensesAmount) * 100).toFixed(1)
+        ),
+      })
+    );
+
+    return categoryPercentage;
+  };
+
+  const getCategoriesPercentage = () => {
+    const categoriesPercentage = calculateCategoryPercentage(
+      expenses?.data ?? []
+    );
+    return categoriesPercentage;
+  };
+
   const expensesTotalPerDay = () => valueTotalPerDay(expenses?.data);
   const incomesTotalPerDay = () => valueTotalPerDay(incomes?.data);
 
@@ -54,6 +84,7 @@ const useMetrics = () => {
     totalIncomes,
     expensesTotalPerDay,
     incomesTotalPerDay,
+    getCategoriesPercentage,
   };
 };
 

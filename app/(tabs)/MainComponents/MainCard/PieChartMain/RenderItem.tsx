@@ -4,7 +4,7 @@ import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
 import { useTheme } from "@/providers/ThemeContext";
 
 interface Data {
-  value: number;
+  category: string;
   percentage: number;
   color: string;
 }
@@ -41,7 +41,7 @@ const RenderItem = ({ item, index }: Props) => {
     text: {
       fontSize: 22,
       fontWeight: "bold",
-      color: "white",
+      color: "black",
     },
   });
   return (
@@ -53,7 +53,7 @@ const RenderItem = ({ item, index }: Props) => {
       <View style={styles.contentContainer}>
         <View style={[styles.color, { backgroundColor: item.color }]} />
         <Text style={styles.text}>{item.percentage}%</Text>
-        <Text style={styles.text}>${item.value}</Text>
+        <Text style={styles.text}>${item.category}</Text>
       </View>
     </Animated.View>
   );

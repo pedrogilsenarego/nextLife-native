@@ -45,7 +45,13 @@ const Gradient = ({
       <LinearGradient
         start={{ x: 0, y: 0 }}
         end={animationGradient}
-        colors={[`${color}`, `${color}B3`, `${color}1A`, `${color}00`]}
+        colors={[
+          `${color}E6`,
+          `${color}B3`,
+          `${color}33`,
+          `${color}1A`,
+          `${color}00`,
+        ]}
       />
     </Path>
   );

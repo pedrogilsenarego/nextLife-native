@@ -67,7 +67,7 @@ const Subcard = ({
         marginTop: 10,
 
         shadowOffset: {
-          width: 0,
+          width: 2,
           height: 2,
         },
         shadowOpacity: 0.1,

@@ -7,6 +7,7 @@ import useExpenses from "@/hooks/useExpenses";
 import useIncomes from "@/hooks/useIncomes";
 import useUser from "@/hooks/useUser";
 import Options from "./Options";
+import SecondaryCard from "./MainComponents/SecondaryCard";
 
 export default function TabOneScreen() {
   const width = Dimensions.get("window").width;
@@ -34,10 +35,18 @@ export default function TabOneScreen() {
         <Carousel
           width={width}
           style={{ paddingBottom: 10 }}
-          data={[...new Array(2).keys()]}
+          data={[...new Array(3).keys()]}
           scrollAnimationDuration={1000}
           onSnapToItem={(index) => console.log("current index:", index)}
-          renderItem={({ index }) => (index === 0 ? <MainCard /> : <Options />)}
+          renderItem={({ index }) =>
+            index === 0 ? (
+              <MainCard />
+            ) : index === 1 ? (
+              <SecondaryCard />
+            ) : (
+              <Options />
+            )
+          }
         />
       }
       secondaryContent={<BottomCard />}

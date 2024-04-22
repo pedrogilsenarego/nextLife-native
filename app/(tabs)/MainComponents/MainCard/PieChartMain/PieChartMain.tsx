@@ -5,8 +5,9 @@ import { useSharedValue, withTiming } from "react-native-reanimated";
 import RenderItem from "./RenderItem";
 import PieChart from "@/components/Charts/PieChart";
 import { useTheme } from "@/providers/ThemeContext";
+import useMetrics from "@/hooks/useMetrics";
 type Data = {
-  value: number;
+  category: string;
   percentage: number;
   color: string;
 };
@@ -16,10 +17,12 @@ const PieChartMain = () => {
   const STROKE_WIDTH = 28;
   const OUTER_STROKE_WIDTH = 33;
   const GAP = 0.07;
-  const n = 5;
+  const n = 3;
   const [data, setData] = useState<Data[]>([]);
   const { contrastColor, mainColor } = useTheme();
-  const decimals = useSharedValue<number[]>([]);
+  const decimals = useSharedValue<number[]>([0.1, 0.1, 0.8]);
+
+  const { getCategoriesPercentage } = useMetrics();
 
   const colors = [
     `${contrastColor}E6`,
@@ -30,50 +33,20 @@ const PieChartMain = () => {
   ];
 
   const generateData = () => {
-    const generateNumbers = generateRandomNumbers(n);
-    const total = generateNumbers.reduce(
-      (acc, currentValue) => acc + currentValue,
-      0
-    );
-    const generatePercentages = calculatePercentage(generateNumbers, total);
-    const generateDecimals = generatePercentages.map(
-      (number) => Number(number.toFixed(0)) / 100
+    const generateDecimals = getCategoriesPercentage().map(
+      (category) => category.percentage / 100
     );
 
     decimals.value = [...generateDecimals];
 
-    const arrayOfObjects = generateNumbers.map((value, index) => ({
-      value,
-      percentage: generatePercentages[index],
+    const arrayOfObjects = getCategoriesPercentage().map((value, index) => ({
+      category: value.category,
+      percentage: value.percentage,
       color: colors[index],
     }));
 
     setData(arrayOfObjects);
   };
-
-  function calculatePercentage(numbers: number[], total: number): number[] {
-    const percentageArray: number[] = [];
-
-    numbers.forEach((number) => {
-      const percentage = Math.round((number / total) * 100);
-
-      percentageArray.push(percentage);
-    });
-
-    return percentageArray;
-  }
-  function generateRandomNumbers(n: number): number[] {
-    const min = 100;
-    const max = 500;
-    const result: number[] = [];
-
-    for (let i = 0; i < n; i++) {
-      const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-      result.push(randomNumber);
-    }
-
-    return result;
-  }
 
   return (
     <View>
