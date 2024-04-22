@@ -1,6 +1,6 @@
 import useMetrics from "@/hooks/useMetrics";
 import useUser from "@/hooks/useUser";
-import { supabase } from "@/lib/supabase";
+
 import { View, Text, Pressable, ScrollView } from "react-native";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 import ChartInitial from "./ChartInitial";
@@ -11,9 +11,7 @@ import PieChartMain from "./PieChartMain/PieChartMain";
 
 const MainCard = () => {
   const [selectedDate, setSelectedDate] = useState<string>("Total");
-  const logout = async () => {
-    await supabase.auth.signOut();
-  };
+
   const currentDate = new Date();
   const monthInLetters = currentDate.toLocaleString("default", {
     month: "long",
@@ -171,12 +169,6 @@ const MainCard = () => {
               setSelectedStatus={setSelectedStatus}
             />
           </View>
-          <Pressable
-            onPress={logout}
-            style={{ marginTop: 30, marginBottom: 200 }}
-          >
-            <Text style={{ color: "whitesmoke" }}>Logout</Text>
-          </Pressable>
         </Pressable>
       </ScrollView>
     </View>

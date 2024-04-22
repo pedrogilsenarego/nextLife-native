@@ -71,7 +71,7 @@ const Subcard = ({
           height: 2,
         },
         shadowOpacity: 0.1,
-        shadowRadius: 4,
+        shadowRadius: 2,
         elevation: 2,
       }}
     >

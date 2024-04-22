@@ -6,6 +6,7 @@ import { Dimensions, Text, View, Image } from "react-native";
 import useExpenses from "@/hooks/useExpenses";
 import useIncomes from "@/hooks/useIncomes";
 import useUser from "@/hooks/useUser";
+import Options from "./Options";
 
 export default function TabOneScreen() {
   const width = Dimensions.get("window").width;
@@ -36,9 +37,7 @@ export default function TabOneScreen() {
           data={[...new Array(2).keys()]}
           scrollAnimationDuration={1000}
           onSnapToItem={(index) => console.log("current index:", index)}
-          renderItem={({ index }) =>
-            index === 0 ? <MainCard /> : <MainCard />
-          }
+          renderItem={({ index }) => (index === 0 ? <MainCard /> : <Options />)}
         />
       }
       secondaryContent={<BottomCard />}
