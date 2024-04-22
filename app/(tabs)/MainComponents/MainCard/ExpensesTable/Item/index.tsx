@@ -4,7 +4,6 @@ import LoaderSpinner from "@/components/Atoms/LoaderSpinner";
 import useExpenses from "@/hooks/useExpenses";
 import useIncomes from "@/hooks/useIncomes";
 import { Colors, useTheme } from "@/providers/ThemeContext";
-import { Expense } from "@/types/expensesTypes";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { useMutation } from "@tanstack/react-query";
 import moment from "moment";

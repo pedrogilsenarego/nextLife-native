@@ -189,8 +189,8 @@ const LineChart = ({
         <Path
           path={linePath!}
           style={"stroke"}
-          strokeWidth={2}
-          color={`${color1}66`}
+          strokeWidth={1.5}
+          color={`${color1}E6`}
           strokeCap={"round"}
           start={0}
           end={animationLine}
@@ -199,8 +199,8 @@ const LineChart = ({
           <Path
             path={linePath2!}
             style={"stroke"}
-            strokeWidth={2}
-            color={`${color2}66` || ""}
+            strokeWidth={1.5}
+            color={`${color2}E6` || ""}
             strokeCap={"round"}
             start={0}
             end={animationLine2}

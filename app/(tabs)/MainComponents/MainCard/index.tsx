@@ -164,7 +164,7 @@ const MainCard = () => {
             />
           </View>
 
-          <View>
+          <View style={{ marginTop: 10 }}>
             <ExpensesTable
               selectedDate={selectedDate}
               selectedStatus={selectedStatus}

@@ -56,16 +56,23 @@ const Subcard = ({
     <View
       style={{
         flexDirection: "row",
-        backgroundColor: "#ffffff1A",
+        backgroundColor: "#ffffff",
         paddingVertical: 15,
         paddingHorizontal: 10,
-
-        borderTopEndRadius: 4,
-        borderTopStartRadius: 4,
+        borderWidth: 1,
+        borderColor: Colors.lightGray,
         justifyContent: "space-between",
         columnGap: 5,
         alignItems: "flex-start",
         marginTop: 10,
+
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 2,
       }}
     >
       <View>
@@ -201,7 +208,11 @@ const Subcard = ({
         )}
         {selectedStatus === "incomes" && (
           <Text
-            style={{ color: "whitesmoke", fontWeight: "600", marginTop: 8 }}
+            style={{
+              color: theme === "light" ? Colors.black : "whitesmoke",
+              fontWeight: "600",
+              marginTop: 8,
+            }}
           >
             {monthName}: {totalIncomes}€
           </Text>

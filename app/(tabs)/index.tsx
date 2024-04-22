@@ -2,11 +2,32 @@ import Carousel from "react-native-reanimated-carousel";
 import MainLayout from "../../layouts/MainLayout";
 import BottomCard from "./MainComponents/BottomCard";
 import MainCard from "./MainComponents/MainCard";
-import { Dimensions, Keyboard, Pressable } from "react-native";
+import { Dimensions, Text, View, Image } from "react-native";
+import useExpenses from "@/hooks/useExpenses";
+import useIncomes from "@/hooks/useIncomes";
+import useUser from "@/hooks/useUser";
 
 export default function TabOneScreen() {
   const width = Dimensions.get("window").width;
-  return (
+  const expenses = useExpenses();
+  const incomes = useIncomes();
+  const user = useUser();
+  const loading = expenses.isLoading || incomes.isLoading || user.isLoading;
+  return loading ? (
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "white",
+      }}
+    >
+      <Image
+        style={{ width: 150, objectFit: "contain" }}
+        source={require("../../assets/images/logo.png")}
+      />
+    </View>
+  ) : (
     <MainLayout
       mainContent={
         <Carousel
