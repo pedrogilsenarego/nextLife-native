@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useSharedValue, withTiming } from "react-native-reanimated";
 import RenderItem from "./RenderItem";
 import PieChart from "@/components/Charts/PieChart";
-import { useTheme } from "@/providers/ThemeContext";
+import { Colors, useTheme } from "@/providers/ThemeContext";
 import useMetrics from "@/hooks/useMetrics";
 type Data = {
   category: string;
@@ -13,10 +13,10 @@ type Data = {
 };
 
 const PieChartMain = () => {
-  const RADIUS = 85;
-  const STROKE_WIDTH = 28;
+  const RADIUS = 60;
+  const STROKE_WIDTH = 16;
   const OUTER_STROKE_WIDTH = 33;
-  const GAP = 0.07;
+  const GAP = 0.004;
   const n = 3;
   const [data, setData] = useState<Data[]>([]);
   const { contrastColor, mainColor } = useTheme();
@@ -25,12 +25,17 @@ const PieChartMain = () => {
   const { getCategoriesPercentage } = useMetrics();
 
   const colors = [
-    `${contrastColor}E6`,
-    `${contrastColor}E6`,
-    `${contrastColor}E6`,
-    `${contrastColor}E6`,
-    `${contrastColor}E6`,
+    Colors.orangeRed,
+    Colors.fuchsia,
+    Colors.tealc,
+    Colors.purple,
+    Colors.saphire,
+    Colors.greenPuke,
   ];
+
+  useEffect(() => {
+    generateData();
+  }, []);
 
   const generateData = () => {
     const generateDecimals = getCategoriesPercentage().map(
@@ -67,12 +72,7 @@ const PieChartMain = () => {
           colors={colors}
         />
       </View>
-      <TouchableOpacity
-        onPress={generateData}
-        style={{ backgroundColor: mainColor, padding: 20, borderRadius: 10 }}
-      >
-        <Text style={{ color: "white" }}>dwq</Text>
-      </TouchableOpacity>
+
       {data.map((item, index) => {
         return <RenderItem item={item} key={index} index={index} />;
       })}

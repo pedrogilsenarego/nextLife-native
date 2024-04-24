@@ -78,10 +78,9 @@ const PiePath = ({
     <>
       <Path
         path={path}
-        color={"#18181B"}
+        color={color}
         style="stroke"
         strokeWidth={strokeWidth}
-        strokeCap={"round"}
         start={start}
         end={end}
       ></Path>

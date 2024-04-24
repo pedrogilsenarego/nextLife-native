@@ -89,9 +89,9 @@ const SecondaryCard = () => {
             </View>
             <View
               style={{
-                justifyContent: "flex-end",
-                paddingBottom: 5,
-                rowGap: 6,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-end",
               }}
             >
               <Text
@@ -101,13 +101,15 @@ const SecondaryCard = () => {
               >
                 {formattedDate}
               </Text>
+
               <View
                 style={{
                   backgroundColor:
                     theme === "light" ? Colors.black : "#ffffff1A",
-
+                  width: "auto",
                   borderRadius: 24,
                   flexDirection: "row",
+                  display: "flex",
                   padding: 4,
 
                   columnGap: 8,
@@ -122,8 +124,8 @@ const SecondaryCard = () => {
                   <AntDesign
                     name="dotchart"
                     color={theme === "light" ? "#ffffff66" : contrastColor}
-                    style={{ opacity: 0.7 }}
                     size={16}
+                    style={{ opacity: 0.7 }}
                   />
                 </View>
                 <View
