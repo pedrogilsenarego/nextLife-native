@@ -226,7 +226,13 @@ const LineChart = ({
         )}
         {data.map((dataPoint: DataType, index) => (
           <XAxisText
-            color={theme === "light" ? Colors.black : "white"}
+            color={
+              selectedDate === dataPoint.label
+                ? theme === "light"
+                  ? Colors.black
+                  : "white"
+                : "transparent"
+            }
             x={x(dataPoint.label)!}
             y={CHART_HEIGHT}
             text={dataPoint.label}

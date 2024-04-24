@@ -95,9 +95,9 @@ const MainCard = () => {
             </View>
             <View
               style={{
-                justifyContent: "flex-end",
-                paddingBottom: 5,
-                rowGap: 6,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-end",
               }}
             >
               <Text
@@ -107,13 +107,15 @@ const MainCard = () => {
               >
                 {formattedDate}
               </Text>
+
               <View
                 style={{
                   backgroundColor:
                     theme === "light" ? Colors.black : "#ffffff1A",
-
+                  width: "auto",
                   borderRadius: 24,
                   flexDirection: "row",
+                  display: "flex",
                   padding: 4,
 
                   columnGap: 8,
@@ -149,9 +151,6 @@ const MainCard = () => {
             </View>
           </View>
 
-          {/* <View>
-          <PieChartMain />
-        </View> */}
           <View>
             <ChartInitial
               selectedDate={selectedDate}
