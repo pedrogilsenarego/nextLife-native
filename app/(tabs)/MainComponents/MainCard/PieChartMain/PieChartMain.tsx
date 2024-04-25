@@ -17,9 +17,9 @@ const PieChartMain = () => {
   const STROKE_WIDTH = 16;
   const OUTER_STROKE_WIDTH = 33;
   const GAP = 0.004;
-  const n = 3;
+
   const [data, setData] = useState<Data[]>([]);
-  const { contrastColor, mainColor } = useTheme();
+
   const decimals = useSharedValue<number[]>([0.1, 0.1, 0.8]);
 
   const { getCategoriesPercentage } = useMetrics();
@@ -31,6 +31,7 @@ const PieChartMain = () => {
     Colors.purple,
     Colors.saphire,
     Colors.greenPuke,
+    Colors.red,
   ];
 
   useEffect(() => {
@@ -67,7 +68,6 @@ const PieChartMain = () => {
           gap={GAP}
           strokeWidth={STROKE_WIDTH}
           outerStrokeWidth={OUTER_STROKE_WIDTH}
-          n={n}
           decimals={decimals}
           colors={colors}
         />

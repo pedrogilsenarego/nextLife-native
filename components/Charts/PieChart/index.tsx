@@ -5,7 +5,6 @@ import { Canvas, Path, SkFont, Skia, Text } from "@shopify/react-native-skia";
 import PiePath from "./Path";
 
 type Props = {
-  n: number;
   gap: number;
   radius: number;
   strokeWidth: number;
@@ -15,7 +14,6 @@ type Props = {
 };
 
 const PieChart = ({
-  n,
   gap,
   decimals,
   colors,
@@ -24,7 +22,6 @@ const PieChart = ({
   outerStrokeWidth,
   radius,
 }: Props) => {
-  const array = Array.from({ length: n });
   const innerRadius = radius - outerStrokeWidth / 2;
   const animatedText = useDerivedValue(() => {
     return `€`;
@@ -35,7 +32,7 @@ const PieChart = ({
   return (
     <View style={styles.container}>
       <Canvas style={styles.container}>
-        {array.map((_, index) => {
+        {decimals.value.map((_, index) => {
           return (
             <>
               <PiePath
