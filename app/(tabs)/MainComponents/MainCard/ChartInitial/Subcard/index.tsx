@@ -1,3 +1,4 @@
+import { Container } from "@/components/Atoms/Container";
 import { ArrayButtons } from "@/components/Buttons/ArrayButtons";
 import AnimatedText from "@/components/Charts/LineChart/AnimatedText";
 import { Colors, useTheme } from "@/providers/ThemeContext";
@@ -53,28 +54,7 @@ const Subcard = ({
   }
 
   return (
-    <View
-      style={{
-        flexDirection: "row",
-        backgroundColor: "#ffffff",
-        paddingVertical: 15,
-        paddingHorizontal: 10,
-        borderWidth: 1,
-        borderColor: Colors.lightGray,
-        justifyContent: "space-between",
-        columnGap: 5,
-        alignItems: "flex-start",
-        marginTop: 10,
-
-        shadowOffset: {
-          width: 2,
-          height: 2,
-        },
-        shadowOpacity: 0.1,
-        shadowRadius: 2,
-        elevation: 2,
-      }}
-    >
+    <Container containerStyles={{ marginTop: 10 }}>
       <View>
         <>
           <View
@@ -255,7 +235,7 @@ const Subcard = ({
           }}
         />
       </View>
-    </View>
+    </Container>
   );
 };
 

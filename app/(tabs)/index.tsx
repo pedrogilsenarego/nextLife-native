@@ -8,6 +8,8 @@ import useIncomes from "@/hooks/useIncomes";
 import useUser from "@/hooks/useUser";
 import Options from "./Options";
 import SecondaryCard from "./MainComponents/SecondaryCard";
+import LoaderSpinner from "@/components/Atoms/LoaderSpinner";
+import { Colors } from "@/providers/ThemeContext";
 
 export default function TabOneScreen() {
   const width = Dimensions.get("window").width;
@@ -25,9 +27,10 @@ export default function TabOneScreen() {
       }}
     >
       <Image
-        style={{ width: 150, objectFit: "contain" }}
+        style={{ width: 120, objectFit: "contain" }}
         source={require("../../assets/images/logo.png")}
       />
+      <LoaderSpinner color={Colors.black} />
     </View>
   ) : (
     <MainLayout

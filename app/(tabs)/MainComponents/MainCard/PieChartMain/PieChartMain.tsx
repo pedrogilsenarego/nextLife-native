@@ -6,6 +6,7 @@ import RenderItem from "./RenderItem";
 import PieChart from "@/components/Charts/PieChart";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 import useMetrics from "@/hooks/useMetrics";
+import { Container } from "@/components/Atoms/Container";
 type Data = {
   category: string;
   percentage: number;
@@ -72,10 +73,11 @@ const PieChartMain = () => {
           colors={colors}
         />
       </View>
-
-      {data.map((item, index) => {
-        return <RenderItem item={item} key={index} index={index} />;
-      })}
+      <Container containerStyles={{ display: "flex", flexDirection: "column" }}>
+        {data.map((item, index) => {
+          return <RenderItem item={item} key={index} index={index} />;
+        })}
+      </Container>
     </View>
   );
 };

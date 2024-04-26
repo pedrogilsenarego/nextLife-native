@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import ExpensesTable from "./ExpensesTable";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import PieChartMain from "./PieChartMain/PieChartMain";
+import { Card } from "@/components/Atoms/Card";
 
 const MainCard = () => {
   const [selectedDate, setSelectedDate] = useState<string>("Total");
@@ -25,25 +26,7 @@ const MainCard = () => {
   const { totalExpenses, totalIncomes } = useMetrics();
 
   return (
-    <View
-      style={{
-        height: "100%",
-        backgroundColor: theme === "light" ? "white" : "transparent",
-        borderRadius: 12,
-
-        marginHorizontal: 4,
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },
-
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-        paddingVertical: 18,
-      }}
-    >
+    <Card>
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{
@@ -169,7 +152,7 @@ const MainCard = () => {
           </View>
         </Pressable>
       </ScrollView>
-    </View>
+    </Card>
   );
 };
 

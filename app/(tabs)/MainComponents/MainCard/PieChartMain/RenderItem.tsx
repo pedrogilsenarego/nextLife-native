@@ -15,19 +15,9 @@ type Props = {
 };
 
 const RenderItem = ({ item, index }: Props) => {
-  const { width } = useWindowDimensions();
   const { contrastColor } = useTheme();
   const styles = StyleSheet.create({
-    container: {
-      paddingVertical: 20,
-      marginBottom: 10,
-
-      borderWidth: 1,
-      borderColor: contrastColor,
-      borderRadius: 4,
-    },
     contentContainer: {
-      flex: 1,
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "space-between",
@@ -46,7 +36,6 @@ const RenderItem = ({ item, index }: Props) => {
   });
   return (
     <Animated.View
-      style={[styles.container, { width: width * 0.9 }]}
       entering={FadeInDown.delay(index * 200)}
       exiting={FadeOutDown}
     >

@@ -57,7 +57,6 @@ const useMetrics = () => {
       0
     );
 
-    // Calculate category percentage
     const categoryPercentage = Object.entries(categoryTotal).map(
       ([category, amount]: any) => ({
         category,
@@ -67,12 +66,10 @@ const useMetrics = () => {
       })
     );
 
-    // Calculate total percentage for categories smaller than 3%
     const totalSmallPercentage = categoryPercentage
       .filter((item) => item.percentage < 5)
       .reduce((total, item) => total + item.percentage, 0);
 
-    // Filter out categories smaller than 3% and replace them with "Other"
     const filteredCategoryPercentage = categoryPercentage
       .filter((item) => item.percentage >= 5)
       .concat({ category: "Other", percentage: totalSmallPercentage });
