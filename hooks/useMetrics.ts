@@ -63,16 +63,29 @@ const useMetrics = () => {
         percentage: parseFloat(
           ((amount / totalExpensesAmount) * 100).toFixed(1)
         ),
+        amount: parseFloat(amount.toFixed(1)),
       })
     );
 
     const totalSmallPercentage = categoryPercentage
       .filter((item) => item.percentage < 5)
-      .reduce((total, item) => total + item.percentage, 0);
+      .reduce(
+        (stats, item) => {
+          stats.totalPercentage += item.percentage;
+          stats.totalAmount += item.amount;
+          return stats;
+        },
+        { totalPercentage: 0, totalAmount: 0 }
+      );
 
     const filteredCategoryPercentage = categoryPercentage
       .filter((item) => item.percentage >= 5)
-      .concat({ category: "Other", percentage: totalSmallPercentage });
+      .sort((a, b) => b.percentage - a.percentage)
+      .concat({
+        category: "Other",
+        percentage: totalSmallPercentage.totalPercentage,
+        amount: totalSmallPercentage.totalAmount,
+      });
 
     return filteredCategoryPercentage;
   };

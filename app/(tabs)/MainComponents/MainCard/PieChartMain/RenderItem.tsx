@@ -1,12 +1,13 @@
 import { StyleSheet, Text, View, useWindowDimensions } from "react-native";
 import React from "react";
 import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
-import { useTheme } from "@/providers/ThemeContext";
+import { Colors, useTheme } from "@/providers/ThemeContext";
 
 interface Data {
   category: string;
   percentage: number;
   color: string;
+  amount: number;
 }
 
 type Props = {
@@ -15,17 +16,21 @@ type Props = {
 };
 
 const RenderItem = ({ item, index }: Props) => {
-  const { contrastColor } = useTheme();
+  const { theme } = useTheme();
   const styles = StyleSheet.create({
     contentContainer: {
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "space-between",
-      marginHorizontal: 20,
+      paddingVertical: 8,
+      paddingHorizontal: 10,
+      width: "100%",
+      borderBottomWidth: 1,
+      borderColor: Colors.lightGray,
     },
     color: {
-      width: 60,
-      height: 60,
+      width: 20,
+      height: 20,
       borderRadius: 4,
     },
     text: {
@@ -40,9 +45,50 @@ const RenderItem = ({ item, index }: Props) => {
       exiting={FadeOutDown}
     >
       <View style={styles.contentContainer}>
-        <View style={[styles.color, { backgroundColor: item.color }]} />
-        <Text style={styles.text}>{item.percentage}%</Text>
-        <Text style={styles.text}>${item.category}</Text>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            columnGap: 10,
+            alignItems: "center",
+          }}
+        >
+          <View style={[styles.color, { backgroundColor: item.color }]} />
+          <Text
+            style={{
+              color: theme === "light" ? Colors.black : "white",
+              fontSize: 16,
+              textTransform: "capitalize",
+            }}
+          >
+            {item.category}
+          </Text>
+        </View>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-end",
+          }}
+        >
+          <Text
+            style={{
+              color: theme === "light" ? Colors.black : "white",
+              fontSize: 16,
+              fontWeight: "600",
+            }}
+          >
+            {item.percentage}%
+          </Text>
+          <Text
+            style={{
+              color: theme === "light" ? Colors.black : "white",
+              fontSize: 12,
+            }}
+          >
+            {item.amount}
+          </Text>
+        </View>
       </View>
     </Animated.View>
   );
