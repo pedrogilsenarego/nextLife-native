@@ -15,6 +15,7 @@ const useIncomes = () => {
           endDate: datesToQuery.endDate,
         },
       }),
+    staleTime: Infinity,
   });
 
   return expenses;

@@ -1,5 +1,5 @@
 import { Container } from "@/components/Atoms/Container";
-import { ArrayButtons } from "@/components/Buttons/ArrayButtons";
+import { ArrayButtons } from "@/components/Molecules/ArrayButtons";
 import AnimatedText from "@/components/Charts/LineChart/AnimatedText";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -7,6 +7,8 @@ import { useFont } from "@shopify/react-native-skia";
 import { useState } from "react";
 import { View, Text, Pressable } from "react-native";
 import { SharedValue } from "react-native-reanimated";
+import { LeftComponent } from "./LeftComponent";
+import { RightComponent } from "./RightComponent";
 
 type Props = {
   selectedDate: string;
@@ -55,186 +57,24 @@ const Subcard = ({
 
   return (
     <Container containerStyles={{ marginTop: 10 }}>
-      <View>
-        <>
-          <View
-            style={{
-              flexDirection: "row",
-
-              columnGap: 5,
-
-              alignItems: "center",
-            }}
-          >
-            <Text
-              style={{
-                color: theme === "light" ? Colors.black : "whitesmoke",
-              }}
-            >
-              {selectedDate === "Total" ? "Day:" : `Day(${selectedDate}):`}
-            </Text>
-            {selectedDate !== "Total" ? (
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  columnGap: 2,
-                }}
-              >
-                <Text
-                  style={{
-                    color:
-                      selectedStatus !== "both"
-                        ? theme === "light"
-                          ? Colors.black
-                          : "whitesmoke"
-                        : "#82ca9d",
-                  }}
-                >
-                  {selectedValue.value.toFixed(0)}€
-                </Text>
-
-                {selectedStatus === "both" && (
-                  <>
-                    <Text
-                      style={{
-                        color: theme === "light" ? Colors.black : "whitesmoke",
-                      }}
-                    >
-                      /
-                    </Text>
-                    <Text style={{ color: "#c80815" }}>
-                      {selectedValue2.value.toFixed(0)}€
-                    </Text>
-                  </>
-                )}
-              </View>
-            ) : (
-              <Text
-                style={{
-                  color: theme === "light" ? Colors.black : "whitesmoke",
-                }}
-              >
-                {" "}
-                -
-              </Text>
-            )}
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-
-              columnGap: 5,
-              alignItems: "center",
-            }}
-          >
-            <Text
-              style={{ color: theme === "light" ? Colors.black : "whitesmoke" }}
-            >
-              Acc:
-            </Text>
-            {selectedDate !== "Total" ? (
-              <>
-                <Text
-                  style={{
-                    color:
-                      selectedStatus !== "both"
-                        ? theme === "light"
-                          ? Colors.black
-                          : "whitesmoke"
-                        : "#82ca9d",
-                  }}
-                >
-                  {accValue.value.toFixed(0)}€
-                </Text>
-                {selectedStatus === "both" && (
-                  <>
-                    <Text
-                      style={{
-                        color: theme === "light" ? Colors.black : "whitesmoke",
-                      }}
-                    >
-                      /
-                    </Text>
-                    <Text style={{ color: "#c80815" }}>
-                      {accValue2.value.toFixed(0)}€
-                    </Text>
-                  </>
-                )}
-              </>
-            ) : (
-              <Text
-                style={{
-                  color: theme === "light" ? Colors.black : "whitesmoke",
-                }}
-              >
-                {" "}
-                -
-              </Text>
-            )}
-          </View>
-        </>
-
-        {selectedStatus === "expenses" && (
-          <Text
-            style={{
-              color: theme === "light" ? Colors.black : "whitesmoke",
-              fontWeight: "600",
-              marginTop: 8,
-            }}
-          >
-            {monthName}: {totalExpenses}€
-          </Text>
-        )}
-        {selectedStatus === "incomes" && (
-          <Text
-            style={{
-              color: theme === "light" ? Colors.black : "whitesmoke",
-              fontWeight: "600",
-              marginTop: 8,
-            }}
-          >
-            {monthName}: {totalIncomes}€
-          </Text>
-        )}
-        {selectedStatus === "both" && (
-          <View style={{ flexDirection: "row", marginTop: 8 }}>
-            <Text
-              style={{
-                color: theme === "light" ? Colors.black : "whitesmoke",
-                fontWeight: "600",
-              }}
-            >
-              {monthName}:{" "}
-            </Text>
-            <Text style={{ color: "#82ca9d", fontWeight: "600" }}>
-              {totalIncomes}€
-            </Text>
-            <Text
-              style={{
-                color: theme === "light" ? Colors.black : "whitesmoke",
-              }}
-            >
-              {" "}
-              /{" "}
-            </Text>
-            <Text style={{ color: "#c80815", fontWeight: "600" }}>
-              {totalExpenses}€
-            </Text>
-          </View>
-        )}
-      </View>
-      <View>
-        <ArrayButtons
-          buttons={["expenses", "incomes", "both"]}
-          onSelected={(selected) => {
-            setSelectedStatus(selected);
-            setSelectedDate("Total");
-            accValue.value = 0;
-            selectedValue.value = 0;
-          }}
-        />
-      </View>
+      <LeftComponent
+        selectedDate={selectedDate}
+        selectedStatus={selectedStatus}
+        setSelectedDate={setSelectedDate}
+        setSelectedStatus={setSelectedStatus}
+        selectedValue={selectedValue}
+        selectedValue2={selectedValue2}
+        accValue={accValue}
+        accValue2={accValue2}
+        expensesPerDay={expensesPerDay}
+        incomesPerDay={incomesPerDay}
+      />
+      <RightComponent
+        setSelectedDate={setSelectedDate}
+        setSelectedStatus={setSelectedStatus}
+        selectedValue={selectedValue}
+        accValue={accValue}
+      />
     </Container>
   );
 };

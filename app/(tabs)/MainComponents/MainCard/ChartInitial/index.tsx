@@ -25,7 +25,7 @@ const ChartInitial = ({
   const selectedValue2 = useSharedValue(0);
   const accValue = useSharedValue(0);
   const accValue2 = useSharedValue(0);
-  const { contrastColor, theme } = useTheme();
+  const { theme } = useTheme();
   const { expensesTotalPerDay, incomesTotalPerDay } = useMetrics();
   const expensesPerDay = expensesTotalPerDay();
   const incomesPerDay = incomesTotalPerDay();
@@ -84,6 +84,7 @@ const ChartInitial = ({
         accValue2={accValue2}
         setSelectedDate={setSelectedDate}
       />
+
       <Subcard
         selectedDate={selectedDate}
         selectedStatus={selectedStatus}

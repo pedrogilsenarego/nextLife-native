@@ -30,7 +30,6 @@ export default function TabOneScreen() {
         style={{ width: 120, objectFit: "contain" }}
         source={require("../../assets/images/logo.png")}
       />
-      <LoaderSpinner color={Colors.black} />
     </View>
   ) : (
     <MainLayout

@@ -10,7 +10,7 @@ import Button from "@/components/button/ButtonComponent";
 import { useMutation } from "@tanstack/react-query";
 import { addExpense } from "@/actions/expensesActions";
 import useExpenses from "@/hooks/useExpenses";
-import { ArrayButtons } from "@/components/Buttons/ArrayButtons";
+import { ArrayButtons } from "@/components/Molecules/ArrayButtons";
 import { useTheme } from "@/providers/ThemeContext";
 import { useEffect, useState } from "react";
 import { addIncome } from "@/actions/incomesActions";
