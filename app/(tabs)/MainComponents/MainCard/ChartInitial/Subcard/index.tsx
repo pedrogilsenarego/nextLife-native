@@ -21,6 +21,7 @@ type Props = {
   setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
   selectedStatus: "expenses" | "incomes" | "both";
   setSelectedStatus: (selectedStatus: "expenses" | "incomes" | "both") => void;
+  setAmountToShow: (value: number) => void;
 };
 
 const Subcard = ({
@@ -34,24 +35,9 @@ const Subcard = ({
   selectedStatus,
   setSelectedDate,
   setSelectedStatus,
+  setAmountToShow,
 }: Props) => {
-  const currentDate = new Date();
-  const { theme } = useTheme();
-  const monthName = currentDate.toLocaleDateString("en-US", { month: "long" });
-  const totalExpenses = expensesPerDay
-    .reduce((acc, value) => acc + value.value, 0)
-    .toFixed(0);
-
-  const totalIncomes = incomesPerDay
-    .reduce((acc, value) => acc + value.value, 0)
-    .toFixed(0);
-
-  const font = useFont(
-    require("../../../../../../assets/fonts/OpenSans-Regular.ttf"),
-    14
-  );
-
-  if (!font || !expensesPerDay.length) {
+  if (!expensesPerDay.length) {
     return null;
   }
 
@@ -74,6 +60,7 @@ const Subcard = ({
         setSelectedStatus={setSelectedStatus}
         selectedValue={selectedValue}
         accValue={accValue}
+        setAmountToShow={setAmountToShow}
       />
     </Container>
   );

@@ -8,11 +8,19 @@ type Props = {
   selectedValue: SharedValue<number>;
   setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
   setSelectedStatus: (selectedStatus: "expenses" | "incomes" | "both") => void;
+  setAmountToShow: (value: number) => void;
 };
 
 export const RightComponent = memo(
-  ({ setSelectedDate, setSelectedStatus, accValue, selectedValue }: Props) => {
+  ({
+    setSelectedDate,
+    setSelectedStatus,
+    accValue,
+    selectedValue,
+    setAmountToShow,
+  }: Props) => {
     const handleOnSelected = useCallback((selected: any) => {
+      setAmountToShow(10);
       setSelectedStatus(selected);
       setSelectedDate("Total");
       accValue.value = 0;

@@ -13,6 +13,7 @@ type Props = {
   setSelectedStatus: (selectedStatus: "expenses" | "incomes" | "both") => void;
   selectedDate: string;
   setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
+  setAmountToShow: (value: number) => void;
 };
 
 const ChartInitial = ({
@@ -20,6 +21,7 @@ const ChartInitial = ({
   setSelectedStatus,
   selectedDate,
   setSelectedDate,
+  setAmountToShow,
 }: Props) => {
   const selectedValue = useSharedValue(0);
   const selectedValue2 = useSharedValue(0);
@@ -96,6 +98,7 @@ const ChartInitial = ({
         accValue2={accValue2}
         expensesPerDay={expensesPerDay}
         incomesPerDay={incomesPerDay}
+        setAmountToShow={setAmountToShow}
       />
     </View>
   );

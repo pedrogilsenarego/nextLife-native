@@ -3,11 +3,12 @@ import useUser from "@/hooks/useUser";
 import { View, Text, Pressable, ScrollView } from "react-native";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 import ChartInitial from "./ChartInitial";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ExpensesTable from "./ExpensesTable";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import PieChartMain from "./PieChartMain/PieChartMain";
 import { Card } from "@/components/Atoms/Card";
+import { RightComponent } from "./ChartInitial/Subcard/RightComponent";
 
 const MainCard = () => {
   const [selectedDate, setSelectedDate] = useState<string>("Total");
@@ -20,15 +21,29 @@ const MainCard = () => {
 
   const userQuery = useUser();
   const { contrastColor, mainColor, theme } = useTheme();
+  const [amountToShow, setAmountToShow] = useState<number>(10);
   const [selectedStatus, setSelectedStatus] = useState<
     "expenses" | "incomes" | "both"
   >("expenses");
   const { totalExpenses, totalIncomes } = useMetrics();
 
+  const handleScroll = (event: any) => {
+    const { layoutMeasurement, contentOffset, contentSize } = event.nativeEvent;
+    const paddingToBottom = 20;
+    if (
+      layoutMeasurement.height + contentOffset.y >=
+      contentSize.height - paddingToBottom
+    ) {
+      setAmountToShow((prev) => prev + 10);
+    }
+  };
+
   return (
     <Card>
       <ScrollView
         showsVerticalScrollIndicator={false}
+        onScroll={handleScroll}
+        scrollEventThrottle={16}
         style={{
           marginHorizontal: 10,
           borderRadius: 8,
@@ -140,14 +155,15 @@ const MainCard = () => {
               setSelectedDate={setSelectedDate}
               selectedStatus={selectedStatus}
               setSelectedStatus={setSelectedStatus}
+              setAmountToShow={setAmountToShow}
             />
           </View>
 
           <View style={{ marginTop: 10 }}>
             <ExpensesTable
+              amountToShow={amountToShow}
               selectedDate={selectedDate}
               selectedStatus={selectedStatus}
-              setSelectedStatus={setSelectedStatus}
             />
           </View>
         </Pressable>

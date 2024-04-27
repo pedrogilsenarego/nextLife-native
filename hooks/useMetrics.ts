@@ -3,6 +3,7 @@ import useBusinesses from "./useBusinesses";
 import useExpenses from "./useExpenses";
 import useIncomes from "./useIncomes";
 import { Income } from "@/types/incomesTypes";
+import { useMemo } from "react";
 
 const useMetrics = () => {
   const expenses = useExpenses();
@@ -97,8 +98,10 @@ const useMetrics = () => {
     return categoriesPercentage;
   };
 
-  const expensesTotalPerDay = () => valueTotalPerDay(expenses?.data);
-  const incomesTotalPerDay = () => valueTotalPerDay(incomes?.data);
+  const expensesTotalPerDay = () =>
+    useMemo(() => valueTotalPerDay(expenses?.data), [expenses]);
+  const incomesTotalPerDay = () =>
+    useMemo(() => valueTotalPerDay(incomes?.data), [incomes]);
 
   return {
     totalExpenses,
