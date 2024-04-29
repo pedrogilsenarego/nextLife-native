@@ -149,12 +149,15 @@ const LineChart = ({
     const sum = data
       .slice(0, index + 1)
       .reduce((total, item) => total + item.value, 0);
+    const sum2 = data2
+      ? data2.slice(0, index + 1).reduce((total, item) => total + item.value, 0)
+      : 0;
 
     runOnJS(setSelectedDate)(data[index].label);
-    selectedValue.value = withTiming(data[index].value);
-    if (data2) selectedValue2.value = withTiming(data2[index].value);
-    accValue.value = withTiming(sum);
-    accValue2.value = withTiming(sum);
+    selectedValue.value = data[index].value;
+    if (data2) selectedValue2.value = data2[index].value;
+    accValue.value = sum;
+    accValue2.value = sum2;
 
     const clampValue = clamp(
       Math.floor(e.absoluteX / stepX) * stepX + CHART_MARGIN,
