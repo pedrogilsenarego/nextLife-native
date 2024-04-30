@@ -3,11 +3,11 @@ import { supabase } from "@/lib/supabase";
 export const getIncomes = async ({
   timeRange,
 }: {
-  timeRange?: { startDate: Date; endDate: Date };
+  timeRange: { startDate: Date; endDate: Date };
 }): Promise<any> => {
   return new Promise(async (resolve, reject) => {
     console.log(
-      `gettingIncomes: from: ${timeRange?.startDate.toLocaleDateString()} to: ${timeRange?.endDate.toLocaleDateString()}`
+      `gettingIncomes: from: ${timeRange?.startDate.toLocaleDateString()} to: ${timeRange?.endDate.toISOString()}`
     );
 
     try {
@@ -19,7 +19,7 @@ export const getIncomes = async ({
         return reject(new Error("User not authenticated"));
       }
 
-      const currentDate = timeRange?.endDate || new Date();
+      const currentDate = timeRange?.endDate;
       const currentMonthStart =
         timeRange?.startDate ||
         new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);

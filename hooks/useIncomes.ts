@@ -6,6 +6,7 @@ import { IncomesQuery } from "@/types/incomesTypes";
 
 const useIncomes = () => {
   const datesToQuery = dateQueriesMap("currentMonth");
+
   const expenses = useQuery<IncomesQuery, Error>({
     queryKey: [queryKeys.incomes],
     queryFn: () =>

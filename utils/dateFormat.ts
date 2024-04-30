@@ -56,11 +56,7 @@ export const dateQueriesMap = (tabValue: string) => {
         currentDate.getMonth(),
         1
       );
-      endDate = new Date(
-        currentDate.getFullYear(),
-        currentDate.getMonth() + 1,
-        0
-      );
+      endDate = new Date();
       break;
   }
 
