@@ -5,6 +5,8 @@ import { Colors, useTheme } from "@/providers/ThemeContext";
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
 import PieChartMain from "../MainCard/PieChartMain/PieChartMain";
+import { Container } from "@/components/Atoms/Container";
+import { ArrayButtons } from "@/components/Molecules/ArrayButtons";
 
 const SecondaryCard = () => {
   const currentDate = new Date();

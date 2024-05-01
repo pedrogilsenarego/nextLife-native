@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useSharedValue, withTiming } from "react-native-reanimated";
@@ -7,6 +7,7 @@ import PieChart from "@/components/Charts/PieChart";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 import useMetrics from "@/hooks/useMetrics";
 import { Container } from "@/components/Atoms/Container";
+import { ArrayButtons } from "@/components/Molecules/ArrayButtons";
 type Data = {
   category: string;
   percentage: number;
@@ -21,22 +22,19 @@ const PieChartMain = () => {
   const GAP = 0.004;
 
   const [data, setData] = useState<Data[]>([]);
+  const [mode, setMode] = useState<"expenses" | "incomes">("expenses");
 
   const decimals = useSharedValue<number[]>([0.1, 0.1, 0.8]);
 
-  const { getCategoriesPercentage } = useMetrics();
+  const { getExpensesCategoriesPercentage, getIncomesCategoriesPercentage } =
+    useMetrics();
 
   const shadesOfGreen = [
-    "#063b00", // (6,59,0)
-    "#073f00", // Intermediate
+    "#300000",
+    "#1f261a",
+    "#3e4d34", // Intermediate
     "#094400", // Intermediate
     "#0a5d00", // (10,93,0)
-    "#0b6c00", // Intermediate
-    "#0c7b00", // Intermediate
-    "#089000", // (8,144,0)
-    "#13b300", // Intermediate
-    "#1fc600", // (31,198,0)
-    "#0eff00", // (14,255,0)
   ];
 
   const shadesOfRed = [
@@ -54,24 +52,32 @@ const PieChartMain = () => {
 
   useEffect(() => {
     generateData();
-  }, []);
+  }, [mode]);
 
   const generateData = () => {
-    const generateDecimals = getCategoriesPercentage().map(
+    const rawData =
+      mode === "expenses"
+        ? getExpensesCategoriesPercentage()
+        : getIncomesCategoriesPercentage();
+    const generateDecimals = rawData.map(
       (category) => category.percentage / 100
     );
 
     decimals.value = [...generateDecimals];
 
-    const arrayOfObjects = getCategoriesPercentage().map((value, index) => ({
+    const arrayOfObjects = rawData.map((value, index) => ({
       category: value.category,
       percentage: value.percentage,
-      color: shadesOfRed[index],
+      color: mode === "expenses" ? shadesOfRed[index] : shadesOfGreen[index],
       amount: value.amount,
     }));
 
     setData(arrayOfObjects);
   };
+
+  const handleOnSelected = useCallback((selected: any) => {
+    setMode(selected);
+  }, []);
 
   return (
     <View>
@@ -88,9 +94,15 @@ const PieChartMain = () => {
           strokeWidth={STROKE_WIDTH}
           outerStrokeWidth={OUTER_STROKE_WIDTH}
           decimals={decimals}
-          colors={shadesOfRed}
+          colors={mode === "expenses" ? shadesOfRed : shadesOfGreen}
         />
       </View>
+      <Container>
+        <ArrayButtons
+          buttons={["expenses", "incomes"]}
+          onSelected={handleOnSelected}
+        />
+      </Container>
       <Container
         containerStyles={{
           display: "flex",

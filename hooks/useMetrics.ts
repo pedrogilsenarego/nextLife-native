@@ -91,9 +91,16 @@ const useMetrics = () => {
     return filteredCategoryPercentage;
   };
 
-  const getCategoriesPercentage = () => {
+  const getExpensesCategoriesPercentage = () => {
     const categoriesPercentage = calculateCategoryPercentage(
       expenses?.data ?? []
+    );
+    return categoriesPercentage;
+  };
+
+  const getIncomesCategoriesPercentage = () => {
+    const categoriesPercentage = calculateCategoryPercentage(
+      incomes?.data ?? []
     );
     return categoriesPercentage;
   };
@@ -108,7 +115,8 @@ const useMetrics = () => {
     totalIncomes,
     expensesTotalPerDay,
     incomesTotalPerDay,
-    getCategoriesPercentage,
+    getExpensesCategoriesPercentage,
+    getIncomesCategoriesPercentage,
   };
 };
 
