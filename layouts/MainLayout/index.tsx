@@ -17,12 +17,14 @@ type Props = {
   mainContent: React.ReactNode;
   secondaryContent: React.ReactNode;
   handleMoveCarousel: (index: number) => void;
+  index: number;
 };
 
 const MainLayout = ({
   mainContent,
   secondaryContent,
   handleMoveCarousel,
+  index,
 }: Props) => {
   const {
     mainColor,
@@ -59,7 +61,7 @@ const MainLayout = ({
             ]}
           >
             <View style={{ position: "absolute", top: 18, zIndex: 20 }}>
-              <Header handleMoveCarousel={handleMoveCarousel} />
+              <Header handleMoveCarousel={handleMoveCarousel} index={index} />
             </View>
             {mainContent}
           </Animated.View>

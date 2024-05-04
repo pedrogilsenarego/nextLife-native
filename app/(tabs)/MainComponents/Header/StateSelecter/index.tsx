@@ -1,32 +1,44 @@
 import { Colors, useTheme } from "@/providers/ThemeContext";
 import { AntDesign, Entypo } from "@expo/vector-icons";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Animated, Easing, Pressable, View } from "react-native";
 
 type Props = {
   handleMoveCarousel: (index: number) => void;
+  index: number;
 };
-export const StateSelecter: React.FC<Props> = ({ handleMoveCarousel }) => {
+export const StateSelecter: React.FC<Props> = ({
+  handleMoveCarousel,
+  index,
+}) => {
   const BUTTON_WIDTH = 26;
   const BUTTON_GAP = 2;
   const animationLeft = useRef(new Animated.Value(0)).current;
-  const [selectedStatus, setSelectedStatus] = useState<
-    "initial" | "line" | "pie"
-  >("initial");
-  const { theme, mainColor, contrastColor } = useTheme();
-  const handlePress = (button: any, index: number) => {
-    handleMoveCarousel(index);
-    setSelectedStatus(button);
 
+  const { theme, mainColor, contrastColor } = useTheme();
+  const handlePress = (index: number) => {
+    handleMoveCarousel(index);
+
+    // const totalLeft = BUTTON_WIDTH * index + (BUTTON_GAP + 4) * index;
+
+    // Animated.timing(animationLeft, {
+    //   toValue: totalLeft,
+    //   duration: 200,
+    //   useNativeDriver: false,
+    //   easing: Easing.ease,
+    // }).start();
+  };
+
+  useEffect(() => {
     const totalLeft = BUTTON_WIDTH * index + (BUTTON_GAP + 4) * index;
-    console.log(totalLeft);
+
     Animated.timing(animationLeft, {
       toValue: totalLeft,
       duration: 200,
       useNativeDriver: false,
       easing: Easing.ease,
     }).start();
-  };
+  }, [index]);
 
   return (
     <View
@@ -59,7 +71,7 @@ export const StateSelecter: React.FC<Props> = ({ handleMoveCarousel }) => {
       />
       <Pressable
         onPress={() => {
-          handlePress("initial", 0);
+          handlePress(0);
         }}
         style={{
           //backgroundColor: mainColor,
@@ -74,7 +86,7 @@ export const StateSelecter: React.FC<Props> = ({ handleMoveCarousel }) => {
           name="home"
           color={
             theme === "light"
-              ? selectedStatus === "initial"
+              ? index === 0
                 ? "white"
                 : "#ffffff66"
               : contrastColor
@@ -84,7 +96,7 @@ export const StateSelecter: React.FC<Props> = ({ handleMoveCarousel }) => {
       </Pressable>
       <Pressable
         onPress={() => {
-          handlePress("line", 1);
+          handlePress(1);
         }}
         style={{
           //backgroundColor: mainColor,
@@ -99,7 +111,7 @@ export const StateSelecter: React.FC<Props> = ({ handleMoveCarousel }) => {
           name="dotchart"
           color={
             theme === "light"
-              ? selectedStatus === "line"
+              ? index === 1
                 ? "white"
                 : "#ffffff66"
               : contrastColor
@@ -109,7 +121,7 @@ export const StateSelecter: React.FC<Props> = ({ handleMoveCarousel }) => {
       </Pressable>
       <Pressable
         onPress={() => {
-          handlePress("pie", 2);
+          handlePress(2);
         }}
         style={{
           borderRadius: 18,
@@ -123,7 +135,7 @@ export const StateSelecter: React.FC<Props> = ({ handleMoveCarousel }) => {
           name="piechart"
           color={
             theme === "light"
-              ? selectedStatus === "pie"
+              ? index === 2
                 ? "white"
                 : "#ffffff66"
               : contrastColor

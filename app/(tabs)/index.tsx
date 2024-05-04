@@ -8,7 +8,7 @@ import useIncomes from "@/hooks/useIncomes";
 import useUser from "@/hooks/useUser";
 import Options from "./Options";
 import SecondaryCard from "./MainComponents/SecondaryCard";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 export default function TabOneScreen() {
   const width = Dimensions.get("window").width;
@@ -17,8 +17,16 @@ export default function TabOneScreen() {
   const user = useUser();
   const loading = expenses.isLoading || incomes.isLoading || user.isLoading;
   const carouselRef = useRef<ICarouselInstance>(null);
+  const [currentI, setCurrentI] = useState<number | undefined>(
+    carouselRef.current?.getCurrentIndex()
+  );
+  const [moving, setMoving] = useState(false);
+
   const handleMoveCarousel = (index: number) => {
     if (carouselRef.current) {
+      setMoving(true);
+      setCurrentI(index);
+
       carouselRef?.current?.scrollTo({ index, animated: true });
     }
   };
@@ -38,6 +46,7 @@ export default function TabOneScreen() {
     </View>
   ) : (
     <MainLayout
+      index={currentI || 0}
       handleMoveCarousel={handleMoveCarousel}
       mainContent={
         <Carousel
@@ -46,7 +55,16 @@ export default function TabOneScreen() {
           style={{ paddingBottom: 10 }}
           data={[...new Array(3).keys()]}
           scrollAnimationDuration={1000}
-          onSnapToItem={(index) => console.log("current index:", index)}
+          onScrollEnd={() => setMoving(false)}
+          onProgressChange={(off, total) => {
+            if (
+              currentI !== undefined &&
+              !moving &&
+              Math.abs(total - currentI) > 0.2
+            ) {
+              setCurrentI(carouselRef.current?.getCurrentIndex());
+            }
+          }}
           renderItem={({ index }) =>
             index === 0 ? (
               <Options />

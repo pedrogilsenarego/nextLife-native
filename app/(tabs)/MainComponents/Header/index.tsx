@@ -8,9 +8,10 @@ import { StateSelecter } from "./StateSelecter";
 
 type Props = {
   handleMoveCarousel: (index: number) => void;
+  index: number;
 };
 
-export const Header = ({ handleMoveCarousel }: Props) => {
+export const Header = ({ handleMoveCarousel, index }: Props) => {
   const { theme, mainColor, contrastColor } = useTheme();
   const userQuery = useUser();
   const currentDate = new Date();
@@ -75,7 +76,7 @@ export const Header = ({ handleMoveCarousel }: Props) => {
         >
           {formattedDate}
         </Text>
-        <StateSelecter handleMoveCarousel={handleMoveCarousel} />
+        <StateSelecter handleMoveCarousel={handleMoveCarousel} index={index} />
       </View>
     </View>
   );
