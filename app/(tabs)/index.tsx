@@ -1,4 +1,4 @@
-import Carousel from "react-native-reanimated-carousel";
+import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
 import MainLayout from "../../layouts/MainLayout";
 import BottomCard from "./MainComponents/BottomCard";
 import MainCard from "./MainComponents/MainCard";
@@ -8,8 +8,7 @@ import useIncomes from "@/hooks/useIncomes";
 import useUser from "@/hooks/useUser";
 import Options from "./Options";
 import SecondaryCard from "./MainComponents/SecondaryCard";
-import LoaderSpinner from "@/components/Atoms/LoaderSpinner";
-import { Colors } from "@/providers/ThemeContext";
+import { useRef } from "react";
 
 export default function TabOneScreen() {
   const width = Dimensions.get("window").width;
@@ -17,6 +16,12 @@ export default function TabOneScreen() {
   const incomes = useIncomes();
   const user = useUser();
   const loading = expenses.isLoading || incomes.isLoading || user.isLoading;
+  const carouselRef = useRef<ICarouselInstance>(null);
+  const handleMoveCarousel = (index: number) => {
+    if (carouselRef.current) {
+      carouselRef?.current?.scrollTo({ index, animated: true });
+    }
+  };
   return loading ? (
     <View
       style={{
@@ -33,8 +38,10 @@ export default function TabOneScreen() {
     </View>
   ) : (
     <MainLayout
+      handleMoveCarousel={handleMoveCarousel}
       mainContent={
         <Carousel
+          ref={carouselRef}
           width={width}
           style={{ paddingBottom: 10 }}
           data={[...new Array(3).keys()]}
@@ -42,11 +49,11 @@ export default function TabOneScreen() {
           onSnapToItem={(index) => console.log("current index:", index)}
           renderItem={({ index }) =>
             index === 0 ? (
-              <MainCard />
-            ) : index === 1 ? (
-              <SecondaryCard />
-            ) : (
               <Options />
+            ) : index === 1 ? (
+              <MainCard />
+            ) : (
+              <SecondaryCard />
             )
           }
         />

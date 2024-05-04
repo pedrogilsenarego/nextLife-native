@@ -11,13 +11,19 @@ import {
 } from "react-native";
 import React from "react";
 import useMainLayout from "./useMainLayout";
+import { Header } from "@/app/(tabs)/MainComponents/Header";
 
 type Props = {
   mainContent: React.ReactNode;
   secondaryContent: React.ReactNode;
+  handleMoveCarousel: (index: number) => void;
 };
 
-const MainLayout = ({ mainContent, secondaryContent }: Props) => {
+const MainLayout = ({
+  mainContent,
+  secondaryContent,
+  handleMoveCarousel,
+}: Props) => {
   const {
     mainColor,
     animatedStyle,
@@ -48,9 +54,13 @@ const MainLayout = ({ mainContent, secondaryContent }: Props) => {
               animatedStyle,
               {
                 height: "95.5%",
+                position: "relative",
               },
             ]}
           >
+            <View style={{ position: "absolute", top: 18, zIndex: 20 }}>
+              <Header handleMoveCarousel={handleMoveCarousel} />
+            </View>
             {mainContent}
           </Animated.View>
 

@@ -113,7 +113,9 @@ const PieChartMain = () => {
         }}
       >
         {data.map((item, index) => {
-          return <RenderItem item={item} key={index} index={index} />;
+          return item.percentage <= 0 ? null : (
+            <RenderItem item={item} key={index} index={index} />
+          );
         })}
       </Container>
     </View>

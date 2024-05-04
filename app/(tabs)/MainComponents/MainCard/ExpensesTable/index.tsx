@@ -7,6 +7,7 @@ import { View, Text } from "react-native";
 
 import { useTheme } from "@/providers/ThemeContext";
 import useIncomes from "@/hooks/useIncomes";
+import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
 
 type Props = {
   selectedStatus: "expenses" | "incomes" | "both";
@@ -102,12 +103,17 @@ const ExpensesTable = ({
       <FlatList
         data={dataToShow}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <Item
-            expense={item}
-            handleDelete={handleAddToDelete}
-            handleRemoveDelete={handleRemoveToDelete}
-          />
+        renderItem={({ item, index }) => (
+          <Animated.View
+            entering={FadeInDown.delay(index * 150)}
+            exiting={FadeOutDown}
+          >
+            <Item
+              expense={item}
+              handleDelete={handleAddToDelete}
+              handleRemoveDelete={handleRemoveToDelete}
+            />
+          </Animated.View>
         )}
       />
     </View>
