@@ -16,16 +16,9 @@ import { Header } from "@/app/(tabs)/MainComponents/Header";
 type Props = {
   mainContent: React.ReactNode;
   secondaryContent: React.ReactNode;
-  handleMoveCarousel: (index: number) => void;
-  index: number;
 };
 
-const MainLayout = ({
-  mainContent,
-  secondaryContent,
-  handleMoveCarousel,
-  index,
-}: Props) => {
+const LoginLayout = ({ mainContent, secondaryContent }: Props) => {
   const {
     mainColor,
     animatedStyle,
@@ -60,10 +53,6 @@ const MainLayout = ({
               },
             ]}
           >
-            <View style={{ position: "absolute", top: 14, zIndex: 20 }}>
-              <Header handleMoveCarousel={handleMoveCarousel} index={index} />
-            </View>
-
             {mainContent}
           </Animated.View>
 
@@ -141,4 +130,4 @@ const MainLayout = ({
   );
 };
 
-export default MainLayout;
+export default LoginLayout;

@@ -3,6 +3,7 @@ import MainLayout from "../../layouts/MainLayout";
 import { Dimensions, Keyboard, Pressable, Text, View } from "react-native";
 import MainCard from "./MainCard";
 import Info from "./Info";
+import LoginLayout from "@/layouts/LoginLayout";
 
 const Login = () => {
   const width = Dimensions.get("window").width;
@@ -82,7 +83,7 @@ const Login = () => {
     );
   };
   return (
-    <MainLayout
+    <LoginLayout
       mainContent={<MainContent />}
       secondaryContent={<SecondaryContent />}
     />
