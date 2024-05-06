@@ -69,7 +69,7 @@ const useMetrics = () => {
     );
 
     const totalSmallPercentage = categoryPercentage
-      .filter((item) => item.percentage < 5)
+      .filter((item) => item.percentage < 4)
       .reduce(
         (stats, item) => {
           stats.totalPercentage += item.percentage;
@@ -80,12 +80,12 @@ const useMetrics = () => {
       );
 
     const filteredCategoryPercentage = categoryPercentage
-      .filter((item) => item.percentage >= 5)
+      .filter((item) => item.percentage >= 4)
       .sort((a, b) => b.percentage - a.percentage)
       .concat({
         category: "Other",
         percentage: totalSmallPercentage.totalPercentage,
-        amount: totalSmallPercentage.totalAmount,
+        amount: parseFloat(totalSmallPercentage.totalAmount.toFixed(1)),
       });
 
     return filteredCategoryPercentage;

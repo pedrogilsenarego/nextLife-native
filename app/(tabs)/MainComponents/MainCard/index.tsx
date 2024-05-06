@@ -41,7 +41,7 @@ const MainCard = () => {
         }}
       >
         <Pressable>
-          <View style={{ marginTop: 85 }}>
+          <View>
             <ChartInitial
               selectedDate={selectedDate}
               setSelectedDate={setSelectedDate}

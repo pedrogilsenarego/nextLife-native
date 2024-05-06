@@ -16,12 +16,12 @@ type Data = {
 };
 
 const PieChartMain = () => {
-  const RADIUS = 60;
+  const RADIUS = 100;
   const STROKE_WIDTH = 16;
   const OUTER_STROKE_WIDTH = 33;
   const GAP = 0.004;
 
-  const [data, setData] = useState<Data[]>([]);
+  const [data, setData] = useState<Data[] | null>(null);
   const [mode, setMode] = useState<"expenses" | "incomes">("expenses");
 
   const decimals = useSharedValue<number[]>([0.1, 0.1, 0.8]);
@@ -112,7 +112,7 @@ const PieChartMain = () => {
           marginTop: 10,
         }}
       >
-        {data.map((item, index) => {
+        {data?.map((item, index) => {
           return item.percentage <= 0 ? null : (
             <RenderItem item={item} key={index} index={index} />
           );

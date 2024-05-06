@@ -7,6 +7,7 @@ import { AntDesign } from "@expo/vector-icons";
 import PieChartMain from "../MainCard/PieChartMain/PieChartMain";
 import { Container } from "@/components/Atoms/Container";
 import { ArrayButtons } from "@/components/Molecules/ArrayButtons";
+import { Card } from "@/components/Atoms/Card";
 
 const SecondaryCard = () => {
   const currentDate = new Date();
@@ -21,25 +22,7 @@ const SecondaryCard = () => {
   const { totalExpenses, totalIncomes } = useMetrics();
 
   return (
-    <View
-      style={{
-        height: "100%",
-        backgroundColor: theme === "light" ? "white" : "transparent",
-        borderRadius: 12,
-
-        marginHorizontal: 4,
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },
-
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-        paddingVertical: 18,
-      }}
-    >
+    <Card>
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{
@@ -51,12 +34,12 @@ const SecondaryCard = () => {
         }}
       >
         <Pressable>
-          <View style={{ marginTop: 85 }}>
+          <View>
             <PieChartMain />
           </View>
         </Pressable>
       </ScrollView>
-    </View>
+    </Card>
   );
 };
 
