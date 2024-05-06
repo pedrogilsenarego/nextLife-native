@@ -84,7 +84,7 @@ const useMetrics = () => {
       .sort((a, b) => b.percentage - a.percentage)
       .concat({
         category: "Other",
-        percentage: totalSmallPercentage.totalPercentage,
+        percentage: parseFloat(totalSmallPercentage.totalPercentage.toFixed(1)),
         amount: parseFloat(totalSmallPercentage.totalAmount.toFixed(1)),
       });
 

@@ -47,7 +47,7 @@ const MainLayout = ({
           style={{
             backgroundColor: mainColor,
             display: "flex",
-            rowGap: -5,
+            rowGap: -7,
             height: "100%",
           }}
         >
@@ -60,7 +60,7 @@ const MainLayout = ({
               },
             ]}
           >
-            <View style={{ position: "absolute", top: 18, zIndex: 20 }}>
+            <View style={{ position: "absolute", top: 16, zIndex: 20 }}>
               <Header handleMoveCarousel={handleMoveCarousel} index={index} />
             </View>
             {mainContent}

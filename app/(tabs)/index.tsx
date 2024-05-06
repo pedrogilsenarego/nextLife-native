@@ -17,9 +17,7 @@ export default function TabOneScreen() {
   const user = useUser();
   const loading = expenses.isLoading || incomes.isLoading || user.isLoading;
   const carouselRef = useRef<ICarouselInstance>(null);
-  const [currentI, setCurrentI] = useState<number | undefined>(
-    carouselRef.current?.getCurrentIndex()
-  );
+  const [currentI, setCurrentI] = useState<number | undefined>(0);
   const [moving, setMoving] = useState(false);
 
   const handleMoveCarousel = (index: number) => {
@@ -40,7 +38,7 @@ export default function TabOneScreen() {
       }}
     >
       <Image
-        style={{ width: 120, objectFit: "contain" }}
+        style={{ width: 100, objectFit: "contain" }}
         source={require("../../assets/images/logo.png")}
       />
     </View>
