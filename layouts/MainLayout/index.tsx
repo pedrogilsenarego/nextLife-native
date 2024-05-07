@@ -13,6 +13,8 @@ import React, { useState } from "react";
 import useMainLayout from "./useMainLayout";
 import { Header } from "@/app/(tabs)/MainComponents/Header";
 import { Card } from "@/components/Atoms/Card";
+import { BlurView } from "expo-blur";
+import { supabase } from "@/lib/supabase";
 
 type Props = {
   mainContent: React.ReactNode;
@@ -42,6 +44,10 @@ const MainLayout = ({
     animatedStyle2,
     setSideMenu,
   } = useMainLayout();
+
+  const logout = async () => {
+    await supabase.auth.signOut();
+  };
 
   return (
     <SafeAreaView style={{ backgroundColor: mainColor }}>
@@ -85,14 +91,34 @@ const MainLayout = ({
 
                 paddingBottom: 10,
                 width: 222,
-                right: -220,
+                right: -250,
                 height: "95.8%",
               },
             ]}
           >
-            <Card>
-              <Text>Text</Text>
-            </Card>
+            <BlurView
+              intensity={50}
+              style={{
+                padding: 20,
+                margin: 16,
+
+                justifyContent: "center",
+                overflow: "hidden",
+                borderRadius: 20,
+              }}
+            >
+              <Pressable onPress={logout}>
+                <Text
+                  style={{
+                    color: "whitesmoke",
+                    fontSize: 20,
+                    fontWeight: "600",
+                  }}
+                >
+                  Logout
+                </Text>
+              </Pressable>
+            </BlurView>
           </Animated.View>
           <>
             <Animated.View

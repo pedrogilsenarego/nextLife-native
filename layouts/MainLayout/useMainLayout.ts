@@ -41,7 +41,7 @@ const useMainLayout = () => {
 
   const translateInterpolate2 = scaleAnim2.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, -200],
+    outputRange: [0, -280],
   });
 
   const animatedStyle = {
