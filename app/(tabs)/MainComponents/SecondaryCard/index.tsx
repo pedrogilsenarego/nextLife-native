@@ -28,7 +28,7 @@ const SecondaryCard = () => {
         style={{
           marginHorizontal: 10,
           borderRadius: 8,
-          paddingTop: 10,
+          paddingTop: 16,
           position: "relative",
           height: "100%",
         }}

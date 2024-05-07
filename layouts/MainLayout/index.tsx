@@ -64,7 +64,6 @@ const MainLayout = ({
           <Animated.View
             style={[
               animatedStyle,
-              animatedStyle2,
 
               {
                 height: "95.8%",

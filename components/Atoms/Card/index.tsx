@@ -24,7 +24,7 @@ export const Card: React.FC<Props> = ({ children }) => {
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
-        paddingTop: 95,
+        paddingTop: 90,
         paddingBottom: 18,
       }}
     >

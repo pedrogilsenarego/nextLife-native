@@ -45,7 +45,10 @@ const useMainLayout = () => {
   });
 
   const animatedStyle = {
-    transform: [{ scale: scaleInterpolate }],
+    transform: [
+      { scale: scaleInterpolate },
+      { translateX: translateInterpolate2 },
+    ],
   };
 
   const animatedStyle2 = {
