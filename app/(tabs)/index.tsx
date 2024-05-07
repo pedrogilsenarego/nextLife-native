@@ -9,6 +9,7 @@ import useUser from "@/hooks/useUser";
 import Options from "./Options";
 import SecondaryCard from "./MainComponents/SecondaryCard";
 import { useRef, useState } from "react";
+import Loading from "@/components/Atoms/Loading";
 
 export default function TabOneScreen() {
   const width = Dimensions.get("window").width;
@@ -29,19 +30,7 @@ export default function TabOneScreen() {
     }
   };
   return loading ? (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "white",
-      }}
-    >
-      <Image
-        style={{ width: 100, objectFit: "contain" }}
-        source={require("../../assets/images/logo.png")}
-      />
-    </View>
+    <Loading />
   ) : (
     <MainLayout
       index={currentI || 0}

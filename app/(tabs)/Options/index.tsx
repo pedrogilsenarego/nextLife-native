@@ -18,7 +18,14 @@ const Options = () => {
         }}
       >
         <Pressable>
-          <View style={{ height: 100, width: "100%", paddingHorizontal: 4 }}>
+          <View
+            style={{
+              height: 100,
+              width: "100%",
+              paddingHorizontal: 4,
+              marginTop: 100,
+            }}
+          >
             <Container>
               <Text>Teste</Text>
             </Container>

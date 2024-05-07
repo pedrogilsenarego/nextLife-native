@@ -10,6 +10,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ModalProvider } from "@/providers/ModalContext";
 import { ThemeProvider } from "@/providers/ThemeContext";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import Loading from "@/components/Atoms/Loading";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -55,7 +56,9 @@ export default function RootLayout() {
     return null;
   }
 
-  return (
+  return !session ? (
+    <Loading />
+  ) : (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <ModalProvider>
