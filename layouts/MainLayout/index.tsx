@@ -9,9 +9,10 @@ import {
   Animated,
   Platform,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import useMainLayout from "./useMainLayout";
 import { Header } from "@/app/(tabs)/MainComponents/Header";
+import { Card } from "@/components/Atoms/Card";
 
 type Props = {
   mainContent: React.ReactNode;
@@ -35,8 +36,11 @@ const MainLayout = ({
     setComponentHeight,
     setOpenModal,
     openModal,
+    sideMenu,
     runSpringAnimation,
     theme,
+    animatedStyle2,
+    setSideMenu,
   } = useMainLayout();
 
   return (
@@ -54,6 +58,8 @@ const MainLayout = ({
           <Animated.View
             style={[
               animatedStyle,
+              animatedStyle2,
+
               {
                 height: "95.8%",
                 position: "relative",
@@ -61,12 +67,33 @@ const MainLayout = ({
             ]}
           >
             <View style={{ position: "absolute", top: 14, zIndex: 20 }}>
-              <Header handleMoveCarousel={handleMoveCarousel} index={index} />
+              <Header
+                handleMoveCarousel={handleMoveCarousel}
+                index={index}
+                setSideMenu={setSideMenu}
+              />
             </View>
 
             {mainContent}
           </Animated.View>
+          <Animated.View
+            style={[
+              animatedStyle2,
 
+              {
+                position: "absolute",
+
+                paddingBottom: 10,
+                width: 222,
+                right: -220,
+                height: "95.8%",
+              },
+            ]}
+          >
+            <Card>
+              <Text>Text</Text>
+            </Card>
+          </Animated.View>
           <>
             <Animated.View
               style={[
@@ -104,11 +131,12 @@ const MainLayout = ({
                 </View>
               </View>
             </Animated.View>
-            {openModal && (
+            {(openModal || sideMenu) && (
               <Pressable
                 onPress={() => {
                   Keyboard.dismiss();
                   setOpenModal(false);
+                  setSideMenu(false);
                   runSpringAnimation(0, 0);
                 }}
                 style={{

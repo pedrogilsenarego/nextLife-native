@@ -1,17 +1,18 @@
-import { ArrayButtons } from "@/components/Molecules/ArrayButtons";
 import useMetrics from "@/hooks/useMetrics";
 import useUser from "@/hooks/useUser";
 import { Colors, useTheme } from "@/providers/ThemeContext";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, Entypo } from "@expo/vector-icons";
 import { View, Text, Dimensions, Pressable } from "react-native";
 import { StateSelecter } from "./StateSelecter";
+import { SharedValue } from "react-native-reanimated";
 
 type Props = {
   handleMoveCarousel: (index: number) => void;
   index: number;
+  setSideMenu: (sideMenu: boolean) => void;
 };
 
-export const Header = ({ handleMoveCarousel, index }: Props) => {
+export const Header = ({ handleMoveCarousel, index, setSideMenu }: Props) => {
   const { theme, mainColor, contrastColor } = useTheme();
   const userQuery = useUser();
   const currentDate = new Date();
@@ -76,6 +77,12 @@ export const Header = ({ handleMoveCarousel, index }: Props) => {
         >
           {formattedDate}
         </Text>
+        <Pressable
+          style={{ padding: 10, backgroundColor: "white", borderRadius: 30 }}
+          onPress={() => setSideMenu(true)}
+        >
+          <AntDesign name="menu-fold" />
+        </Pressable>
         <StateSelecter handleMoveCarousel={handleMoveCarousel} index={index} />
       </View>
     </View>

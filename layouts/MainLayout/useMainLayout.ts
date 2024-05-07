@@ -4,14 +4,19 @@ import { Animated, Keyboard, PanResponder } from "react-native";
 
 const useMainLayout = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [sideMenu, setSideMenu] = useState<boolean>(false);
   const [componentHeight, setComponentHeight] = useState<number>(0);
   const { theme, mainColor } = useTheme();
   const componentRef = useRef(null);
 
   const scaleAnim = useRef(new Animated.Value(0)).current;
+  const scaleAnim2 = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     animateScale();
   }, [openModal]);
+  useEffect(() => {
+    animateScale2();
+  }, [sideMenu]);
 
   const animateScale = () => {
     Animated.spring(scaleAnim, {
@@ -21,13 +26,32 @@ const useMainLayout = () => {
     }).start();
   };
 
+  const animateScale2 = () => {
+    Animated.spring(scaleAnim2, {
+      toValue: sideMenu ? 1 : 0,
+
+      useNativeDriver: true,
+    }).start();
+  };
+
   const scaleInterpolate = scaleAnim.interpolate({
     inputRange: [0, 1],
     outputRange: [1, 0.92],
   });
+
+  const translateInterpolate2 = scaleAnim2.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, -200],
+  });
+
   const animatedStyle = {
     transform: [{ scale: scaleInterpolate }],
   };
+
+  const animatedStyle2 = {
+    transform: [{ translateX: translateInterpolate2 }],
+  };
+
   const [pan] = useState(new Animated.ValueXY());
   const position = -(componentHeight - 110);
 
@@ -79,6 +103,9 @@ const useMainLayout = () => {
     runSpringAnimation,
     openModal,
     theme,
+    sideMenu,
+    setSideMenu,
+    animatedStyle2,
   };
 };
 
