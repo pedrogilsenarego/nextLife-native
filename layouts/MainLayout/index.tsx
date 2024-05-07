@@ -89,36 +89,55 @@ const MainLayout = ({
               {
                 position: "absolute",
 
+                zIndex: 2000,
                 paddingBottom: 10,
                 width: 222,
                 right: -250,
                 height: "95.8%",
+                paddingVertical: 100,
               },
             ]}
           >
-            <BlurView
-              intensity={50}
+            <View
               style={{
                 padding: 20,
-                margin: 16,
 
+                alignItems: "center",
                 justifyContent: "center",
-                overflow: "hidden",
-                borderRadius: 20,
+              }}
+            >
+              <Pressable>
+                <Text
+                  style={{
+                    color: "whitesmoke",
+                    fontSize: 24,
+                    fontWeight: "600",
+                  }}
+                >
+                  User
+                </Text>
+              </Pressable>
+            </View>
+            <View
+              style={{
+                padding: 20,
+
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
               <Pressable onPress={logout}>
                 <Text
                   style={{
                     color: "whitesmoke",
-                    fontSize: 20,
+                    fontSize: 24,
                     fontWeight: "600",
                   }}
                 >
                   Logout
                 </Text>
               </Pressable>
-            </BlurView>
+            </View>
           </Animated.View>
           <>
             <Animated.View

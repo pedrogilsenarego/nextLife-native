@@ -140,7 +140,6 @@ export const StateSelecter: React.FC<Props> = ({
                 : "#ffffff66"
               : contrastColor
           }
-          style={{ opacity: 0.7 }}
           size={14}
         />
       </Pressable>

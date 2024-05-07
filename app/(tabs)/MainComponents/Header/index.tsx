@@ -67,23 +67,41 @@ export const Header = ({ handleMoveCarousel, index, setSideMenu }: Props) => {
           display: "flex",
           flexDirection: "column",
           rowGap: 2,
+          justifyContent: "space-between",
           alignItems: "flex-end",
         }}
       >
         <Text
           style={{
+            marginTop: 6,
             color: theme === "light" ? Colors.black : "whitesmoke",
           }}
         >
           {formattedDate}
         </Text>
-        <Pressable
-          style={{ padding: 10, backgroundColor: "white", borderRadius: 30 }}
-          onPress={() => setSideMenu(true)}
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            columnGap: 5,
+            marginTop: 6,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
-          <AntDesign name="menu-fold" />
-        </Pressable>
-        <StateSelecter handleMoveCarousel={handleMoveCarousel} index={index} />
+          <View>
+            <StateSelecter
+              handleMoveCarousel={handleMoveCarousel}
+              index={index}
+            />
+          </View>
+          <Pressable
+            style={{ padding: 10, backgroundColor: "white", borderRadius: 30 }}
+            onPress={() => setSideMenu(true)}
+          >
+            <AntDesign size={20} name="menu-fold" />
+          </Pressable>
+        </View>
       </View>
     </View>
   );

@@ -35,7 +35,7 @@ const MainCard = () => {
         style={{
           marginHorizontal: 10,
           borderRadius: 8,
-
+          paddingTop: 10,
           position: "relative",
           height: "100%",
         }}
