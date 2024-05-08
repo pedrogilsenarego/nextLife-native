@@ -26,13 +26,14 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [loaded, error] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,
   });
   const [session, setSession] = useState<Session | null>(null);
   const queryClient = new QueryClient();
+
   useEffect(() => {
     setLoading(true);
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -42,6 +43,7 @@ export default function RootLayout() {
 
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
+      setLoading(false);
     });
   }, []);
 

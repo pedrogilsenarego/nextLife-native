@@ -8,6 +8,7 @@ import { Colors, useTheme } from "@/providers/ThemeContext";
 import useMetrics from "@/hooks/useMetrics";
 import { Container } from "@/components/Atoms/Container";
 import { ArrayButtons } from "@/components/Molecules/ArrayButtons";
+import { RangeDataChoose } from "../../RangeDataChoose";
 type Data = {
   category: string;
   percentage: number;
@@ -16,7 +17,7 @@ type Data = {
 };
 
 const PieChartMain = () => {
-  const RADIUS = 100;
+  const RADIUS = 80;
   const STROKE_WIDTH = 16;
   const OUTER_STROKE_WIDTH = 33;
   const GAP = 0.004;
@@ -207,14 +208,15 @@ const PieChartMain = () => {
           colors={shadesOfRed}
         />
       </Animated.View>
-      <Container>
+      <RangeDataChoose />
+      <Container containerStyles={{ marginTop: 10 }}>
         <ArrayButtons
           buttons={["expenses", "incomes"]}
           onSelected={handleOnSelected}
         />
       </Container>
-      <Container
-        containerStyles={{
+      <View
+        style={{
           display: "flex",
           flexDirection: "column",
           paddingHorizontal: 0,
@@ -227,7 +229,7 @@ const PieChartMain = () => {
             <RenderItem item={item} key={index} index={index} />
           );
         })}
-      </Container>
+      </View>
     </View>
   );
 };

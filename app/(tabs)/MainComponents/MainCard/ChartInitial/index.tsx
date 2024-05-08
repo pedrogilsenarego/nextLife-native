@@ -7,6 +7,7 @@ import { View, Text, Pressable } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 import Subcard from "./Subcard";
 import { MaterialIcons } from "@expo/vector-icons";
+import { RangeDataChoose } from "../../RangeDataChoose";
 
 type Props = {
   selectedStatus: "expenses" | "incomes" | "both";
@@ -86,7 +87,7 @@ const ChartInitial = ({
         accValue2={accValue2}
         setSelectedDate={setSelectedDate}
       />
-
+      <RangeDataChoose />
       <Subcard
         selectedDate={selectedDate}
         selectedStatus={selectedStatus}
