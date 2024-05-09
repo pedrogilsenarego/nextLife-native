@@ -11,6 +11,7 @@ import { ModalProvider } from "@/providers/ModalContext";
 import { ThemeProvider } from "@/providers/ThemeContext";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Loading from "@/components/Atoms/Loading";
+import { AppProvider } from "@/providers/AppProvider";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -65,11 +66,13 @@ export default function RootLayout() {
     <Loading />
   ) : (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <ModalProvider>
-          {session ? <RootLayoutNav /> : <LoginLayout />}
-        </ModalProvider>
-      </ThemeProvider>
+      <AppProvider>
+        <ThemeProvider>
+          <ModalProvider>
+            {session ? <RootLayoutNav /> : <LoginLayout />}
+          </ModalProvider>
+        </ThemeProvider>
+      </AppProvider>
     </QueryClientProvider>
   );
 }

@@ -57,7 +57,7 @@ const MainLayout = ({
           style={{
             backgroundColor: mainColor,
             display: "flex",
-            rowGap: -7,
+
             height: "100%",
           }}
         >
@@ -142,7 +142,7 @@ const MainLayout = ({
             <Animated.View
               style={[
                 { transform: pan.getTranslateTransform() },
-                { zIndex: 1000 },
+                { zIndex: 1000, marginTop: -7 },
               ]}
             >
               <View {...panResponder.panHandlers} style={{ height: "100%" }}>

@@ -5,6 +5,14 @@ export const formattedDate = (date: Date) =>
     day: "numeric",
   });
 
+export const dateRangeList = {
+  ONE_YEAR: "1year",
+  THREE_YEARS: "3years",
+  SIX_MONTHS: "6Months",
+  CURRENT_MONTH: "currentMonth",
+  LAST_MONTH: "lastMonth",
+};
+
 export const dateQueriesMap = (tabValue: string) => {
   const currentDate = new Date();
   let startDate: Date;
@@ -48,7 +56,7 @@ export const dateQueriesMap = (tabValue: string) => {
         0
       );
       break;
-    case "currentMonth":
+    case dateRangeList.CURRENT_MONTH:
     default:
       // Default to the 1st day of the current month
       startDate = new Date(

@@ -1,6 +1,9 @@
+import { useApp } from "@/providers/AppProvider";
 import { View, Text } from "react-native";
 
 export const RangeDataChoose: React.FC = () => {
+  const { dateRange } = useApp();
+  console.log(dateRange);
   return (
     <View
       style={{
