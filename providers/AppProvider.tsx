@@ -8,7 +8,13 @@ import React, {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { dateRangeList } from "@/utils/dateFormat";
 
-type DateRangeValues = (typeof dateRangeList)[keyof typeof dateRangeList];
+type DateRangeValues =
+  | "1year"
+  | "3years"
+  | "6Months"
+  | "currentMonth"
+  | "lastMonth"
+  | "lastLastMonth";
 
 interface AppContexType {
   dateRange: DateRangeValues;
@@ -23,7 +29,9 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     async function loadPersistedDateRange() {
       try {
-        const persistedDateRange = await AsyncStorage.getItem("dateRange");
+        const persistedDateRange = (await AsyncStorage.getItem(
+          "dateRange"
+        )) as DateRangeValues;
 
         if (persistedDateRange) {
           setDateRange(persistedDateRange);
@@ -37,7 +45,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const changeDateRange = async (dateRange: DateRangeValues) => {
-    if (Object.keys(dateRangeList).includes(dateRange)) {
+    if (Object.values(dateRangeList).includes(dateRange)) {
       setDateRange(dateRange);
       try {
         await AsyncStorage.setItem("dateRange", dateRange);

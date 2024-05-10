@@ -3,12 +3,14 @@ import { useQuery } from "@tanstack/react-query";
 import { dateQueriesMap } from "@/utils/dateFormat";
 import { getIncomes } from "@/actions/incomesActions";
 import { IncomesQuery } from "@/types/incomesTypes";
+import { useApp } from "@/providers/AppProvider";
 
 const useIncomes = () => {
-  const datesToQuery = dateQueriesMap("currentMonth");
+  const { dateRange } = useApp();
+  const datesToQuery = dateQueriesMap(dateRange);
 
   const expenses = useQuery<IncomesQuery, Error>({
-    queryKey: [queryKeys.incomes],
+    queryKey: [queryKeys.incomes, dateRange],
     queryFn: () =>
       getIncomes({
         timeRange: {

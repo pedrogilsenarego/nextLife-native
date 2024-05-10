@@ -11,6 +11,7 @@ export const dateRangeList = {
   SIX_MONTHS: "6Months",
   CURRENT_MONTH: "currentMonth",
   LAST_MONTH: "lastMonth",
+  LAST_LAST_MONTH: "lastLastMonth",
 };
 
 export const dateQueriesMap = (tabValue: string) => {
@@ -55,6 +56,34 @@ export const dateQueriesMap = (tabValue: string) => {
         currentDate.getMonth() + 1,
         0
       );
+      break;
+    case dateRangeList.LAST_MONTH:
+      const lastMonthStart = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth() - 1,
+        1
+      );
+      const lastMonthEnd = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth(),
+        0
+      );
+      startDate = lastMonthStart;
+      endDate = lastMonthEnd;
+      break;
+    case dateRangeList.LAST_LAST_MONTH:
+      const lastLastMonthStart = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth() - 2,
+        1
+      );
+      const lastLastMonthEnd = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth() - 1,
+        0
+      );
+      startDate = lastLastMonthStart;
+      endDate = lastLastMonthEnd;
       break;
     case dateRangeList.CURRENT_MONTH:
     default:

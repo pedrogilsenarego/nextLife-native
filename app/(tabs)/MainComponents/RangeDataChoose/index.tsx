@@ -1,9 +1,16 @@
 import { useApp } from "@/providers/AppProvider";
-import { View, Text } from "react-native";
+import { addMonths, format } from "date-fns";
+import { View, Text, Pressable } from "react-native";
 
 export const RangeDataChoose: React.FC = () => {
-  const { dateRange } = useApp();
-  console.log(dateRange);
+  const { dateRange, changeDateRange } = useApp();
+  const currentDate = new Date();
+  const lastMonth = addMonths(currentDate, -1);
+  const lastLastMonth = addMonths(currentDate, -2);
+  const currentMonth = format(currentDate, "MMMM");
+  const lastMonthF = format(lastMonth, "MMMM");
+  const lastLastMonthF = format(lastLastMonth, "MMMM");
+
   return (
     <View
       style={{
@@ -15,9 +22,31 @@ export const RangeDataChoose: React.FC = () => {
         paddingVertical: 4,
       }}
     >
-      <Text style={{ fontWeight: "bold" }}>May</Text>
-      <Text>April</Text>
-      <Text>March</Text>
+      <Pressable onPress={() => changeDateRange("currentMonth")}>
+        <Text
+          style={{
+            fontWeight: dateRange === "currentMonth" ? "bold" : "normal",
+          }}
+        >
+          {currentMonth}
+        </Text>
+      </Pressable>
+      <Pressable onPress={() => changeDateRange("lastMonth")}>
+        <Text
+          style={{ fontWeight: dateRange === "lastMonth" ? "bold" : "normal" }}
+        >
+          {lastMonthF}
+        </Text>
+      </Pressable>
+      <Pressable onPress={() => changeDateRange("lastLastMonth")}>
+        <Text
+          style={{
+            fontWeight: dateRange === "lastLastMonth" ? "bold" : "normal",
+          }}
+        >
+          {lastLastMonthF}
+        </Text>
+      </Pressable>
       <Text>3 M</Text>
       <Text>6 M</Text>
       <Text>1 Y</Text>
