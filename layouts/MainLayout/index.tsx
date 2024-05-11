@@ -15,12 +15,13 @@ import { Header } from "@/app/(tabs)/MainComponents/Header";
 import { Card } from "@/components/Atoms/Card";
 import { BlurView } from "expo-blur";
 import { supabase } from "@/lib/supabase";
+import { SharedValue } from "react-native-reanimated";
 
 type Props = {
   mainContent: React.ReactNode;
   secondaryContent: React.ReactNode;
   handleMoveCarousel: (index: number) => void;
-  index: number;
+  index: SharedValue<number>;
 };
 
 const MainLayout = ({

@@ -2,36 +2,34 @@ import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
 import MainLayout from "../../layouts/MainLayout";
 import BottomCard from "./MainComponents/BottomCard";
 import MainCard from "./MainComponents/MainCard";
-import { Dimensions, Text, View, Image } from "react-native";
-import useExpenses from "@/hooks/useExpenses";
-import useIncomes from "@/hooks/useIncomes";
-import useUser from "@/hooks/useUser";
+import { Dimensions } from "react-native";
+
 import Options from "./Options";
 import SecondaryCard from "./MainComponents/SecondaryCard";
 import { useRef, useState } from "react";
-import Loading from "@/components/Atoms/Loading";
+import { runOnJS, useSharedValue } from "react-native-reanimated";
 
 export default function TabOneScreen() {
   const width = Dimensions.get("window").width;
-  const expenses = useExpenses();
-  const incomes = useIncomes();
-  const user = useUser();
-  const loading = expenses.isLoading || incomes.isLoading || user.isLoading;
+
   const carouselRef = useRef<ICarouselInstance>(null);
-  const [currentI, setCurrentI] = useState<number | undefined>(0);
+  const currentIndex = useSharedValue<number>(0);
   const [moving, setMoving] = useState(false);
 
   const handleMoveCarousel = (index: number) => {
-    if (carouselRef.current) {
-      setMoving(true);
-      setCurrentI(index);
+    currentIndex.value = index;
+    runOnJS(scrollToIndex)(index);
+  };
 
-      carouselRef?.current?.scrollTo({ index, animated: true });
+  const scrollToIndex = (index: number) => {
+    if (carouselRef.current) {
+      carouselRef.current.scrollTo({ index, animated: true });
     }
   };
+
   return (
     <MainLayout
-      index={currentI || 0}
+      index={currentIndex}
       handleMoveCarousel={handleMoveCarousel}
       mainContent={
         <Carousel
@@ -43,11 +41,11 @@ export default function TabOneScreen() {
           onScrollEnd={() => setMoving(false)}
           onProgressChange={(off, total) => {
             if (
-              currentI !== undefined &&
+              currentIndex.value !== undefined &&
               !moving &&
-              Math.abs(total - currentI) > 0.2
+              Math.abs(total - currentIndex.value) > 0.2
             ) {
-              setCurrentI(carouselRef.current?.getCurrentIndex());
+              currentIndex.value = carouselRef.current?.getCurrentIndex() || 0;
             }
           }}
           renderItem={({ index }) =>

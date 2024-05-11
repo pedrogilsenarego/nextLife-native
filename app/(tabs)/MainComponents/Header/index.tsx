@@ -8,12 +8,12 @@ import { SharedValue } from "react-native-reanimated";
 
 type Props = {
   handleMoveCarousel: (index: number) => void;
-  index: number;
+  index: SharedValue<number>;
   setSideMenu: (sideMenu: boolean) => void;
 };
 
 export const Header = ({ handleMoveCarousel, index, setSideMenu }: Props) => {
-  const { theme, mainColor, contrastColor } = useTheme();
+  const { theme } = useTheme();
   const userQuery = useUser();
   const currentDate = new Date();
   const monthInLetters = currentDate.toLocaleString("default", {
