@@ -6,8 +6,8 @@ import { Dimensions } from "react-native";
 
 import Options from "./Options";
 import SecondaryCard from "./MainComponents/SecondaryCard";
-import { useRef, useState } from "react";
-import { runOnJS, useSharedValue } from "react-native-reanimated";
+import { useEffect, useRef, useState } from "react";
+import { runOnJS, useSharedValue, withTiming } from "react-native-reanimated";
 
 export default function TabOneScreen() {
   const width = Dimensions.get("window").width;
@@ -17,7 +17,8 @@ export default function TabOneScreen() {
   const [moving, setMoving] = useState(false);
 
   const handleMoveCarousel = (index: number) => {
-    currentIndex.value = index;
+    currentIndex.value = withTiming(index);
+
     runOnJS(scrollToIndex)(index);
   };
 
@@ -45,7 +46,9 @@ export default function TabOneScreen() {
               !moving &&
               Math.abs(total - currentIndex.value) > 0.2
             ) {
-              currentIndex.value = carouselRef.current?.getCurrentIndex() || 0;
+              currentIndex.value = withTiming(
+                carouselRef.current?.getCurrentIndex() || 0
+              );
             }
           }}
           renderItem={({ index }) =>

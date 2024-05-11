@@ -1,11 +1,4 @@
 import { Container } from "@/components/Atoms/Container";
-import { ArrayButtons } from "@/components/Molecules/ArrayButtons";
-import AnimatedText from "@/components/Charts/LineChart/AnimatedText";
-import { Colors, useTheme } from "@/providers/ThemeContext";
-import { MaterialIcons } from "@expo/vector-icons";
-import { useFont } from "@shopify/react-native-skia";
-import { useState } from "react";
-import { View, Text, Pressable } from "react-native";
 import { SharedValue } from "react-native-reanimated";
 import { LeftComponent } from "./LeftComponent";
 import { RightComponent } from "./RightComponent";

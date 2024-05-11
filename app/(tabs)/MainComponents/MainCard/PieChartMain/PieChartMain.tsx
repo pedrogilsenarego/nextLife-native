@@ -10,6 +10,8 @@ import { Container } from "@/components/Atoms/Container";
 import { ArrayButtons } from "@/components/Molecules/ArrayButtons";
 import { RangeDataChoose } from "../../RangeDataChoose";
 import { useApp } from "@/providers/AppProvider";
+import useExpenses from "@/hooks/useExpenses";
+import useIncomes from "@/hooks/useIncomes";
 type Data = {
   category: string;
   percentage: number;
@@ -23,6 +25,8 @@ const PieChartMain = () => {
   const OUTER_STROKE_WIDTH = 33;
   const GAP = 0.004;
   const { dateRange } = useApp();
+  const expenses = useExpenses();
+  const incomes = useIncomes();
   const [data, setData] = useState<Data[] | null>(null);
   const [dataIncomes, setDataIncomes] = useState<Data[] | null>(null);
   const [mode, setMode] = useState<"expenses" | "incomes">("expenses");
@@ -37,7 +41,6 @@ const PieChartMain = () => {
     useMetrics();
 
   const shadesOfGreen = [
-    "#300000",
     "#1f261a",
     "#3e4d34", // Intermediate
     "#094400", // Intermediate
@@ -168,47 +171,53 @@ const PieChartMain = () => {
 
   return (
     <View style={{ position: "relative" }}>
-      <Animated.View
-        style={[
-          animatedStyleIncomes,
-          {
-            position: "absolute",
-            opacity: opacityInterpolate2,
-            width: RADIUS * 2,
-            height: RADIUS * 2,
-            marginTop: 10,
-          },
-        ]}
-      >
-        <PieChart
-          radius={RADIUS}
-          gap={GAP}
-          strokeWidth={STROKE_WIDTH}
-          outerStrokeWidth={OUTER_STROKE_WIDTH}
-          decimals={decimalsIncomes}
-          colors={shadesOfGreen}
-        />
-      </Animated.View>
-      <Animated.View
-        style={[
-          animatedStyle,
-          {
-            opacity: opacityInterpolate,
-            width: RADIUS * 2,
-            height: RADIUS * 2,
-            marginTop: 10,
-          },
-        ]}
-      >
-        <PieChart
-          radius={RADIUS}
-          gap={GAP}
-          strokeWidth={STROKE_WIDTH}
-          outerStrokeWidth={OUTER_STROKE_WIDTH}
-          decimals={decimalsExpenses}
-          colors={shadesOfRed}
-        />
-      </Animated.View>
+      {expenses.isLoading || incomes.isLoading ? (
+        <View style={{ height: RADIUS * 2, width: RADIUS * 2 }}></View>
+      ) : (
+        <>
+          <Animated.View
+            style={[
+              animatedStyleIncomes,
+              {
+                position: "absolute",
+                opacity: opacityInterpolate2,
+                width: RADIUS * 2,
+                height: RADIUS * 2,
+                marginTop: 10,
+              },
+            ]}
+          >
+            <PieChart
+              radius={RADIUS}
+              gap={GAP}
+              strokeWidth={STROKE_WIDTH}
+              outerStrokeWidth={OUTER_STROKE_WIDTH}
+              decimals={decimalsIncomes}
+              colors={shadesOfGreen}
+            />
+          </Animated.View>
+          <Animated.View
+            style={[
+              animatedStyle,
+              {
+                opacity: opacityInterpolate,
+                width: RADIUS * 2,
+                height: RADIUS * 2,
+                marginTop: 10,
+              },
+            ]}
+          >
+            <PieChart
+              radius={RADIUS}
+              gap={GAP}
+              strokeWidth={STROKE_WIDTH}
+              outerStrokeWidth={OUTER_STROKE_WIDTH}
+              decimals={decimalsExpenses}
+              colors={shadesOfRed}
+            />
+          </Animated.View>
+        </>
+      )}
       <RangeDataChoose />
       <Container containerStyles={{ marginTop: 10 }}>
         <ArrayButtons
