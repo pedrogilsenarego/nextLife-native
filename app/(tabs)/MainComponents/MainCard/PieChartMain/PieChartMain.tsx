@@ -9,6 +9,7 @@ import useMetrics from "@/hooks/useMetrics";
 import { Container } from "@/components/Atoms/Container";
 import { ArrayButtons } from "@/components/Molecules/ArrayButtons";
 import { RangeDataChoose } from "../../RangeDataChoose";
+import { useApp } from "@/providers/AppProvider";
 type Data = {
   category: string;
   percentage: number;
@@ -21,7 +22,7 @@ const PieChartMain = () => {
   const STROKE_WIDTH = 16;
   const OUTER_STROKE_WIDTH = 33;
   const GAP = 0.004;
-
+  const { dateRange } = useApp();
   const [data, setData] = useState<Data[] | null>(null);
   const [dataIncomes, setDataIncomes] = useState<Data[] | null>(null);
   const [mode, setMode] = useState<"expenses" | "incomes">("expenses");
@@ -59,7 +60,7 @@ const PieChartMain = () => {
   useEffect(() => {
     generateDataExpenses();
     generateDataIncomes();
-  }, [mode]);
+  }, [dateRange]);
 
   const generateDataExpenses = () => {
     const rawData = getExpensesCategoriesPercentage();
