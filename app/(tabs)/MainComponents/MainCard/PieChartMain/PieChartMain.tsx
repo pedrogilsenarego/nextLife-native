@@ -12,7 +12,6 @@ import { RangeDataChoose } from "../../RangeDataChoose";
 import { useApp } from "@/providers/AppProvider";
 import useExpenses from "@/hooks/useExpenses";
 import useIncomes from "@/hooks/useIncomes";
-import LoaderSpinner from "@/components/Atoms/LoaderSpinner";
 type Data = {
   category: string;
   percentage: number;
@@ -172,20 +171,8 @@ const PieChartMain = () => {
 
   return (
     <View style={{ position: "relative" }}>
-      {expenses.isLoading ||
-      incomes.isLoading ||
-      !dataExpenses ||
-      !dataIncomes ? (
-        <View
-          style={{
-            height: RADIUS * 2,
-            width: RADIUS * 2,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <LoaderSpinner color="black" />
-        </View>
+      {expenses.isLoading || incomes.isLoading ? (
+        <View style={{ height: RADIUS * 2, width: RADIUS * 2 }}></View>
       ) : (
         <>
           <Animated.View

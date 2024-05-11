@@ -17,7 +17,7 @@ export default function TabOneScreen() {
   const [moving, setMoving] = useState(false);
 
   const handleMoveCarousel = (index: number) => {
-    currentIndex.value = index;
+    currentIndex.value = withTiming(index);
 
     runOnJS(scrollToIndex)(index);
   };
