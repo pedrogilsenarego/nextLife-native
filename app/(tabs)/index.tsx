@@ -29,9 +29,7 @@ export default function TabOneScreen() {
       carouselRef?.current?.scrollTo({ index, animated: true });
     }
   };
-  return loading ? (
-    <Loading />
-  ) : (
+  return (
     <MainLayout
       index={currentI || 0}
       handleMoveCarousel={handleMoveCarousel}

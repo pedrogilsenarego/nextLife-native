@@ -1,14 +1,16 @@
 import { Expense } from "@/types/expensesTypes";
-import useBusinesses from "./useBusinesses";
+
 import useExpenses from "./useExpenses";
 import useIncomes from "./useIncomes";
 import { Income } from "@/types/incomesTypes";
-import { useMemo } from "react";
+
+import { useApp } from "@/providers/AppProvider";
+import { dateQueriesMap } from "@/utils/dateFormat";
 
 const useMetrics = () => {
   const expenses = useExpenses();
   const incomes = useIncomes();
-  const business = useBusinesses();
+  const { dateRange } = useApp();
 
   const totalExpenses = () =>
     expenses?.data?.reduce((acc, item) => {
@@ -21,7 +23,8 @@ const useMetrics = () => {
     }, 0) ?? 0;
 
   const valueTotalPerDay = (data: Expense[] | Income[] | undefined) => {
-    const today = new Date();
+    const today = dateQueriesMap(dateRange).endDate;
+
     const currentMonth = today.getMonth();
     const currentDay = today.getDate();
 
@@ -105,10 +108,8 @@ const useMetrics = () => {
     return categoriesPercentage;
   };
 
-  const expensesTotalPerDay = () =>
-    useMemo(() => valueTotalPerDay(expenses?.data), [expenses]);
-  const incomesTotalPerDay = () =>
-    useMemo(() => valueTotalPerDay(incomes?.data), [incomes]);
+  const expensesTotalPerDay = () => valueTotalPerDay(expenses?.data);
+  const incomesTotalPerDay = () => valueTotalPerDay(incomes?.data);
 
   return {
     totalExpenses,

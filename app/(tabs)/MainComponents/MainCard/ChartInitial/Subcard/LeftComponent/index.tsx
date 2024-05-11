@@ -1,4 +1,6 @@
+import { useApp } from "@/providers/AppProvider";
 import { Colors, useTheme } from "@/providers/ThemeContext";
+import { dateQueriesMap } from "@/utils/dateFormat";
 import { View, Text } from "react-native";
 import { SharedValue } from "react-native-reanimated";
 
@@ -26,7 +28,9 @@ export const LeftComponent = ({
   incomesPerDay,
 }: Props) => {
   const { theme } = useTheme();
-  const currentDate = new Date();
+  const { dateRange } = useApp();
+  const currentDate = dateQueriesMap(dateRange).endDate;
+
   const monthName = currentDate.toLocaleDateString("en-US", { month: "long" });
   const totalExpenses = expensesPerDay
     .reduce((acc, value) => acc + value.value, 0)
