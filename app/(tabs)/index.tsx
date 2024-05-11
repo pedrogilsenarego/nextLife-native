@@ -17,7 +17,7 @@ export default function TabOneScreen() {
   const [moving, setMoving] = useState(false);
 
   const handleMoveCarousel = (index: number) => {
-    currentIndex.value = withTiming(index);
+    currentIndex.value = index;
 
     runOnJS(scrollToIndex)(index);
   };
@@ -46,9 +46,7 @@ export default function TabOneScreen() {
               !moving &&
               Math.abs(total - currentIndex.value) > 0.2
             ) {
-              currentIndex.value = withTiming(
-                carouselRef.current?.getCurrentIndex() || 0
-              );
+              currentIndex.value = carouselRef.current?.getCurrentIndex() || 0;
             }
           }}
           renderItem={({ index }) =>

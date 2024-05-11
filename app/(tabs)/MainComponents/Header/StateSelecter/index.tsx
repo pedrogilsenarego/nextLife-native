@@ -37,7 +37,6 @@ export const StateSelecter: React.FC<Props> = ({
             BUTTON_WIDTH * index.value + (BUTTON_GAP + 4) * index.value,
             {
               duration: 200,
-              easing: Easing.ease,
             }
           ),
         },

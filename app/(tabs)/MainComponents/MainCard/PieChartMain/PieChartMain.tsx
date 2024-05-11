@@ -12,6 +12,7 @@ import { RangeDataChoose } from "../../RangeDataChoose";
 import { useApp } from "@/providers/AppProvider";
 import useExpenses from "@/hooks/useExpenses";
 import useIncomes from "@/hooks/useIncomes";
+import LoaderSpinner from "@/components/Atoms/LoaderSpinner";
 type Data = {
   category: string;
   percentage: number;
@@ -27,10 +28,10 @@ const PieChartMain = () => {
   const { dateRange } = useApp();
   const expenses = useExpenses();
   const incomes = useIncomes();
-  const [data, setData] = useState<Data[] | null>(null);
+  const [dataExpenses, setDataExpenses] = useState<Data[] | null>(null);
   const [dataIncomes, setDataIncomes] = useState<Data[] | null>(null);
   const [mode, setMode] = useState<"expenses" | "incomes">("expenses");
-  const dataToRender = mode === "expenses" ? data : dataIncomes;
+  const dataToRender = mode === "expenses" ? dataExpenses : dataIncomes;
   const decimalsExpenses = useSharedValue<number[]>([0.1, 0.1, 0.8, 0.2, 0.3]);
   const decimalsIncomes = useSharedValue<number[]>([0.1, 0.1, 0.8, 0.2, 0.3]);
   const opacityRef = useRef(new Animated.Value(0)).current;
@@ -81,7 +82,7 @@ const PieChartMain = () => {
       amount: value.amount,
     }));
 
-    setData(arrayOfObjects);
+    setDataExpenses(arrayOfObjects);
   };
 
   const generateDataIncomes = () => {
@@ -171,8 +172,20 @@ const PieChartMain = () => {
 
   return (
     <View style={{ position: "relative" }}>
-      {expenses.isLoading || incomes.isLoading ? (
-        <View style={{ height: RADIUS * 2, width: RADIUS * 2 }}></View>
+      {expenses.isLoading ||
+      incomes.isLoading ||
+      !dataExpenses ||
+      !dataIncomes ? (
+        <View
+          style={{
+            height: RADIUS * 2,
+            width: RADIUS * 2,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <LoaderSpinner color="black" />
+        </View>
       ) : (
         <>
           <Animated.View
