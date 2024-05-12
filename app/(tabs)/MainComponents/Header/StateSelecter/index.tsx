@@ -1,9 +1,12 @@
-import React from "react";
-import { View, Pressable } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Pressable, ViewStyle } from "react-native";
 import Animated, {
-  Easing,
   SharedValue,
+  runOnJS,
+  useAnimatedReaction,
   useAnimatedStyle,
+  useDerivedValue,
+  Easing,
   withTiming,
 } from "react-native-reanimated";
 import { Entypo, AntDesign } from "@expo/vector-icons";
@@ -21,6 +24,7 @@ export const StateSelecter: React.FC<Props> = ({
   const { mainColor, contrastColor, theme } = useTheme();
   const BUTTON_WIDTH = 26;
   const BUTTON_GAP = 2;
+  const [selected, setSelected] = useState(0);
 
   const animationLeft = useAnimatedStyle(() => {
     return {
@@ -43,6 +47,16 @@ export const StateSelecter: React.FC<Props> = ({
       ],
     };
   });
+
+  useAnimatedReaction(
+    () => {
+      return index.value;
+    },
+    () => {
+      runOnJS(setSelected)(index.value);
+    },
+    []
+  );
 
   return (
     <View
