@@ -8,6 +8,7 @@ export const formattedDate = (date: Date) =>
 export const dateRangeList = {
   ONE_YEAR: "1year",
   THREE_YEARS: "3years",
+  THREE_MONTHS: "3Months",
   SIX_MONTHS: "6Months",
   CURRENT_MONTH: "currentMonth",
   LAST_MONTH: "lastMonth",
@@ -57,6 +58,22 @@ export const dateQueriesMap = (tabValue: string) => {
         0
       );
       break;
+    case "3Months":
+      // Calculate 5 months ago from the current date
+      const threeMonthsAgo = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth() - 2,
+        1
+      );
+
+      startDate = threeMonthsAgo;
+      endDate = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth() + 1,
+        0
+      );
+      break;
+
     case dateRangeList.LAST_MONTH:
       const lastMonthStart = new Date(
         currentDate.getFullYear(),

@@ -50,6 +50,35 @@ const useMetrics = () => {
     return totalPerDay;
   };
 
+  const valueTotalPerMonth = (data: Expense[] | Income[] | undefined) => {
+    const today = dateQueriesMap(dateRange).endDate;
+
+    const currentYear = today.getFullYear();
+    const currentMonth = today.getMonth() + 1; // Adding 1 to get 1-based month index
+
+    const totalPerMonth: { label: string; value: number }[] = [];
+
+    // Initialize array with 0 values for each month of the year
+    for (let i = 1; i <= currentMonth; i++) {
+      const label = i.toString().padStart(2, "0");
+      totalPerMonth.push({ label, value: 0 });
+    }
+
+    // Update values for months coinciding with original data
+    if (data) {
+      data.forEach((expense) => {
+        const expenseDate = new Date(expense.created_at);
+        const expenseYear = expenseDate.getFullYear();
+        const expenseMonth = expenseDate.getMonth() + 1; // Adding 1 to get 1-based month index
+        if (expenseYear === currentYear && expenseMonth <= currentMonth) {
+          totalPerMonth[expenseMonth - 1].value += expense.amount;
+        }
+      });
+    }
+
+    return totalPerMonth;
+  };
+
   const calculateCategoryPercentage = (expensesData: Expense[]) => {
     const categoryTotal = expensesData.reduce((acc: any, expense) => {
       acc[expense.category] = (acc[expense.category] || 0) + expense.amount;
@@ -109,13 +138,17 @@ const useMetrics = () => {
   };
 
   const expensesTotalPerDay = () => valueTotalPerDay(expenses?.data);
+  const expensesTotalPerMonth = () => valueTotalPerMonth(expenses?.data);
   const incomesTotalPerDay = () => valueTotalPerDay(incomes?.data);
+  const incomesTotalPerMonth = () => valueTotalPerMonth(incomes?.data);
 
   return {
     totalExpenses,
     totalIncomes,
     expensesTotalPerDay,
     incomesTotalPerDay,
+    expensesTotalPerMonth,
+    incomesTotalPerMonth,
     getExpensesCategoriesPercentage,
     getIncomesCategoriesPercentage,
   };

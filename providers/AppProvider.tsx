@@ -11,6 +11,7 @@ import { dateRangeList } from "@/utils/dateFormat";
 type DateRangeValues =
   | "1year"
   | "3years"
+  | "3Months"
   | "6Months"
   | "currentMonth"
   | "lastMonth"

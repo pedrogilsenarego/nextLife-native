@@ -8,6 +8,7 @@ import { useSharedValue } from "react-native-reanimated";
 import Subcard from "./Subcard";
 import { MaterialIcons } from "@expo/vector-icons";
 import { RangeDataChoose } from "../../RangeDataChoose";
+import { useApp } from "@/providers/AppProvider";
 
 type Props = {
   selectedStatus: "expenses" | "incomes" | "both";
@@ -29,9 +30,20 @@ const ChartInitial = ({
   const accValue = useSharedValue(0);
   const accValue2 = useSharedValue(0);
   const { theme } = useTheme();
-  const { expensesTotalPerDay, incomesTotalPerDay } = useMetrics();
-  const expensesPerDay = expensesTotalPerDay();
-  const incomesPerDay = incomesTotalPerDay();
+  const { dateRange } = useApp();
+  const {
+    expensesTotalPerDay,
+    expensesTotalPerMonth,
+    incomesTotalPerMonth,
+    incomesTotalPerDay,
+  } = useMetrics();
+  const listPerDay = ["currentMonth", "lastMonth", "lastLastMonth"];
+  const expensesPerDay = listPerDay.includes(dateRange)
+    ? expensesTotalPerDay()
+    : expensesTotalPerMonth();
+  const incomesPerDay = listPerDay.includes(dateRange)
+    ? incomesTotalPerDay()
+    : incomesTotalPerMonth();
 
   const font = useFont(
     require("../../../../../assets/fonts/SpaceMono-Regular.ttf"),

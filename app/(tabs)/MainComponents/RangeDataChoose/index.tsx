@@ -47,7 +47,15 @@ export const RangeDataChoose: React.FC = () => {
           {lastLastMonthF}
         </Text>
       </Pressable>
-      <Text>3 M</Text>
+      <Pressable onPress={() => changeDateRange("3Months")}>
+        <Text
+          style={{
+            fontWeight: dateRange === "3Months" ? "bold" : "normal",
+          }}
+        >
+          3 M
+        </Text>
+      </Pressable>
       <Text>6 M</Text>
       <Text>1 Y</Text>
       <Text>3 Y</Text>
