@@ -51,17 +51,28 @@ const useMetrics = () => {
   };
 
   const valueTotalPerMonth = (data: Expense[] | Income[] | undefined) => {
-    const today = dateQueriesMap(dateRange).endDate;
+    const { endDate, startDate } = dateQueriesMap(dateRange);
 
-    const currentYear = today.getFullYear();
-    const currentMonth = today.getMonth() + 1; // Adding 1 to get 1-based month index
+    const startYear = startDate.getFullYear();
+    const startMonth = startDate.getMonth() + 1; // Adding 1 to get 1-based month index
+
+    const endYear = endDate.getFullYear();
+    const endMonth = endDate.getMonth() + 1;
 
     const totalPerMonth: { label: string; value: number }[] = [];
 
     // Initialize array with 0 values for each month of the year
-    for (let i = 1; i <= currentMonth; i++) {
-      const label = i.toString().padStart(2, "0");
-      totalPerMonth.push({ label, value: 0 });
+    for (let year = startYear; year <= endYear; year++) {
+      // Calculate the start and end month for the current year
+      const monthStart = year === startYear ? startMonth : 1;
+
+      const monthEnd = year === endYear ? endMonth : 12;
+
+      // Initialize array with 0 values for each month of the year
+      for (let month = monthStart; month <= monthEnd; month++) {
+        const label = month.toString().padStart(2, "0");
+        totalPerMonth.push({ label, value: 0 });
+      }
     }
 
     // Update values for months coinciding with original data
@@ -70,8 +81,23 @@ const useMetrics = () => {
         const expenseDate = new Date(expense.created_at);
         const expenseYear = expenseDate.getFullYear();
         const expenseMonth = expenseDate.getMonth() + 1; // Adding 1 to get 1-based month index
-        if (expenseYear === currentYear && expenseMonth <= currentMonth) {
-          totalPerMonth[expenseMonth - 1].value += expense.amount;
+
+        // Check if the expense falls within the date range
+        if (
+          expenseYear >= startYear &&
+          expenseYear <= endYear &&
+          ((startYear === endYear &&
+            expenseMonth >= startMonth &&
+            expenseMonth <= endMonth) ||
+            (expenseYear === startYear && expenseMonth >= startMonth) ||
+            (expenseYear === endYear && expenseMonth <= endMonth))
+        ) {
+          const yearIndex = expenseYear - startYear;
+          const monthIndex =
+            yearIndex === 0
+              ? expenseMonth - startMonth
+              : 12 + expenseMonth - startMonth;
+          totalPerMonth[monthIndex].value += expense.amount;
         }
       });
     }
