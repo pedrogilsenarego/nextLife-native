@@ -1,19 +1,9 @@
 import { Colors } from "@/providers/ThemeContext";
-import { useRef, useState } from "react";
-import {
-  Dimensions,
-  View,
-  Text,
-  Pressable,
-  GestureResponderEvent,
-} from "react-native";
-import {
-  Gesture,
-  GestureDetector,
-  PanGestureHandlerEventPayload,
-} from "react-native-gesture-handler";
+import { useEffect, useState } from "react";
+
+import { Dimensions, View, Text, Pressable } from "react-native";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { LineChart } from "react-native-gifted-charts";
-import { SharedValue, runOnJS } from "react-native-reanimated";
 
 type DataType = {
   label: string;
@@ -36,6 +26,8 @@ export const LineChartGifted = ({
   setSelectedDate,
 }: Props) => {
   const width = Dimensions.get("window").width - 12;
+  const [pointerColor, setPointerColor] = useState(Colors.black);
+  useEffect(() => setPointerColor("transparent"), [data]);
 
   const minDataValue = Math.min(
     ...data.map((item) => item.value),
@@ -44,7 +36,6 @@ export const LineChartGifted = ({
 
   // Round down the minimum value to the nearest multiple of 1000
   const roundedOffset = Math.floor(minDataValue / 1000) * 1000;
-  const spacing = (width - 75) / (data.length - 1);
 
   const pan = Gesture.Pan();
 
@@ -52,6 +43,7 @@ export const LineChartGifted = ({
     <GestureDetector gesture={pan}>
       <Pressable style={{ position: "relative" }}>
         <LineChart
+          onPress={(e: any) => console.log("pressed", e)}
           data={data}
           yAxisTextStyle={{ fontSize: 10 }}
           xAxisLabelTextStyle={{ fontSize: 10 }}
@@ -62,7 +54,7 @@ export const LineChartGifted = ({
           animationDuration={1000}
           initialSpacing={9}
           areaChart
-          spacing={spacing}
+          adjustToWidth
           thickness={1.5}
           yAxisColor={"transparent"}
           xAxisColor={"transparent"}
@@ -74,12 +66,14 @@ export const LineChartGifted = ({
                     borderWidth: 2,
                     height: 10,
                     width: 10,
-                    borderColor: `${Colors.black}`,
+                    borderColor: pointerColor,
                     borderRadius: 5,
                   }}
                 />
               );
             },
+            persistPointer: true,
+            pointerStripColor: pointerColor,
             pointerStripUptoDataPoint: true,
             autoAdjustPointerLabelPosition: false,
             strokeDashArray: [10, 5],
@@ -87,33 +81,35 @@ export const LineChartGifted = ({
 
             pointerLabelComponent: (items: { value: any; label: any }[]) => {
               setSelectedDate(items[0].label);
+              setPointerColor(Colors.black);
               return (
-                <View
-                  style={{
-                    width: "auto",
-                    backgroundColor: Colors.black,
-                    borderRadius: 4,
-                    padding: 4,
-                    justifyContent: "center",
-                    paddingLeft: 16,
-                    display: "flex",
-                    flexDirection: "row",
-                    columnGap: 5,
-                    alignItems: "center",
-                  }}
-                >
-                  <Text style={{ color: "lightgray", fontSize: 12 }}>
-                    {items[0].label}
-                  </Text>
-                  <Text style={{ color: "white", fontWeight: "bold" }}>
-                    {items[0].value.toFixed(0)}
-                  </Text>
-                  {data2 && (
-                    <Text style={{ color: "white", fontWeight: "bold" }}>
-                      {items[1].value.toFixed(0)}
-                    </Text>
-                  )}
-                </View>
+                <></>
+                // <View
+                //   style={{
+                //     width: "auto",
+                //     backgroundColor: Colors.black,
+                //     borderRadius: 4,
+                //     padding: 4,
+                //     justifyContent: "center",
+                //     paddingLeft: 16,
+                //     display: "flex",
+                //     flexDirection: "row",
+                //     columnGap: 5,
+                //     alignItems: "center",
+                //   }}
+                // >
+                //   <Text style={{ color: "lightgray", fontSize: 12 }}>
+                //     {items[0].label}
+                //   </Text>
+                //   <Text style={{ color: "white", fontWeight: "bold" }}>
+                //     {items[0].value.toFixed(0)}
+                //   </Text>
+                //   {data2 && (
+                //     <Text style={{ color: "white", fontWeight: "bold" }}>
+                //       {items[1].value.toFixed(0)}
+                //     </Text>
+                //   )}
+                // </View>
               );
             },
           }}
