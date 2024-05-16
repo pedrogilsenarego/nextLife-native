@@ -9,6 +9,7 @@ import Subcard from "./Subcard";
 import { MaterialIcons } from "@expo/vector-icons";
 import { RangeDataChoose } from "../../RangeDataChoose";
 import { useApp } from "@/providers/AppProvider";
+import { LineChartGifted } from "@/components/Charts/LIneChartGifted";
 
 type Props = {
   selectedStatus: "expenses" | "incomes" | "both";
@@ -87,6 +88,12 @@ const ChartInitial = ({
           size={22}
         />
       </Pressable>
+      <LineChartGifted
+        data={selectedStatus === "expenses" ? expensesPerDay : incomesPerDay}
+        data2={selectedStatus === "both" ? expensesPerDay : undefined}
+        color1={selectedStatus === "expenses" ? "#c80815" : "#82ca9d"}
+        color2={selectedStatus === "both" ? "#c80815" : undefined}
+      />
       <LineChart
         color1={selectedStatus === "expenses" ? "#c80815" : "#82ca9d"}
         color2={selectedStatus === "both" ? "#c80815" : undefined}
