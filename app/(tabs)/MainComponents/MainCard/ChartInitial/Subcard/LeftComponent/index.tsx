@@ -10,8 +10,7 @@ type Props = {
   incomesPerDay: { value: number; label: string }[];
   accValue: SharedValue<number>;
   accValue2: SharedValue<number>;
-  selectedValue: SharedValue<number>;
-  selectedValue2: SharedValue<number>;
+
   setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
   selectedStatus: "expenses" | "incomes" | "both";
   setSelectedStatus: (selectedStatus: "expenses" | "incomes" | "both") => void;
@@ -20,8 +19,7 @@ type Props = {
 export const LeftComponent = ({
   selectedDate,
   selectedStatus,
-  selectedValue,
-  selectedValue2,
+
   accValue,
   accValue2,
   expensesPerDay,
@@ -39,6 +37,16 @@ export const LeftComponent = ({
   const totalIncomes = incomesPerDay
     .reduce((acc, value) => acc + value.value, 0)
     .toFixed(0);
+
+  const selectedExpenseIndex = expensesPerDay?.findIndex(
+    (expense) => expense.label === selectedDate
+  );
+
+  const firstValue =
+    selectedStatus === "expenses"
+      ? expensesPerDay?.[selectedExpenseIndex]?.value?.toFixed(0)
+      : incomesPerDay?.[selectedExpenseIndex]?.value?.toFixed(0);
+  const secondValue = expensesPerDay?.[selectedExpenseIndex]?.value?.toFixed(0);
   return (
     <View>
       <>
@@ -76,7 +84,7 @@ export const LeftComponent = ({
                       : "#82ca9d",
                 }}
               >
-                {selectedValue.value.toFixed(0)}€
+                {firstValue}€
               </Text>
 
               {selectedStatus === "both" && (
@@ -88,9 +96,7 @@ export const LeftComponent = ({
                   >
                     /
                   </Text>
-                  <Text style={{ color: "#c80815" }}>
-                    {selectedValue2.value.toFixed(0)}€
-                  </Text>
+                  <Text style={{ color: "#c80815" }}>{secondValue}€</Text>
                 </>
               )}
             </View>

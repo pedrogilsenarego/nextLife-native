@@ -9,8 +9,7 @@ type Props = {
   incomesPerDay: { value: number; label: string }[];
   accValue: SharedValue<number>;
   accValue2: SharedValue<number>;
-  selectedValue: SharedValue<number>;
-  selectedValue2: SharedValue<number>;
+
   setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
   selectedStatus: "expenses" | "incomes" | "both";
   setSelectedStatus: (selectedStatus: "expenses" | "incomes" | "both") => void;
@@ -23,8 +22,7 @@ const Subcard = ({
   incomesPerDay,
   accValue,
   accValue2,
-  selectedValue,
-  selectedValue2,
+
   selectedStatus,
   setSelectedDate,
   setSelectedStatus,
@@ -41,8 +39,6 @@ const Subcard = ({
         selectedStatus={selectedStatus}
         setSelectedDate={setSelectedDate}
         setSelectedStatus={setSelectedStatus}
-        selectedValue={selectedValue}
-        selectedValue2={selectedValue2}
         accValue={accValue}
         accValue2={accValue2}
         expensesPerDay={expensesPerDay}
@@ -51,7 +47,6 @@ const Subcard = ({
       <RightComponent
         setSelectedDate={setSelectedDate}
         setSelectedStatus={setSelectedStatus}
-        selectedValue={selectedValue}
         accValue={accValue}
         setAmountToShow={setAmountToShow}
       />

@@ -6,8 +6,6 @@ import { Card } from "@/components/Atoms/Card";
 
 const MainCard = () => {
   const [selectedDate, setSelectedDate] = useState<string>("Total");
-  console.log(selectedDate);
-
   const [amountToShow, setAmountToShow] = useState<number>(10);
   const [selectedStatus, setSelectedStatus] = useState<
     "expenses" | "incomes" | "both"

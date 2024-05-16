@@ -26,8 +26,6 @@ const ChartInitial = ({
   setSelectedDate,
   setAmountToShow,
 }: Props) => {
-  const selectedValue = useSharedValue(0);
-  const selectedValue2 = useSharedValue(0);
   const accValue = useSharedValue(0);
   const accValue2 = useSharedValue(0);
   const { theme } = useTheme();
@@ -113,8 +111,6 @@ const ChartInitial = ({
         selectedStatus={selectedStatus}
         setSelectedDate={setSelectedDate}
         setSelectedStatus={setSelectedStatus}
-        selectedValue={selectedValue}
-        selectedValue2={selectedValue2}
         accValue={accValue}
         accValue2={accValue2}
         expensesPerDay={expensesPerDay}
