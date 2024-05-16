@@ -54,7 +54,7 @@ export const LineChartGifted = ({
           animationDuration={1000}
           initialSpacing={9}
           areaChart
-          adjustToWidth
+          spacing={(width - 75) / (data.length - 1)}
           thickness={1.5}
           yAxisColor={"transparent"}
           xAxisColor={"transparent"}
