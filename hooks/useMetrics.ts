@@ -5,7 +5,7 @@ import useIncomes from "./useIncomes";
 import { Income } from "@/types/incomesTypes";
 
 import { useApp } from "@/providers/AppProvider";
-import { dateQueriesMap } from "@/utils/dateFormat";
+import { dateQueriesMap, getMonthAbbreviation } from "@/utils/dateFormat";
 
 const useMetrics = () => {
   const expenses = useExpenses();
@@ -32,7 +32,7 @@ const useMetrics = () => {
 
     // Initialize array with 0 values for each day of the month
     for (let i = 1; i <= currentDay; i++) {
-      const label = i.toString().padStart(2, "0");
+      const label = i.toString();
       totalPerDay.push({ label, value: 0 });
     }
 
@@ -70,7 +70,8 @@ const useMetrics = () => {
 
       // Initialize array with 0 values for each month of the year
       for (let month = monthStart; month <= monthEnd; month++) {
-        const label = month.toString().padStart(2, "0");
+        const label = `${getMonthAbbreviation(month)} ${year % 100}`;
+
         totalPerMonth.push({ label, value: 0 });
       }
     }

@@ -93,8 +93,9 @@ const ChartInitial = ({
         data2={selectedStatus === "both" ? expensesPerDay : undefined}
         color1={selectedStatus === "expenses" ? "#c80815" : "#82ca9d"}
         color2={selectedStatus === "both" ? "#c80815" : undefined}
+        setSelectedDate={setSelectedDate}
       />
-      <LineChart
+      {/* <LineChart
         color1={selectedStatus === "expenses" ? "#c80815" : "#82ca9d"}
         color2={selectedStatus === "both" ? "#c80815" : undefined}
         data={selectedStatus === "expenses" ? expensesPerDay : incomesPerDay}
@@ -105,7 +106,7 @@ const ChartInitial = ({
         accValue={accValue}
         accValue2={accValue2}
         setSelectedDate={setSelectedDate}
-      />
+      /> */}
       <RangeDataChoose />
       <Subcard
         selectedDate={selectedDate}

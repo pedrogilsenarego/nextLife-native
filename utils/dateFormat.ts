@@ -1,3 +1,22 @@
+const monthAbbreviations = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
+export const getMonthAbbreviation = (monthNumber: number) => {
+  return monthAbbreviations[monthNumber - 1];
+};
+
 export const formattedDate = (date: Date) =>
   new Date(date).toLocaleDateString("en-US", {
     year: "numeric",
