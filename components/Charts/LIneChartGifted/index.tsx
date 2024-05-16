@@ -45,11 +45,6 @@ export const LineChartGifted = ({
   // Round down the minimum value to the nearest multiple of 1000
   const roundedOffset = Math.floor(minDataValue / 1000) * 1000;
   const spacing = (width - 75) / (data.length - 1);
-  const handlePress = (event: GestureResponderEvent) => {
-    console.log("pressed");
-    event.preventDefault();
-    event.stopPropagation();
-  };
 
   const pan = Gesture.Pan();
 

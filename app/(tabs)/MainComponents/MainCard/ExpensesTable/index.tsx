@@ -85,7 +85,7 @@ const ExpensesTable = ({
       ? dataSelected
           .filter((item) => {
             const date = new Date(item.created_at);
-            const day = String(date.getDate()).padStart(2, "0");
+            const day = String(date.getDate());
             return day === selectedDate;
           })
           .slice(0, amountToShow)
