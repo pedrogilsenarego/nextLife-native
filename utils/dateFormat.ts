@@ -13,6 +13,8 @@ const monthAbbreviations = [
   "Dec",
 ];
 
+export const listPerDay = ["currentMonth", "lastMonth", "lastLastMonth"];
+
 export const getMonthAbbreviation = (monthNumber: number) => {
   return monthAbbreviations[monthNumber - 1];
 };

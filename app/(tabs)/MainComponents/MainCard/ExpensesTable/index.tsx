@@ -8,6 +8,9 @@ import { View, Text } from "react-native";
 import { useTheme } from "@/providers/ThemeContext";
 import useIncomes from "@/hooks/useIncomes";
 import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
+import { useApp } from "@/providers/AppProvider";
+import { listPerDay } from "@/utils/dateFormat";
+import { format } from "date-fns";
 
 type Props = {
   selectedStatus: "expenses" | "incomes" | "both";
@@ -20,6 +23,7 @@ const ExpensesTable = ({
   amountToShow,
   selectedDate,
 }: Props) => {
+  const { dateRange } = useApp();
   const expenses = useExpenses();
   const incomes = useIncomes();
   const { contrastColor, theme } = useTheme();
@@ -85,8 +89,11 @@ const ExpensesTable = ({
       ? dataSelected
           .filter((item) => {
             const date = new Date(item.created_at);
-            const day = String(date.getDate());
-            return day === selectedDate;
+            const formatedDate = listPerDay.includes(dateRange)
+              ? format(date, "d")
+              : format(date, "MMM yy");
+
+            return formatedDate === selectedDate;
           })
           .slice(0, amountToShow)
       : dataSelected.slice(0, amountToShow);

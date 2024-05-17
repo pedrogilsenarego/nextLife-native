@@ -13,6 +13,7 @@ import { LineChartGifted } from "@/components/Charts/LIneChartGifted";
 import useExpenses from "@/hooks/useExpenses";
 import useIncomes from "@/hooks/useIncomes";
 import LoaderSpinner from "@/components/Atoms/LoaderSpinner";
+import { listPerDay } from "@/utils/dateFormat";
 
 type Props = {
   selectedStatus: "expenses" | "incomes" | "both";
@@ -41,7 +42,7 @@ const ChartInitial = ({
     incomesTotalPerMonth,
     incomesTotalPerDay,
   } = useMetrics();
-  const listPerDay = ["currentMonth", "lastMonth", "lastLastMonth"];
+
   const expensesPerDay = listPerDay.includes(dateRange)
     ? expensesTotalPerDay()
     : expensesTotalPerMonth();

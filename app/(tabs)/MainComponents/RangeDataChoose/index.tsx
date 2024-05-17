@@ -16,8 +16,8 @@ export const RangeDataChoose: React.FC<Props> = ({ setSelectedDate }) => {
   const lastLastMonthF = format(lastLastMonth, "MMMM");
 
   const handleChange = (key: DateRangeValues) => {
-    changeDateRange(key);
     setSelectedDate("Total");
+    changeDateRange(key);
   };
 
   return (
