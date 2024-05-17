@@ -19,7 +19,7 @@ export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = memo(
       if (buttonWidth[0] !== 0) {
         Animated.timing(animationWidth, {
           toValue: buttonWidth[0],
-          duration: 400,
+          duration: 500,
           useNativeDriver: false,
           easing: Easing.ease,
         }).start();

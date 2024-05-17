@@ -2,7 +2,7 @@ export const formatAmount = (amount: string) => {
   const numericAmount = parseFloat(amount);
 
   if (isNaN(numericAmount)) {
-    throw new Error("Invalid amount");
+    return amount;
   }
 
   if (numericAmount > 999) {

@@ -5,6 +5,8 @@ import { AntDesign, Entypo } from "@expo/vector-icons";
 import { View, Text, Dimensions, Pressable } from "react-native";
 import { StateSelecter } from "./StateSelecter";
 import { SharedValue } from "react-native-reanimated";
+import useExpenses from "@/hooks/useExpenses";
+import useIncomes from "@/hooks/useIncomes";
 
 type Props = {
   handleMoveCarousel: (index: number) => void;
@@ -15,6 +17,8 @@ type Props = {
 export const Header = ({ handleMoveCarousel, index, setSideMenu }: Props) => {
   const { theme } = useTheme();
   const userQuery = useUser();
+  const expenses = useExpenses();
+  const incomes = useIncomes();
   const currentDate = new Date();
   const monthInLetters = currentDate.toLocaleString("default", {
     month: "long",
@@ -41,26 +45,34 @@ export const Header = ({ handleMoveCarousel, index, setSideMenu }: Props) => {
           }}
         >
           Hello,{" "}
-          <Text style={{ fontWeight: "bold", textTransform: "capitalize" }}>
+          <Text
+            style={{
+              fontWeight: "bold",
+              textTransform: "capitalize",
+            }}
+          >
             {userQuery?.data?.username}
           </Text>
         </Text>
         <Text
           style={{
-            color: theme === "light" ? Colors.lightGray : "whitesmoke",
+            fontSize: 12,
+            color: theme === "light" ? "gray" : "whitesmoke",
           }}
         >
           Your monthly balance
         </Text>
-        <Text
-          style={{
-            color: theme === "light" ? Colors.black : "white",
-            fontSize: 20,
-            fontWeight: "bold",
-          }}
-        >
-          {(totalIncomes() - totalExpenses()).toFixed(1)} Є
-        </Text>
+        {!expenses.isLoading && !incomes.isLoading && (
+          <Text
+            style={{
+              color: theme === "light" ? Colors.black : "white",
+              fontSize: 18,
+              fontWeight: "bold",
+            }}
+          >
+            {(totalIncomes() - totalExpenses()).toFixed(1)} Є
+          </Text>
+        )}
       </View>
       <View
         style={{
