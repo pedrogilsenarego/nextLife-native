@@ -29,6 +29,9 @@ export const RangeDataChoose: React.FC<Props> = ({ setSelectedDate }) => {
 
         paddingHorizontal: 10,
         paddingVertical: 4,
+        borderTopWidth: 1,
+        borderColor: "lightGray",
+        borderBottomWidth: 1,
       }}
     >
       <Pressable onPress={() => handleChange("currentMonth")}>
