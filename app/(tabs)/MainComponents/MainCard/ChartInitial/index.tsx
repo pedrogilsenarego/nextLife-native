@@ -10,6 +10,9 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { RangeDataChoose } from "../../RangeDataChoose";
 import { useApp } from "@/providers/AppProvider";
 import { LineChartGifted } from "@/components/Charts/LIneChartGifted";
+import useExpenses from "@/hooks/useExpenses";
+import useIncomes from "@/hooks/useIncomes";
+import LoaderSpinner from "@/components/Atoms/LoaderSpinner";
 
 type Props = {
   selectedStatus: "expenses" | "incomes" | "both";
@@ -28,6 +31,8 @@ const ChartInitial = ({
 }: Props) => {
   const accValue = useSharedValue(0);
   const accValue2 = useSharedValue(0);
+  const expenses = useExpenses();
+  const incomes = useIncomes();
   const { theme } = useTheme();
   const { dateRange } = useApp();
   const {
@@ -43,21 +48,6 @@ const ChartInitial = ({
   const incomesPerDay = listPerDay.includes(dateRange)
     ? incomesTotalPerDay()
     : incomesTotalPerMonth();
-
-  const font = useFont(
-    require("../../../../../assets/fonts/SpaceMono-Regular.ttf"),
-    18
-  );
-
-  if (
-    !font ||
-    expensesPerDay.length <= 0 ||
-    !expensesPerDay ||
-    incomesPerDay.length <= 0 ||
-    !incomesPerDay
-  ) {
-    return null;
-  }
 
   return (
     <View
@@ -80,32 +70,35 @@ const ChartInitial = ({
                 ? "whitesmoke"
                 : "#ffffff66"
               : theme === "light"
-              ? Colors.lightGray
+              ? Colors.black
               : "whitesmoke"
           }
           size={22}
         />
       </Pressable>
-      <LineChartGifted
-        data={selectedStatus === "expenses" ? expensesPerDay : incomesPerDay}
-        data2={selectedStatus === "both" ? expensesPerDay : undefined}
-        color1={selectedStatus === "expenses" ? "#c80815" : "#82ca9d"}
-        color2={selectedStatus === "both" ? "#c80815" : undefined}
-        setSelectedDate={setSelectedDate}
-      />
-      {/* <LineChart
-        color1={selectedStatus === "expenses" ? "#c80815" : "#82ca9d"}
-        color2={selectedStatus === "both" ? "#c80815" : undefined}
-        data={selectedStatus === "expenses" ? expensesPerDay : incomesPerDay}
-        data2={selectedStatus === "both" ? expensesPerDay : undefined}
-        selectedValue={selectedValue}
-        selectedValue2={selectedValue2}
-        selectedDate={selectedDate}
-        accValue={accValue}
-        accValue2={accValue2}
-        setSelectedDate={setSelectedDate}
-      /> */}
-      <RangeDataChoose />
+      {expenses.isLoading || incomes.isLoading ? (
+        <View
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: 233,
+            width: "100%",
+          }}
+        >
+          <LoaderSpinner color={Colors.black} />
+        </View>
+      ) : (
+        <LineChartGifted
+          data={selectedStatus === "expenses" ? expensesPerDay : incomesPerDay}
+          data2={selectedStatus === "both" ? expensesPerDay : undefined}
+          color1={selectedStatus === "expenses" ? "#c80815" : "#82ca9d"}
+          color2={selectedStatus === "both" ? "#c80815" : undefined}
+          setSelectedDate={setSelectedDate}
+        />
+      )}
+
+      <RangeDataChoose setSelectedDate={setSelectedDate} />
       <Subcard
         selectedDate={selectedDate}
         selectedStatus={selectedStatus}

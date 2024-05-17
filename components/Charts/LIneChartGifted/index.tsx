@@ -1,3 +1,4 @@
+import { useApp } from "@/providers/AppProvider";
 import { Colors } from "@/providers/ThemeContext";
 import { useEffect, useState } from "react";
 
@@ -27,7 +28,10 @@ export const LineChartGifted = ({
 }: Props) => {
   const width = Dimensions.get("window").width - 12;
   const [pointerColor, setPointerColor] = useState(Colors.black);
-  useEffect(() => setPointerColor("transparent"), [data]);
+  useEffect(() => {
+    if (pointerColor === "transparent") setSelectedDate("Total");
+    setPointerColor("transparent");
+  }, [data]);
 
   const minDataValue = Math.min(
     ...data.map((item) => item.value),
@@ -43,7 +47,6 @@ export const LineChartGifted = ({
     <GestureDetector gesture={pan}>
       <Pressable style={{ position: "relative" }}>
         <LineChart
-          onPress={(e: any) => console.log("pressed", e)}
           data={data}
           yAxisTextStyle={{ fontSize: 10 }}
           xAxisLabelTextStyle={{ fontSize: 10 }}
@@ -73,6 +76,7 @@ export const LineChartGifted = ({
               );
             },
             persistPointer: true,
+
             pointerStripColor: pointerColor,
             pointerStripUptoDataPoint: true,
             autoAdjustPointerLabelPosition: false,

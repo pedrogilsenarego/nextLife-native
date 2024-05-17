@@ -1,6 +1,7 @@
 import { useApp } from "@/providers/AppProvider";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 import { dateQueriesMap } from "@/utils/dateFormat";
+import { formatAmount } from "@/utils/money";
 import { View, Text } from "react-native";
 import { SharedValue } from "react-native-reanimated";
 
@@ -84,7 +85,7 @@ export const LeftComponent = ({
                       : "#82ca9d",
                 }}
               >
-                {firstValue}€
+                {formatAmount(firstValue)}€
               </Text>
 
               {selectedStatus === "both" && (
@@ -96,7 +97,9 @@ export const LeftComponent = ({
                   >
                     /
                   </Text>
-                  <Text style={{ color: "#c80815" }}>{secondValue}€</Text>
+                  <Text style={{ color: "#c80815" }}>
+                    {formatAmount(secondValue)}€
+                  </Text>
                 </>
               )}
             </View>
@@ -174,7 +177,7 @@ export const LeftComponent = ({
             marginTop: 8,
           }}
         >
-          {monthName}: {totalExpenses}€
+          {monthName}: {formatAmount(totalExpenses)}€
         </Text>
       )}
       {selectedStatus === "incomes" && (
@@ -185,7 +188,7 @@ export const LeftComponent = ({
             marginTop: 8,
           }}
         >
-          {monthName}: {totalIncomes}€
+          {monthName}: {formatAmount(totalIncomes)}€
         </Text>
       )}
       {selectedStatus === "both" && (
@@ -199,7 +202,7 @@ export const LeftComponent = ({
             {monthName}:{" "}
           </Text>
           <Text style={{ color: "#82ca9d", fontWeight: "600" }}>
-            {totalIncomes}€
+            {formatAmount(totalIncomes)}€
           </Text>
           <Text
             style={{
@@ -210,7 +213,7 @@ export const LeftComponent = ({
             /{" "}
           </Text>
           <Text style={{ color: "#c80815", fontWeight: "600" }}>
-            {totalExpenses}€
+            {formatAmount(totalExpenses)}€
           </Text>
         </View>
       )}

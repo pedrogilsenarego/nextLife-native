@@ -5,7 +5,7 @@ import { Colors, useTheme } from "@/providers/ThemeContext";
 
 export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = memo(
   ({ buttons, onSelected }) => {
-    const GAP_BUTTONS = 8;
+    const GAP_BUTTONS = 6;
     const [buttonWidth, setButtonWidth] = useState<number[]>(
       Array(buttons.length).fill(0)
     );
@@ -61,22 +61,22 @@ export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = memo(
           position: "relative",
           borderRadius: 24,
           flexDirection: "row",
-          padding: 4,
+          padding: 3,
           columnGap: GAP_BUTTONS,
         }}
       >
         <Animated.View
           style={{
-            top: 4,
-            left: 4,
+            top: 3,
+            left: 3,
             backgroundColor: mainColor,
-            height: 26,
+            height: 22,
             width: animationWidth,
 
             borderRadius: 20,
             position: "absolute",
-            padding: 6,
-            paddingHorizontal: 10,
+            padding: 4,
+            paddingHorizontal: 8,
             justifyContent: "center",
             transform: [
               {
@@ -97,15 +97,15 @@ export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = memo(
                 // backgroundColor:
                 //   selectedStatus === button ? mainColor : "transparent",
                 borderRadius: 20,
-                padding: 6,
-                paddingHorizontal: 10,
+                padding: 4,
+                paddingHorizontal: 8,
                 justifyContent: "center",
               }}
             >
               <Text
                 style={{
                   color: theme === "light" ? "white" : contrastColor,
-                  fontSize: 13,
+                  fontSize: 12,
                   lineHeight: 14,
                   opacity: selectedStatus === button ? 1 : 0.7,
                 }}

@@ -22,8 +22,8 @@ export const StateSelecter: React.FC<Props> = ({
   index,
 }) => {
   const { mainColor, contrastColor, theme } = useTheme();
-  const BUTTON_WIDTH = 26;
-  const BUTTON_GAP = 2;
+  const BUTTON_WIDTH = 24;
+  const BUTTON_GAP = 1;
   const [selected, setSelected] = useState(0);
 
   const animationLeft = useAnimatedStyle(() => {
@@ -91,7 +91,7 @@ export const StateSelecter: React.FC<Props> = ({
                 : "#ffffff66"
               : contrastColor
           }
-          size={14}
+          size={12}
         />
       </Pressable>
       <Pressable
@@ -113,7 +113,7 @@ export const StateSelecter: React.FC<Props> = ({
                 : "#ffffff66"
               : contrastColor
           }
-          size={14}
+          size={12}
         />
       </Pressable>
       <Pressable
@@ -135,7 +135,7 @@ export const StateSelecter: React.FC<Props> = ({
                 : "#ffffff66"
               : contrastColor
           }
-          size={14}
+          size={12}
         />
       </Pressable>
     </View>

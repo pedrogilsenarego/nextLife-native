@@ -1,8 +1,12 @@
-import { useApp } from "@/providers/AppProvider";
+import { DateRangeValues, useApp } from "@/providers/AppProvider";
 import { addMonths, format } from "date-fns";
 import { View, Text, Pressable } from "react-native";
 
-export const RangeDataChoose: React.FC = () => {
+type Props = {
+  setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export const RangeDataChoose: React.FC<Props> = ({ setSelectedDate }) => {
   const { dateRange, changeDateRange } = useApp();
   const currentDate = new Date();
   const lastMonth = addMonths(currentDate, -1);
@@ -10,6 +14,11 @@ export const RangeDataChoose: React.FC = () => {
   const currentMonth = format(currentDate, "MMMM");
   const lastMonthF = format(lastMonth, "MMMM");
   const lastLastMonthF = format(lastLastMonth, "MMMM");
+
+  const handleChange = (key: DateRangeValues) => {
+    changeDateRange(key);
+    setSelectedDate("Total");
+  };
 
   return (
     <View
@@ -22,7 +31,7 @@ export const RangeDataChoose: React.FC = () => {
         paddingVertical: 4,
       }}
     >
-      <Pressable onPress={() => changeDateRange("currentMonth")}>
+      <Pressable onPress={() => handleChange("currentMonth")}>
         <Text
           style={{
             fontWeight: dateRange === "currentMonth" ? "bold" : "normal",
@@ -31,14 +40,14 @@ export const RangeDataChoose: React.FC = () => {
           {currentMonth}
         </Text>
       </Pressable>
-      <Pressable onPress={() => changeDateRange("lastMonth")}>
+      <Pressable onPress={() => handleChange("lastMonth")}>
         <Text
           style={{ fontWeight: dateRange === "lastMonth" ? "bold" : "normal" }}
         >
           {lastMonthF}
         </Text>
       </Pressable>
-      <Pressable onPress={() => changeDateRange("lastLastMonth")}>
+      <Pressable onPress={() => handleChange("lastLastMonth")}>
         <Text
           style={{
             fontWeight: dateRange === "lastLastMonth" ? "bold" : "normal",
@@ -47,7 +56,7 @@ export const RangeDataChoose: React.FC = () => {
           {lastLastMonthF}
         </Text>
       </Pressable>
-      <Pressable onPress={() => changeDateRange("3Months")}>
+      <Pressable onPress={() => handleChange("3Months")}>
         <Text
           style={{
             fontWeight: dateRange === "3Months" ? "bold" : "normal",
@@ -56,7 +65,7 @@ export const RangeDataChoose: React.FC = () => {
           3 M
         </Text>
       </Pressable>
-      <Text onPress={() => changeDateRange("6Months")}>
+      <Text onPress={() => handleChange("6Months")}>
         <Text
           style={{
             fontWeight: dateRange === "6Months" ? "bold" : "normal",

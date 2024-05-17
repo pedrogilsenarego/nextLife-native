@@ -8,7 +8,7 @@ import React, {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { dateRangeList } from "@/utils/dateFormat";
 
-type DateRangeValues =
+export type DateRangeValues =
   | "1year"
   | "3years"
   | "3Months"
