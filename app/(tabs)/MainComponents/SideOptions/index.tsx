@@ -1,4 +1,5 @@
 import BottomPopup from "@/components/BottomPopup";
+import IconTheme from "@/components/Molecules/IconTheme";
 import SwitchTheme from "@/components/Molecules/SwitchTheme";
 import { supabase } from "@/lib/supabase";
 import { useState } from "react";
@@ -88,6 +89,7 @@ export const SideOptions = () => {
               Customize your interface
             </Text>
             <SwitchTheme />
+            <IconTheme />
           </View>
         </BottomPopup>
       </View>
