@@ -11,15 +11,14 @@ import Animated, {
   withSpring,
   withTiming,
 } from "react-native-reanimated";
-
-type Props = {};
+import { useTheme } from "@/providers/ThemeContext";
 
 const SwitchTheme = () => {
   const colorScheme = Appearance.getColorScheme();
   const { width } = useWindowDimensions();
   const translateX = useSharedValue(0);
-  const SWITCH_CONTAINER_WIDTH = width * 0.8;
-  const SWITCH_WIDTH = SWITCH_CONTAINER_WIDTH / 3;
+  const SWITCH_CONTAINER_WIDTH = width * 0.6;
+  const SWITCH_WIDTH = SWITCH_CONTAINER_WIDTH / 2;
 
   const translateAnimation = useAnimatedStyle(() => {
     return {
@@ -28,15 +27,13 @@ const SwitchTheme = () => {
   });
 
   const [themeSwitch, setThemeSwitch] = useState("system");
-  const [theme, setTheme] = useState("dark");
+  const { theme, changeTheme } = useTheme();
 
   useEffect(() => {
-    if (themeSwitch === "system") {
+    if (themeSwitch === "light") {
       translateX.value = withSpring(SWITCH_WIDTH * 0);
-    } else if (themeSwitch === "light") {
-      translateX.value = withSpring(SWITCH_WIDTH * 1);
     } else if (themeSwitch === "dark") {
-      translateX.value = withSpring(SWITCH_WIDTH * 2);
+      translateX.value = withSpring(SWITCH_WIDTH * 1);
     }
   }, [SWITCH_WIDTH, themeSwitch, translateX]);
 
@@ -83,30 +80,18 @@ const SwitchTheme = () => {
           style={[
             styles.slide,
             {
-              width: (width * 0.7) / 3,
+              width: (width * 0.53) / 2,
             },
             backgroundColorSlideAnimation,
           ]}
         />
       </Animated.View>
-      <Pressable
-        style={styles.button}
-        onPress={() => {
-          setThemeSwitch("system");
-          if (colorScheme) {
-            setTheme(colorScheme);
-          }
-        }}
-      >
-        <Animated.Text style={[styles.textButton, textColorAnimation]}>
-          System
-        </Animated.Text>
-      </Pressable>
+
       <Pressable
         style={styles.button}
         onPress={() => {
           setThemeSwitch("light");
-          setTheme("light");
+          changeTheme("light");
         }}
       >
         <Animated.Text style={[styles.textButton, textColorAnimation]}>
@@ -117,7 +102,7 @@ const SwitchTheme = () => {
         style={styles.button}
         onPress={() => {
           setThemeSwitch("dark");
-          setTheme("dark");
+          changeTheme("dark");
         }}
       >
         <Animated.Text style={[styles.textButton, textColorAnimation]}>

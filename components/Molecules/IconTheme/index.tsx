@@ -13,11 +13,12 @@ import {
   Mask,
 } from "@shopify/react-native-skia";
 import { StyleSheet } from "react-native";
+import { useTheme } from "@/providers/ThemeContext";
 
 const RADIUS = 70;
 
 const IconTheme = () => {
-  const theme: string = "dark";
+  const { theme } = useTheme();
   const gradientColor1 = useSharedValue("#ff4467");
   const gradientColor2 = useSharedValue("#ff8e0b");
   const mask = useSharedValue(0);
