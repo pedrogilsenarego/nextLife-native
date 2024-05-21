@@ -3,17 +3,16 @@ import {
   Keyboard,
   SafeAreaView,
   StatusBar,
-  Text,
   TouchableWithoutFeedback,
   Pressable,
   Animated,
   Platform,
 } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 import useMainLayout from "./useMainLayout";
 import { Header } from "@/app/(tabs)/MainComponents/Header";
-import { supabase } from "@/lib/supabase";
 import { SharedValue } from "react-native-reanimated";
+import { SideOptions } from "@/app/(tabs)/MainComponents/SideOptions";
 
 type Props = {
   mainContent: React.ReactNode;
@@ -43,10 +42,6 @@ const MainLayout = ({
     animatedStyle2,
     setSideMenu,
   } = useMainLayout();
-
-  const logout = async () => {
-    await supabase.auth.signOut();
-  };
 
   return (
     <SafeAreaView style={{ backgroundColor: mainColor }}>
@@ -96,46 +91,7 @@ const MainLayout = ({
               },
             ]}
           >
-            <View
-              style={{
-                padding: 20,
-
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Pressable>
-                <Text
-                  style={{
-                    color: "whitesmoke",
-                    fontSize: 24,
-                    fontWeight: "600",
-                  }}
-                >
-                  User
-                </Text>
-              </Pressable>
-            </View>
-            <View
-              style={{
-                padding: 20,
-
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Pressable onPress={logout}>
-                <Text
-                  style={{
-                    color: "whitesmoke",
-                    fontSize: 24,
-                    fontWeight: "600",
-                  }}
-                >
-                  Logout
-                </Text>
-              </Pressable>
-            </View>
+            <SideOptions />
           </Animated.View>
           <>
             <Animated.View
