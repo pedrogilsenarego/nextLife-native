@@ -1,4 +1,5 @@
 import { DateRangeValues, useApp } from "@/providers/AppProvider";
+import { Colors } from "@/providers/ThemeContext";
 import { addMonths, format } from "date-fns";
 import { View, Text, Pressable } from "react-native";
 
@@ -24,14 +25,12 @@ export const RangeDataChoose: React.FC<Props> = ({ setSelectedDate }) => {
     <View
       style={{
         display: "flex",
+        marginTop: 10,
         flexDirection: "row",
         columnGap: 15,
-
+        backgroundColor: `${Colors.lightGray}CE`,
         paddingHorizontal: 10,
         paddingVertical: 4,
-        borderTopWidth: 1,
-        borderColor: "lightGray",
-        borderBottomWidth: 1,
       }}
     >
       <Pressable onPress={() => handleChange("currentMonth")}>

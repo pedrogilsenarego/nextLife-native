@@ -12,8 +12,6 @@ import {
 import React, { useState } from "react";
 import useMainLayout from "./useMainLayout";
 import { Header } from "@/app/(tabs)/MainComponents/Header";
-import { Card } from "@/components/Atoms/Card";
-import { BlurView } from "expo-blur";
 import { supabase } from "@/lib/supabase";
 import { SharedValue } from "react-native-reanimated";
 

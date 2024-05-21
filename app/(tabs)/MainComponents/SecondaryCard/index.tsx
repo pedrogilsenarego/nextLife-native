@@ -5,8 +5,18 @@ import React from "react";
 import PieChartMain from "../MainCard/PieChartMain/PieChartMain";
 
 import { Card } from "@/components/Atoms/Card";
+import useExpenses from "@/hooks/useExpenses";
+import useIncomes from "@/hooks/useIncomes";
+import LoaderSpinner from "@/components/Atoms/LoaderSpinner";
+import { Colors } from "@/providers/ThemeContext";
 
-const SecondaryCard = () => {
+const SecondaryCard = ({
+  setSelectedDate,
+}: {
+  setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
+}) => {
+  const expenses = useExpenses();
+  const incomes = useIncomes();
   return (
     <Card>
       <ScrollView
@@ -21,7 +31,21 @@ const SecondaryCard = () => {
       >
         <Pressable>
           <View>
-            <PieChartMain />
+            {expenses.isLoading || incomes.isLoading ? (
+              <View
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: 233,
+                  width: "100%",
+                }}
+              >
+                <LoaderSpinner color={Colors.black} />
+              </View>
+            ) : (
+              <PieChartMain setSelectedDate={setSelectedDate} />
+            )}
           </View>
         </Pressable>
       </ScrollView>

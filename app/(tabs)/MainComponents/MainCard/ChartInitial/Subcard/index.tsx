@@ -33,7 +33,7 @@ const Subcard = ({
   }
 
   return (
-    <Container containerStyles={{ marginTop: 10 }}>
+    <Container containerStyles={{}}>
       <LeftComponent
         selectedDate={selectedDate}
         selectedStatus={selectedStatus}

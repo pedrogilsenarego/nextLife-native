@@ -4,8 +4,13 @@ import React, { useState } from "react";
 import ExpensesTable from "./ExpensesTable";
 import { Card } from "@/components/Atoms/Card";
 
-const MainCard = () => {
-  const [selectedDate, setSelectedDate] = useState<string>("Total");
+const MainCard = ({
+  selectedDate,
+  setSelectedDate,
+}: {
+  selectedDate: string;
+  setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
+}) => {
   const [amountToShow, setAmountToShow] = useState<number>(10);
   const [selectedStatus, setSelectedStatus] = useState<
     "expenses" | "incomes" | "both"
