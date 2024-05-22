@@ -1,4 +1,4 @@
-import { useTheme } from "@/providers/ThemeContext";
+import { Colors, useTheme } from "@/providers/ThemeContext";
 import { View } from "react-native";
 
 type Props = {
@@ -11,7 +11,7 @@ export const Card: React.FC<Props> = ({ children }) => {
     <View
       style={{
         height: "100%",
-        backgroundColor: theme === "light" ? "white" : "transparent",
+        backgroundColor: theme === "light" ? "white" : Colors.black,
         borderRadius: 12,
 
         marginHorizontal: 4,

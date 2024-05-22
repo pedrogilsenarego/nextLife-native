@@ -115,7 +115,11 @@ export const Header = ({ handleMoveCarousel, index, setSideMenu }: Props) => {
             }}
             onPress={() => setSideMenu(true)}
           >
-            <AntDesign size={20} name="menu-fold" />
+            <AntDesign
+              size={20}
+              name="menu-fold"
+              color={theme === "light" ? "black" : "white"}
+            />
           </Pressable>
         </View>
       </View>

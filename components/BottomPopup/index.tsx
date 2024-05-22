@@ -1,3 +1,4 @@
+import { Colors, useTheme } from "@/providers/ThemeContext";
 import React, { ReactNode, useState } from "react";
 import {
   Modal,
@@ -5,6 +6,10 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
+import Animated, {
+  useAnimatedStyle,
+  withTiming,
+} from "react-native-reanimated";
 
 interface IProps {
   children: ReactNode;
@@ -13,11 +18,19 @@ interface IProps {
 }
 
 const BottomPopup = ({ children, onClose, openModal }: IProps) => {
+  const { theme } = useTheme();
   const handlePressOutside = () => {
     if (onClose) {
       onClose();
     }
   };
+
+  const backgroundColorAnimation = useAnimatedStyle(() => {
+    return {
+      backgroundColor:
+        theme === "light" ? withTiming("white") : withTiming(Colors.gray),
+    };
+  });
 
   return (
     <Modal
@@ -28,29 +41,31 @@ const BottomPopup = ({ children, onClose, openModal }: IProps) => {
     >
       <TouchableWithoutFeedback onPress={handlePressOutside}>
         <View style={styles.container}>
-          <View
-            style={{
-              backgroundColor: "white",
-              marginHorizontal: 4,
-              borderTopLeftRadius: 12,
-              borderTopRightRadius: 12,
-              paddingHorizontal: 30,
+          <Animated.View
+            style={[
+              {
+                marginHorizontal: 4,
+                borderTopLeftRadius: 12,
+                borderTopRightRadius: 12,
+                paddingHorizontal: 30,
 
-              paddingBottom: 40,
+                paddingBottom: 40,
 
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 0,
-                height: 10,
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 10,
+                },
+                shadowOpacity: 0.51,
+                shadowRadius: 13.16,
+
+                elevation: 20,
               },
-              shadowOpacity: 0.51,
-              shadowRadius: 13.16,
-
-              elevation: 20,
-            }}
+              backgroundColorAnimation,
+            ]}
           >
             {children}
-          </View>
+          </Animated.View>
         </View>
       </TouchableWithoutFeedback>
     </Modal>

@@ -23,7 +23,7 @@ type Props = {
 const Form = ({ listBusiness }: Props) => {
   const expenses = useExpenses();
   const incomes = useIncomes();
-  const { mainColor } = useTheme();
+  const { mainColor, theme } = useTheme();
   const [mode, setMode] = useState<"expense" | "income">("expense");
 
   const defaultValues = {
@@ -75,7 +75,14 @@ const Form = ({ listBusiness }: Props) => {
     <View
       style={{ alignItems: "center", width: "100%", paddingHorizontal: 20 }}
     >
-      <Text style={{ fontSize: 20, fontWeight: "bold", marginTop: 14 }}>
+      <Text
+        style={{
+          fontSize: 20,
+          fontWeight: "bold",
+          marginTop: 14,
+          color: theme === "dark" ? "white" : "black",
+        }}
+      >
         Add new entry
       </Text>
 

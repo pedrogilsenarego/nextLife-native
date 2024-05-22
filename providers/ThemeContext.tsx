@@ -23,7 +23,8 @@ const ThemeContext = createContext<ThemeContexType | undefined>(undefined);
 export const Colors = {
   lightGray: "hsl(214.3 31.8% 91.4%)",
   orangeRed: "#f54329",
-  black: "#121212",
+  black: "black",
+  gray: "#2b2b2b",
   fuchsia: "#ca2c92",
   tealc: "#009ca6",
   purple: "#800080",

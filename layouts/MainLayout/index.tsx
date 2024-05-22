@@ -5,14 +5,19 @@ import {
   StatusBar,
   TouchableWithoutFeedback,
   Pressable,
-  Animated,
+  Animated as RnAnimated,
   Platform,
 } from "react-native";
 import React from "react";
 import useMainLayout from "./useMainLayout";
 import { Header } from "@/app/(tabs)/MainComponents/Header";
-import { SharedValue } from "react-native-reanimated";
+import Animated, {
+  SharedValue,
+  useAnimatedStyle,
+  withTiming,
+} from "react-native-reanimated";
 import { SideOptions } from "@/app/(tabs)/MainComponents/SideOptions";
+import { Colors } from "@/providers/ThemeContext";
 
 type Props = {
   mainContent: React.ReactNode;
@@ -42,20 +47,28 @@ const MainLayout = ({
     animatedStyle2,
     setSideMenu,
   } = useMainLayout();
+  const backgroundColorAnimation = useAnimatedStyle(() => {
+    return {
+      backgroundColor:
+        theme === "dark" ? withTiming(Colors.gray) : withTiming(mainColor),
+    };
+  });
 
   return (
     <SafeAreaView style={{ backgroundColor: mainColor }}>
       <StatusBar barStyle={"light-content"} />
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <View
-          style={{
-            backgroundColor: mainColor,
-            display: "flex",
+        <Animated.View
+          style={[
+            {
+              display: "flex",
 
-            height: "100%",
-          }}
+              height: "100%",
+            },
+            backgroundColorAnimation,
+          ]}
         >
-          <Animated.View
+          <RnAnimated.View
             style={[
               animatedStyle,
 
@@ -74,8 +87,8 @@ const MainLayout = ({
             </View>
 
             {mainContent}
-          </Animated.View>
-          <Animated.View
+          </RnAnimated.View>
+          <RnAnimated.View
             style={[
               animatedStyle2,
 
@@ -92,9 +105,9 @@ const MainLayout = ({
             ]}
           >
             <SideOptions />
-          </Animated.View>
+          </RnAnimated.View>
           <>
-            <Animated.View
+            <RnAnimated.View
               style={[
                 { transform: pan.getTranslateTransform() },
                 { zIndex: 1000, marginTop: -7 },
@@ -129,7 +142,7 @@ const MainLayout = ({
                   {secondaryContent}
                 </View>
               </View>
-            </Animated.View>
+            </RnAnimated.View>
             {(openModal || sideMenu) && (
               <Pressable
                 onPress={() => {
@@ -162,7 +175,7 @@ const MainLayout = ({
               }}
             ></View>
           )}
-        </View>
+        </Animated.View>
       </TouchableWithoutFeedback>
     </SafeAreaView>
   );

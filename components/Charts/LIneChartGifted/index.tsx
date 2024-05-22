@@ -127,8 +127,8 @@ export const LineChartGifted = ({
           startFillColor={color1}
           startFillColor2={color2}
           startOpacity={0.8}
-          endOpacity={0.3}
-          endOpacity2={0.3}
+          endOpacity={0}
+          endOpacity2={0}
         />
       </Pressable>
     </GestureDetector>

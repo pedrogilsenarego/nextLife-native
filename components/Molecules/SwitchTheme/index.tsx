@@ -14,7 +14,6 @@ import Animated, {
 import { useTheme } from "@/providers/ThemeContext";
 
 const SwitchTheme = () => {
-  const colorScheme = Appearance.getColorScheme();
   const { width } = useWindowDimensions();
   const translateX = useSharedValue(0);
   const SWITCH_CONTAINER_WIDTH = width * 0.6;
@@ -26,16 +25,15 @@ const SwitchTheme = () => {
     };
   });
 
-  const [themeSwitch, setThemeSwitch] = useState("system");
   const { theme, changeTheme } = useTheme();
 
   useEffect(() => {
-    if (themeSwitch === "light") {
+    if (theme === "light") {
       translateX.value = withSpring(SWITCH_WIDTH * 0);
-    } else if (themeSwitch === "dark") {
+    } else if (theme === "dark") {
       translateX.value = withSpring(SWITCH_WIDTH * 1);
     }
-  }, [SWITCH_WIDTH, themeSwitch, translateX]);
+  }, [SWITCH_WIDTH, theme, translateX]);
 
   const backgroundColorAnimation = useAnimatedStyle(() => {
     return {
@@ -90,7 +88,6 @@ const SwitchTheme = () => {
       <Pressable
         style={styles.button}
         onPress={() => {
-          setThemeSwitch("light");
           changeTheme("light");
         }}
       >
@@ -101,7 +98,6 @@ const SwitchTheme = () => {
       <Pressable
         style={styles.button}
         onPress={() => {
-          setThemeSwitch("dark");
           changeTheme("dark");
         }}
       >
