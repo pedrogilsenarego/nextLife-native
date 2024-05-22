@@ -134,7 +134,8 @@ export const LineChartGifted = ({
           color2={color2}
           startFillColor={color1}
           startFillColor2={color2}
-          startOpacity={0.8}
+          startOpacity={theme === "dark" ? 0.4 : 0.8}
+          startOpacity2={theme === "dark" ? 0.4 : 0.8}
           endOpacity={0}
           endOpacity2={0}
         />

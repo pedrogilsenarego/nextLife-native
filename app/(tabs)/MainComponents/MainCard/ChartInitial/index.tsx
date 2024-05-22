@@ -50,7 +50,7 @@ const ChartInitial = ({
     ? incomesTotalPerDay()
     : incomesTotalPerMonth();
 
-  const colorIncomes = theme === "dark" ? Colors.greenPuke : "#82ca9d";
+  const colorIncomes = theme === "dark" ? `${Colors.greenPuke}CC` : "#82ca9d";
 
   return (
     <View
