@@ -1,5 +1,5 @@
 import { useApp } from "@/providers/AppProvider";
-import { Colors } from "@/providers/ThemeContext";
+import { Colors, useTheme } from "@/providers/ThemeContext";
 import { useEffect, useState } from "react";
 
 import { Dimensions, View, Text, Pressable } from "react-native";
@@ -26,8 +26,10 @@ export const LineChartGifted = ({
   color2,
   setSelectedDate,
 }: Props) => {
+  const { theme } = useTheme();
   const width = Dimensions.get("window").width - 12;
-  const [pointerColor, setPointerColor] = useState(Colors.black);
+  const defaultPointerColor = theme === "light" ? Colors.black : "whitesmoke";
+  const [pointerColor, setPointerColor] = useState(defaultPointerColor);
   useEffect(() => {
     if (pointerColor === "transparent") setSelectedDate("Total");
     setPointerColor("transparent");
@@ -48,8 +50,14 @@ export const LineChartGifted = ({
       <Pressable style={{ position: "relative" }}>
         <LineChart
           data={data}
-          yAxisTextStyle={{ fontSize: 10 }}
-          xAxisLabelTextStyle={{ fontSize: 10 }}
+          yAxisTextStyle={{
+            fontSize: 10,
+            color: theme === "light" ? "black" : "white",
+          }}
+          xAxisLabelTextStyle={{
+            fontSize: 10,
+            color: theme === "light" ? "black" : "white",
+          }}
           data2={data2}
           trimYAxisAtTop
           isAnimated
@@ -85,7 +93,7 @@ export const LineChartGifted = ({
 
             pointerLabelComponent: (items: { value: any; label: any }[]) => {
               setSelectedDate(items[0].label);
-              setPointerColor(Colors.black);
+              setPointerColor(defaultPointerColor);
               return (
                 <></>
                 // <View
@@ -117,7 +125,7 @@ export const LineChartGifted = ({
               );
             },
           }}
-          curvature={0.05}
+          curvature={0}
           curved
           hideRules
           width={width}

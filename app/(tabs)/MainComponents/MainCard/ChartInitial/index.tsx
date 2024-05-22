@@ -50,6 +50,8 @@ const ChartInitial = ({
     ? incomesTotalPerDay()
     : incomesTotalPerMonth();
 
+  const colorIncomes = theme === "dark" ? Colors.greenPuke : "#82ca9d";
+
   return (
     <View
       style={{
@@ -93,7 +95,7 @@ const ChartInitial = ({
         <LineChartGifted
           data={selectedStatus === "expenses" ? expensesPerDay : incomesPerDay}
           data2={selectedStatus === "both" ? expensesPerDay : undefined}
-          color1={selectedStatus === "expenses" ? "#c80815" : "#82ca9d"}
+          color1={selectedStatus === "expenses" ? "#c80815" : colorIncomes}
           color2={selectedStatus === "both" ? "#c80815" : undefined}
           setSelectedDate={setSelectedDate}
         />

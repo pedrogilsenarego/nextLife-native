@@ -55,7 +55,9 @@ const MainLayout = ({
   });
 
   return (
-    <SafeAreaView style={{ backgroundColor: mainColor }}>
+    <SafeAreaView
+      style={{ backgroundColor: theme === "light" ? mainColor : Colors.black }}
+    >
       <StatusBar barStyle={"light-content"} />
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <Animated.View
