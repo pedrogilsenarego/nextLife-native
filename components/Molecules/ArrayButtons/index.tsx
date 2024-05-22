@@ -69,7 +69,7 @@ export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = memo(
           style={{
             top: 3,
             left: 3,
-            backgroundColor: mainColor,
+            backgroundColor: theme === "light" ? mainColor : Colors.black,
             height: 22,
             width: animationWidth,
 

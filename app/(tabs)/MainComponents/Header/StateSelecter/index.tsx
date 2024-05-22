@@ -31,7 +31,7 @@ export const StateSelecter: React.FC<Props> = ({
       left: 2,
       top: 2,
       position: "absolute",
-      backgroundColor: mainColor,
+      backgroundColor: theme === "light" ? mainColor : Colors.black,
       borderRadius: 13,
       height: BUTTON_WIDTH,
       width: BUTTON_WIDTH,
