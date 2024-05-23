@@ -60,7 +60,23 @@ const ChartInitial = ({
       }}
     >
       <Pressable
-        style={{ position: "absolute", right: 12, top: 20, zIndex: 100 }}
+        style={{
+          position: "absolute",
+          right: 12,
+          top: 20,
+          zIndex: 100,
+          backgroundColor: theme === "light" ? "white" : Colors.gray,
+          padding: 4,
+          borderRadius: 20,
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          shadowOpacity: 0.25,
+          shadowRadius: 3.84,
+          elevation: 5,
+        }}
         onPress={() => {
           setSelectedDate("Total");
         }}
@@ -70,7 +86,7 @@ const ChartInitial = ({
           color={
             selectedDate === "Total"
               ? theme === "light"
-                ? "whitesmoke"
+                ? Colors.lightGray
                 : "#ffffff66"
               : theme === "light"
               ? Colors.black

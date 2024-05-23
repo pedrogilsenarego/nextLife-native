@@ -13,19 +13,17 @@ export const Card: React.FC<Props> = ({ children }) => {
         height: "100%",
         backgroundColor: theme === "light" ? "white" : Colors.black,
         borderRadius: 12,
-
         marginHorizontal: 4,
         shadowColor: "#000",
         shadowOffset: {
           width: 0,
           height: 2,
         },
-
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
         paddingTop: 90,
-        paddingBottom: 18,
+        paddingBottom: 12,
       }}
     >
       {children}

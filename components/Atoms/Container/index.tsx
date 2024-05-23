@@ -1,4 +1,4 @@
-import { Colors } from "@/providers/ThemeContext";
+import { Colors, useTheme } from "@/providers/ThemeContext";
 import React from "react";
 import { View, ViewProps, StyleProp, ViewStyle } from "react-native";
 
@@ -12,13 +12,14 @@ export const Container: React.FC<Props> = ({
   containerStyles,
   ...props
 }) => {
-  // Define the existing styles
+  const { theme } = useTheme();
+
   const defaultStyles: ViewStyle = {
     flexDirection: "row",
-
+    backgroundColor: theme === "light" ? "transparent" : Colors.gray,
     paddingVertical: 15,
     paddingHorizontal: 10,
-    borderWidth: 1,
+    borderWidth: theme === "light" ? 1 : 0,
     borderColor: Colors.lightGray,
     justifyContent: "space-between",
     columnGap: 5,

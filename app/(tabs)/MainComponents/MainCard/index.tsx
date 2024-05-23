@@ -36,7 +36,6 @@ const MainCard = ({
         style={{
           marginHorizontal: 10,
           borderRadius: 8,
-
           paddingTop: 16,
           position: "relative",
           height: "100%",
@@ -53,7 +52,7 @@ const MainCard = ({
             />
           </View>
 
-          <View style={{ marginTop: 10 }}>
+          <View style={{ marginTop: 6 }}>
             <ExpensesTable
               amountToShow={amountToShow}
               selectedDate={selectedDate}

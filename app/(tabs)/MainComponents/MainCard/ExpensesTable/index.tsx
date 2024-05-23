@@ -102,9 +102,8 @@ const ExpensesTable = ({
     <View
       style={{
         backgroundColor: "#ffffff1A",
-        borderTopWidth: theme === "light" ? 0 : 1,
+
         paddingTop: 4,
-        borderTopColor: `${contrastColor}66`,
       }}
     >
       <FlatList

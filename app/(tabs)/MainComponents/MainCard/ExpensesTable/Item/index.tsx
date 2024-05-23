@@ -80,7 +80,7 @@ const Item = ({ expense, handleDelete, handleRemoveDelete }: Props) => {
     >
       <View
         style={{
-          borderBottomWidth: 1,
+          borderBottomWidth: theme === "light" ? 1 : 0,
           borderColor: Colors.lightGray,
 
           paddingVertical: 8,

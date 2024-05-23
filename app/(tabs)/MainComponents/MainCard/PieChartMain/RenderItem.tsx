@@ -25,7 +25,7 @@ const RenderItem = ({ item, index }: Props) => {
       paddingVertical: 8,
       paddingHorizontal: 10,
       width: "100%",
-      borderBottomWidth: 1,
+      borderBottomWidth: theme === "light" ? 1 : 0,
       borderColor: Colors.lightGray,
     },
     color: {

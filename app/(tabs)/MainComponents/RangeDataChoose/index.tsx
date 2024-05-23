@@ -1,5 +1,5 @@
 import { DateRangeValues, useApp } from "@/providers/AppProvider";
-import { Colors } from "@/providers/ThemeContext";
+import { Colors, useTheme } from "@/providers/ThemeContext";
 import { addMonths, format } from "date-fns";
 import { View, Text, Pressable } from "react-native";
 
@@ -9,6 +9,7 @@ type Props = {
 
 export const RangeDataChoose: React.FC<Props> = ({ setSelectedDate }) => {
   const { dateRange, changeDateRange } = useApp();
+  const { theme } = useTheme();
   const currentDate = new Date();
   const lastMonth = addMonths(currentDate, -1);
   const lastLastMonth = addMonths(currentDate, -2);
@@ -28,7 +29,8 @@ export const RangeDataChoose: React.FC<Props> = ({ setSelectedDate }) => {
         marginTop: 10,
         flexDirection: "row",
         columnGap: 15,
-        backgroundColor: `${Colors.lightGray}CE`,
+        backgroundColor:
+          theme === "light" ? `${Colors.lightGray}CE` : Colors.gray,
         paddingHorizontal: 10,
         paddingVertical: 4,
       }}
@@ -36,6 +38,7 @@ export const RangeDataChoose: React.FC<Props> = ({ setSelectedDate }) => {
       <Pressable onPress={() => handleChange("currentMonth")}>
         <Text
           style={{
+            color: theme === "light" ? "black" : "white",
             fontWeight: dateRange === "currentMonth" ? "bold" : "normal",
           }}
         >
@@ -44,7 +47,10 @@ export const RangeDataChoose: React.FC<Props> = ({ setSelectedDate }) => {
       </Pressable>
       <Pressable onPress={() => handleChange("lastMonth")}>
         <Text
-          style={{ fontWeight: dateRange === "lastMonth" ? "bold" : "normal" }}
+          style={{
+            fontWeight: dateRange === "lastMonth" ? "bold" : "normal",
+            color: theme === "light" ? "black" : "white",
+          }}
         >
           {lastMonthF}
         </Text>
@@ -52,6 +58,7 @@ export const RangeDataChoose: React.FC<Props> = ({ setSelectedDate }) => {
       <Pressable onPress={() => handleChange("lastLastMonth")}>
         <Text
           style={{
+            color: theme === "light" ? "black" : "white",
             fontWeight: dateRange === "lastLastMonth" ? "bold" : "normal",
           }}
         >
@@ -61,6 +68,7 @@ export const RangeDataChoose: React.FC<Props> = ({ setSelectedDate }) => {
       <Pressable onPress={() => handleChange("3Months")}>
         <Text
           style={{
+            color: theme === "light" ? "black" : "white",
             fontWeight: dateRange === "3Months" ? "bold" : "normal",
           }}
         >
@@ -70,6 +78,7 @@ export const RangeDataChoose: React.FC<Props> = ({ setSelectedDate }) => {
       <Text onPress={() => handleChange("6Months")}>
         <Text
           style={{
+            color: theme === "light" ? "black" : "white",
             fontWeight: dateRange === "6Months" ? "bold" : "normal",
           }}
         >
