@@ -1,5 +1,5 @@
 import { Colors, useTheme } from "@/providers/ThemeContext";
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import {
   Modal,
   StyleSheet,
@@ -9,6 +9,7 @@ import {
 import Animated, {
   useAnimatedStyle,
   withTiming,
+  useDerivedValue,
 } from "react-native-reanimated";
 
 interface IProps {
@@ -19,6 +20,11 @@ interface IProps {
 
 const BottomPopup = ({ children, onClose, openModal }: IProps) => {
   const { theme } = useTheme();
+
+  const backgroundColor = useDerivedValue(() => {
+    return theme === "light" ? "white" : Colors.gray;
+  }, [theme]);
+
   const handlePressOutside = () => {
     if (onClose) {
       onClose();
@@ -27,8 +33,7 @@ const BottomPopup = ({ children, onClose, openModal }: IProps) => {
 
   const backgroundColorAnimation = useAnimatedStyle(() => {
     return {
-      backgroundColor:
-        theme === "light" ? withTiming("white") : withTiming(Colors.gray),
+      backgroundColor: withTiming(backgroundColor.value),
     };
   });
 
@@ -48,9 +53,7 @@ const BottomPopup = ({ children, onClose, openModal }: IProps) => {
                 borderTopLeftRadius: 12,
                 borderTopRightRadius: 12,
                 paddingHorizontal: 30,
-
                 paddingBottom: 40,
-
                 shadowColor: "#000",
                 shadowOffset: {
                   width: 0,
@@ -58,7 +61,6 @@ const BottomPopup = ({ children, onClose, openModal }: IProps) => {
                 },
                 shadowOpacity: 0.51,
                 shadowRadius: 13.16,
-
                 elevation: 20,
               },
               backgroundColorAnimation,
