@@ -4,7 +4,7 @@ import BottomCard from "./MainComponents/BottomCard";
 import MainCard from "./MainComponents/MainCard";
 import { Dimensions } from "react-native";
 
-import Options from "./Options";
+import Options from "./MainComponents/ThirdCard";
 import SecondaryCard from "./MainComponents/SecondaryCard";
 import { useEffect, useRef, useState } from "react";
 import { runOnJS, useSharedValue, withTiming } from "react-native-reanimated";
