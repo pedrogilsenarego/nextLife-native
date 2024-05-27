@@ -34,8 +34,12 @@ const PieChartMain = ({
   const [dataIncomes, setDataIncomes] = useState<Data[] | null>(null);
   const [mode, setMode] = useState<"expenses" | "incomes">("expenses");
   const dataToRender = mode === "expenses" ? dataExpenses : dataIncomes;
-  const decimalsExpenses = useSharedValue<number[]>([0.1, 0.1, 0.8, 0.2, 0.3]);
-  const decimalsIncomes = useSharedValue<number[]>([0.1, 0.1, 0.8, 0.2, 0.3]);
+  const decimalsExpenses = useSharedValue<number[]>([
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  ]);
+  const decimalsIncomes = useSharedValue<number[]>([
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  ]);
   const opacityRef = useRef(new Animated.Value(0)).current;
   const opacityRef2 = useRef(new Animated.Value(0)).current;
   const scaleAnim = useRef(new Animated.Value(0)).current;
@@ -80,7 +84,10 @@ const PieChartMain = ({
       (category) => category.percentage / 100
     );
 
-    decimalsExpenses.value = [...generateDecimals];
+    decimalsExpenses.value = [
+      ...generateDecimals,
+      ...new Array(10 - generateDecimals.length).fill(0).slice(0, 10),
+    ];
 
     const arrayOfObjects = rawData.map((value, index) => ({
       category: value.category,
@@ -99,7 +106,10 @@ const PieChartMain = ({
       (category) => category.percentage / 100
     );
 
-    decimalsIncomes.value = [...generateDecimals];
+    decimalsIncomes.value = [
+      ...generateDecimals,
+      ...new Array(10 - generateDecimals.length).fill(0),
+    ].slice(0, 10);
 
     const arrayOfObjects = rawData.map((value, index) => ({
       category: value.category,

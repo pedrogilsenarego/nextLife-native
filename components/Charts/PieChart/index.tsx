@@ -1,7 +1,7 @@
 import { StyleSheet, View } from "react-native";
 import React from "react";
-import { SharedValue, useDerivedValue } from "react-native-reanimated";
-import { Canvas, Path, SkFont, Skia, Text } from "@shopify/react-native-skia";
+import { SharedValue } from "react-native-reanimated";
+import { Canvas, Skia } from "@shopify/react-native-skia";
 import PiePath from "./Path";
 
 type Props = {
@@ -23,9 +23,7 @@ const PieChart = ({
   radius,
 }: Props) => {
   const innerRadius = radius - outerStrokeWidth / 2;
-  const animatedText = useDerivedValue(() => {
-    return `€`;
-  });
+
   const path = Skia.Path.Make();
   path.addCircle(radius, radius, innerRadius);
 

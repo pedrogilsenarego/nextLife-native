@@ -16,7 +16,7 @@ export const Container: React.FC<Props> = ({
 
   const defaultStyles: ViewStyle = {
     flexDirection: "row",
-    backgroundColor: theme === "light" ? "transparent" : Colors.gray,
+    backgroundColor: theme === "light" ? "white" : Colors.gray,
     paddingVertical: 15,
     paddingHorizontal: 10,
     borderWidth: theme === "light" ? 1 : 0,

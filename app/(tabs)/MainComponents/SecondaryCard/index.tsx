@@ -8,7 +8,7 @@ import { Card } from "@/components/Atoms/Card";
 import useExpenses from "@/hooks/useExpenses";
 import useIncomes from "@/hooks/useIncomes";
 import LoaderSpinner from "@/components/Atoms/LoaderSpinner";
-import { Colors } from "@/providers/ThemeContext";
+import { Colors, useTheme } from "@/providers/ThemeContext";
 
 const SecondaryCard = ({
   setSelectedDate,
@@ -17,6 +17,7 @@ const SecondaryCard = ({
 }) => {
   const expenses = useExpenses();
   const incomes = useIncomes();
+  const { theme } = useTheme();
   return (
     <Card>
       <ScrollView
@@ -41,7 +42,9 @@ const SecondaryCard = ({
                   width: "100%",
                 }}
               >
-                <LoaderSpinner color={Colors.black} />
+                <LoaderSpinner
+                  color={theme === "light" ? Colors.black : Colors.white}
+                />
               </View>
             ) : (
               <PieChartMain setSelectedDate={setSelectedDate} />
