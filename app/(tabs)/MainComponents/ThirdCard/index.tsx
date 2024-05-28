@@ -71,6 +71,7 @@ const ThirdCard = () => {
                           textTransform: "capitalize",
                           fontWeight: "bold",
                           fontSize: 16,
+                          color: theme === "light" ? "black" : "white",
                         }}
                       >
                         {business.businessName}
@@ -78,6 +79,7 @@ const ThirdCard = () => {
                       <Text
                         style={{
                           textTransform: "capitalize",
+                          color: theme === "light" ? "black" : "white",
                           fontSize: 14,
                         }}
                       >
@@ -103,7 +105,13 @@ const ThirdCard = () => {
                       }}
                     >
                       <AntDesign color={mainColor} size={30} name="gitlab" />
-                      <Text style={{ fontWeight: "bold", fontSize: 16 }}>
+                      <Text
+                        style={{
+                          fontWeight: "bold",
+                          fontSize: 16,
+                          color: theme === "light" ? "black" : "white",
+                        }}
+                      >
                         {(totalIncomes - totalExpenses).toFixed(0)} €
                       </Text>
                     </View>

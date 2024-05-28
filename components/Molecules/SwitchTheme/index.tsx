@@ -25,7 +25,7 @@ const SwitchTheme = () => {
     };
   });
 
-  const { theme, changeTheme } = useTheme();
+  const { theme, changeTheme, changeMainColor } = useTheme();
 
   useEffect(() => {
     if (theme === "light") {
@@ -89,6 +89,7 @@ const SwitchTheme = () => {
         style={styles.button}
         onPress={() => {
           changeTheme("light");
+          changeMainColor("orangeRed");
         }}
       >
         <Animated.Text style={[styles.textButton, textColorAnimation]}>
@@ -99,6 +100,7 @@ const SwitchTheme = () => {
         style={styles.button}
         onPress={() => {
           changeTheme("dark");
+          changeMainColor("greenPuke");
         }}
       >
         <Animated.Text style={[styles.textButton, textColorAnimation]}>
