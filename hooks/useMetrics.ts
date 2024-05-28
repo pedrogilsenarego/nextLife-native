@@ -150,6 +150,31 @@ const useMetrics = () => {
     return filteredCategoryPercentage;
   };
 
+  const calculateTotalPerBusiness = (
+    data: Expense[] | Income[] | undefined,
+    businessId: string
+  ) => {
+    if (!data) return 0;
+    return data
+      .filter((item) => item.businessId === businessId)
+      .reduce((acc, item) => acc + item.amount, 0);
+  };
+
+  const getExpensesPerBusiness = (businessId: string) => {
+    const expensesPerBusiness = calculateTotalPerBusiness(
+      expenses?.data ?? [],
+      businessId
+    );
+    return expensesPerBusiness;
+  };
+  const getIncomesPerBusiness = (businessId: string) => {
+    const incomesPerBusiness = calculateTotalPerBusiness(
+      incomes?.data ?? [],
+      businessId
+    );
+    return incomesPerBusiness;
+  };
+
   const getExpensesCategoriesPercentage = () => {
     const categoriesPercentage = calculateCategoryPercentage(
       expenses?.data ?? []
@@ -178,6 +203,8 @@ const useMetrics = () => {
     incomesTotalPerMonth,
     getExpensesCategoriesPercentage,
     getIncomesCategoriesPercentage,
+    getExpensesPerBusiness,
+    getIncomesPerBusiness,
   };
 };
 

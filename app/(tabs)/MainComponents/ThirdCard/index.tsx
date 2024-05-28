@@ -3,6 +3,7 @@ import { Container } from "@/components/Atoms/Container";
 import LoaderSpinner from "@/components/Atoms/LoaderSpinner";
 import { defaultBusiness } from "@/constants/defaultBusinesses";
 import useBusinesses from "@/hooks/useBusinesses";
+import useMetrics from "@/hooks/useMetrics";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 import { AntDesign } from "@expo/vector-icons";
 
@@ -11,6 +12,7 @@ import { View, Text, Pressable, ScrollView } from "react-native";
 const ThirdCard = () => {
   const businesses = useBusinesses();
   const { theme, mainColor } = useTheme();
+  const { getExpensesPerBusiness, getIncomesPerBusiness } = useMetrics();
 
   return (
     <Card>
@@ -53,6 +55,8 @@ const ThirdCard = () => {
                 const businessLabel = defaultBusiness.find(
                   (item) => item.value === business.type
                 )?.label;
+                const totalExpenses = getExpensesPerBusiness(business.id);
+                const totalIncomes = getIncomesPerBusiness(business.id);
                 return (
                   <Container
                     key={index}
@@ -100,7 +104,7 @@ const ThirdCard = () => {
                     >
                       <AntDesign color={mainColor} size={30} name="gitlab" />
                       <Text style={{ fontWeight: "bold", fontSize: 16 }}>
-                        4979 €
+                        {(totalIncomes - totalExpenses).toFixed(0)} €
                       </Text>
                     </View>
                   </Container>
