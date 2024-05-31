@@ -1,7 +1,9 @@
 import { Colors, useTheme } from "@/providers/ThemeContext";
+import { AntDesign } from "@expo/vector-icons";
 import React, { ReactNode, useEffect, useState } from "react";
 import {
   Modal,
+  Pressable,
   StyleSheet,
   TouchableWithoutFeedback,
   View,
@@ -16,9 +18,17 @@ interface IProps {
   children: ReactNode;
   onClose?: () => void;
   openModal: boolean;
+  fullHeight?: boolean;
+  closeIcon?: boolean;
 }
 
-const BottomPopup = ({ children, onClose, openModal }: IProps) => {
+const BottomPopup = ({
+  children,
+  onClose,
+  openModal,
+  fullHeight,
+  closeIcon,
+}: IProps) => {
   const { theme } = useTheme();
 
   const backgroundColor = useDerivedValue(() => {
@@ -49,6 +59,8 @@ const BottomPopup = ({ children, onClose, openModal }: IProps) => {
           <Animated.View
             style={[
               {
+                height: fullHeight ? "100%" : undefined,
+                position: "relative",
                 marginHorizontal: 4,
                 borderTopLeftRadius: 12,
                 borderTopRightRadius: 12,
@@ -66,6 +78,18 @@ const BottomPopup = ({ children, onClose, openModal }: IProps) => {
               backgroundColorAnimation,
             ]}
           >
+            {closeIcon && (
+              <Pressable
+                onPress={onClose}
+                style={{ position: "absolute", right: 12, top: 12, padding: 5 }}
+              >
+                <AntDesign
+                  name="close"
+                  size={22}
+                  color={theme === "light" ? "black" : "white"}
+                />
+              </Pressable>
+            )}
             {children}
           </Animated.View>
         </View>

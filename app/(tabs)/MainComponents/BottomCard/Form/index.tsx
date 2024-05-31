@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { NewEntrySchema, NewEntryType } from "../validation";
 import { defaultCategories, defaultIncomesCategories } from "../constants";
-import { View, Text } from "react-native";
+import { View, Text, Pressable } from "react-native";
 import ControlledInput from "@/components/inputs/TextField";
 import Select from "@/components/inputs/Select";
 import DatePicker from "@/components/inputs/DateTimePicker";
@@ -11,10 +11,14 @@ import { useMutation } from "@tanstack/react-query";
 import { addExpense } from "@/actions/expensesActions";
 import useExpenses from "@/hooks/useExpenses";
 import { ArrayButtons } from "@/components/Molecules/ArrayButtons";
-import { useTheme } from "@/providers/ThemeContext";
+import { Colors, useTheme } from "@/providers/ThemeContext";
 import { useEffect, useState } from "react";
 import { addIncome } from "@/actions/incomesActions";
 import useIncomes from "@/hooks/useIncomes";
+import { PressableTextOption } from "@/components/Atoms/PressableTextOption";
+import { FontAwesome } from "@expo/vector-icons";
+import { NoteDrawer } from "./NoteDrawer";
+import { useForme } from "./useForme";
 
 type Props = {
   listBusiness: { value: string; label: string }[];
@@ -23,8 +27,9 @@ type Props = {
 const Form = ({ listBusiness }: Props) => {
   const expenses = useExpenses();
   const incomes = useIncomes();
-  const { mainColor, theme } = useTheme();
+  const { theme } = useTheme();
   const [mode, setMode] = useState<"expense" | "income">("expense");
+  const { openNoteModal, setOpenNoteModal } = useForme();
 
   const defaultValues = {
     amount: undefined,
@@ -170,7 +175,14 @@ const Form = ({ listBusiness }: Props) => {
             <View style={{ marginTop: 10 }}>
               <DatePicker name="created_at" value={new Date()} label="Date" />
             </View>
-            <ControlledInput variant="edit" label="Note" name="note" />
+            <PressableTextOption
+              onPress={() => setOpenNoteModal(true)}
+              label="Add note"
+              helperText="Create a note for this entry"
+              icon={
+                <FontAwesome name="edit" size={24} color={Colors.lightGray} />
+              }
+            />
           </View>
           <View style={{ marginTop: 40 }}>
             <Button
@@ -179,6 +191,10 @@ const Form = ({ listBusiness }: Props) => {
               onPress={methods.handleSubmit(onSubmit)}
             />
           </View>
+          <NoteDrawer
+            openModal={openNoteModal}
+            setOpenModal={setOpenNoteModal}
+          />
         </FormProvider>
       </View>
     </View>

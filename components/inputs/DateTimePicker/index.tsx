@@ -1,3 +1,4 @@
+import { useTheme } from "@/providers/ThemeContext";
 import RNDateTimePicker, {
   DateTimePickerEvent,
   DatePickerOptions,
@@ -18,7 +19,7 @@ interface DatePickerProps extends DatePickerOptions, UseControllerProps {
 
 const DatePicker = (props: DatePickerProps) => {
   const [show, setShow] = useState<boolean>(false);
-
+  const { theme } = useTheme();
   const formContext = useFormContext();
 
   const { formState } = formContext;
@@ -57,7 +58,14 @@ const DatePicker = (props: DatePickerProps) => {
   return (
     <View>
       {label && (
-        <Text style={{ fontSize: 18, fontWeight: "600", marginLeft: 8 }}>
+        <Text
+          style={{
+            fontSize: 18,
+            fontWeight: "600",
+            marginLeft: 8,
+            color: theme === "dark" ? "white" : "black",
+          }}
+        >
           {label}
         </Text>
       )}
@@ -70,6 +78,7 @@ const DatePicker = (props: DatePickerProps) => {
               backgroundColor: "transparent",
               height: 50,
               fontSize: 14,
+              color: theme === "dark" ? "white" : "black",
             }}
             editable={false}
             onPressIn={toggleDatePicker}

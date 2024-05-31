@@ -1,3 +1,4 @@
+import { useTheme } from "@/providers/ThemeContext";
 import { Picker, PickerProps } from "@react-native-picker/picker";
 
 import {
@@ -18,7 +19,7 @@ interface PickerPropsI extends PickerProps, UseControllerProps {
 
 const Select = (props: PickerPropsI) => {
   const formContext = useFormContext();
-
+  const { theme } = useTheme();
   const { formState } = formContext;
   const { name, label, rules, defaultValue, ...inputProps } = props;
   const { field } = useController({ name, rules, defaultValue });
@@ -27,7 +28,14 @@ const Select = (props: PickerPropsI) => {
   return (
     <>
       {label && (
-        <Text style={{ fontSize: 18, fontWeight: "600", marginLeft: 8 }}>
+        <Text
+          style={{
+            fontSize: 18,
+            fontWeight: "600",
+            marginLeft: 8,
+            color: theme === "dark" ? "white" : "black",
+          }}
+        >
           {label}
         </Text>
       )}
@@ -60,7 +68,12 @@ const Select = (props: PickerPropsI) => {
         >
           {props.listOptions.map((item, index) => {
             return (
-              <Picker.Item key={index} label={item.label} value={item.value} />
+              <Picker.Item
+                key={index}
+                label={item.label}
+                value={item.value}
+                style={{ color: theme === "dark" ? "white" : "black" }}
+              />
             );
           })}
         </Picker>

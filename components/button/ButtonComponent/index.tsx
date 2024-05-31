@@ -30,7 +30,8 @@ const Button = ({
   textStyle,
   ...rest
 }: Props) => {
-  const { mainColor } = useTheme();
+  const { mainColor, theme } = useTheme();
+
   return (
     <TouchableOpacity onPress={onPress} {...rest}>
       <View
@@ -73,7 +74,7 @@ const Button = ({
         ) : (
           <Text
             style={{
-              color: "white",
+              color: theme === "dark" ? "black" : "white",
 
               fontSize: 16,
               ...textStyle,
