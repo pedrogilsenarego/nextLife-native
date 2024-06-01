@@ -60,12 +60,12 @@ export const LineChartGifted = ({
           }}
           data2={data2}
           trimYAxisAtTop
-          isAnimated
+          //isAnimated
           yAxisOffset={roundedOffset}
-          animationDuration={1000}
+          // animationDuration={1000}
           initialSpacing={9}
           areaChart
-          spacing={(width - 75) / (data.length - 1)}
+          spacing={(width - 75) / (data.length - 1 === 0 ? 1 : data.length - 1)}
           thickness={1.5}
           yAxisColor={"transparent"}
           xAxisColor={"transparent"}

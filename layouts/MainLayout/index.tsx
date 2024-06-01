@@ -39,8 +39,8 @@ const MainLayout = ({
     panResponder,
     componentRef,
     setComponentHeight,
-    setOpenModal,
-    openModal,
+    setBottomCardOpen,
+    bottomCardOpen,
     sideMenu,
     runSpringAnimation,
     theme,
@@ -145,11 +145,11 @@ const MainLayout = ({
                 </View>
               </View>
             </RnAnimated.View>
-            {(openModal || sideMenu) && (
+            {(bottomCardOpen || sideMenu) && (
               <Pressable
                 onPress={() => {
                   Keyboard.dismiss();
-                  setOpenModal(false);
+                  setBottomCardOpen(false);
                   setSideMenu(false);
                   runSpringAnimation(0, 0);
                 }}

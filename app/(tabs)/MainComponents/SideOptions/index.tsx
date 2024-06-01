@@ -74,35 +74,48 @@ export const SideOptions = () => {
           </Text>
         </Pressable>
         <BottomPopup
+          fullHeight
+          closeIcon
           openModal={openSettings}
           onClose={() => setOPenSettings(false)}
         >
           <View
             style={{
               alignItems: "center",
+              justifyContent: "center",
               flexDirection: "column",
               marginVertical: 20,
+              rowGap: 50,
+              flex: 1,
             }}
           >
-            <Text
+            <View
               style={{
-                fontSize: 22,
-                fontWeight: "bold",
-                color: theme === "light" ? "black" : "white",
+                alignItems: "center",
+
+                flexDirection: "column",
               }}
             >
-              Choose a style
-            </Text>
-            <Text
-              style={{
-                fontSize: 16,
-                marginTop: 14,
-                color: theme === "light" ? "black" : "white",
-              }}
-            >
-              Customize your interface
-            </Text>
-            <SwitchTheme />
+              <Text
+                style={{
+                  fontSize: 22,
+                  fontWeight: "bold",
+                  color: theme === "light" ? "black" : "white",
+                }}
+              >
+                Choose a style
+              </Text>
+              <Text
+                style={{
+                  fontSize: 16,
+                  marginTop: 14,
+                  color: theme === "light" ? "black" : "white",
+                }}
+              >
+                Customize your interface
+              </Text>
+              <SwitchTheme />
+            </View>
             <IconTheme />
           </View>
         </BottomPopup>

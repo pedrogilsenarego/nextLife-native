@@ -20,12 +20,15 @@ export type DateRangeValues =
 interface AppContexType {
   dateRange: DateRangeValues;
   changeDateRange: (dateRange: DateRangeValues) => void;
+  bottomCardOpen: boolean;
+  setBottomCardOpen: (bottomCardOpen: boolean) => void;
 }
 
 const AppContext = createContext<AppContexType | undefined>(undefined);
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [dateRange, setDateRange] = useState<DateRangeValues>("currentMonth");
+  const [bottomCardOpen, setBottomCardOpen] = useState<boolean>(false);
 
   useEffect(() => {
     async function loadPersistedDateRange() {
@@ -63,6 +66,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       value={{
         dateRange,
         changeDateRange,
+        bottomCardOpen,
+        setBottomCardOpen,
       }}
     >
       {children}

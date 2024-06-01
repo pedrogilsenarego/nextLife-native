@@ -19,12 +19,14 @@ import { PressableTextOption } from "@/components/Atoms/PressableTextOption";
 import { FontAwesome } from "@expo/vector-icons";
 import { NoteDrawer } from "./NoteDrawer";
 import { useForme } from "./useForme";
+import { useApp } from "@/providers/AppProvider";
 
 type Props = {
   listBusiness: { value: string; label: string }[];
 };
 
 const Form = ({ listBusiness }: Props) => {
+  const { setBottomCardOpen } = useApp();
   const expenses = useExpenses();
   const incomes = useIncomes();
   const { theme } = useTheme();
@@ -56,6 +58,7 @@ const Form = ({ listBusiness }: Props) => {
         methods.setValue("category", defaultIncomesCategories[0].value);
       }
       mode === "expense" ? expenses.refetch() : incomes.refetch();
+      setBottomCardOpen(false);
     },
     onSettled: async () => {},
   });

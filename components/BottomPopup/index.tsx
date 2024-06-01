@@ -61,7 +61,7 @@ const BottomPopup = ({
               {
                 height: fullHeight ? "100%" : undefined,
                 position: "relative",
-                marginHorizontal: 4,
+                //marginHorizontal: 4,
                 borderTopLeftRadius: 12,
                 borderTopRightRadius: 12,
                 paddingHorizontal: 30,
@@ -81,7 +81,7 @@ const BottomPopup = ({
             {closeIcon && (
               <Pressable
                 onPress={onClose}
-                style={{ position: "absolute", right: 12, top: 12, padding: 5 }}
+                style={{ position: "absolute", right: 12, top: 52, padding: 5 }}
               >
                 <AntDesign
                   name="close"
