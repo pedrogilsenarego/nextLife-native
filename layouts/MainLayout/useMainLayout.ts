@@ -14,6 +14,7 @@ const useMainLayout = () => {
   const scaleAnim2 = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     animateScale();
+    if (!bottomCardOpen) runSpringAnimation(0, 0);
   }, [bottomCardOpen]);
   useEffect(() => {
     animateScale2();

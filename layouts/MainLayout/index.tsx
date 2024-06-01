@@ -151,7 +151,6 @@ const MainLayout = ({
                   Keyboard.dismiss();
                   setBottomCardOpen(false);
                   setSideMenu(false);
-                  runSpringAnimation(0, 0);
                 }}
                 style={{
                   position: "absolute",
