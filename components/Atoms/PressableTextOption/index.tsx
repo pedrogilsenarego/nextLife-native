@@ -5,12 +5,14 @@ type Props = PressableProps & {
   label: string;
   helperText?: string;
   icon?: React.ReactNode;
+  validated?: boolean;
 };
 
 export const PressableTextOption: React.FC<Props> = ({
   label,
   helperText,
   icon,
+  validated,
   ...props
 }) => {
   const { theme } = useTheme();
@@ -29,7 +31,11 @@ export const PressableTextOption: React.FC<Props> = ({
         <Text
           style={{
             fontSize: 16,
-            color: theme === "dark" ? Colors.white : Colors.black,
+            color: validated
+              ? "green"
+              : theme === "dark"
+              ? Colors.white
+              : Colors.black,
             fontWeight: "bold",
           }}
         >
@@ -39,7 +45,7 @@ export const PressableTextOption: React.FC<Props> = ({
           <Text
             style={{
               fontSize: 12,
-              color: Colors.lightGray,
+              color: validated ? "green" : Colors.lightGray,
             }}
           >
             {helperText}

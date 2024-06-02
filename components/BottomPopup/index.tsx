@@ -54,7 +54,11 @@ const BottomPopup = ({
       visible={openModal}
       onRequestClose={onClose}
     >
-      <TouchableWithoutFeedback onPress={handlePressOutside}>
+      <TouchableWithoutFeedback
+        onPress={() => {
+          if (!fullHeight) handlePressOutside();
+        }}
+      >
         <View style={styles.container}>
           <Animated.View
             style={[

@@ -179,6 +179,7 @@ const Form = ({ listBusiness }: Props) => {
               <DatePicker name="created_at" value={new Date()} label="Date" />
             </View>
             <PressableTextOption
+              validated={methods.getFieldState("note") !== undefined}
               onPress={() => setOpenNoteModal(true)}
               label="Add note"
               helperText="Create a note for this entry"

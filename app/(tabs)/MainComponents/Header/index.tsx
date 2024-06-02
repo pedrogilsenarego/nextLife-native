@@ -26,6 +26,8 @@ export const Header = ({ handleMoveCarousel, index, setSideMenu }: Props) => {
   const { totalExpenses, totalIncomes } = useMetrics();
   const formattedDate = `${currentDate.getDate()}, ${monthInLetters} ${currentDate.getFullYear()}`;
   const width = Dimensions.get("screen").width;
+  const loading = expenses.isLoading || incomes.isLoading;
+  const balance = (totalIncomes() - totalExpenses()).toFixed(1);
 
   return (
     <View
@@ -62,7 +64,7 @@ export const Header = ({ handleMoveCarousel, index, setSideMenu }: Props) => {
         >
           Your monthly balance
         </Text>
-        {!expenses.isLoading && !incomes.isLoading && (
+        {!loading && (
           <Text
             style={{
               color: theme === "light" ? Colors.black : "white",
@@ -70,7 +72,7 @@ export const Header = ({ handleMoveCarousel, index, setSideMenu }: Props) => {
               fontWeight: "bold",
             }}
           >
-            {(totalIncomes() - totalExpenses()).toFixed(1)} Є
+            {balance} Є
           </Text>
         )}
       </View>

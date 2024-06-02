@@ -1,4 +1,6 @@
 import BottomPopup from "@/components/BottomPopup";
+import Button from "@/components/button/ButtonComponent";
+import ControlledInput from "@/components/inputs/TextField";
 import { useTheme } from "@/providers/ThemeContext";
 import { View, Text } from "react-native";
 
@@ -22,6 +24,7 @@ export const NoteDrawer: React.FC<Props> = ({ openModal, setOpenModal }) => {
           alignItems: "center",
           justifyContent: "center",
           flex: 1,
+          rowGap: 50,
         }}
       >
         <Text
@@ -34,6 +37,10 @@ export const NoteDrawer: React.FC<Props> = ({ openModal, setOpenModal }) => {
         >
           Add a note to this entry
         </Text>
+        <ControlledInput name="note" multiline />
+        <View style={{ width: "100%" }}>
+          <Button label="Add" onPress={() => setOpenModal(false)} />
+        </View>
       </View>
     </BottomPopup>
   );

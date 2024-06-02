@@ -83,7 +83,6 @@ const ControlledInput = ({ variant = "default", ...props }: TextInputProps) => {
         }}
       >
         <RNTextInput
-          caretHidden
           placeholderTextColor={
             variant === "big"
               ? theme === "light"

@@ -42,7 +42,7 @@ const MainLayout = ({
     setBottomCardOpen,
     bottomCardOpen,
     sideMenu,
-    runSpringAnimation,
+
     theme,
     animatedStyle2,
     setSideMenu,
