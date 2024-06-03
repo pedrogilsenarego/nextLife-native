@@ -27,13 +27,17 @@ type Props = {
 };
 
 const Form = ({ listBusiness }: Props) => {
-  const { setBottomCardOpen } = useApp();
+  const { setBottomCardOpen, bottomCardOpen } = useApp();
   const expenses = useExpenses();
   const incomes = useIncomes();
   const { theme } = useTheme();
   const [mode, setMode] = useState<"expense" | "income">("expense");
   const { openNoteModal, setOpenNoteModal, openDateModal, setOpenDateModal } =
     useForme();
+
+  useEffect(() => {
+    if (!bottomCardOpen) methods.reset();
+  }, [bottomCardOpen]);
 
   const defaultValues = {
     amount: undefined,
@@ -98,7 +102,7 @@ const Form = ({ listBusiness }: Props) => {
 
       <View style={{ width: "100%", marginTop: 6 }}>
         <FormProvider {...methods}>
-          <View style={{ width: "100%" }}>
+          <View style={{ width: "100%", rowGap: 20 }}>
             <View
               style={{
                 flexDirection: "row",
@@ -142,7 +146,7 @@ const Form = ({ listBusiness }: Props) => {
                 marginTop: -20,
               }}
             />
-            {/* <SelectMine name="businessId" listOptions={defaultCategories} /> */}
+
             <View
               style={{
                 flexDirection: "row",
@@ -177,9 +181,7 @@ const Form = ({ listBusiness }: Props) => {
                 )}
               </View>
             </View>
-            <View style={{ marginTop: 10 }}>
-              <DatePicker name="created_at" value={new Date()} label="Date" />
-            </View>
+
             <PressableTextOption
               onPress={() => setOpenDateModal(true)}
               label="Change Date"

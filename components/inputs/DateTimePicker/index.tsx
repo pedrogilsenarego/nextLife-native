@@ -89,12 +89,13 @@ const DatePicker = (props: DatePickerProps) => {
       {(show || Platform.OS === "ios") && (
         <RNDateTimePicker
           mode="date"
+          textColor={theme === "dark" ? "white" : "black"}
           display="spinner"
           value={field.value}
           onChange={onChange}
           style={{
             height: 120,
-            backgroundColor: "#0000000D",
+            backgroundColor: "transparent",
             marginTop: 5,
           }}
           //maximumDate={}
