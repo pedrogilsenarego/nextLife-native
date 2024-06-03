@@ -51,7 +51,7 @@ const Select = (props: PickerPropsI) => {
           marginTop: 5,
           justifyContent: "center",
           overflow: "hidden",
-          backgroundColor: "#0000000D",
+          backgroundColor: "transparent",
         }}
       >
         <Picker
