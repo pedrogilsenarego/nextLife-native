@@ -16,10 +16,11 @@ import { useEffect, useState } from "react";
 import { addIncome } from "@/actions/incomesActions";
 import useIncomes from "@/hooks/useIncomes";
 import { PressableTextOption } from "@/components/Atoms/PressableTextOption";
-import { FontAwesome } from "@expo/vector-icons";
+import { Entypo, FontAwesome } from "@expo/vector-icons";
 import { NoteDrawer } from "./NoteDrawer";
 import { useForme } from "./useForme";
 import { useApp } from "@/providers/AppProvider";
+import { DateDrawer } from "./DateDrawer";
 
 type Props = {
   listBusiness: { value: string; label: string }[];
@@ -31,7 +32,8 @@ const Form = ({ listBusiness }: Props) => {
   const incomes = useIncomes();
   const { theme } = useTheme();
   const [mode, setMode] = useState<"expense" | "income">("expense");
-  const { openNoteModal, setOpenNoteModal } = useForme();
+  const { openNoteModal, setOpenNoteModal, openDateModal, setOpenDateModal } =
+    useForme();
 
   const defaultValues = {
     amount: undefined,
@@ -179,12 +181,36 @@ const Form = ({ listBusiness }: Props) => {
               <DatePicker name="created_at" value={new Date()} label="Date" />
             </View>
             <PressableTextOption
-              validated={methods.getFieldState("note") !== undefined}
+              onPress={() => setOpenDateModal(true)}
+              label="Change Date"
+              helperText={`${methods.watch("created_at").toLocaleDateString()}`}
+              icon={
+                <Entypo
+                  name="calendar"
+                  size={24}
+                  color={
+                    methods.watch("note") === undefined
+                      ? Colors.steelGray
+                      : "green"
+                  }
+                />
+              }
+            />
+            <PressableTextOption
+              validated={methods.watch("note") !== undefined}
               onPress={() => setOpenNoteModal(true)}
               label="Add note"
               helperText="Create a note for this entry"
               icon={
-                <FontAwesome name="edit" size={24} color={Colors.lightGray} />
+                <FontAwesome
+                  name="edit"
+                  size={24}
+                  color={
+                    methods.watch("note") === undefined
+                      ? Colors.steelGray
+                      : "green"
+                  }
+                />
               }
             />
           </View>
@@ -198,6 +224,10 @@ const Form = ({ listBusiness }: Props) => {
           <NoteDrawer
             openModal={openNoteModal}
             setOpenModal={setOpenNoteModal}
+          />
+          <DateDrawer
+            openModal={openDateModal}
+            setOpenModal={setOpenDateModal}
           />
         </FormProvider>
       </View>

@@ -1,5 +1,6 @@
 import BottomPopup from "@/components/BottomPopup";
 import Button from "@/components/button/ButtonComponent";
+import DatePicker from "@/components/inputs/DateTimePicker";
 import ControlledInput from "@/components/inputs/TextField";
 import { useTheme } from "@/providers/ThemeContext";
 import { View, Text, Pressable, Keyboard } from "react-native";
@@ -9,7 +10,7 @@ type Props = {
   setOpenModal: (openModal: boolean) => void;
 };
 
-export const NoteDrawer: React.FC<Props> = ({ openModal, setOpenModal }) => {
+export const DateDrawer: React.FC<Props> = ({ openModal, setOpenModal }) => {
   const { theme } = useTheme();
   return (
     <BottomPopup
@@ -36,11 +37,11 @@ export const NoteDrawer: React.FC<Props> = ({ openModal, setOpenModal }) => {
             fontWeight: "bold",
           }}
         >
-          Add a note to this entry
+          Change the Date for this entry
         </Text>
-        <ControlledInput name="note" multiline />
+        <DatePicker name="created_at" value={new Date()} label="Date" />
         <View style={{ width: "100%" }}>
-          <Button label="Add" onPress={() => setOpenModal(false)} />
+          <Button label="Change" onPress={() => setOpenModal(false)} />
         </View>
       </Pressable>
     </BottomPopup>

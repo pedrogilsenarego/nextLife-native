@@ -24,6 +24,7 @@ export const Colors = {
   lightGray: "hsl(214.3 31.8% 91.4%)",
   orangeRed: "#f54329",
   black: "#151515",
+  steelGray: "#71797E",
   gray: "#2b2b2b",
   fuchsia: "#ca2c92",
   tealc: "#009ca6",
