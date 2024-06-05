@@ -7,7 +7,7 @@ import {
   useFormContext,
 } from "react-hook-form";
 
-import { Pressable, Text } from "react-native";
+import { Pressable, Text, View } from "react-native";
 
 interface PickerPropsI extends PickerProps, UseControllerProps {
   label?: string;
@@ -15,6 +15,7 @@ interface PickerPropsI extends PickerProps, UseControllerProps {
   listOptions: { label: string; value: string }[];
   left?: boolean;
   right?: boolean;
+  height?: number;
 }
 
 const Select = (props: PickerPropsI) => {
@@ -26,13 +27,14 @@ const Select = (props: PickerPropsI) => {
   const error = formState.errors[name];
 
   return (
-    <>
+    <View style={{ height: (props?.height || 150) + 30 }}>
       {label && (
         <Text
           style={{
-            fontSize: 18,
+            fontSize: 14,
             fontWeight: "600",
-            marginLeft: 8,
+
+            textAlign: "center",
             color: theme === "dark" ? "white" : "black",
           }}
         >
@@ -47,8 +49,8 @@ const Select = (props: PickerPropsI) => {
           e.preventDefault();
         }}
         style={{
-          height: 120,
-          marginTop: 5,
+          height: props.height || 120,
+
           justifyContent: "center",
           overflow: "hidden",
           backgroundColor: "transparent",
@@ -70,15 +72,15 @@ const Select = (props: PickerPropsI) => {
             return (
               <Picker.Item
                 key={index}
+                color={theme === "dark" ? "white" : "black"}
                 label={item.label}
                 value={item.value}
-                style={{ color: theme === "dark" ? "white" : "black" }}
               />
             );
           })}
         </Picker>
       </Pressable>
-    </>
+    </View>
   );
 };
 

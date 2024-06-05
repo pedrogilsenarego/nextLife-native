@@ -75,7 +75,9 @@ const Button = ({
           <Text
             style={{
               color: theme === "dark" ? "black" : "white",
-
+              fontWeight: "bold",
+              textTransform: "uppercase",
+              letterSpacing: 1,
               fontSize: 16,
               ...textStyle,
             }}

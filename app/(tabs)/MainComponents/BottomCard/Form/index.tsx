@@ -21,6 +21,7 @@ import { NoteDrawer } from "./NoteDrawer";
 import { useForme } from "./useForme";
 import { useApp } from "@/providers/AppProvider";
 import { DateDrawer } from "./DateDrawer";
+import { Divider } from "@/components/Atoms/Divider";
 
 type Props = {
   listBusiness: { value: string; label: string }[];
@@ -100,88 +101,103 @@ const Form = ({ listBusiness }: Props) => {
         Add new entry
       </Text>
 
-      <View style={{ width: "100%", marginTop: 6 }}>
+      <View style={{ width: "100%", marginTop: 50 }}>
         <FormProvider {...methods}>
-          <View style={{ width: "100%", rowGap: 20 }}>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              width: "100%",
+
+              borderRadius: 4,
+
+              justifyContent: "space-between",
+            }}
+          >
             <View
               style={{
+                height: "100%",
+                width: "50%",
+
                 flexDirection: "row",
                 alignItems: "center",
-                width: "100%",
-
-                borderRadius: 4,
-                padding: 4,
-                justifyContent: "space-between",
               }}
             >
-              <View
-                style={{
-                  height: "100%",
-                  width: "70%",
-                  paddingRight: 5,
-                  flexDirection: "row",
-                  alignItems: "center",
-                }}
-              >
-                <ArrayButtons
-                  buttons={["expense", "income"]}
-                  onSelected={(selected) => setMode(selected)}
-                />
-              </View>
-              <View style={{ width: "30%" }}>
-                <ControlledInput
-                  variant="big"
-                  keyboardType="decimal-pad"
-                  name="amount"
-                  placeholder="0.0"
-                  units="€"
-                />
-              </View>
+              <ArrayButtons
+                buttons={["expense", "income"]}
+                onSelected={(selected) => setMode(selected)}
+              />
             </View>
             <View
               style={{
-                height: 1,
-                backgroundColor: "#0000000D",
-                width: "100%",
-                marginTop: -20,
-              }}
-            />
-
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                marginTop: 30,
+                width: "50%",
+                display: "flex",
+                alignItems: "flex-end",
               }}
             >
-              <View style={{ width: "49%" }}>
+              <ControlledInput
+                variant="big"
+                keyboardType="decimal-pad"
+                name="amount"
+                placeholder="0.0"
+                units="€"
+              />
+            </View>
+          </View>
+          <View style={{ marginTop: -8 }}>
+            <Divider />
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              position: "relative",
+              justifyContent: "space-between",
+              paddingVertical: 40,
+            }}
+          >
+            <View style={{ position: "absolute", right: 8, top: 8 }}>
+              <FontAwesome
+                name="question-circle"
+                size={23}
+                color={theme === "dark" ? "#ffffff66" : "black"}
+              />
+            </View>
+            <View style={{ width: "49%" }}>
+              <Select
+                left
+                height={160}
+                style={{ borderTopRightRadius: 6 }}
+                name="businessId"
+                listOptions={listBusiness}
+                //label={"Business"}
+              />
+            </View>
+            <View style={{ width: "49%" }}>
+              {mode === "expense" ? (
                 <Select
-                  left
-                  style={{ borderTopRightRadius: 6 }}
-                  name="businessId"
-                  listOptions={listBusiness}
-                  label={"Business"}
+                  height={160}
+                  right
+                  name="category"
+                  listOptions={defaultCategories}
+                  //label={"Category"}
                 />
-              </View>
-              <View style={{ width: "49%" }}>
-                {mode === "expense" ? (
-                  <Select
-                    right
-                    name="category"
-                    listOptions={defaultCategories}
-                    label={"Category"}
-                  />
-                ) : (
-                  <Select
-                    right
-                    name="category"
-                    listOptions={defaultIncomesCategories}
-                    label={"Category"}
-                  />
-                )}
-              </View>
+              ) : (
+                <Select
+                  right
+                  height={160}
+                  name="category"
+                  listOptions={defaultIncomesCategories}
+                  //label={"Category"}
+                />
+              )}
             </View>
-
+          </View>
+          <View style={{ marginTop: -25 }}>
+            <Divider />
+          </View>
+          <View
+            style={{ rowGap: 20, paddingHorizontal: 10, paddingVertical: 25 }}
+          >
             <PressableTextOption
               onPress={() => setOpenDateModal(true)}
               label="Change Date"
@@ -216,7 +232,9 @@ const Form = ({ listBusiness }: Props) => {
               }
             />
           </View>
-          <View style={{ marginTop: 40 }}>
+
+          <Divider />
+          <View style={{ marginTop: 20 }}>
             <Button
               isLoading={isPending}
               label="Submit"

@@ -51,9 +51,9 @@ const ControlledInput = ({ variant = "default", ...props }: TextInputProps) => {
     },
     inputBig: {
       fontWeight: "bold",
-      paddingTop: 11,
+
       fontSize: 40,
-      paddingBottom: 11,
+
       color: theme === "light" ? Colors.black : "white",
       borderWidth: 0,
       borderColor: "transparent",
@@ -103,7 +103,13 @@ const ControlledInput = ({ variant = "default", ...props }: TextInputProps) => {
           <FontAwesome name={"edit"} size={34} color={"black"} />
         )}
         {props.units && (
-          <Text style={{ fontSize: 34, fontWeight: "600", color: "#ffffffCE" }}>
+          <Text
+            style={{
+              fontSize: 34,
+              fontWeight: "600",
+              color: theme === "dark" ? "#ffffffCE" : "black",
+            }}
+          >
             {props.units}
           </Text>
         )}
