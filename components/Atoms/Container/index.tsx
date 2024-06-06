@@ -19,6 +19,7 @@ export const Container: React.FC<Props> = ({
     backgroundColor: theme === "light" ? "white" : Colors.gray,
     paddingVertical: 15,
     paddingHorizontal: 10,
+    borderRadius: 6,
     borderWidth: theme === "light" ? 1 : 0,
     borderColor: Colors.lightGray,
     justifyContent: "space-between",

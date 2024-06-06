@@ -4,13 +4,7 @@ import React, { useState } from "react";
 import ExpensesTable from "./ExpensesTable";
 import { Card } from "@/components/Atoms/Card";
 
-const MainCard = ({
-  selectedDate,
-  setSelectedDate,
-}: {
-  selectedDate: string;
-  setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
-}) => {
+const MainCard = () => {
   const [amountToShow, setAmountToShow] = useState<number>(10);
   const [selectedStatus, setSelectedStatus] = useState<
     "expenses" | "incomes" | "both"
@@ -44,8 +38,6 @@ const MainCard = ({
         <Pressable>
           <View>
             <ChartInitial
-              selectedDate={selectedDate}
-              setSelectedDate={setSelectedDate}
               selectedStatus={selectedStatus}
               setSelectedStatus={setSelectedStatus}
               setAmountToShow={setAmountToShow}
@@ -55,7 +47,6 @@ const MainCard = ({
           <View style={{ marginTop: 6 }}>
             <ExpensesTable
               amountToShow={amountToShow}
-              selectedDate={selectedDate}
               selectedStatus={selectedStatus}
             />
           </View>

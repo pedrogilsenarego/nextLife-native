@@ -14,16 +14,12 @@ import { format } from "date-fns";
 
 type Props = {
   selectedStatus: "expenses" | "incomes" | "both";
-  selectedDate: string;
+
   amountToShow: number;
 };
 
-const ExpensesTable = ({
-  selectedStatus,
-  amountToShow,
-  selectedDate,
-}: Props) => {
-  const { dateRange } = useApp();
+const ExpensesTable = ({ selectedStatus, amountToShow }: Props) => {
+  const { dateRange, selectedDate } = useApp();
   const expenses = useExpenses();
   const incomes = useIncomes();
   const { contrastColor, theme } = useTheme();

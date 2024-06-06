@@ -20,6 +20,8 @@ export type DateRangeValues =
 interface AppContexType {
   dateRange: DateRangeValues;
   changeDateRange: (dateRange: DateRangeValues) => void;
+  selectedDate: string;
+  changeSelectedDate: (selectedDate: string) => void;
   bottomCardOpen: boolean;
   setBottomCardOpen: (bottomCardOpen: boolean) => void;
 }
@@ -28,6 +30,7 @@ const AppContext = createContext<AppContexType | undefined>(undefined);
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [dateRange, setDateRange] = useState<DateRangeValues>("currentMonth");
+  const [selectedDate, setSelectedDate] = useState<string>("Total");
   const [bottomCardOpen, setBottomCardOpen] = useState<boolean>(false);
 
   useEffect(() => {
@@ -61,9 +64,15 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const changeSelectedDate = (value: string) => {
+    setSelectedDate(value);
+  };
+
   return (
     <AppContext.Provider
       value={{
+        selectedDate,
+        changeSelectedDate,
         dateRange,
         changeDateRange,
         bottomCardOpen,

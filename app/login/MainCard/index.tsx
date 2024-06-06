@@ -176,7 +176,7 @@ const MainCard = () => {
               },
             ]}
           >
-            <ColorPicker />
+            <ColorPicker rotate />
 
             <Pressable
               onPress={flip}

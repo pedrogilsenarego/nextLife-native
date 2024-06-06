@@ -3,12 +3,8 @@ import { Colors, useTheme } from "@/providers/ThemeContext";
 import { addMonths, format } from "date-fns";
 import { View, Text, Pressable } from "react-native";
 
-type Props = {
-  setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
-};
-
-export const RangeDataChoose: React.FC<Props> = ({ setSelectedDate }) => {
-  const { dateRange, changeDateRange } = useApp();
+export const RangeDataChoose: React.FC = () => {
+  const { dateRange, changeDateRange, changeSelectedDate } = useApp();
   const { theme } = useTheme();
   const currentDate = new Date();
   const lastMonth = addMonths(currentDate, -1);
@@ -18,7 +14,7 @@ export const RangeDataChoose: React.FC<Props> = ({ setSelectedDate }) => {
   const lastLastMonthF = format(lastLastMonth, "MMMM");
 
   const handleChange = (key: DateRangeValues) => {
-    setSelectedDate("Total");
+    changeSelectedDate("Total");
     changeDateRange(key);
   };
 

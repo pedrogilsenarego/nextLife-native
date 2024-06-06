@@ -18,24 +18,23 @@ import { listPerDay } from "@/utils/dateFormat";
 type Props = {
   selectedStatus: "expenses" | "incomes" | "both";
   setSelectedStatus: (selectedStatus: "expenses" | "incomes" | "both") => void;
-  selectedDate: string;
-  setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
+
   setAmountToShow: (value: number) => void;
 };
 
 const ChartInitial = ({
   selectedStatus,
   setSelectedStatus,
-  selectedDate,
-  setSelectedDate,
+
   setAmountToShow,
 }: Props) => {
   const accValue = useSharedValue(0);
   const accValue2 = useSharedValue(0);
   const expenses = useExpenses();
   const incomes = useIncomes();
+
   const { theme } = useTheme();
-  const { dateRange } = useApp();
+  const { dateRange, selectedDate, changeSelectedDate } = useApp();
   const {
     expensesTotalPerDay,
     expensesTotalPerMonth,
@@ -78,7 +77,7 @@ const ChartInitial = ({
           elevation: 5,
         }}
         onPress={() => {
-          setSelectedDate("Total");
+          changeSelectedDate("Total");
         }}
       >
         <MaterialIcons
@@ -113,15 +112,12 @@ const ChartInitial = ({
           data2={selectedStatus === "both" ? expensesPerDay : undefined}
           color1={selectedStatus === "expenses" ? "#c80815" : colorIncomes}
           color2={selectedStatus === "both" ? "#c80815" : undefined}
-          setSelectedDate={setSelectedDate}
         />
       )}
 
-      <RangeDataChoose setSelectedDate={setSelectedDate} />
+      <RangeDataChoose />
       <Subcard
-        selectedDate={selectedDate}
         selectedStatus={selectedStatus}
-        setSelectedDate={setSelectedDate}
         setSelectedStatus={setSelectedStatus}
         accValue={accValue}
         accValue2={accValue2}

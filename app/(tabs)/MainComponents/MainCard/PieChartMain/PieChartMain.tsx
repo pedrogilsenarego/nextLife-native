@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { View, Text, Animated } from "react-native";
+import { View, Text, Animated, Pressable } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useSharedValue, withTiming } from "react-native-reanimated";
 import RenderItem from "./RenderItem";
@@ -12,6 +12,7 @@ import { RangeDataChoose } from "../../RangeDataChoose";
 import { useApp } from "@/providers/AppProvider";
 import useExpenses from "@/hooks/useExpenses";
 import useIncomes from "@/hooks/useIncomes";
+import LoaderSpinner from "@/components/Atoms/LoaderSpinner";
 type Data = {
   category: string;
   percentage: number;
@@ -19,17 +20,15 @@ type Data = {
   amount: number;
 };
 
-const PieChartMain = ({
-  setSelectedDate,
-}: {
-  setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
-}) => {
+const PieChartMain = () => {
   const RADIUS = 90;
   const STROKE_WIDTH = 17;
   const OUTER_STROKE_WIDTH = 33;
   const GAP = 0.004;
   const { dateRange } = useApp();
   const { theme } = useTheme();
+  const expenses = useExpenses();
+  const incomes = useIncomes();
   const [dataExpenses, setDataExpenses] = useState<Data[] | null>(null);
   const [dataIncomes, setDataIncomes] = useState<Data[] | null>(null);
   const [mode, setMode] = useState<"expenses" | "incomes">("expenses");
@@ -188,111 +187,131 @@ const PieChartMain = ({
   });
 
   return (
-    <View style={{ position: "relative" }}>
-      <View style={{ flexDirection: "row", paddingHorizontal: 10 }}>
-        <View style={{ height: 233, justifyContent: "center" }}>
-          <Animated.View
-            style={[
-              animatedStyleIncomes,
-              {
-                position: "absolute",
-                opacity: opacityInterpolate2,
-                width: RADIUS * 2,
-                height: RADIUS * 2,
-              },
-            ]}
-          >
-            <PieChart
-              radius={RADIUS}
-              gap={GAP}
-              strokeWidth={STROKE_WIDTH}
-              outerStrokeWidth={OUTER_STROKE_WIDTH}
-              decimals={decimalsIncomes}
-              colors={shadesOfGreen}
-            />
-          </Animated.View>
-          <Animated.View
-            style={[
-              animatedStyle,
-              {
-                opacity: opacityInterpolate,
-                width: RADIUS * 2,
-                height: RADIUS * 2,
-              },
-            ]}
-          >
-            <PieChart
-              radius={RADIUS}
-              gap={GAP}
-              strokeWidth={STROKE_WIDTH}
-              outerStrokeWidth={OUTER_STROKE_WIDTH}
-              decimals={decimalsExpenses}
-              colors={shadesOfRed}
-            />
-          </Animated.View>
-        </View>
-        <View
-          style={{
-            alignItems: "flex-end",
-            justifyContent: "space-evenly",
-            width: "auto",
-
-            flex: 1,
-            rowGap: 10,
-          }}
-        >
-          <Text
-            style={{
-              textAlign: "right",
-              color: theme === "light" ? "black" : "whitesmoke",
-            }}
-          >
-            giugiu sdssadsa ssadsasa assa adadssa adsdasa adas
-          </Text>
-          <Text
-            style={{
-              textAlign: "right",
-              color: theme === "light" ? "black" : "whitesmoke",
-            }}
-          >
-            giugiu sdssadsa ukyu ssadsasa adadssa adsdasa adas
-          </Text>
-          <Text
-            style={{
-              textAlign: "right",
-              color: theme === "light" ? "black" : "whitesmoke",
-            }}
-          >
-            giugiu sdssadsa ssadsasa adadssa fdd adsdasa adas
-          </Text>
-        </View>
-      </View>
+    <Pressable>
       <View>
-        <RangeDataChoose setSelectedDate={setSelectedDate} />
-        <Container>
-          <ArrayButtons
-            buttons={["expenses", "incomes"]}
-            onSelected={handleOnSelected}
-          />
-        </Container>
-      </View>
-      <View style={{ marginTop: 6 }}>
-        <Container>
+        {expenses.isLoading || incomes.isLoading ? (
           <View
             style={{
               display: "flex",
-              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              height: 233,
+              width: "100%",
             }}
           >
-            {dataToRender?.map((item, index) => {
-              return item.percentage <= 0 ? null : (
-                <RenderItem item={item} key={index} index={index} />
-              );
-            })}
+            <LoaderSpinner
+              color={theme === "light" ? Colors.black : Colors.white}
+            />
           </View>
-        </Container>
+        ) : (
+          <View style={{ position: "relative" }}>
+            <View style={{ flexDirection: "row", paddingHorizontal: 10 }}>
+              <View style={{ height: 233, justifyContent: "center" }}>
+                <Animated.View
+                  style={[
+                    animatedStyleIncomes,
+                    {
+                      position: "absolute",
+                      opacity: opacityInterpolate2,
+                      width: RADIUS * 2,
+                      height: RADIUS * 2,
+                    },
+                  ]}
+                >
+                  <PieChart
+                    radius={RADIUS}
+                    gap={GAP}
+                    strokeWidth={STROKE_WIDTH}
+                    outerStrokeWidth={OUTER_STROKE_WIDTH}
+                    decimals={decimalsIncomes}
+                    colors={shadesOfGreen}
+                  />
+                </Animated.View>
+                <Animated.View
+                  style={[
+                    animatedStyle,
+                    {
+                      opacity: opacityInterpolate,
+                      width: RADIUS * 2,
+                      height: RADIUS * 2,
+                    },
+                  ]}
+                >
+                  <PieChart
+                    radius={RADIUS}
+                    gap={GAP}
+                    strokeWidth={STROKE_WIDTH}
+                    outerStrokeWidth={OUTER_STROKE_WIDTH}
+                    decimals={decimalsExpenses}
+                    colors={shadesOfRed}
+                  />
+                </Animated.View>
+              </View>
+              <View
+                style={{
+                  alignItems: "flex-end",
+                  justifyContent: "space-evenly",
+                  width: "auto",
+
+                  flex: 1,
+                  rowGap: 10,
+                }}
+              >
+                <Text
+                  style={{
+                    textAlign: "right",
+                    color: theme === "light" ? "black" : "whitesmoke",
+                  }}
+                >
+                  giugiu sdssadsa ssadsasa assa adadssa adsdasa adas
+                </Text>
+                <Text
+                  style={{
+                    textAlign: "right",
+                    color: theme === "light" ? "black" : "whitesmoke",
+                  }}
+                >
+                  giugiu sdssadsa ukyu ssadsasa adadssa adsdasa adas
+                </Text>
+                <Text
+                  style={{
+                    textAlign: "right",
+                    color: theme === "light" ? "black" : "whitesmoke",
+                  }}
+                >
+                  giugiu sdssadsa ssadsasa adadssa fdd adsdasa adas
+                </Text>
+              </View>
+            </View>
+            <View>
+              <RangeDataChoose />
+              <Container>
+                <ArrayButtons
+                  buttons={["expenses", "incomes"]}
+                  onSelected={handleOnSelected}
+                />
+              </Container>
+            </View>
+            <View style={{ marginTop: 6 }}>
+              <Container>
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  {dataToRender?.map((item, index) => {
+                    return item.percentage <= 0 ? null : (
+                      <RenderItem item={item} key={index} index={index} />
+                    );
+                  })}
+                </View>
+              </Container>
+            </View>
+          </View>
+        )}
       </View>
-    </View>
+    </Pressable>
   );
 };
 

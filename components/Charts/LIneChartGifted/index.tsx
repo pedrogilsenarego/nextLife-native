@@ -16,22 +16,16 @@ type Props = {
   data2?: DataType[];
   color1: string;
   color2?: string;
-  setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export const LineChartGifted = ({
-  data,
-  data2,
-  color1,
-  color2,
-  setSelectedDate,
-}: Props) => {
+export const LineChartGifted = ({ data, data2, color1, color2 }: Props) => {
   const { theme } = useTheme();
+  const { changeSelectedDate } = useApp();
   const width = Dimensions.get("window").width - 12;
   const defaultPointerColor = theme === "light" ? Colors.black : "whitesmoke";
   const [pointerColor, setPointerColor] = useState(defaultPointerColor);
   useEffect(() => {
-    if (pointerColor === "transparent") setSelectedDate("Total");
+    if (pointerColor === "transparent") changeSelectedDate("Total");
     setPointerColor("transparent");
   }, [data]);
 
@@ -60,7 +54,7 @@ export const LineChartGifted = ({
           }}
           data2={data2}
           trimYAxisAtTop
-          //isAnimated
+          isAnimated
           yAxisOffset={roundedOffset}
           // animationDuration={1000}
           initialSpacing={9}
@@ -92,37 +86,9 @@ export const LineChartGifted = ({
             pointerLabelWidth: 120,
 
             pointerLabelComponent: (items: { value: any; label: any }[]) => {
-              setSelectedDate(items[0].label);
+              changeSelectedDate(items[0].label);
               setPointerColor(defaultPointerColor);
-              return (
-                <></>
-                // <View
-                //   style={{
-                //     width: "auto",
-                //     backgroundColor: Colors.black,
-                //     borderRadius: 4,
-                //     padding: 4,
-                //     justifyContent: "center",
-                //     paddingLeft: 16,
-                //     display: "flex",
-                //     flexDirection: "row",
-                //     columnGap: 5,
-                //     alignItems: "center",
-                //   }}
-                // >
-                //   <Text style={{ color: "lightgray", fontSize: 12 }}>
-                //     {items[0].label}
-                //   </Text>
-                //   <Text style={{ color: "white", fontWeight: "bold" }}>
-                //     {items[0].value.toFixed(0)}
-                //   </Text>
-                //   {data2 && (
-                //     <Text style={{ color: "white", fontWeight: "bold" }}>
-                //       {items[1].value.toFixed(0)}
-                //     </Text>
-                //   )}
-                // </View>
-              );
+              return <></>;
             },
           }}
           curvature={0}

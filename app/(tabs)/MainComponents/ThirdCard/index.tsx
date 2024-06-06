@@ -1,18 +1,19 @@
 import { Card } from "@/components/Atoms/Card";
-import { Container } from "@/components/Atoms/Container";
 import LoaderSpinner from "@/components/Atoms/LoaderSpinner";
-import { defaultBusiness } from "@/constants/defaultBusinesses";
 import useBusinesses from "@/hooks/useBusinesses";
-import useMetrics from "@/hooks/useMetrics";
 import { Colors, useTheme } from "@/providers/ThemeContext";
-import { AntDesign } from "@expo/vector-icons";
-
-import { View, Text, Pressable, ScrollView } from "react-native";
+import { View, Pressable, ScrollView } from "react-native";
+import { BusinessCard } from "./BusinessCard";
+import BottomCard from "../BottomCard";
+import BottomPopup from "@/components/BottomPopup";
+import { useState } from "react";
+import { ModalBusinessContent } from "./ModalBusinessContent";
 
 const ThirdCard = () => {
   const businesses = useBusinesses();
-  const { theme, mainColor } = useTheme();
-  const { getExpensesPerBusiness, getIncomesPerBusiness } = useMetrics();
+  const { theme } = useTheme();
+
+  const [businessSelected, setBusinessSelected] = useState<number | null>(null);
 
   return (
     <Card>
@@ -52,76 +53,29 @@ const ThirdCard = () => {
               }}
             >
               {businesses.data?.map((business, index) => {
-                const businessLabel = defaultBusiness.find(
-                  (item) => item.value === business.type
-                )?.label;
-                const totalExpenses = getExpensesPerBusiness(business.id);
-                const totalIncomes = getIncomesPerBusiness(business.id);
                 return (
-                  <Container
-                    key={index}
-                    containerStyles={{
-                      flexDirection: "row",
-                      alignItems: "stretch",
-                    }}
-                  >
-                    <View>
-                      <Text
-                        style={{
-                          textTransform: "capitalize",
-                          fontWeight: "bold",
-                          fontSize: 16,
-                          color: theme === "light" ? "black" : "white",
-                        }}
-                      >
-                        {business.businessName}
-                      </Text>
-                      <Text
-                        style={{
-                          textTransform: "capitalize",
-                          color: theme === "light" ? "black" : "white",
-                          fontSize: 14,
-                        }}
-                      >
-                        {businessLabel}
-                      </Text>
-                      <Text
-                        style={{
-                          textTransform: "capitalize",
-                          marginTop: 6,
-                          color: "gray",
-                          fontSize: 12,
-                        }}
-                      >
-                        Current balance
-                      </Text>
-                    </View>
-                    <View
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "space-between",
-                        alignItems: "flex-end",
-                      }}
-                    >
-                      <AntDesign color={mainColor} size={30} name="gitlab" />
-                      <Text
-                        style={{
-                          fontWeight: "bold",
-                          fontSize: 16,
-                          color: theme === "light" ? "black" : "white",
-                        }}
-                      >
-                        {(totalIncomes - totalExpenses).toFixed(0)} €
-                      </Text>
-                    </View>
-                  </Container>
+                  <BusinessCard
+                    business={business}
+                    onPress={() => setBusinessSelected(index)}
+                  />
                 );
               })}
             </View>
           </Pressable>
         )}
       </ScrollView>
+      <BottomPopup
+        fullHeight
+        closeIcon
+        openModal={businessSelected !== null}
+        onClose={() => setBusinessSelected(null)}
+      >
+        {businessSelected !== null && businesses?.data && (
+          <ModalBusinessContent
+            business={businesses?.data?.[businessSelected]}
+          />
+        )}
+      </BottomPopup>
     </Card>
   );
 };

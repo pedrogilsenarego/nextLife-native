@@ -1,4 +1,4 @@
-import { useTheme } from "@/providers/ThemeContext";
+import { Colors, useTheme } from "@/providers/ThemeContext";
 import React from "react";
 import {
   ActivityIndicator,
@@ -37,7 +37,10 @@ const Button = ({
       <View
         style={[
           styles.container,
-          { backgroundColor: mainColor, ...buttonStyle },
+          {
+            backgroundColor: theme === "light" ? mainColor : Colors.greenPuke,
+            ...buttonStyle,
+          },
         ]}
       >
         {isLoading ? (

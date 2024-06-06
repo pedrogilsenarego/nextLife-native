@@ -6,12 +6,12 @@ import { Dimensions } from "react-native";
 
 import Options from "./MainComponents/ThirdCard";
 import SecondaryCard from "./MainComponents/SecondaryCard";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { runOnJS, useSharedValue, withTiming } from "react-native-reanimated";
 
 export default function TabOneScreen() {
   const width = Dimensions.get("window").width;
-  const [selectedDate, setSelectedDate] = useState<string>("Total");
+
   const carouselRef = useRef<ICarouselInstance>(null);
   const currentIndex = useSharedValue<number>(0);
   const [moving, setMoving] = useState(false);
@@ -53,12 +53,9 @@ export default function TabOneScreen() {
             index === 0 ? (
               <Options />
             ) : index === 1 ? (
-              <MainCard
-                selectedDate={selectedDate}
-                setSelectedDate={setSelectedDate}
-              />
+              <MainCard />
             ) : (
-              <SecondaryCard setSelectedDate={setSelectedDate} />
+              <SecondaryCard />
             )
           }
         />

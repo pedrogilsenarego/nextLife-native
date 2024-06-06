@@ -1,3 +1,4 @@
+import ColorPicker from "@/app/login/MainCard/ColorPicker";
 import BottomPopup from "@/components/BottomPopup";
 import IconTheme from "@/components/Molecules/IconTheme";
 import SwitchTheme from "@/components/Molecules/SwitchTheme";
@@ -118,6 +119,7 @@ export const SideOptions = () => {
             </View>
             <IconTheme />
           </View>
+          <ColorPicker />
         </BottomPopup>
       </View>
     </View>

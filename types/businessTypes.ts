@@ -1,4 +1,6 @@
-export type BusinessQuery = {
+export type BusinessQuery = Business[];
+
+export type Business = {
   businessName: string;
   user_id: string;
   created_at: Date;
@@ -9,4 +11,4 @@ export type BusinessQuery = {
       balanceStatus: boolean;
     };
   };
-}[];
+};

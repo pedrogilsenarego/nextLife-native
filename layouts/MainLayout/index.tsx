@@ -49,15 +49,12 @@ const MainLayout = ({
   } = useMainLayout();
   const backgroundColorAnimation = useAnimatedStyle(() => {
     return {
-      backgroundColor:
-        theme === "dark" ? withTiming(Colors.gray) : withTiming(mainColor),
+      backgroundColor: withTiming(mainColor),
     };
   });
 
   return (
-    <SafeAreaView
-      style={{ backgroundColor: theme === "light" ? mainColor : Colors.gray }}
-    >
+    <SafeAreaView style={{ backgroundColor: mainColor }}>
       <StatusBar barStyle={"light-content"} />
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <Animated.View

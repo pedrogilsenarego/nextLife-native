@@ -1,7 +1,11 @@
 import { View, Text } from "react-native";
 import SelectColorItem from "./SelectColorItem";
 
-const ColorPicker = () => {
+type Props = {
+  rotate?: boolean;
+};
+
+const ColorPicker = ({ rotate = false }: Props) => {
   return (
     <View style={{ display: "flex", rowGap: 8 }}>
       <Text
@@ -9,7 +13,7 @@ const ColorPicker = () => {
           color: "gray",
           textAlign: "center",
           fontSize: 20,
-          transform: [{ rotateY: "180deg" }],
+          transform: rotate ? [{ rotateY: "180deg" }] : undefined,
         }}
       >
         Choose your Color
@@ -22,6 +26,8 @@ const ColorPicker = () => {
         <SelectColorItem color={"purple"} />
         <SelectColorItem color={"saphire"} />
         <SelectColorItem color={"white"} />
+        <SelectColorItem color={"greenPuke"} />
+        <SelectColorItem color={"gray"} />
       </View>
     </View>
   );

@@ -10,11 +10,7 @@ import useIncomes from "@/hooks/useIncomes";
 import LoaderSpinner from "@/components/Atoms/LoaderSpinner";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 
-const SecondaryCard = ({
-  setSelectedDate,
-}: {
-  setSelectedDate: React.Dispatch<React.SetStateAction<string>>;
-}) => {
+const SecondaryCard = () => {
   const expenses = useExpenses();
   const incomes = useIncomes();
   const { theme } = useTheme();
@@ -30,27 +26,7 @@ const SecondaryCard = ({
           height: "100%",
         }}
       >
-        <Pressable>
-          <View>
-            {expenses.isLoading || incomes.isLoading ? (
-              <View
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: 233,
-                  width: "100%",
-                }}
-              >
-                <LoaderSpinner
-                  color={theme === "light" ? Colors.black : Colors.white}
-                />
-              </View>
-            ) : (
-              <PieChartMain setSelectedDate={setSelectedDate} />
-            )}
-          </View>
-        </Pressable>
+        <PieChartMain />
       </ScrollView>
     </Card>
   );
