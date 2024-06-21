@@ -120,7 +120,8 @@ const MainLayout = ({
                     setComponentHeight(height);
                   }}
                   style={{
-                    backgroundColor: theme === "light" ? "white" : Colors.black,
+                    backgroundColor:
+                      theme === "light" ? Colors.pearlWhite : Colors.black,
                     marginHorizontal: 4,
                     alignItems: "center",
                     justifyContent: "center",

@@ -31,7 +31,14 @@ export const BusinessCard: React.FC<Props> = ({ business, onPress }) => {
           alignItems: "stretch",
         }}
       >
-        <View>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            rowGap: 5,
+            padding: 4,
+          }}
+        >
           <Text
             style={{
               textTransform: "capitalize",
@@ -68,13 +75,31 @@ export const BusinessCard: React.FC<Props> = ({ business, onPress }) => {
             flexDirection: "column",
             justifyContent: "space-between",
             alignItems: "flex-end",
+            rowGap: 5,
           }}
         >
-          <AntDesign
-            color={theme === "light" ? mainColor : Colors.greenPuke}
-            size={30}
-            name="gitlab"
-          />
+          <View
+            style={{
+              padding: 6,
+              borderRadius: 6,
+              borderWidth: 1,
+              borderColor: Colors.lightGray,
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 2,
+                height: 2,
+              },
+              shadowOpacity: 0.1,
+              shadowRadius: 2,
+              elevation: 2,
+            }}
+          >
+            <AntDesign
+              color={theme === "light" ? mainColor : Colors.greenPuke}
+              size={30}
+              name="gitlab"
+            />
+          </View>
           <Text
             style={{
               fontWeight: "bold",

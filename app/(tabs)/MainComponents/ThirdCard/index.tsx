@@ -49,7 +49,7 @@ const ThirdCard = () => {
                 width: "100%",
                 paddingHorizontal: 4,
                 marginTop: 100,
-                rowGap: 20,
+                rowGap: 10,
               }}
             >
               {businesses.data?.map((business, index) => {
