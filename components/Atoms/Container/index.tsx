@@ -4,25 +4,29 @@ import { View, ViewProps, StyleProp, ViewStyle } from "react-native";
 
 type Props = {
   children: React.ReactNode;
-  containerStyles?: StyleProp<ViewStyle>; // Use StyleProp<ViewStyle> to define the type of containerStyles
+  containerStyles?: StyleProp<ViewStyle>;
+  status?: string;
 };
 
 export const Container: React.FC<Props> = ({
   children,
   containerStyles,
+  status,
   ...props
 }) => {
   const { theme } = useTheme();
 
   const defaultStyles: ViewStyle = {
     flexDirection: "row",
+    position: "relative",
     backgroundColor: theme === "light" ? "white" : Colors.gray,
     paddingVertical: 15,
     paddingHorizontal: 10,
     borderRadius: 6,
-    borderWidth: theme === "light" ? 1 : 0,
-    borderColor: Colors.lightGray,
+    //borderWidth: theme === "light" ? 1 : 0,
+    //borderColor: Colors.lightGray,
     justifyContent: "space-between",
+    overflow: "hidden",
     columnGap: 5,
     alignItems: "flex-start",
     shadowOffset: {
@@ -39,6 +43,16 @@ export const Container: React.FC<Props> = ({
 
   return (
     <View style={mergedStyles} {...props}>
+      {status && (
+        <View
+          style={{
+            position: "absolute",
+            width: 4,
+            height: "200%",
+            backgroundColor: status,
+          }}
+        />
+      )}
       {children}
     </View>
   );

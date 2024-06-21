@@ -3,6 +3,7 @@ import { defaultBusiness } from "@/constants/defaultBusinesses";
 import useMetrics from "@/hooks/useMetrics";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 import { Business } from "@/types/businessTypes";
+import { getStatusColor } from "@/utils/business";
 import { AntDesign } from "@expo/vector-icons";
 import { View, Text, Pressable } from "react-native";
 
@@ -19,9 +20,11 @@ export const BusinessCard: React.FC<Props> = ({ business, onPress }) => {
   )?.label;
   const totalExpenses = getExpensesPerBusiness(business.id);
   const totalIncomes = getIncomesPerBusiness(business.id);
+  const balance = totalIncomes - totalExpenses;
   return (
     <Pressable onPress={onPress}>
       <Container
+        status={getStatusColor(balance)}
         key={business.id}
         containerStyles={{
           flexDirection: "row",
@@ -79,7 +82,7 @@ export const BusinessCard: React.FC<Props> = ({ business, onPress }) => {
               color: theme === "light" ? "black" : "white",
             }}
           >
-            {(totalIncomes - totalExpenses).toFixed(0)} €
+            {balance.toFixed(0)} €
           </Text>
         </View>
       </Container>

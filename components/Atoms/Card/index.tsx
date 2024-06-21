@@ -11,7 +11,7 @@ export const Card: React.FC<Props> = ({ children }) => {
     <View
       style={{
         height: "100%",
-        backgroundColor: theme === "light" ? "white" : Colors.black,
+        backgroundColor: theme === "light" ? Colors.pearlWhite : Colors.black,
         borderRadius: 12,
         marginHorizontal: 4,
         shadowColor: "#000",
