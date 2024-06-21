@@ -83,6 +83,7 @@ export const BusinessCard: React.FC<Props> = ({ business, onPress }) => {
               padding: 6,
               borderRadius: 6,
               borderWidth: 1,
+              backgroundColor: theme === "light" ? Colors.white : Colors.black,
               borderColor: Colors.lightGray,
               shadowColor: "#000",
               shadowOffset: {
@@ -90,7 +91,7 @@ export const BusinessCard: React.FC<Props> = ({ business, onPress }) => {
                 height: 2,
               },
               shadowOpacity: 0.1,
-              shadowRadius: 2,
+              shadowRadius: 1,
               elevation: 2,
             }}
           >

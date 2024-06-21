@@ -48,8 +48,8 @@ const ThirdCard = () => {
               style={{
                 width: "100%",
                 paddingHorizontal: 4,
-                marginTop: 100,
-                rowGap: 10,
+                marginTop: 50,
+                rowGap: 6,
               }}
             >
               {businesses.data?.map((business, index) => {

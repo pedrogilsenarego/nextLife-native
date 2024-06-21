@@ -49,7 +49,7 @@ export const Container: React.FC<Props> = ({
         <View
           style={{
             position: "absolute",
-            width: 4,
+            width: 5,
             height: "200%",
             backgroundColor: status,
           }}
