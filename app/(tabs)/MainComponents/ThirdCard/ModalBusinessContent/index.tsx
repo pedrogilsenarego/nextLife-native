@@ -11,17 +11,28 @@ type Props = {
 export const ModalBusinessContent: React.FC<Props> = ({ business }) => {
   const { theme } = useTheme();
   return (
-    <View style={{ alignItems: "center", marginTop: 100 }}>
-      <Text
+    <View style={{ alignItems: "center" }}>
+      <View
         style={{
-          color: theme === "light" ? "black" : "white",
-          textTransform: "capitalize",
-          fontSize: 18,
+          marginTop: 55,
+          alignItems: "flex-start",
+          width: "100%",
         }}
       >
-        {business.businessName}
-      </Text>
-      <PieChartMain />
+        <Text
+          style={{
+            color: theme === "light" ? "black" : "white",
+            textTransform: "capitalize",
+            fontSize: 18,
+            fontWeight: "600",
+          }}
+        >
+          {business.businessName}
+        </Text>
+      </View>
+      <View style={{ marginTop: 20 }}>
+        <PieChartMain businessSelected={business.id} />
+      </View>
     </View>
   );
 };

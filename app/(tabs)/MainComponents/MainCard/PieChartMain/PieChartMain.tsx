@@ -13,6 +13,7 @@ import { useApp } from "@/providers/AppProvider";
 import useExpenses from "@/hooks/useExpenses";
 import useIncomes from "@/hooks/useIncomes";
 import LoaderSpinner from "@/components/Atoms/LoaderSpinner";
+
 type Data = {
   category: string;
   percentage: number;
@@ -20,7 +21,11 @@ type Data = {
   amount: number;
 };
 
-const PieChartMain = () => {
+type Props = {
+  businessSelected?: string;
+};
+
+const PieChartMain = ({ businessSelected }: Props) => {
   const RADIUS = 90;
   const STROKE_WIDTH = 17;
   const OUTER_STROKE_WIDTH = 33;
@@ -44,7 +49,7 @@ const PieChartMain = () => {
   const scaleAnim = useRef(new Animated.Value(0)).current;
   const scaleAnimIncomes = useRef(new Animated.Value(0)).current;
   const { getExpensesCategoriesPercentage, getIncomesCategoriesPercentage } =
-    useMetrics();
+    useMetrics({ businessSelected });
 
   const shadesOfGreen = [
     "#1f261a",

@@ -24,6 +24,8 @@ interface AppContexType {
   changeSelectedDate: (selectedDate: string) => void;
   bottomCardOpen: boolean;
   setBottomCardOpen: (bottomCardOpen: boolean) => void;
+  addBusinessFilter: (id: string) => void;
+  businessFilter: string[] | null;
 }
 
 const AppContext = createContext<AppContexType | undefined>(undefined);
@@ -31,6 +33,7 @@ const AppContext = createContext<AppContexType | undefined>(undefined);
 export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [dateRange, setDateRange] = useState<DateRangeValues>("currentMonth");
   const [selectedDate, setSelectedDate] = useState<string>("Total");
+  const [businessFilter, setBusinessFilter] = useState<string[] | null>(null);
   const [bottomCardOpen, setBottomCardOpen] = useState<boolean>(false);
 
   useEffect(() => {
@@ -68,6 +71,15 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     setSelectedDate(value);
   };
 
+  const addBusinessFilter = (id: string) => {
+    setBusinessFilter((prevBusinessFilter) => {
+      if (!prevBusinessFilter?.includes(id) && prevBusinessFilter) {
+        return [...prevBusinessFilter, id];
+      }
+      return prevBusinessFilter;
+    });
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -75,8 +87,10 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         changeSelectedDate,
         dateRange,
         changeDateRange,
+        addBusinessFilter,
         bottomCardOpen,
         setBottomCardOpen,
+        businessFilter,
       }}
     >
       {children}

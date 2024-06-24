@@ -5,11 +5,16 @@ import { dateQueriesMap } from "@/utils/dateFormat";
 import { getExpenses } from "@/actions/expensesActions";
 import { useApp } from "@/providers/AppProvider";
 
-const useExpenses = () => {
-  const { dateRange } = useApp();
+type Props = {
+  businessSelected?: string;
+};
+
+const useExpenses = ({ businessSelected }: Props = {}) => {
+  const { dateRange, businessFilter } = useApp();
+
   const datesToQuery = dateQueriesMap(dateRange);
 
-  const expenses = useQuery<ExpensesQuery, Error>({
+  const expensesQuery = useQuery<ExpensesQuery, Error>({
     queryKey: [queryKeys.expenses, dateRange],
     queryFn: () =>
       getExpenses({
@@ -21,7 +26,20 @@ const useExpenses = () => {
     staleTime: Infinity,
   });
 
-  return expenses;
+  const filteredExpenses = businessSelected
+    ? (expensesQuery.data || []).filter(
+        (expense) => expense.businessId === businessSelected
+      )
+    : businessFilter && businessFilter.length > 0
+    ? (expensesQuery.data || []).filter((expense) =>
+        businessFilter.includes(expense.businessId)
+      )
+    : expensesQuery.data || [];
+
+  return {
+    ...expensesQuery,
+    data: filteredExpenses,
+  };
 };
 
 export default useExpenses;

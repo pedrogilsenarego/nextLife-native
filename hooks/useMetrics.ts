@@ -7,9 +7,13 @@ import { Income } from "@/types/incomesTypes";
 import { useApp } from "@/providers/AppProvider";
 import { dateQueriesMap, getMonthAbbreviation } from "@/utils/dateFormat";
 
-const useMetrics = () => {
-  const expenses = useExpenses();
-  const incomes = useIncomes();
+type Props = {
+  businessSelected?: string;
+};
+
+const useMetrics = ({ businessSelected }: Props = {}) => {
+  const expenses = useExpenses({ businessSelected });
+  const incomes = useIncomes({ businessSelected });
   const { dateRange } = useApp();
 
   const totalExpenses = () =>

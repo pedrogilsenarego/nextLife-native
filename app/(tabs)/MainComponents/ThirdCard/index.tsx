@@ -8,9 +8,11 @@ import BottomCard from "../BottomCard";
 import BottomPopup from "@/components/BottomPopup";
 import { useState } from "react";
 import { ModalBusinessContent } from "./ModalBusinessContent";
+import { useApp } from "@/providers/AppProvider";
 
 const ThirdCard = () => {
   const businesses = useBusinesses();
+  const { addBusinessFilter } = useApp();
   const { theme } = useTheme();
 
   const [businessSelected, setBusinessSelected] = useState<number | null>(null);
@@ -56,7 +58,9 @@ const ThirdCard = () => {
                 return (
                   <BusinessCard
                     business={business}
-                    onPress={() => setBusinessSelected(index)}
+                    onPress={() => {
+                      setBusinessSelected(index);
+                    }}
                   />
                 );
               })}

@@ -5,11 +5,15 @@ import { getIncomes } from "@/actions/incomesActions";
 import { IncomesQuery } from "@/types/incomesTypes";
 import { useApp } from "@/providers/AppProvider";
 
-const useIncomes = () => {
-  const { dateRange } = useApp();
+type Props = {
+  businessSelected?: string;
+};
+
+const useIncomes = ({ businessSelected }: Props = {}) => {
+  const { dateRange, businessFilter } = useApp();
   const datesToQuery = dateQueriesMap(dateRange);
 
-  const expenses = useQuery<IncomesQuery, Error>({
+  const expensesQuery = useQuery<IncomesQuery, Error>({
     queryKey: [queryKeys.incomes, dateRange],
     queryFn: () =>
       getIncomes({
@@ -21,7 +25,20 @@ const useIncomes = () => {
     staleTime: Infinity,
   });
 
-  return expenses;
+  const filteredExpenses = businessSelected
+    ? (expensesQuery.data || []).filter(
+        (expense) => expense.businessId === businessSelected
+      )
+    : businessFilter && businessFilter.length > 0
+    ? (expensesQuery.data || []).filter((expense) =>
+        businessFilter.includes(expense.businessId)
+      )
+    : expensesQuery.data || [];
+
+  return {
+    ...expensesQuery,
+    data: filteredExpenses,
+  };
 };
 
 export default useIncomes;
