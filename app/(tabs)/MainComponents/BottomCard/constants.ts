@@ -11,13 +11,16 @@ export const defaultCategories = [
   { value: "general", label: "General" },
   { value: "gifts", label: "Gifts" },
   { value: "groceries", label: "Groceries" },
+  { value: "management", label: "Management" },
   { value: "pets", label: "Pets" },
   { value: "sports", label: "Sports" },
+  { value: "water", label: "Water" },
 ];
 
 export const defaultIncomesCategories = [
   { value: "allowence", label: "Allowence" },
   { value: "general", label: "General" },
   { value: "guests", label: "Guests" },
+  { value: "management", label: "Management" },
   { value: "salary", label: "Salary" },
 ];

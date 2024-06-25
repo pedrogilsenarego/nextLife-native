@@ -111,6 +111,7 @@ const useMetrics = ({ businessSelected }: Props = {}) => {
   };
 
   const calculateCategoryPercentage = (expensesData: Expense[]) => {
+    const minPercentage = expensesData.length > 10 ? 4 : 3;
     const categoryTotal = expensesData.reduce((acc: any, expense) => {
       acc[expense.category] = (acc[expense.category] || 0) + expense.amount;
       return acc;
@@ -132,7 +133,7 @@ const useMetrics = ({ businessSelected }: Props = {}) => {
     );
 
     const totalSmallPercentage = categoryPercentage
-      .filter((item) => item.percentage < 3)
+      .filter((item) => item.percentage < minPercentage)
       .reduce(
         (stats, item) => {
           stats.totalPercentage += item.percentage;
@@ -143,7 +144,7 @@ const useMetrics = ({ businessSelected }: Props = {}) => {
       );
 
     const filteredCategoryPercentage = categoryPercentage
-      .filter((item) => item.percentage >= 3)
+      .filter((item) => item.percentage >= minPercentage)
       .sort((a, b) => b.percentage - a.percentage)
       .concat({
         category: "Other",
@@ -183,6 +184,7 @@ const useMetrics = ({ businessSelected }: Props = {}) => {
     const categoriesPercentage = calculateCategoryPercentage(
       expenses?.data ?? []
     );
+
     return categoriesPercentage;
   };
 
@@ -190,6 +192,7 @@ const useMetrics = ({ businessSelected }: Props = {}) => {
     const categoriesPercentage = calculateCategoryPercentage(
       incomes?.data ?? []
     );
+
     return categoriesPercentage;
   };
 

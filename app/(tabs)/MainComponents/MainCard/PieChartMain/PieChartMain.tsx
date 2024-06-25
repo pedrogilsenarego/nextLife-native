@@ -77,15 +77,17 @@ const PieChartMain = ({ businessSelected }: Props) => {
   ];
 
   useEffect(() => {
-    generateDataExpenses();
-    generateDataIncomes();
-  }, [dateRange]);
+    if (!expenses.isLoading && !incomes.isLoading) {
+      generateDataExpenses();
+      generateDataIncomes();
+    }
+  }, [dateRange, expenses.isLoading, incomes.isLoading]);
 
   const generateDataExpenses = () => {
     const rawData = getExpensesCategoriesPercentage();
 
-    const generateDecimals = rawData.map(
-      (category) => category.percentage / 100
+    const generateDecimals = rawData?.map(
+      (category) => category?.percentage / 100
     );
 
     decimalsExpenses.value = [
@@ -93,11 +95,11 @@ const PieChartMain = ({ businessSelected }: Props) => {
       ...new Array(10 - generateDecimals.length).fill(0).slice(0, 10),
     ];
 
-    const arrayOfObjects = rawData.map((value, index) => ({
-      category: value.category,
-      percentage: value.percentage,
+    const arrayOfObjects = rawData?.map((value, index) => ({
+      category: value?.category,
+      percentage: value?.percentage,
       color: shadesOfRed[index],
-      amount: value.amount,
+      amount: value?.amount,
     }));
 
     setDataExpenses(arrayOfObjects);
