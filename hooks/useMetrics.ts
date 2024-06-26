@@ -6,6 +6,7 @@ import { Income } from "@/types/incomesTypes";
 
 import { useApp } from "@/providers/AppProvider";
 import { dateQueriesMap, getMonthAbbreviation } from "@/utils/dateFormat";
+import { differenceInMonths, endOfMonth, startOfMonth } from "date-fns";
 
 type Props = {
   businessSelected?: string;
@@ -64,47 +65,40 @@ const useMetrics = ({ businessSelected }: Props = {}) => {
     const endMonth = endDate.getMonth() + 1;
 
     const totalPerMonth: { label: string; value: number }[] = [];
+    const monthDataMap: { [key: string]: number } = {};
 
-    // Initialize array with 0 values for each month of the year
-    for (let year = startYear; year <= endYear; year++) {
-      // Calculate the start and end month for the current year
-      const monthStart = year === startYear ? startMonth : 1;
+    // Initialize a map with 0 values for each month of the year that has data
+    if (data) {
+      data.forEach((entry) => {
+        const entryDate = new Date(entry.created_at);
+        const entryYear = entryDate.getFullYear();
+        const entryMonth = entryDate.getMonth() + 1; // Adding 1 to get 1-based month index
 
-      const monthEnd = year === endYear ? endMonth : 12;
+        const monthKey = `${entryYear}-${entryMonth}`;
 
-      // Initialize array with 0 values for each month of the year
-      for (let month = monthStart; month <= monthEnd; month++) {
-        const label = `${getMonthAbbreviation(month)} ${year % 100}`;
+        if (!monthDataMap[monthKey]) {
+          monthDataMap[monthKey] = 0;
+        }
 
-        totalPerMonth.push({ label, value: 0 });
-      }
+        monthDataMap[monthKey] += entry.amount;
+      });
     }
 
-    // Update values for months coinciding with original data
-    if (data) {
-      data.forEach((expense) => {
-        const expenseDate = new Date(expense.created_at);
-        const expenseYear = expenseDate.getFullYear();
-        const expenseMonth = expenseDate.getMonth() + 1; // Adding 1 to get 1-based month index
+    // Populate totalPerMonth with values from monthDataMap, ensuring to include middle and end empty months
+    for (let year = startYear; year <= endYear; year++) {
+      const monthStart = year === startYear ? startMonth : 1;
+      const monthEnd = year === endYear ? endMonth : 12;
 
-        // Check if the expense falls within the date range
-        if (
-          expenseYear >= startYear &&
-          expenseYear <= endYear &&
-          ((startYear === endYear &&
-            expenseMonth >= startMonth &&
-            expenseMonth <= endMonth) ||
-            (expenseYear === startYear && expenseMonth >= startMonth) ||
-            (expenseYear === endYear && expenseMonth <= endMonth))
-        ) {
-          const yearIndex = expenseYear - startYear;
-          const monthIndex =
-            yearIndex === 0
-              ? expenseMonth - startMonth
-              : 12 + expenseMonth - startMonth;
-          totalPerMonth[monthIndex].value += expense.amount;
+      for (let month = monthStart; month <= monthEnd; month++) {
+        const label = `${getMonthAbbreviation(month)} ${year % 100}`;
+        const monthKey = `${year}-${month}`;
+        const value = monthDataMap[monthKey] || 0;
+
+        // Include the month in totalPerMonth only if it has data or if it's after the first month with data
+        if (value > 0 || totalPerMonth.length > 0) {
+          totalPerMonth.push({ label, value });
         }
-      });
+      }
     }
 
     return totalPerMonth;
@@ -201,6 +195,33 @@ const useMetrics = ({ businessSelected }: Props = {}) => {
   const incomesTotalPerDay = () => valueTotalPerDay(incomes?.data);
   const incomesTotalPerMonth = () => valueTotalPerMonth(incomes?.data);
 
+  const getNumberOfDifferentMonths = () => {
+    if (
+      !expenses?.data ||
+      !incomes?.data ||
+      expenses?.data.length === 0 ||
+      incomes.data.length === 0
+    ) {
+      return 0;
+    }
+
+    const allData = [...expenses?.data, ...incomes?.data];
+    allData.sort(
+      (a, b) =>
+        new Date(a?.created_at).getTime() - new Date(b?.created_at).getTime()
+    );
+
+    const firstDate = new Date(allData[0].created_at);
+    const lastDate = new Date(allData[allData.length - 1].created_at);
+
+    const startMonth = startOfMonth(firstDate);
+    const endMonth = endOfMonth(lastDate);
+
+    const totalMonths = differenceInMonths(endMonth, startMonth) + 1;
+
+    return totalMonths;
+  };
+
   return {
     totalExpenses,
     totalIncomes,
@@ -212,6 +233,7 @@ const useMetrics = ({ businessSelected }: Props = {}) => {
     getIncomesCategoriesPercentage,
     getExpensesPerBusiness,
     getIncomesPerBusiness,
+    getNumberOfDifferentMonths,
   };
 };
 

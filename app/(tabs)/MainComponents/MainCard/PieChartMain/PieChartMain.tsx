@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { View, Text, Animated, Pressable } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { useSharedValue, withTiming } from "react-native-reanimated";
+import { useSharedValue } from "react-native-reanimated";
 import RenderItem from "./RenderItem";
 import PieChart from "@/components/Charts/PieChart";
 import { Colors, useTheme } from "@/providers/ThemeContext";
@@ -48,8 +47,11 @@ const PieChartMain = ({ businessSelected }: Props) => {
   const opacityRef2 = useRef(new Animated.Value(0)).current;
   const scaleAnim = useRef(new Animated.Value(0)).current;
   const scaleAnimIncomes = useRef(new Animated.Value(0)).current;
-  const { getExpensesCategoriesPercentage, getIncomesCategoriesPercentage } =
-    useMetrics({ businessSelected });
+  const {
+    getExpensesCategoriesPercentage,
+    getIncomesCategoriesPercentage,
+    getNumberOfDifferentMonths,
+  } = useMetrics({ businessSelected });
 
   const shadesOfGreen = [
     "#1f261a",
@@ -75,6 +77,15 @@ const PieChartMain = ({ businessSelected }: Props) => {
     "#ffcccb",
     "#ffcccb66",
   ];
+
+  const numberOfMonths =
+    expenses?.isLoading ||
+    incomes?.isLoading ||
+    dateRange === "currentMonth" ||
+    dateRange === "lastLastMonth" ||
+    dateRange === "lastMonth"
+      ? 1
+      : getNumberOfDifferentMonths();
 
   useEffect(() => {
     if (!expenses.isLoading && !incomes.isLoading) {
@@ -309,7 +320,12 @@ const PieChartMain = ({ businessSelected }: Props) => {
                 >
                   {dataToRender?.map((item, index) => {
                     return item.percentage <= 0 ? null : (
-                      <RenderItem item={item} key={index} index={index} />
+                      <RenderItem
+                        item={item}
+                        key={index}
+                        index={index}
+                        numberOfMonths={numberOfMonths}
+                      />
                     );
                   })}
                 </View>

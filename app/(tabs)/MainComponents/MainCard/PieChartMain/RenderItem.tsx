@@ -13,9 +13,10 @@ interface Data {
 type Props = {
   item: Data;
   index: number;
+  numberOfMonths: number;
 };
 
-const RenderItem = ({ item, index }: Props) => {
+const RenderItem = ({ item, index, numberOfMonths }: Props) => {
   const { theme } = useTheme();
   const styles = StyleSheet.create({
     contentContainer: {
@@ -80,13 +81,16 @@ const RenderItem = ({ item, index }: Props) => {
           >
             {item.percentage}%
           </Text>
+
           <Text
             style={{
               color: theme === "light" ? Colors.black : "white",
               fontSize: 12,
             }}
           >
-            {item.amount}
+            &#931; {item.amount.toFixed(0)}
+            {numberOfMonths > 1 &&
+              `  ~ ${(item.amount / numberOfMonths).toFixed(0)}`}
           </Text>
         </View>
       </View>
