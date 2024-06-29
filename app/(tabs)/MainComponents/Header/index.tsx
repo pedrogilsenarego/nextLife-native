@@ -7,6 +7,8 @@ import { StateSelecter } from "./StateSelecter";
 import { SharedValue } from "react-native-reanimated";
 import useExpenses from "@/hooks/useExpenses";
 import useIncomes from "@/hooks/useIncomes";
+import { dateRangeLabel } from "@/mappers/dateRange";
+import { useApp } from "@/providers/AppProvider";
 
 type Props = {
   handleMoveCarousel: (index: number) => void;
@@ -19,6 +21,7 @@ export const Header = ({ handleMoveCarousel, index, setSideMenu }: Props) => {
   const userQuery = useUser();
   const expenses = useExpenses();
   const incomes = useIncomes();
+  const { dateRange } = useApp();
   const currentDate = new Date();
   const monthInLetters = currentDate.toLocaleString("default", {
     month: "long",
@@ -62,7 +65,7 @@ export const Header = ({ handleMoveCarousel, index, setSideMenu }: Props) => {
             color: theme === "light" ? "gray" : "whitesmoke",
           }}
         >
-          Your monthly balance
+          Your {dateRangeLabel(dateRange)} balance
         </Text>
         {!loading && (
           <Text

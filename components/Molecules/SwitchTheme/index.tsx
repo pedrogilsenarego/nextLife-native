@@ -100,7 +100,7 @@ const SwitchTheme = () => {
         style={styles.button}
         onPress={() => {
           changeTheme("dark");
-          changeMainColor("greenPuke");
+          changeMainColor("gray");
         }}
       >
         <Animated.Text style={[styles.textButton, textColorAnimation]}>

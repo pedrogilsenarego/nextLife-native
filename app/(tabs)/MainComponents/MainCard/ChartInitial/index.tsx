@@ -7,7 +7,7 @@ import { View, Text, Pressable } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 import Subcard from "./Subcard";
 import { MaterialIcons } from "@expo/vector-icons";
-import { RangeDataChoose } from "../../RangeDataChoose";
+import { RangeDataChoose } from "../../../../../components/Molecules/RangeDataChoose";
 import { useApp } from "@/providers/AppProvider";
 import { LineChartGifted } from "@/components/Charts/LIneChartGifted";
 import useExpenses from "@/hooks/useExpenses";
@@ -115,7 +115,6 @@ const ChartInitial = ({
         />
       )}
 
-      <RangeDataChoose />
       <Subcard
         selectedStatus={selectedStatus}
         setSelectedStatus={setSelectedStatus}

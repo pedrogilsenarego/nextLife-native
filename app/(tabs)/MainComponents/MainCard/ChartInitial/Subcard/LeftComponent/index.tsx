@@ -1,3 +1,4 @@
+import { dateRangeLabel } from "@/mappers/dateRange";
 import { useApp } from "@/providers/AppProvider";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 import { dateQueriesMap } from "@/utils/dateFormat";
@@ -184,8 +185,8 @@ export const LeftComponent = ({
             marginTop: 8,
           }}
         >
-          {singleMonthValue ? monthName : "Total"}: &#931;{" "}
-          {formatAmount(totalExpenses)} ~{" "}
+          {singleMonthValue ? monthName : `Last ${dateRangeLabel(dateRange)}`}:
+          &#931; {formatAmount(totalExpenses)} ~{" "}
           {formatAmount(
             (parseFloat(totalExpenses) / expensesPerDay.length).toString()
           )}{" "}
@@ -200,8 +201,8 @@ export const LeftComponent = ({
             marginTop: 8,
           }}
         >
-          {singleMonthValue ? monthName : "Total"}: &#931;{" "}
-          {formatAmount(totalIncomes)} ~{" "}
+          {singleMonthValue ? monthName : `Last ${dateRangeLabel(dateRange)}`}:
+          &#931; {formatAmount(totalIncomes)} ~{" "}
           {formatAmount(
             (parseFloat(totalIncomes) / incomesPerDay.length).toString()
           )}{" "}
@@ -216,7 +217,8 @@ export const LeftComponent = ({
               fontWeight: "600",
             }}
           >
-            {singleMonthValue ? monthName : "Total"}:{" "}
+            {singleMonthValue ? monthName : `Last ${dateRangeLabel(dateRange)}`}
+            :{" "}
           </Text>
           <Text style={{ color: "#82ca9d", fontWeight: "600" }}>
             {singleMonthValue ? monthName : "Total"}: &#931;{" "}

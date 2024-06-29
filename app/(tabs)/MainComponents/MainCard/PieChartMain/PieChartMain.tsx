@@ -7,7 +7,7 @@ import { Colors, useTheme } from "@/providers/ThemeContext";
 import useMetrics from "@/hooks/useMetrics";
 import { Container } from "@/components/Atoms/Container";
 import { ArrayButtons } from "@/components/Molecules/ArrayButtons";
-import { RangeDataChoose } from "../../RangeDataChoose";
+import { RangeDataChoose } from "../../../../../components/Molecules/RangeDataChoose";
 import { useApp } from "@/providers/AppProvider";
 import useExpenses from "@/hooks/useExpenses";
 import useIncomes from "@/hooks/useIncomes";
@@ -278,38 +278,42 @@ const PieChartMain = ({ businessSelected }: Props) => {
                 <Text
                   style={{
                     textAlign: "right",
+                    fontSize: 12,
                     color: theme === "light" ? "black" : "whitesmoke",
                   }}
                 >
-                  giugiu sdssadsa ssadsasa assa adadssa adsdasa adas
+                  did you know that this month you spend more than usual at
+                  groceries?
                 </Text>
                 <Text
                   style={{
                     textAlign: "right",
+                    fontSize: 12,
                     color: theme === "light" ? "black" : "whitesmoke",
                   }}
                 >
-                  giugiu sdssadsa ukyu ssadsasa adadssa adsdasa adas
+                  in average your car is more expensive than your travels
                 </Text>
                 <Text
                   style={{
                     textAlign: "right",
+                    fontSize: 12,
                     color: theme === "light" ? "black" : "whitesmoke",
                   }}
                 >
-                  giugiu sdssadsa ssadsasa adadssa fdd adsdasa adas
+                  You must be a healthy person since your help expenses are
+                  bellow average for people of your age
                 </Text>
               </View>
             </View>
-            <View>
-              <RangeDataChoose />
-              <Container>
-                <ArrayButtons
-                  buttons={["expenses", "incomes"]}
-                  onSelected={handleOnSelected}
-                />
-              </Container>
-            </View>
+
+            <Container>
+              <ArrayButtons
+                buttons={["expenses", "incomes"]}
+                onSelected={handleOnSelected}
+              />
+            </Container>
+
             <View style={{ marginTop: 6 }}>
               <Container>
                 <View
