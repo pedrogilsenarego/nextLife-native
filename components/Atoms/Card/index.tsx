@@ -3,9 +3,10 @@ import { View } from "react-native";
 
 type Props = {
   children: React.ReactNode;
+  footer?: React.ReactNode;
 };
 
-export const Card: React.FC<Props> = ({ children }) => {
+export const Card: React.FC<Props> = ({ children, footer }) => {
   const { theme } = useTheme();
   return (
     <View
@@ -23,10 +24,11 @@ export const Card: React.FC<Props> = ({ children }) => {
         shadowRadius: 3.84,
         elevation: 5,
         paddingTop: 90,
-        paddingBottom: 12,
+        paddingBottom: footer ? 0 : 12,
       }}
     >
       {children}
+      {footer}
     </View>
   );
 };

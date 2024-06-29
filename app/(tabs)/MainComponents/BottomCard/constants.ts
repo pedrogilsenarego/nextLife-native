@@ -19,6 +19,7 @@ export const defaultCategories = [
 
 export const defaultIncomesCategories = [
   { value: "allowence", label: "Allowence" },
+  { value: "freelance", label: "Freelance" },
   { value: "general", label: "General" },
   { value: "guests", label: "Guests" },
   { value: "management", label: "Management" },

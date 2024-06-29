@@ -1,8 +1,9 @@
-import { View, Pressable, ScrollView } from "react-native";
+import { View, Pressable, ScrollView, Text } from "react-native";
 import ChartInitial from "./ChartInitial";
 import React, { useState } from "react";
 import ExpensesTable from "./ExpensesTable";
 import { Card } from "@/components/Atoms/Card";
+import { CardFooter } from "@/components/Molecules/CardFooter";
 
 const MainCard = () => {
   const [amountToShow, setAmountToShow] = useState<number>(10);
@@ -22,7 +23,7 @@ const MainCard = () => {
   };
 
   return (
-    <Card>
+    <Card footer={<CardFooter />}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         onScroll={handleScroll}

@@ -61,6 +61,7 @@ export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = memo(
           position: "relative",
           borderRadius: 24,
           flexDirection: "row",
+
           padding: 3,
           columnGap: GAP_BUTTONS,
         }}

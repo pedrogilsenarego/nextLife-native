@@ -9,6 +9,7 @@ import BottomPopup from "@/components/BottomPopup";
 import { useState } from "react";
 import { ModalBusinessContent } from "./ModalBusinessContent";
 import { useApp } from "@/providers/AppProvider";
+import { CardFooter } from "@/components/Molecules/CardFooter";
 
 const ThirdCard = () => {
   const businesses = useBusinesses();
@@ -18,7 +19,7 @@ const ThirdCard = () => {
   const [businessSelected, setBusinessSelected] = useState<number | null>(null);
 
   return (
-    <Card>
+    <Card footer={<CardFooter />}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         scrollEventThrottle={16}

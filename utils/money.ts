@@ -8,6 +8,6 @@ export const formatAmount = (amount: string) => {
   if (numericAmount > 999) {
     return `${(numericAmount / 1000).toFixed(1)}k`;
   } else {
-    return amount;
+    return numericAmount.toFixed(1);
   }
 };

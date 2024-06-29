@@ -9,13 +9,14 @@ import useExpenses from "@/hooks/useExpenses";
 import useIncomes from "@/hooks/useIncomes";
 import LoaderSpinner from "@/components/Atoms/LoaderSpinner";
 import { Colors, useTheme } from "@/providers/ThemeContext";
+import { CardFooter } from "@/components/Molecules/CardFooter";
 
 const SecondaryCard = () => {
   const expenses = useExpenses();
   const incomes = useIncomes();
   const { theme } = useTheme();
   return (
-    <Card>
+    <Card footer={<CardFooter />}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{

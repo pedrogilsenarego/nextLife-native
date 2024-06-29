@@ -1,6 +1,7 @@
 import { useApp } from "@/providers/AppProvider";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 import { dateQueriesMap } from "@/utils/dateFormat";
+import { singleMonth } from "@/utils/dateRange";
 import { formatAmount } from "@/utils/money";
 import { View, Text } from "react-native";
 import { SharedValue } from "react-native-reanimated";
@@ -45,6 +46,15 @@ export const LeftComponent = ({
       ? expensesPerDay?.[selectedExpenseIndex]?.value?.toFixed(0)
       : incomesPerDay?.[selectedExpenseIndex]?.value?.toFixed(0);
   const secondValue = expensesPerDay?.[selectedExpenseIndex]?.value?.toFixed(0);
+
+  const singleMonthValue = singleMonth(dateRange);
+  const singleOrMulti = singleMonthValue ? "Day" : "Month";
+
+  const singleValue =
+    selectedDate === "Total"
+      ? `${singleOrMulti}:`
+      : `${singleOrMulti}(${selectedDate}):`;
+
   return (
     <View>
       <>
@@ -62,7 +72,7 @@ export const LeftComponent = ({
               color: theme === "light" ? Colors.black : "whitesmoke",
             }}
           >
-            {selectedDate === "Total" ? "Day:" : `Day(${selectedDate}):`}
+            {singleValue}
           </Text>
           {selectedDate !== "Total" ? (
             <View
@@ -174,7 +184,12 @@ export const LeftComponent = ({
             marginTop: 8,
           }}
         >
-          {monthName}: {formatAmount(totalExpenses)}€
+          {singleMonthValue ? monthName : "Total"}: &#931;{" "}
+          {formatAmount(totalExpenses)} ~{" "}
+          {formatAmount(
+            (parseFloat(totalExpenses) / expensesPerDay.length).toString()
+          )}{" "}
+          €
         </Text>
       )}
       {selectedStatus === "incomes" && (
@@ -185,7 +200,12 @@ export const LeftComponent = ({
             marginTop: 8,
           }}
         >
-          {monthName}: {formatAmount(totalIncomes)}€
+          {singleMonthValue ? monthName : "Total"}: &#931;{" "}
+          {formatAmount(totalIncomes)} ~{" "}
+          {formatAmount(
+            (parseFloat(totalIncomes) / incomesPerDay.length).toString()
+          )}{" "}
+          €
         </Text>
       )}
       {selectedStatus === "both" && (
@@ -196,10 +216,15 @@ export const LeftComponent = ({
               fontWeight: "600",
             }}
           >
-            {monthName}:{" "}
+            {singleMonthValue ? monthName : "Total"}:{" "}
           </Text>
           <Text style={{ color: "#82ca9d", fontWeight: "600" }}>
-            {formatAmount(totalIncomes)}€
+            {singleMonthValue ? monthName : "Total"}: &#931;{" "}
+            {formatAmount(totalIncomes)} ~{" "}
+            {formatAmount(
+              (parseFloat(totalIncomes) / expensesPerDay.length).toString()
+            )}{" "}
+            €
           </Text>
           <Text
             style={{
@@ -210,7 +235,11 @@ export const LeftComponent = ({
             /{" "}
           </Text>
           <Text style={{ color: "#c80815", fontWeight: "600" }}>
-            {formatAmount(totalExpenses)}€
+            {formatAmount(totalExpenses)} ~{" "}
+            {formatAmount(
+              (parseFloat(totalExpenses) / incomesPerDay.length).toString()
+            )}{" "}
+            €
           </Text>
         </View>
       )}
