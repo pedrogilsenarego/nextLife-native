@@ -26,12 +26,10 @@ export const RightComponent = memo(
       accValue.value = 0;
     }, []);
     return (
-      <View>
-        <ArrayButtons
-          buttons={["expenses", "incomes", "both"]}
-          onSelected={handleOnSelected}
-        />
-      </View>
+      <ArrayButtons
+        buttons={["expenses", "incomes", "both"]}
+        onSelected={handleOnSelected}
+      />
     );
   }
 );

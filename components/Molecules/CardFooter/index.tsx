@@ -30,9 +30,9 @@ export const CardFooter: React.FC<Props> = ({ handleMoveCarousel, index }) => {
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
-          paddingHorizontal: 10,
+          paddingHorizontal: 14,
           alignItems: "center",
-          paddingVertical: 10,
+          paddingVertical: 8,
         }}
       >
         <View style={{ width: "30%" }}>
@@ -79,7 +79,7 @@ export const CardFooter: React.FC<Props> = ({ handleMoveCarousel, index }) => {
           <Pressable
             onPress={() => setOpenFilters(true)}
             style={{
-              paddingVertical: 2,
+              paddingVertical: 1,
               paddingHorizontal: 10,
               borderRadius: 40,
               backgroundColor:

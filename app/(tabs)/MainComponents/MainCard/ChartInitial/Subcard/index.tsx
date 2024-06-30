@@ -2,7 +2,9 @@ import { Container } from "@/components/Atoms/Container";
 import { SharedValue } from "react-native-reanimated";
 import { LeftComponent } from "./LeftComponent";
 import { RightComponent } from "./RightComponent";
-import { View } from "react-native";
+import { View, Text } from "react-native";
+import { Colors } from "@/providers/ThemeContext";
+import { Divider } from "@/components/Atoms/Divider";
 
 type Props = {
   expensesPerDay: { value: number; label: string }[];
@@ -31,13 +33,22 @@ const Subcard = ({
   }
 
   return (
-    <Container containerStyles={{}}>
-      <View>
-        <RightComponent
-          setSelectedStatus={setSelectedStatus}
-          accValue={accValue}
-          setAmountToShow={setAmountToShow}
-        />
+    <>
+      <Container
+        containerStyles={{
+          marginVertical: 4,
+          flexDirection: "column",
+          rowGap: 10,
+        }}
+      >
+        <View style={{ flexDirection: "row" }}>
+          <RightComponent
+            setSelectedStatus={setSelectedStatus}
+            accValue={accValue}
+            setAmountToShow={setAmountToShow}
+          />
+        </View>
+        <Divider />
         <LeftComponent
           selectedStatus={selectedStatus}
           setSelectedStatus={setSelectedStatus}
@@ -46,8 +57,8 @@ const Subcard = ({
           expensesPerDay={expensesPerDay}
           incomesPerDay={incomesPerDay}
         />
-      </View>
-    </Container>
+      </Container>
+    </>
   );
 };
 

@@ -5,8 +5,6 @@ import Animated, {
   runOnJS,
   useAnimatedReaction,
   useAnimatedStyle,
-  useDerivedValue,
-  Easing,
   withTiming,
 } from "react-native-reanimated";
 import { Entypo, AntDesign } from "@expo/vector-icons";
@@ -22,10 +20,10 @@ export const StateSelecter: React.FC<Props> = ({
   index,
 }) => {
   const { mainColor, contrastColor, theme } = useTheme();
-  const BUTTON_WIDTH = 20;
+  const BUTTON_WIDTH = 18;
   const BUTTON_GAP = 0;
   const ICON_SIZE = 10;
-  const ICON_PADDING = 7;
+  const ICON_PADDING = 6;
   const BUTTON_PADDING = 2;
   const [selected, setSelected] = useState(0);
 

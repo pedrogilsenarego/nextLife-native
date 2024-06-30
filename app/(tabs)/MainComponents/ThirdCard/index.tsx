@@ -4,12 +4,10 @@ import useBusinesses from "@/hooks/useBusinesses";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 import { View, Pressable, ScrollView } from "react-native";
 import { BusinessCard } from "./BusinessCard";
-import BottomCard from "../BottomCard";
 import BottomPopup from "@/components/BottomPopup";
 import { useState } from "react";
 import { ModalBusinessContent } from "./ModalBusinessContent";
 import { useApp } from "@/providers/AppProvider";
-import { CardFooter } from "@/components/Molecules/CardFooter";
 
 const ThirdCard = () => {
   const businesses = useBusinesses();
