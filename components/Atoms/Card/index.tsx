@@ -3,7 +3,7 @@ import { View } from "react-native";
 
 type Props = {
   children: React.ReactNode;
-  footer?: React.ReactNode;
+  footer?: boolean;
 };
 
 export const Card: React.FC<Props> = ({ children, footer }) => {
@@ -28,7 +28,15 @@ export const Card: React.FC<Props> = ({ children, footer }) => {
       }}
     >
       {children}
-      {footer}
+      {footer && (
+        <View
+          style={{
+            borderTopWidth: 0.5,
+            height: 45,
+            borderTopColor: theme === "dark" ? "transparent" : Colors.gray,
+          }}
+        ></View>
+      )}
     </View>
   );
 };

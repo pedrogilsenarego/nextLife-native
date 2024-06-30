@@ -9,10 +9,15 @@ import { useState } from "react";
 
 import { View, Text, Pressable } from "react-native";
 import { FilterModal } from "./FilterModal";
+import { StateSelecter } from "@/app/(tabs)/MainComponents/Header/StateSelecter";
+import { SharedValue } from "react-native-reanimated";
 
-type Props = {};
+type Props = {
+  handleMoveCarousel: (index: number) => void;
+  index: SharedValue<number>;
+};
 
-export const CardFooter: React.FC<Props> = () => {
+export const CardFooter: React.FC<Props> = ({ handleMoveCarousel, index }) => {
   const expenses = useExpenses();
   const incomes = useIncomes();
   const { theme } = useTheme();
@@ -28,11 +33,14 @@ export const CardFooter: React.FC<Props> = () => {
           paddingHorizontal: 10,
           alignItems: "center",
           paddingVertical: 10,
-          borderTopWidth: 0.5,
-          borderTopColor: theme === "dark" ? "transparent" : Colors.gray,
         }}
       >
-        <View style={{ width: "30%" }}></View>
+        <View style={{ width: "30%" }}>
+          <StateSelecter
+            handleMoveCarousel={handleMoveCarousel}
+            index={index}
+          />
+        </View>
         <View
           style={{
             width: "40%",

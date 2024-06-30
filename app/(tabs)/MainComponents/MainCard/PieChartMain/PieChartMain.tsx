@@ -76,6 +76,7 @@ const PieChartMain = ({ businessSelected }: Props) => {
     "#ffb3b2",
     "#ffcccb",
     "#ffcccb66",
+    "#ffcccb40",
   ];
 
   const numberOfMonths =
@@ -315,25 +316,23 @@ const PieChartMain = ({ businessSelected }: Props) => {
             </Container>
 
             <View style={{ marginTop: 6 }}>
-              <Container>
-                <View
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
-                  {dataToRender?.map((item, index) => {
-                    return item.percentage <= 0 ? null : (
-                      <RenderItem
-                        item={item}
-                        key={index}
-                        index={index}
-                        numberOfMonths={numberOfMonths}
-                      />
-                    );
-                  })}
-                </View>
-              </Container>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                {dataToRender?.map((item, index) => {
+                  return item.percentage <= 0 ? null : (
+                    <RenderItem
+                      item={item}
+                      key={index}
+                      index={index}
+                      numberOfMonths={numberOfMonths}
+                    />
+                  );
+                })}
+              </View>
             </View>
           </View>
         )}

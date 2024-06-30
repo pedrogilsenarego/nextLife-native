@@ -23,7 +23,7 @@ const MainCard = () => {
   };
 
   return (
-    <Card footer={<CardFooter />}>
+    <Card footer>
       <ScrollView
         showsVerticalScrollIndicator={false}
         onScroll={handleScroll}

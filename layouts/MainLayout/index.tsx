@@ -18,6 +18,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { SideOptions } from "@/app/(tabs)/MainComponents/SideOptions";
 import { Colors } from "@/providers/ThemeContext";
+import { CardFooter } from "@/components/Molecules/CardFooter";
 
 type Props = {
   mainContent: React.ReactNode;
@@ -78,14 +79,16 @@ const MainLayout = ({
             ]}
           >
             <View style={{ position: "absolute", top: 14, zIndex: 20 }}>
-              <Header
-                handleMoveCarousel={handleMoveCarousel}
-                index={index}
-                setSideMenu={setSideMenu}
-              />
+              <Header setSideMenu={setSideMenu} />
             </View>
 
             {mainContent}
+            <View style={{ position: "absolute", bottom: 10, zIndex: 20 }}>
+              <CardFooter
+                handleMoveCarousel={handleMoveCarousel}
+                index={index}
+              />
+            </View>
           </RnAnimated.View>
           <RnAnimated.View
             style={[

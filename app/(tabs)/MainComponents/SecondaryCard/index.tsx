@@ -16,7 +16,7 @@ const SecondaryCard = () => {
   const incomes = useIncomes();
   const { theme } = useTheme();
   return (
-    <Card footer={<CardFooter />}>
+    <Card footer>
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{

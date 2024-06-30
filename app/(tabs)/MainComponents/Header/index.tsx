@@ -11,12 +11,10 @@ import { dateRangeLabel } from "@/mappers/dateRange";
 import { useApp } from "@/providers/AppProvider";
 
 type Props = {
-  handleMoveCarousel: (index: number) => void;
-  index: SharedValue<number>;
   setSideMenu: (sideMenu: boolean) => void;
 };
 
-export const Header = ({ handleMoveCarousel, index, setSideMenu }: Props) => {
+export const Header = ({ setSideMenu }: Props) => {
   const { theme } = useTheme();
   const userQuery = useUser();
   const expenses = useExpenses();
@@ -106,12 +104,6 @@ export const Header = ({ handleMoveCarousel, index, setSideMenu }: Props) => {
             alignItems: "center",
           }}
         >
-          <View>
-            <StateSelecter
-              handleMoveCarousel={handleMoveCarousel}
-              index={index}
-            />
-          </View>
           <Pressable
             style={{
               padding: 10,

@@ -19,7 +19,7 @@ const ThirdCard = () => {
   const [businessSelected, setBusinessSelected] = useState<number | null>(null);
 
   return (
-    <Card footer={<CardFooter />}>
+    <Card footer>
       <ScrollView
         showsVerticalScrollIndicator={false}
         scrollEventThrottle={16}

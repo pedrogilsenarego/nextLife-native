@@ -105,7 +105,7 @@ const useMetrics = ({ businessSelected }: Props = {}) => {
   };
 
   const calculateCategoryPercentage = (expensesData: Expense[]) => {
-    const minPercentage = expensesData.length > 10 ? 3 : 2;
+    const minPercentage = expensesData.length > 10 ? 2.5 : 1.5;
     const categoryTotal = expensesData.reduce((acc: any, expense) => {
       acc[expense.category] = (acc[expense.category] || 0) + expense.amount;
       return acc;

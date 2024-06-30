@@ -22,14 +22,17 @@ export const StateSelecter: React.FC<Props> = ({
   index,
 }) => {
   const { mainColor, contrastColor, theme } = useTheme();
-  const BUTTON_WIDTH = 24;
-  const BUTTON_GAP = 1;
+  const BUTTON_WIDTH = 20;
+  const BUTTON_GAP = 0;
+  const ICON_SIZE = 10;
+  const ICON_PADDING = 7;
+  const BUTTON_PADDING = 2;
   const [selected, setSelected] = useState(0);
 
   const animationLeft = useAnimatedStyle(() => {
     return {
-      left: 2,
-      top: 2,
+      left: BUTTON_PADDING,
+      top: BUTTON_PADDING,
       position: "absolute",
       backgroundColor: theme === "light" ? mainColor : Colors.black,
       borderRadius: 13,
@@ -38,7 +41,8 @@ export const StateSelecter: React.FC<Props> = ({
       transform: [
         {
           translateX: withTiming(
-            BUTTON_WIDTH * index.value + (BUTTON_GAP + 4) * index.value,
+            BUTTON_WIDTH * index.value +
+              (BUTTON_GAP + BUTTON_PADDING * 2) * index.value,
             {
               duration: 200,
             }
@@ -62,7 +66,7 @@ export const StateSelecter: React.FC<Props> = ({
     <View
       style={{
         backgroundColor: theme === "light" ? Colors.black : "#ffffff1A",
-        width: "auto",
+        width: BUTTON_WIDTH * 3 + BUTTON_PADDING * 2 + BUTTON_GAP * 2 + 8,
         borderRadius: 24,
         flexDirection: "row",
         display: "flex",
@@ -76,7 +80,7 @@ export const StateSelecter: React.FC<Props> = ({
         onPress={() => handleMoveCarousel(0)}
         style={{
           borderRadius: 18,
-          padding: 8,
+          padding: ICON_PADDING,
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -91,14 +95,14 @@ export const StateSelecter: React.FC<Props> = ({
                 : "#ffffff66"
               : contrastColor
           }
-          size={12}
+          size={ICON_SIZE}
         />
       </Pressable>
       <Pressable
         onPress={() => handleMoveCarousel(1)}
         style={{
           borderRadius: 18,
-          padding: 8,
+          padding: ICON_PADDING,
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -113,14 +117,14 @@ export const StateSelecter: React.FC<Props> = ({
                 : "#ffffff66"
               : contrastColor
           }
-          size={12}
+          size={ICON_SIZE}
         />
       </Pressable>
       <Pressable
         onPress={() => handleMoveCarousel(2)}
         style={{
           borderRadius: 18,
-          padding: 8,
+          padding: ICON_PADDING,
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -135,7 +139,7 @@ export const StateSelecter: React.FC<Props> = ({
                 : "#ffffff66"
               : contrastColor
           }
-          size={12}
+          size={ICON_SIZE}
         />
       </Pressable>
     </View>
