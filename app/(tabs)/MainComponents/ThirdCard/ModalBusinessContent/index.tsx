@@ -4,6 +4,7 @@ import { View, Text, ScrollView } from "react-native";
 import ChartInitial from "../../MainCard/ChartInitial";
 import PieChartMain from "../../MainCard/PieChartMain/PieChartMain";
 import { defaultBusiness } from "@/constants/defaultBusinesses";
+import useBusinesses from "@/hooks/useBusinesses";
 
 type Props = {
   business: Business;
@@ -11,6 +12,7 @@ type Props = {
 
 export const ModalBusinessContent: React.FC<Props> = ({ business }) => {
   const { theme } = useTheme();
+
   const businessLabel = defaultBusiness.find(
     (item) => item.value === business.type
   )?.label;
@@ -36,7 +38,7 @@ export const ModalBusinessContent: React.FC<Props> = ({ business }) => {
         </Text>
         <Text
           style={{
-            color: Colors.gray,
+            color: "gray",
             textTransform: "capitalize",
             fontSize: 12,
             fontWeight: "600",

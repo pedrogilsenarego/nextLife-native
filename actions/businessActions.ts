@@ -42,3 +42,42 @@ export const getBusinesses = async (): Promise<BusinessQuery> => {
     }
   });
 };
+
+export const addBusiness = async ({
+  businessName,
+  type,
+}: {
+  businessName: string;
+  type: number;
+}): Promise<string> => {
+  return new Promise(async (resolve, reject) => {
+    console.log("addBusiness", businessName);
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        return reject(new Error("User not authenticated"));
+      }
+
+      const { error: userError } = await supabase.from("business").upsert([
+        {
+          business_name: businessName,
+          type,
+          user_id: user.id,
+        },
+      ]);
+
+      if (userError) {
+        console.error(userError);
+        return reject(userError);
+      }
+
+      resolve("Success");
+    } catch (error) {
+      console.error(error);
+      reject(error);
+    }
+  });
+};

@@ -12,7 +12,7 @@ import { Pressable, Text, View } from "react-native";
 interface PickerPropsI extends PickerProps, UseControllerProps {
   label?: string;
   defaultValue?: string;
-  listOptions: { label: string; value: string }[];
+  listOptions: { label: string; value: string | number }[];
   left?: boolean;
   right?: boolean;
   height?: number;

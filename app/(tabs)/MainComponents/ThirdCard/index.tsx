@@ -9,6 +9,7 @@ import { useState } from "react";
 import { ModalBusinessContent } from "./ModalBusinessContent";
 import { useApp } from "@/providers/AppProvider";
 import { Container } from "@/components/Atoms/Container";
+import { AddBusiness } from "./AddBusiness";
 
 const ThirdCard = () => {
   const businesses = useBusinesses();
@@ -54,11 +55,26 @@ const ThirdCard = () => {
                 rowGap: 6,
               }}
             >
-              <View>
-                <Text
-                  style={{ fontSize: 18, fontWeight: "600", marginBottom: 15 }}
-                >
+              <View
+                style={{ display: "flex", flexDirection: "column", rowGap: 1 }}
+              >
+                <Text style={{ fontSize: 18, fontWeight: "600" }}>
                   Patrimony:
+                </Text>
+                <Text
+                  style={{ fontSize: 14, fontWeight: "500", color: "gray" }}
+                >
+                  Businesses: {businesses.data?.length || 0}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    fontWeight: "500",
+                    marginBottom: 10,
+                    color: "gray",
+                  }}
+                >
+                  Properties/Comodities: 1/1
                 </Text>
               </View>
               {businesses.data?.map((business, index) => {
@@ -71,11 +87,7 @@ const ThirdCard = () => {
                   />
                 );
               })}
-              <Container containerStyles={{ justifyContent: "center" }}>
-                <Text style={{ fontSize: 16, fontWeight: "600" }}>
-                  Add New Business +
-                </Text>
-              </Container>
+              <AddBusiness />
             </View>
           </Pressable>
         )}

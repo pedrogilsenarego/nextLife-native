@@ -17,7 +17,7 @@ export const Card: React.FC<Props> = ({ children, footer }) => {
         marginHorizontal: 4,
         shadowColor: "#000",
         shadowOffset: {
-          width: 0,
+          width: 2,
           height: 2,
         },
         shadowOpacity: 0.25,

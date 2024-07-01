@@ -5,6 +5,6 @@ export const defaultBusiness = [
   },
   {
     value: 1,
-    label: "Unipessoal",
+    label: "Business",
   },
 ];
