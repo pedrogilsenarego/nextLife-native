@@ -56,10 +56,15 @@ const ThirdCard = () => {
               }}
             >
               <View
-                style={{ display: "flex", flexDirection: "column", rowGap: 1 }}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  rowGap: 1,
+                  paddingLeft: 5,
+                }}
               >
                 <Text style={{ fontSize: 18, fontWeight: "600" }}>
-                  Patrimony:
+                  Patrimony: 323k
                 </Text>
                 <Text
                   style={{ fontSize: 14, fontWeight: "500", color: "gray" }}
@@ -70,11 +75,21 @@ const ThirdCard = () => {
                   style={{
                     fontSize: 14,
                     fontWeight: "500",
+
+                    color: "gray",
+                  }}
+                >
+                  Properties: 1
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    fontWeight: "500",
                     marginBottom: 10,
                     color: "gray",
                   }}
                 >
-                  Properties/Comodities: 1/1
+                  Veicules: 1
                 </Text>
               </View>
               {businesses.data?.map((business, index) => {
@@ -87,7 +102,7 @@ const ThirdCard = () => {
                   />
                 );
               })}
-              <AddBusiness />
+              {(businesses.data?.length || 5) < 5 && <AddBusiness />}
             </View>
           </Pressable>
         )}

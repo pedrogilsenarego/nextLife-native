@@ -64,7 +64,7 @@ export const AddBusiness: React.FC = () => {
               alignItems: "center",
               justifyContent: "center",
               flex: 1,
-              rowGap: 50,
+              rowGap: 20,
             }}
           >
             <Text
@@ -75,15 +75,17 @@ export const AddBusiness: React.FC = () => {
                 fontWeight: "bold",
               }}
             >
-              Add a note to this entry
+              New Business
             </Text>
             <ControlledInput name="businessName" />
-            <Select
-              height={160}
-              style={{ borderTopRightRadius: 6 }}
-              name="type"
-              listOptions={defaultBusiness}
-            />
+            <View style={{ width: "100%" }}>
+              <Select
+                height={160}
+                style={{ borderTopRightRadius: 6 }}
+                name="type"
+                listOptions={defaultBusiness}
+              />
+            </View>
             <View style={{ width: "100%" }}>
               <Button
                 isLoading={isPending}
