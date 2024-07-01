@@ -30,12 +30,12 @@ export const Container: React.FC<Props> = ({
     overflow: "hidden",
     columnGap: 5,
     alignItems: "flex-start",
-    shadowColor: "#000",
+    shadowColor: "black",
     shadowOffset: {
-      width: 2,
-      height: 2,
+      width: 3,
+      height: 3,
     },
-    shadowOpacity: 0.25,
+    shadowOpacity: 0.55,
     shadowRadius: 4,
     elevation: 2,
   };

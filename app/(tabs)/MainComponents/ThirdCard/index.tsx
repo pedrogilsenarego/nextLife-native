@@ -2,12 +2,13 @@ import { Card } from "@/components/Atoms/Card";
 import LoaderSpinner from "@/components/Atoms/LoaderSpinner";
 import useBusinesses from "@/hooks/useBusinesses";
 import { Colors, useTheme } from "@/providers/ThemeContext";
-import { View, Pressable, ScrollView } from "react-native";
+import { View, Pressable, ScrollView, Text } from "react-native";
 import { BusinessCard } from "./BusinessCard";
 import BottomPopup from "@/components/BottomPopup";
 import { useState } from "react";
 import { ModalBusinessContent } from "./ModalBusinessContent";
 import { useApp } from "@/providers/AppProvider";
+import { Container } from "@/components/Atoms/Container";
 
 const ThirdCard = () => {
   const businesses = useBusinesses();
@@ -49,10 +50,17 @@ const ThirdCard = () => {
               style={{
                 width: "100%",
                 paddingHorizontal: 4,
-                marginTop: 50,
+                marginTop: 20,
                 rowGap: 6,
               }}
             >
+              <View>
+                <Text
+                  style={{ fontSize: 18, fontWeight: "600", marginBottom: 15 }}
+                >
+                  Patrimony:
+                </Text>
+              </View>
               {businesses.data?.map((business, index) => {
                 return (
                   <BusinessCard
@@ -63,6 +71,11 @@ const ThirdCard = () => {
                   />
                 );
               })}
+              <Container containerStyles={{ justifyContent: "center" }}>
+                <Text style={{ fontSize: 16, fontWeight: "600" }}>
+                  Add New Business +
+                </Text>
+              </Container>
             </View>
           </Pressable>
         )}
