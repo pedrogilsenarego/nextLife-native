@@ -37,11 +37,11 @@ export const HorizontalBarChart: React.FC = () => {
                   borderRadius: 4,
                   width: `${item.value}%`,
                   height: "100%",
-                  shadowColor: "black",
-                  shadowOffset: { height: 2, width: 2 },
+                  shadowColor: "#000",
+                  shadowOffset: { height: 0, width: 2 },
                   shadowOpacity: 0.25,
-                  shadowRadius: 3,
-                  elevation: 3,
+                  shadowRadius: 2,
+                  elevation: 2,
                 }}
               />
             </View>

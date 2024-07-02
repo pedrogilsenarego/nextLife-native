@@ -27,7 +27,6 @@ export const Container: React.FC<Props> = ({
     borderLeftWidth: status ? 0 : undefined,
     borderColor: Colors.lightGray,
     justifyContent: "space-between",
-    overflow: "hidden",
     columnGap: 5,
     alignItems: "flex-start",
     shadowColor: "#000",
@@ -36,12 +35,16 @@ export const Container: React.FC<Props> = ({
       height: 2,
     },
     shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+    shadowRadius: 2,
     elevation: 2,
   };
 
   // Merge the default styles with the styles passed via props
-  const mergedStyles: StyleProp<ViewStyle> = [defaultStyles, containerStyles];
+  const mergedStyles: StyleProp<ViewStyle> = [
+    defaultStyles,
+    containerStyles,
+    { flex: 1 },
+  ];
 
   return (
     <View style={mergedStyles} {...props}>
@@ -49,9 +52,13 @@ export const Container: React.FC<Props> = ({
         <View
           style={{
             position: "absolute",
+            left: 0,
+            top: 0,
+            bottom: 0,
             width: 5,
-            height: "200%",
             backgroundColor: status,
+            borderTopLeftRadius: 6,
+            borderBottomLeftRadius: 6,
           }}
         />
       )}
