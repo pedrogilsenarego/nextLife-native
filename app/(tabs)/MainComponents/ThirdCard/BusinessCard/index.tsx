@@ -1,4 +1,5 @@
 import { Container } from "@/components/Atoms/Container";
+import { IconCard } from "@/components/Atoms/IconCard";
 import { defaultBusiness } from "@/constants/defaultBusinesses";
 import useMetrics from "@/hooks/useMetrics";
 import { Colors, useTheme } from "@/providers/ThemeContext";
@@ -78,29 +79,7 @@ export const BusinessCard: React.FC<Props> = ({ business, onPress }) => {
             rowGap: 5,
           }}
         >
-          <View
-            style={{
-              padding: 6,
-              borderRadius: 6,
-              borderWidth: 1,
-              backgroundColor: theme === "light" ? Colors.white : Colors.black,
-              borderColor: Colors.lightGray,
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 2,
-                height: 2,
-              },
-              shadowOpacity: 0.1,
-              shadowRadius: 1,
-              elevation: 2,
-            }}
-          >
-            <AntDesign
-              color={theme === "light" ? mainColor : Colors.greenPuke}
-              size={30}
-              name="gitlab"
-            />
-          </View>
+          <IconCard />
           <Text
             style={{
               fontWeight: "bold",

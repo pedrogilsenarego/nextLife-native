@@ -10,6 +10,7 @@ import { ModalBusinessContent } from "./ModalBusinessContent";
 import { useApp } from "@/providers/AppProvider";
 import { Container } from "@/components/Atoms/Container";
 import { AddBusiness } from "./AddBusiness";
+import { HorizontalBarChart } from "@/components/Organisms/HorizontalBarChart";
 
 const ThirdCard = () => {
   const businesses = useBusinesses();
@@ -92,6 +93,7 @@ const ThirdCard = () => {
                   Veicules: 1
                 </Text>
               </View>
+              <HorizontalBarChart />
               {businesses.data?.map((business, index) => {
                 return (
                   <BusinessCard
