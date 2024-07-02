@@ -1,32 +1,28 @@
 import { Container } from "@/components/Atoms/Container";
 import { IconCard } from "@/components/Atoms/IconCard";
 import { defaultBusiness } from "@/constants/defaultBusinesses";
-import useMetrics from "@/hooks/useMetrics";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 import { Business } from "@/types/businessTypes";
 import { getStatusColor } from "@/utils/business";
-import { AntDesign } from "@expo/vector-icons";
 import { View, Text, Pressable } from "react-native";
 
 type Props = {
-  business: Business;
+  businessData: { business: Business; balance: number };
   onPress: () => void;
 };
 
-export const BusinessCard: React.FC<Props> = ({ business, onPress }) => {
-  const { theme, mainColor } = useTheme();
-  const { getExpensesPerBusiness, getIncomesPerBusiness } = useMetrics();
+export const BusinessCard: React.FC<Props> = ({ businessData, onPress }) => {
+  const { theme } = useTheme();
+
   const businessLabel = defaultBusiness.find(
-    (item) => item.value === business.type
+    (item) => item.value === businessData.business.type
   )?.label;
-  const totalExpenses = getExpensesPerBusiness(business.id);
-  const totalIncomes = getIncomesPerBusiness(business.id);
-  const balance = totalIncomes - totalExpenses;
+
   return (
     <Pressable onPress={onPress}>
       <Container
-        status={getStatusColor(balance)}
-        key={business.id}
+        status={getStatusColor(businessData.balance)}
+        key={businessData.business.id}
         containerStyles={{
           flexDirection: "row",
           alignItems: "stretch",
@@ -48,7 +44,7 @@ export const BusinessCard: React.FC<Props> = ({ business, onPress }) => {
               color: theme === "light" ? "black" : "white",
             }}
           >
-            {business.businessName}
+            {businessData.business.businessName}
           </Text>
           <Text
             style={{
@@ -87,7 +83,7 @@ export const BusinessCard: React.FC<Props> = ({ business, onPress }) => {
               color: theme === "light" ? "black" : "white",
             }}
           >
-            {balance.toFixed(0)} €
+            {businessData.balance.toFixed(0)} €
           </Text>
         </View>
       </Container>

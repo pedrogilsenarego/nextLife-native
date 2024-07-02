@@ -7,17 +7,23 @@ import { BusinessCard } from "./BusinessCard";
 import BottomPopup from "@/components/BottomPopup";
 import { useState } from "react";
 import { ModalBusinessContent } from "./ModalBusinessContent";
-import { useApp } from "@/providers/AppProvider";
-import { Container } from "@/components/Atoms/Container";
 import { AddBusiness } from "./AddBusiness";
-import { HorizontalBarChart } from "@/components/Organisms/HorizontalBarChart";
+
+import { HorizontalBarChartBusiness } from "./HorizontalBarBusiness";
+import useMetrics from "@/hooks/useMetrics";
 
 const ThirdCard = () => {
   const businesses = useBusinesses();
-  const { addBusinessFilter } = useApp();
   const { theme } = useTheme();
-
   const [businessSelected, setBusinessSelected] = useState<number | null>(null);
+  const { getExpensesPerBusiness, getIncomesPerBusiness } = useMetrics();
+  const businessData =
+    businesses?.data?.map((business) => {
+      const totalExpenses = getExpensesPerBusiness(business.id);
+      const totalIncomes = getIncomesPerBusiness(business.id);
+      const balance = totalIncomes - totalExpenses;
+      return { business, balance };
+    }) || [];
 
   return (
     <Card footer>
@@ -59,45 +65,59 @@ const ThirdCard = () => {
               <View
                 style={{
                   display: "flex",
-                  flexDirection: "column",
-                  rowGap: 1,
-                  paddingLeft: 5,
+                  flexDirection: "row",
+                  columnGap: 5,
+                  alignItems: "center",
+                  paddingHorizontal: 2,
+                  justifyContent: "center",
                 }}
               >
-                <Text style={{ fontSize: 18, fontWeight: "600" }}>
-                  Patrimony: 323k
-                </Text>
-                <Text
-                  style={{ fontSize: 14, fontWeight: "500", color: "gray" }}
-                >
-                  Businesses: {businesses.data?.length || 0}
-                </Text>
-                <Text
+                <View
                   style={{
-                    fontSize: 14,
-                    fontWeight: "500",
+                    display: "flex",
+                    flexDirection: "column",
+                    rowGap: 1,
+                    paddingLeft: 5,
+                    width: "40%",
+                  }}
+                >
+                  <Text style={{ fontSize: 16, fontWeight: "600" }}>
+                    Patrimony: 323k
+                  </Text>
+                  <Text
+                    style={{ fontSize: 14, fontWeight: "500", color: "gray" }}
+                  >
+                    Businesses: {businesses.data?.length || 0}
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      fontWeight: "500",
 
-                    color: "gray",
-                  }}
-                >
-                  Properties: 1
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    fontWeight: "500",
-                    marginBottom: 10,
-                    color: "gray",
-                  }}
-                >
-                  Veicules: 1
-                </Text>
+                      color: "gray",
+                    }}
+                  >
+                    Properties: 1
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      fontWeight: "500",
+                      marginBottom: 10,
+                      color: "gray",
+                    }}
+                  >
+                    Veicules: 1
+                  </Text>
+                </View>
+                <View style={{ width: "60%" }}>
+                  <HorizontalBarChartBusiness businessData={businessData} />
+                </View>
               </View>
-              <HorizontalBarChart />
-              {businesses.data?.map((business, index) => {
+              {businessData?.map((businessData, index) => {
                 return (
                   <BusinessCard
-                    business={business}
+                    businessData={businessData}
                     onPress={() => {
                       setBusinessSelected(index);
                     }}

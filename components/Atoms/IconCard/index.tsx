@@ -2,12 +2,16 @@ import { Colors, useTheme } from "@/providers/ThemeContext";
 import { AntDesign } from "@expo/vector-icons";
 import { View } from "react-native";
 
-export const IconCard: React.FC = () => {
+type Props = {
+  size?: number;
+};
+
+export const IconCard: React.FC<Props> = ({ size }) => {
   const { theme, mainColor } = useTheme();
   return (
     <View
       style={{
-        padding: 6,
+        padding: size ? size / 4 : 6,
         borderRadius: 6,
         borderWidth: 1,
         backgroundColor: theme === "light" ? Colors.white : Colors.black,
@@ -24,7 +28,7 @@ export const IconCard: React.FC = () => {
     >
       <AntDesign
         color={theme === "light" ? mainColor : Colors.greenPuke}
-        size={30}
+        size={size || 30}
         name="gitlab"
       />
     </View>
