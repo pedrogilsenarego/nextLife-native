@@ -10,5 +10,6 @@ export type Business = {
     filters: {
       balanceStatus: boolean;
     };
+    icon: number;
   };
 };

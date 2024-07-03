@@ -74,11 +74,11 @@ export const HorizontalBarChart: React.FC<Props> = ({ data, height }) => {
                     (minValue < 0 ? 2 : 1)
                   }%`,
                   height: "100%",
-                  shadowColor: "#000",
-                  shadowOffset: { height: 0, width: 2 },
-                  shadowOpacity: 0.25,
-                  shadowRadius: 2,
-                  elevation: 2,
+                  //   shadowColor: "#000",
+                  //   shadowOffset: { height: 0, width: 2 },
+                  //   shadowOpacity: 0.25,
+                  //   shadowRadius: 2,
+                  //   elevation: 2,
                 }}
               />
             </View>
