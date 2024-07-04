@@ -6,10 +6,10 @@ export type Business = {
   created_at: Date;
   id: string;
   type: number;
+  iconType: number;
   settings: {
     filters: {
       balanceStatus: boolean;
     };
-    icon: number;
   };
 };

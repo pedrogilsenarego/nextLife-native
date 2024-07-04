@@ -11,6 +11,7 @@ export const HorizontalBarChartBusiness: React.FC<Props> = ({
   const data = businessData?.map((businessData) => {
     return {
       value: businessData.balance,
+      iconId: businessData.business.iconType,
     };
   });
   return <HorizontalBarChart data={data} height={12} />;

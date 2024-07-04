@@ -1,3 +1,4 @@
+import { useBusinessIcons } from "@/constants/useBusinessIcons";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 import { AntDesign } from "@expo/vector-icons";
 import { CSSProperties } from "react";
@@ -5,12 +6,19 @@ import { View, ViewStyle } from "react-native";
 
 type Props = {
   size?: number;
-  icon?: React.ReactNode;
+
   containerStyles?: ViewStyle;
+  iconId?: number;
 };
 
-export const IconCard: React.FC<Props> = ({ size, icon, containerStyles }) => {
+export const IconCard: React.FC<Props> = ({
+  size,
+  containerStyles,
+  iconId,
+}) => {
   const { theme, mainColor } = useTheme();
+  const businessIcons = useBusinessIcons({ size: size || 30 });
+  const icon = businessIcons[iconId || 0].icon;
   return (
     <View
       style={{
@@ -30,13 +38,7 @@ export const IconCard: React.FC<Props> = ({ size, icon, containerStyles }) => {
         // elevation: 2,
       }}
     >
-      {icon || (
-        <AntDesign
-          color={theme === "light" ? mainColor : Colors.greenPuke}
-          size={size || 30}
-          name="gitlab"
-        />
-      )}
+      {icon}
     </View>
   );
 };

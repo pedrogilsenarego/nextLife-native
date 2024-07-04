@@ -7,6 +7,7 @@ type Props = {
   height?: number;
   data: {
     value: number;
+    iconId: number;
   }[];
 };
 
@@ -36,7 +37,7 @@ export const HorizontalBarChart: React.FC<Props> = ({ data, height }) => {
             }}
           >
             <View style={{ display: "flex", flexDirection: "row" }}>
-              <IconCard size={height} />
+              <IconCard iconId={item.iconId} size={height} />
             </View>
             <View
               style={{

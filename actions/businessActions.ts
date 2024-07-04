@@ -28,10 +28,10 @@ export const getBusinesses = async (): Promise<BusinessQuery> => {
           user_id: business.user_id,
           type: business.type,
           id: business.id,
+          iconType: business.icon_type,
           created_at: business.created_at,
           settings: business.settings,
-          businessName: business.business_name, // Mapping business_name to businessName
-          // Add other fields as needed
+          businessName: business.business_name,
         })
       );
 
@@ -72,6 +72,43 @@ export const addBusiness = async ({
       if (userError) {
         console.error(userError);
         return reject(userError);
+      }
+
+      resolve("Success");
+    } catch (error) {
+      console.error(error);
+      reject(error);
+    }
+  });
+};
+
+export const updateBusinessIconType = async ({
+  businessId,
+  iconType,
+}: {
+  businessId: string;
+  iconType: number;
+}): Promise<string> => {
+  return new Promise(async (resolve, reject) => {
+    console.log("updateBusinessIconType", businessId, iconType);
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        return reject(new Error("User not authenticated"));
+      }
+
+      const { error: updateError } = await supabase
+        .from("business")
+        .update({ icon_type: iconType })
+        .eq("id", businessId)
+        .eq("user_id", user.id);
+
+      if (updateError) {
+        console.error("updateError", updateError);
+        return reject(updateError);
       }
 
       resolve("Success");

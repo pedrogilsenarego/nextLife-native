@@ -1,6 +1,7 @@
 import { Container } from "@/components/Atoms/Container";
 import { IconCard } from "@/components/Atoms/IconCard";
 import { defaultBusiness } from "@/constants/defaultBusinesses";
+import { useBusinessIcons } from "@/constants/useBusinessIcons";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 import { Business } from "@/types/businessTypes";
 import { getStatusColor } from "@/utils/business";
@@ -17,6 +18,8 @@ export const BusinessCard: React.FC<Props> = ({ businessData, onPress }) => {
   const businessLabel = defaultBusiness.find(
     (item) => item.value === businessData.business.type
   )?.label;
+  const businessIcons = useBusinessIcons({ size: 30 });
+  const businessIcon = businessData.business?.iconType || 0;
 
   return (
     <Pressable onPress={onPress}>
@@ -75,7 +78,7 @@ export const BusinessCard: React.FC<Props> = ({ businessData, onPress }) => {
             rowGap: 5,
           }}
         >
-          <IconCard />
+          <IconCard iconId={businessIcon} size={30} />
           <Text
             style={{
               fontWeight: "bold",

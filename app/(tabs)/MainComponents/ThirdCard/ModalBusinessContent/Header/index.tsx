@@ -7,19 +7,19 @@ import { Colors, useTheme } from "@/providers/ThemeContext";
 import { Business } from "@/types/businessTypes";
 import { useState } from "react";
 import { View, Text, Pressable, FlatList } from "react-native";
+import { Icon } from "./Icon";
 
 type Props = {
   business: Business;
 };
 
 export const Header: React.FC<Props> = ({ business }) => {
-  const { theme, mainColor } = useTheme();
-  const [openModalIcons, setOpenModalIcons] = useState(false);
-  const businessIcons = useBusinessIcons({ size: 40 });
+  const { theme } = useTheme();
+
   const businessLabel = defaultBusiness.find(
     (item) => item.value === business.type
   )?.label;
-  const businessIcon = business.settings.icon || 0;
+
   return (
     <>
       <View
@@ -32,9 +32,7 @@ export const Header: React.FC<Props> = ({ business }) => {
           columnGap: 10,
         }}
       >
-        <Pressable onPress={() => setOpenModalIcons(true)}>
-          <IconCard icon={businessIcons[businessIcon].icon} size={40} />
-        </Pressable>
+        <Icon business={business} />
         <View>
           <Text
             style={{
@@ -58,39 +56,6 @@ export const Header: React.FC<Props> = ({ business }) => {
           </Text>
         </View>
       </View>
-      <BottomPopup
-        fullHeight
-        closeIcon
-        openModal={openModalIcons}
-        onClose={() => setOpenModalIcons(false)}
-      >
-        <FlatList
-          data={businessIcons}
-          keyExtractor={(item) => item.value.toString()}
-          renderItem={({ item }) => (
-            <IconCard
-              icon={item.icon}
-              size={45}
-              containerStyles={{
-                borderWidth: item.value === businessIcon ? 3 : 1,
-                borderColor:
-                  item.value === businessIcon ? mainColor : Colors.lightGray,
-                margin: 5, // Adjust as needed for spacing
-              }}
-            />
-          )}
-          numColumns={4} // Adjust this number based on how many columns you want
-          contentContainerStyle={{
-            flex: 1,
-
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          columnWrapperStyle={{
-            justifyContent: "space-between",
-          }}
-        />
-      </BottomPopup>
     </>
   );
 };
