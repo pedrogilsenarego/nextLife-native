@@ -16,9 +16,16 @@ type Props = {
   data2?: DataType[];
   color1: string;
   color2?: string;
+  avg?: boolean;
 };
 
-export const LineChartGifted = ({ data, data2, color1, color2 }: Props) => {
+export const LineChartGifted = ({
+  data,
+  data2,
+  color1,
+  color2,
+  avg = true,
+}: Props) => {
   const { theme } = useTheme();
   const { changeSelectedDate } = useApp();
   const width = Dimensions.get("window").width - 12;
@@ -34,10 +41,30 @@ export const LineChartGifted = ({ data, data2, color1, color2 }: Props) => {
     ...(data2 ? data2.map((item) => item.value) : [])
   );
 
-  // Round down the minimum value to the nearest multiple of 1000
   const roundedOffset = Math.floor(minDataValue / 1000) * 1000;
 
   const pan = Gesture.Pan();
+
+  const averageValue1 =
+    avg && data
+      ? data.reduce((acc, item) => acc + item.value, 0) / data.length
+      : null;
+  const averageValue2 =
+    avg && data2
+      ? data2.reduce((acc, item) => acc + item.value, 0) / data.length
+      : null;
+
+  const data3 = data.map((item) => ({
+    label: item.label,
+    value: averageValue1 || 0, // Ensure value is a number
+  }));
+
+  const data4 = data2?.map((item) => ({
+    label: item.label,
+    value: averageValue2 || 0, // Ensure value is a number
+  }));
+
+  console.log(averageValue1);
 
   return (
     <GestureDetector gesture={pan}>
@@ -53,6 +80,8 @@ export const LineChartGifted = ({ data, data2, color1, color2 }: Props) => {
             color: theme === "light" ? "black" : "white",
           }}
           data2={data2}
+          data3={data3}
+          data4={data4}
           trimYAxisAtTop
           isAnimated
           yAxisOffset={roundedOffset}
@@ -94,12 +123,18 @@ export const LineChartGifted = ({ data, data2, color1, color2 }: Props) => {
           curvature={0}
           curved
           hideRules
+          strokeDashArray3={[2, 2]}
+          strokeDashArray4={[2, 2]}
           width={width}
           hideDataPoints
           color={color1}
           color2={color2}
+          color3={`${color1}66`}
+          color4={`${color2}66`}
           startFillColor={color1}
           startFillColor2={color2}
+          startFillColor3=""
+          startFillColor4=""
           startOpacity={theme === "dark" ? 0.4 : 0.8}
           startOpacity2={theme === "dark" ? 0.4 : 0.8}
           endOpacity={0}
