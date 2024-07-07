@@ -26,6 +26,7 @@ export const HorizontalBarChart: React.FC<Props> = ({ data, height }) => {
             : item.value > 0 && minValue < 0
             ? 50
             : 50 - (Math.abs(item.value) / absoluteMax) * 50;
+        console.log(leftPercentage);
         return (
           <View
             key={index}
@@ -67,17 +68,30 @@ export const HorizontalBarChart: React.FC<Props> = ({ data, height }) => {
                   left: `${leftPercentage}%`,
                   backgroundColor: mainColor,
                   flex: 1,
-                  //borderRadius: 4,
+                  borderTopStartRadius:
+                    leftPercentage === 0 && minValue < 0 ? 2 : 0,
+                  borderBottomStartRadius:
+                    leftPercentage === 0 && minValue < 0 ? 2 : 0,
+                  borderTopEndRadius:
+                    (leftPercentage === 0 && minValue > 0) ||
+                    leftPercentage === 50
+                      ? 3
+                      : 0,
+                  borderBottomEndRadius:
+                    (leftPercentage === 0 && minValue > 0) ||
+                    leftPercentage === 50
+                      ? 2
+                      : 0,
                   width: `${
                     ((Math.abs(item.value) / absoluteMax) * 100) /
                     (minValue < 0 ? 2 : 1)
                   }%`,
                   height: "100%",
                   //   shadowColor: "#000",
-                  //   shadowOffset: { height: 0, width: 2 },
-                  //   shadowOpacity: 0.25,
-                  //   shadowRadius: 2,
-                  //   elevation: 2,
+                  //   shadowOffset: { height: 0, width: 4 },
+                  //   shadowOpacity: 0.45,
+                  //   shadowRadius: 4,
+                  //   elevation: 4,
                 }}
               />
             </View>

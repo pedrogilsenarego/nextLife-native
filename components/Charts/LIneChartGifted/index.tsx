@@ -64,8 +64,6 @@ export const LineChartGifted = ({
     value: averageValue2 || 0, // Ensure value is a number
   }));
 
-  console.log(averageValue1);
-
   return (
     <GestureDetector gesture={pan}>
       <Pressable style={{ position: "relative" }}>
@@ -93,6 +91,8 @@ export const LineChartGifted = ({
           yAxisColor={"transparent"}
           xAxisColor={"transparent"}
           pointerConfig={{
+            hidePointer3: true,
+            hidePointer4: true,
             pointerComponent: () => {
               return (
                 <View
@@ -129,14 +129,16 @@ export const LineChartGifted = ({
           hideDataPoints
           color={color1}
           color2={color2}
-          color3={`${color1}66`}
-          color4={`${color2}66`}
+          color3={`${color1}40`}
+          color4={color2 ? `${color2}40` : undefined}
           startFillColor={color1}
           startFillColor2={color2}
-          startFillColor3=""
-          startFillColor4=""
+          startFillColor3="transparent"
+          startFillColor4="transparent"
           startOpacity={theme === "dark" ? 0.4 : 0.8}
           startOpacity2={theme === "dark" ? 0.4 : 0.8}
+          startOpacity3={0}
+          startOpacity4={0}
           endOpacity={0}
           endOpacity2={0}
         />
