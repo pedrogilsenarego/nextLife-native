@@ -1,44 +1,28 @@
-import { updateBusinessIconType } from "@/actions/businessActions";
 import { IconCard } from "@/components/Atoms/IconCard";
 import BottomPopup from "@/components/BottomPopup";
 import { useBusinessIcons } from "@/constants/useBusinessIcons";
-import useBusinesses from "@/hooks/useBusinesses";
 import { Colors, useTheme } from "@/providers/ThemeContext";
-import { Business } from "@/types/businessTypes";
-import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
 import { FlatList, Pressable } from "react-native";
 
 type Props = {
-  business: Business;
+  iconId: number;
+  setOpenModalIcons: (openModalIcons: boolean) => void;
+  openModalIcons: boolean;
+  handleSelectIcon: (icon: number) => void;
 };
 
-export const Icon: React.FC<Props> = ({ business }) => {
-  const businesses = useBusinesses();
-  const { mainColor } = useTheme();
-  const [openModalIcons, setOpenModalIcons] = useState(false);
+export const IconSelectModal: React.FC<Props> = ({
+  setOpenModalIcons,
+  iconId,
+  openModalIcons,
+  handleSelectIcon,
+}) => {
   const businessIcons = useBusinessIcons({ size: 40 });
-
-  const businessIcon = business?.iconType || 0;
-
-  const { mutate: updateIconMutation, isPending } = useMutation({
-    mutationFn: updateBusinessIconType,
-    onError: (error: any) => {
-      console.log("error", error);
-    },
-    onSuccess: (data: any) => {
-      businesses.refetch();
-      setOpenModalIcons(false);
-    },
-  });
-
-  const handleSelectIcon = (value: number) => {
-    updateIconMutation({ businessId: business.id, iconType: value });
-  };
+  const { mainColor } = useTheme();
   return (
     <>
       <Pressable onPress={() => setOpenModalIcons(true)}>
-        <IconCard iconId={businessIcon} size={40} />
+        <IconCard iconId={iconId} size={40} />
       </Pressable>
       <BottomPopup
         fullHeight
@@ -55,15 +39,15 @@ export const Icon: React.FC<Props> = ({ business }) => {
                 iconId={item.value}
                 size={45}
                 containerStyles={{
-                  borderWidth: item.value === businessIcon ? 3 : 1,
+                  borderWidth: item.value === iconId ? 3 : 1,
                   borderColor:
-                    item.value === businessIcon ? mainColor : Colors.lightGray,
-                  margin: 5, // Adjust as needed for spacing
+                    item.value === iconId ? mainColor : Colors.lightGray,
+                  margin: 5,
                 }}
               />
             </Pressable>
           )}
-          numColumns={4} // Adjust this number based on how many columns you want
+          numColumns={4}
           contentContainerStyle={{
             flex: 1,
 

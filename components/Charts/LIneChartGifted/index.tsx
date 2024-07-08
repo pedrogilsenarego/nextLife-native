@@ -88,6 +88,8 @@ export const LineChartGifted = ({
           areaChart
           spacing={(width - 75) / (data.length - 1 === 0 ? 1 : data.length - 1)}
           thickness={1.5}
+          thickness3={1}
+          thickness4={1}
           yAxisColor={"transparent"}
           xAxisColor={"transparent"}
           pointerConfig={{

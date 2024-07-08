@@ -13,12 +13,14 @@ import { addBusiness } from "@/actions/businessActions";
 import Select from "@/components/inputs/Select";
 import { defaultBusiness } from "@/constants/defaultBusinesses";
 import useBusinesses from "@/hooks/useBusinesses";
+import { IconSelector } from "./IconSelector";
 
 export const AddBusiness: React.FC = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const { theme } = useTheme();
   const business = useBusinesses();
   const defaultValues = {
+    iconType: 0,
     businessName: undefined,
     type: 0,
   };
@@ -39,7 +41,6 @@ export const AddBusiness: React.FC = () => {
   });
 
   const onSubmit: SubmitHandler<NewBusinessType> = (data) => {
-    //console.log(data);
     addBusinessMutation(data);
   };
   return (
@@ -67,6 +68,7 @@ export const AddBusiness: React.FC = () => {
               rowGap: 20,
             }}
           >
+            <IconSelector />
             <Text
               style={{
                 color: theme === "dark" ? "white" : "black",

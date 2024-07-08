@@ -1,13 +1,8 @@
-import { Container } from "@/components/Atoms/Container";
-import { IconCard } from "@/components/Atoms/IconCard";
-import BottomPopup from "@/components/BottomPopup";
 import { defaultBusiness } from "@/constants/defaultBusinesses";
-import { useBusinessIcons } from "@/constants/useBusinessIcons";
-import { Colors, useTheme } from "@/providers/ThemeContext";
+import { useTheme } from "@/providers/ThemeContext";
 import { Business } from "@/types/businessTypes";
-import { useState } from "react";
 import { View, Text, Pressable, FlatList } from "react-native";
-import { Icon } from "./Icon";
+import { IconSelector } from "./IconSelector";
 
 type Props = {
   business: Business;
@@ -32,7 +27,7 @@ export const Header: React.FC<Props> = ({ business }) => {
           columnGap: 10,
         }}
       >
-        <Icon business={business} />
+        <IconSelector business={business} />
         <View>
           <Text
             style={{
