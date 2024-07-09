@@ -20,7 +20,7 @@ type Props = {
 export const CardFooter: React.FC<Props> = ({ handleMoveCarousel, index }) => {
   const expenses = useExpenses();
   const incomes = useIncomes();
-  const { theme } = useTheme();
+  const { theme, mainColor } = useTheme();
   const { dateRange } = useApp();
   const [openFilters, setOpenFilters] = useState<boolean>(false);
   return (
@@ -82,8 +82,9 @@ export const CardFooter: React.FC<Props> = ({ handleMoveCarousel, index }) => {
               paddingVertical: 1,
               paddingHorizontal: 10,
               borderRadius: 40,
+
               backgroundColor:
-                theme === "dark" ? "#ffffff0F" : Colors.lightGray,
+                theme === "dark" ? "#ffffff0F" : `${mainColor}0D`,
               display: "flex",
               alignItems: "center",
               flexDirection: "row",

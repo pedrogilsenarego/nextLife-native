@@ -118,3 +118,34 @@ export const updateBusinessIconType = async ({
     }
   });
 };
+
+export const deleteBusiness = async (businessId: string): Promise<string> => {
+  return new Promise(async (resolve, reject) => {
+    console.log("Deleting business with ID:", businessId);
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        return reject(new Error("User not authenticated"));
+      }
+
+      const { error: deleteError } = await supabase
+        .from("business")
+        .delete()
+        .eq("id", businessId)
+        .eq("user_id", user.id);
+
+      if (deleteError) {
+        console.error("Error deleting business:", deleteError);
+        return reject(deleteError.message);
+      }
+
+      resolve("Business deleted successfully");
+    } catch (error) {
+      console.error("Error deleting business:", error);
+      reject(error);
+    }
+  });
+};

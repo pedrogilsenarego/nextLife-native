@@ -26,7 +26,12 @@ export const getExpenses = async ({
 
       const { data: expenses, error: expensesError } = await supabase
         .from("expenses")
-        .select("*")
+        .select(
+          `
+        *,
+        business:businessId (icon_type)
+      `
+        )
         .eq("user_id", user.id)
         .gt("created_at", currentMonthStart.toISOString())
         .lt("created_at", currentDate.toISOString())

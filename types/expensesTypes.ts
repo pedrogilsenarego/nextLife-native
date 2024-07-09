@@ -6,6 +6,7 @@ export type Expense = {
   id: string;
   category: string;
   amount: number;
+  icon_type: number;
 };
 
 export type ExpensesQuery = Expense[];

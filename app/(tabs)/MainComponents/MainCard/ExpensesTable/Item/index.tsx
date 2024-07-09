@@ -1,6 +1,7 @@
 import { deleteExpenses } from "@/actions/expensesActions";
 import { deleteIncomes } from "@/actions/incomesActions";
 import LoaderSpinner from "@/components/Atoms/LoaderSpinner";
+import { useBusinessIcons } from "@/constants/useBusinessIcons";
 import useExpenses from "@/hooks/useExpenses";
 import useIncomes from "@/hooks/useIncomes";
 import { Colors, useTheme } from "@/providers/ThemeContext";
@@ -18,6 +19,7 @@ type Props = {
 
 const Item = ({ expense, handleDelete, handleRemoveDelete }: Props) => {
   const expenses = useExpenses();
+  const icons = useBusinessIcons({ size: 30 });
   const incomes = useIncomes();
   const { theme } = useTheme();
   const dateFormatter = (date: Date) => {
@@ -89,7 +91,7 @@ const Item = ({ expense, handleDelete, handleRemoveDelete }: Props) => {
           justifyContent: "space-between",
         }}
       >
-        <View style={{ rowGap: 3 }}>
+        <View style={{ rowGap: 3, width: "40%" }}>
           <Text
             style={{
               color: theme === "light" ? Colors.black : "white",
@@ -105,7 +107,22 @@ const Item = ({ expense, handleDelete, handleRemoveDelete }: Props) => {
             style={{ opacity: 0.8, marginLeft: 5 }}
           />
         </View>
-        <View style={{ alignItems: "flex-end" }}>
+        <View
+          style={{
+            opacity: 0.05,
+            width: "20%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "row",
+            overflow: "hidden",
+          }}
+        >
+          {expense?.business?.icon_type &&
+            icons[expense?.business?.icon_type].icon}
+        </View>
+        <View style={{ alignItems: "flex-end", width: "40%" }}>
           <Text
             style={{
               color: theme === "light" ? Colors.black : "white",
