@@ -136,11 +136,11 @@ const ThirdCard = () => {
                   }}
                 >
                   Start by adding a new{" "}
-                  <Text style={{ fontWeight: 800 }}>business</Text>, this will
+                  <Text style={{ fontWeight: 800 }}>Business</Text>, this will
                   be used to distinguish between different areas of where your{" "}
-                  <Text style={{ fontWeight: 800 }}>finances</Text> on your
+                  <Text style={{ fontWeight: 800 }}>Finances</Text> on your
                   life. For example you can yave your job, your freelance and a
-                  propriety to be your businesses.
+                  propriety to be your portfolio of businesses.
                 </Text>
               )}
               {(businesses.data?.length || 0) < 5 && <AddBusiness />}
