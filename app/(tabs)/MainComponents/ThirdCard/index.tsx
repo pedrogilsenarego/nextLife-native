@@ -124,24 +124,39 @@ const ThirdCard = () => {
                   />
                 );
               })}
-              {businesses.data?.length === 0 && (
-                <Text
-                  style={{
-                    textAlign: "center",
-                    color: "gray",
-                    marginTop: 20,
-                    paddingVertical: 20,
-                    paddingHorizontal: 10,
-                    lineHeight: 20,
-                  }}
-                >
-                  Start by adding a new{" "}
-                  <Text style={{ fontWeight: 800 }}>Business</Text>, this will
-                  be used to distinguish between different areas of where your{" "}
-                  <Text style={{ fontWeight: 800 }}>Finances</Text> on your
-                  life. For example you can yave your job, your freelance and a
-                  propriety to be your portfolio of businesses.
-                </Text>
+              {(businesses.data?.length || 0) < 1 && (
+                <View style={{ paddingHorizontal: 20 }}>
+                  <Text
+                    style={{
+                      textAlign: "center",
+                      color: "gray",
+                      marginTop: 20,
+
+                      paddingTop: 10,
+                      lineHeight: 20,
+                    }}
+                  >
+                    Start by adding a new{" "}
+                    <Text style={{ fontWeight: 800 }}>Business</Text>, this will
+                    be used to distinguish between different areas of where your{" "}
+                    <Text style={{ fontWeight: 800 }}>Finances</Text> on your
+                    life.
+                  </Text>
+                  <Text
+                    style={{
+                      textAlign: "center",
+                      color: "gray",
+                      paddingTop: 10,
+                      paddingBottom: 20,
+
+                      lineHeight: 20,
+                    }}
+                  >
+                    {" "}
+                    For example you can yave your job, your freelance and a
+                    propriety to be your portfolio of businesses.
+                  </Text>
+                </View>
               )}
               {(businesses.data?.length || 0) < 5 && <AddBusiness />}
             </View>

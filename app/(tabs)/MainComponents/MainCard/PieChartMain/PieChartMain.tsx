@@ -280,7 +280,7 @@ const PieChartMain = ({ businessSelected }: Props) => {
                   style={{
                     textAlign: "right",
                     fontSize: 12,
-                    color: theme === "light" ? "black" : "whitesmoke",
+                    color: theme === "light" ? "gray" : "whitesmoke",
                   }}
                 >
                   did you know that this month you spend more than usual at
@@ -290,7 +290,7 @@ const PieChartMain = ({ businessSelected }: Props) => {
                   style={{
                     textAlign: "right",
                     fontSize: 12,
-                    color: theme === "light" ? "black" : "whitesmoke",
+                    color: theme === "light" ? "gray" : "whitesmoke",
                   }}
                 >
                   in average your car is more expensive than your travels
@@ -299,7 +299,7 @@ const PieChartMain = ({ businessSelected }: Props) => {
                   style={{
                     textAlign: "right",
                     fontSize: 12,
-                    color: theme === "light" ? "black" : "whitesmoke",
+                    color: theme === "light" ? "gray" : "whitesmoke",
                   }}
                 >
                   You must be a healthy person since your help expenses are

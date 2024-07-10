@@ -87,170 +87,149 @@ const Form = ({ listBusiness }: Props) => {
   }, [mode, methods]);
 
   return (
-    <View
-      style={{ alignItems: "center", width: "100%", paddingHorizontal: 20 }}
-    >
-      <Text
-        style={{
-          fontSize: 20,
-          fontWeight: "bold",
-          marginTop: 14,
-          color: theme === "dark" ? "white" : "black",
-        }}
-      >
-        Add new entry
-      </Text>
+    <View style={{ width: "100%", marginTop: 50 }}>
+      <FormProvider {...methods}>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            width: "100%",
 
-      <View style={{ width: "100%", marginTop: 50 }}>
-        <FormProvider {...methods}>
+            borderRadius: 4,
+
+            justifyContent: "space-between",
+          }}
+        >
           <View
             style={{
+              height: "100%",
+              width: "50%",
+
               flexDirection: "row",
               alignItems: "center",
-              width: "100%",
-
-              borderRadius: 4,
-
-              justifyContent: "space-between",
             }}
           >
-            <View
-              style={{
-                height: "100%",
-                width: "50%",
-
-                flexDirection: "row",
-                alignItems: "center",
-              }}
-            >
-              <ArrayButtons
-                buttons={["expense", "income"]}
-                onSelected={(selected) => setMode(selected)}
-              />
-            </View>
-            <View
-              style={{
-                width: "50%",
-                display: "flex",
-                alignItems: "flex-end",
-              }}
-            >
-              <ControlledInput
-                variant="big"
-                keyboardType="decimal-pad"
-                name="amount"
-                placeholder="0.0"
-                units="€"
-              />
-            </View>
-          </View>
-          <View style={{ marginTop: -8 }}>
-            <Divider />
+            <ArrayButtons
+              buttons={["expense", "income"]}
+              onSelected={(selected) => setMode(selected)}
+            />
           </View>
           <View
             style={{
-              flexDirection: "row",
-              position: "relative",
-              justifyContent: "space-between",
-              paddingVertical: 40,
+              width: "50%",
+              display: "flex",
+              alignItems: "flex-end",
             }}
           >
-            <View style={{ position: "absolute", right: 8, top: 8 }}>
-              <FontAwesome
-                name="question-circle"
-                size={23}
-                color={theme === "dark" ? "#ffffff66" : "black"}
-              />
-            </View>
-            <View style={{ width: "49%" }}>
-              <Select
-                left
-                height={160}
-                style={{ borderTopRightRadius: 6 }}
-                name="businessId"
-                listOptions={listBusiness}
-                //label={"Business"}
-              />
-            </View>
-            <View style={{ width: "49%" }}>
-              {mode === "expense" ? (
-                <Select
-                  height={160}
-                  right
-                  name="category"
-                  listOptions={defaultCategories}
-                  //label={"Category"}
-                />
-              ) : (
-                <Select
-                  right
-                  height={160}
-                  name="category"
-                  listOptions={defaultIncomesCategories}
-                  //label={"Category"}
-                />
-              )}
-            </View>
-          </View>
-          <View style={{ marginTop: -25 }}>
-            <Divider />
-          </View>
-          <View
-            style={{ rowGap: 20, paddingHorizontal: 10, paddingVertical: 25 }}
-          >
-            <PressableTextOption
-              onPress={() => setOpenDateModal(true)}
-              label="Change Date"
-              helperText={`${methods.watch("created_at").toLocaleDateString()}`}
-              icon={
-                <Entypo
-                  name="calendar"
-                  size={24}
-                  color={
-                    methods.watch("note") === undefined
-                      ? Colors.steelGray
-                      : "green"
-                  }
-                />
-              }
-            />
-            <PressableTextOption
-              validated={methods.watch("note") !== undefined}
-              onPress={() => setOpenNoteModal(true)}
-              label="Add note"
-              helperText="Create a note for this entry"
-              icon={
-                <FontAwesome
-                  name="edit"
-                  size={24}
-                  color={
-                    methods.watch("note") === undefined
-                      ? Colors.steelGray
-                      : "green"
-                  }
-                />
-              }
+            <ControlledInput
+              variant="big"
+              keyboardType="decimal-pad"
+              name="amount"
+              placeholder="0.0"
+              units="€"
             />
           </View>
-
+        </View>
+        <View style={{ marginTop: -8 }}>
           <Divider />
-          <View style={{ marginTop: 20 }}>
-            <Button
-              isLoading={isPending}
-              label="Submit"
-              onPress={methods.handleSubmit(onSubmit)}
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            position: "relative",
+            justifyContent: "space-between",
+            paddingVertical: 40,
+          }}
+        >
+          <View style={{ position: "absolute", right: 8, top: 8 }}>
+            <FontAwesome
+              name="question-circle"
+              size={23}
+              color={theme === "dark" ? "#ffffff66" : "black"}
             />
           </View>
-          <NoteDrawer
-            openModal={openNoteModal}
-            setOpenModal={setOpenNoteModal}
+          <View style={{ width: "49%" }}>
+            <Select
+              left
+              height={160}
+              style={{ borderTopRightRadius: 6 }}
+              name="businessId"
+              listOptions={listBusiness}
+              //label={"Business"}
+            />
+          </View>
+          <View style={{ width: "49%" }}>
+            {mode === "expense" ? (
+              <Select
+                height={160}
+                right
+                name="category"
+                listOptions={defaultCategories}
+                //label={"Category"}
+              />
+            ) : (
+              <Select
+                right
+                height={160}
+                name="category"
+                listOptions={defaultIncomesCategories}
+                //label={"Category"}
+              />
+            )}
+          </View>
+        </View>
+        <View style={{ marginTop: -25 }}>
+          <Divider />
+        </View>
+        <View
+          style={{ rowGap: 20, paddingHorizontal: 10, paddingVertical: 25 }}
+        >
+          <PressableTextOption
+            onPress={() => setOpenDateModal(true)}
+            label="Change Date"
+            helperText={`${methods.watch("created_at").toLocaleDateString()}`}
+            icon={
+              <Entypo
+                name="calendar"
+                size={24}
+                color={
+                  methods.watch("note") === undefined
+                    ? Colors.steelGray
+                    : "green"
+                }
+              />
+            }
           />
-          <DateDrawer
-            openModal={openDateModal}
-            setOpenModal={setOpenDateModal}
+          <PressableTextOption
+            validated={methods.watch("note") !== undefined}
+            onPress={() => setOpenNoteModal(true)}
+            label="Add note"
+            helperText="Create a note for this entry"
+            icon={
+              <FontAwesome
+                name="edit"
+                size={24}
+                color={
+                  methods.watch("note") === undefined
+                    ? Colors.steelGray
+                    : "green"
+                }
+              />
+            }
           />
-        </FormProvider>
-      </View>
+        </View>
+
+        <Divider />
+        <View style={{ marginTop: 20 }}>
+          <Button
+            isLoading={isPending}
+            label="Submit"
+            onPress={methods.handleSubmit(onSubmit)}
+          />
+        </View>
+        <NoteDrawer openModal={openNoteModal} setOpenModal={setOpenNoteModal} />
+        <DateDrawer openModal={openDateModal} setOpenModal={setOpenDateModal} />
+      </FormProvider>
     </View>
   );
 };
