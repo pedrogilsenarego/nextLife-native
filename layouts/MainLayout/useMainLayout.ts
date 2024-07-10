@@ -1,24 +1,35 @@
 import { useApp } from "@/providers/AppProvider";
 import { useTheme } from "@/providers/ThemeContext";
 import { useEffect, useRef, useState } from "react";
-import { Animated, Keyboard, PanResponder } from "react-native";
+import { Animated, Keyboard, PanResponder, Dimensions } from "react-native";
 
 const useMainLayout = () => {
   const { bottomCardOpen, setBottomCardOpen } = useApp();
   const [sideMenu, setSideMenu] = useState<boolean>(false);
+  const [sideLeftMenu, setSideLeftMenu] = useState<boolean>(false);
+
   const [componentHeight, setComponentHeight] = useState<number>(0);
   const { theme, mainColor } = useTheme();
   const componentRef = useRef(null);
 
   const scaleAnim = useRef(new Animated.Value(0)).current;
   const scaleAnim2 = useRef(new Animated.Value(0)).current;
+  const scaleAnim3 = useRef(new Animated.Value(0)).current;
+
+  const deviceWidth = Dimensions.get("window").width;
+
   useEffect(() => {
     animateScale();
     if (!bottomCardOpen) runSpringAnimation(0, 0);
   }, [bottomCardOpen]);
+
   useEffect(() => {
     animateScale2();
   }, [sideMenu]);
+
+  useEffect(() => {
+    animateScale3();
+  }, [sideLeftMenu]);
 
   const animateScale = () => {
     Animated.spring(scaleAnim, {
@@ -36,6 +47,14 @@ const useMainLayout = () => {
     }).start();
   };
 
+  const animateScale3 = () => {
+    Animated.spring(scaleAnim3, {
+      toValue: sideLeftMenu ? 1 : 0,
+
+      useNativeDriver: true,
+    }).start();
+  };
+
   const scaleInterpolate = scaleAnim.interpolate({
     inputRange: [0, 1],
     outputRange: [1, 0.92],
@@ -46,15 +65,32 @@ const useMainLayout = () => {
     outputRange: [0, -280],
   });
 
+  const translateInterpolate3 = scaleAnim3.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, deviceWidth],
+  });
+
+  const [translateX, setTranslateX] = useState(translateInterpolate2);
+
+  useEffect(() => {
+    if (sideLeftMenu) {
+      setTranslateX(translateInterpolate3);
+    }
+    if (sideMenu) {
+      setTranslateX(translateInterpolate2);
+    }
+  }, [sideMenu, sideLeftMenu]);
+
   const animatedStyle = {
-    transform: [
-      { scale: scaleInterpolate },
-      { translateX: translateInterpolate2 },
-    ],
+    transform: [{ scale: scaleInterpolate }, { translateX: translateX }],
   };
 
   const animatedStyle2 = {
     transform: [{ translateX: translateInterpolate2 }],
+  };
+
+  const animatedStyle3 = {
+    transform: [{ translateX: translateInterpolate3 }],
   };
 
   const [pan] = useState(new Animated.ValueXY());
@@ -114,6 +150,10 @@ const useMainLayout = () => {
     sideMenu,
     setSideMenu,
     animatedStyle2,
+    animatedStyle3,
+    sideLeftMenu,
+    setSideLeftMenu,
+    deviceWidth,
   };
 };
 

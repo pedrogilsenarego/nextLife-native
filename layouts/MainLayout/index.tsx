@@ -19,6 +19,8 @@ import Animated, {
 import { SideOptions } from "@/app/(tabs)/MainComponents/SideOptions";
 import { Colors } from "@/providers/ThemeContext";
 import { CardFooter } from "@/components/Molecules/CardFooter";
+import { LinearGradient } from "expo-linear-gradient";
+import { SideLeftOptions } from "@/app/(tabs)/MainComponents/SideLeftOptions";
 
 type Props = {
   mainContent: React.ReactNode;
@@ -43,9 +45,12 @@ const MainLayout = ({
     setBottomCardOpen,
     bottomCardOpen,
     sideMenu,
-
+    sideLeftMenu,
+    setSideLeftMenu,
     theme,
     animatedStyle2,
+    animatedStyle3,
+    deviceWidth,
     setSideMenu,
   } = useMainLayout();
   const backgroundColorAnimation = useAnimatedStyle(() => {
@@ -55,14 +60,13 @@ const MainLayout = ({
   });
 
   return (
-    <SafeAreaView style={{ backgroundColor: mainColor }}>
+    <SafeAreaView>
       <StatusBar barStyle={"light-content"} />
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <Animated.View
           style={[
             {
               display: "flex",
-
               height: "100%",
             },
             backgroundColorAnimation,
@@ -79,7 +83,10 @@ const MainLayout = ({
             ]}
           >
             <View style={{ position: "absolute", top: 14, zIndex: 20 }}>
-              <Header setSideMenu={setSideMenu} />
+              <Header
+                setSideMenu={setSideMenu}
+                setSideLeftMenu={setSideLeftMenu}
+              />
             </View>
 
             {mainContent}
@@ -107,6 +114,25 @@ const MainLayout = ({
             ]}
           >
             <SideOptions />
+          </RnAnimated.View>
+          <RnAnimated.View
+            style={[
+              animatedStyle3,
+
+              {
+                position: "absolute",
+
+                zIndex: 2000,
+                paddingBottom: 10,
+                width: deviceWidth,
+                left: -deviceWidth,
+                height: "95.8%",
+
+                paddingVertical: 100,
+              },
+            ]}
+          >
+            <SideLeftOptions />
           </RnAnimated.View>
           <>
             <RnAnimated.View
@@ -146,12 +172,13 @@ const MainLayout = ({
                 </View>
               </View>
             </RnAnimated.View>
-            {(bottomCardOpen || sideMenu) && (
+            {(bottomCardOpen || sideMenu || sideLeftMenu) && (
               <Pressable
                 onPress={() => {
                   Keyboard.dismiss();
                   setBottomCardOpen(false);
                   setSideMenu(false);
+                  setSideLeftMenu(false);
                 }}
                 style={{
                   position: "absolute",

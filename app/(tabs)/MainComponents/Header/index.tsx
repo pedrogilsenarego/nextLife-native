@@ -12,9 +12,10 @@ import { useApp } from "@/providers/AppProvider";
 
 type Props = {
   setSideMenu: (sideMenu: boolean) => void;
+  setSideLeftMenu: (sideMenu: boolean) => void;
 };
 
-export const Header = ({ setSideMenu }: Props) => {
+export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
   const { theme } = useTheme();
   const userQuery = useUser();
   const expenses = useExpenses();
@@ -104,6 +105,20 @@ export const Header = ({ setSideMenu }: Props) => {
             alignItems: "center",
           }}
         >
+          <Pressable
+            style={{
+              padding: 10,
+              backgroundColor: "transparent",
+              borderRadius: 30,
+            }}
+            onPress={() => setSideLeftMenu(true)}
+          >
+            <Entypo
+              size={20}
+              name="add-to-list"
+              color={theme === "light" ? "black" : "white"}
+            />
+          </Pressable>
           <Pressable
             style={{
               padding: 10,
