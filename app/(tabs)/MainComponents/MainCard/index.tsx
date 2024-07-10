@@ -25,7 +25,7 @@ const MainCard = () => {
   };
 
   return (
-    <Card footer>
+    <Card footer sticky>
       {(businesses.data?.length || 0) < 1 ? (
         <View
           style={{

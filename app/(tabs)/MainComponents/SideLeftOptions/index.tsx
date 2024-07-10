@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Pressable,
   View,
@@ -9,11 +10,14 @@ import {
 import { BlurView } from "expo-blur";
 import { AntDesign } from "@expo/vector-icons";
 import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
+import { Colors } from "@/providers/ThemeContext";
 
 const { width } = Dimensions.get("window");
-const paddingH = 15;
-const itemSize = (width - 40 - paddingH * 2) / 3;
+const paddingH = 0;
+const interMargin = 7;
+const itemSize = (width - 50 - 40 - paddingH * 2) / 3 - interMargin;
 const iconSize = itemSize / 2;
+const textSize = itemSize / 8;
 
 export const SideLeftOptions = () => {
   const data = [
@@ -22,8 +26,8 @@ export const SideLeftOptions = () => {
       component: (
         <Pressable>
           <BlurView intensity={100} style={styles.blurContainer}>
-            <AntDesign color={"whitesmoke"} size={iconSize} name="setting" />
-            <Text style={styles.text}>Settings</Text>
+            <AntDesign color={"whitesmoke"} size={iconSize} name="car" />
+            <Text style={styles.text}>Vehicles</Text>
           </BlurView>
         </Pressable>
       ),
@@ -33,8 +37,8 @@ export const SideLeftOptions = () => {
       component: (
         <Pressable>
           <BlurView intensity={100} style={styles.blurContainer}>
-            <AntDesign color={"whitesmoke"} size={iconSize} name="setting" />
-            <Text style={styles.text}>Settings</Text>
+            <AntDesign color={"whitesmoke"} size={iconSize} name="adduser" />
+            <Text style={styles.text}>Friends</Text>
           </BlurView>
         </Pressable>
       ),
@@ -44,8 +48,8 @@ export const SideLeftOptions = () => {
       component: (
         <Pressable>
           <BlurView intensity={100} style={styles.blurContainer}>
-            <AntDesign color={"whitesmoke"} size={iconSize} name="setting" />
-            <Text style={styles.text}>Settings</Text>
+            <AntDesign color={"whitesmoke"} size={iconSize} name="home" />
+            <Text style={styles.text}>Properties</Text>
           </BlurView>
         </Pressable>
       ),
@@ -55,13 +59,14 @@ export const SideLeftOptions = () => {
       component: (
         <Pressable>
           <BlurView intensity={100} style={styles.blurContainer}>
-            <AntDesign color={"whitesmoke"} size={iconSize} name="setting" />
-            <Text style={styles.text}>Settings</Text>
+            <AntDesign color={"whitesmoke"} size={iconSize} name="calendar" />
+            <Text style={styles.text}>Calendar</Text>
           </BlurView>
         </Pressable>
       ),
     },
   ];
+
   return (
     <View
       style={{
@@ -72,15 +77,19 @@ export const SideLeftOptions = () => {
       }}
     >
       <FlatList
+        style={{ paddingHorizontal: 5 }}
         numColumns={3}
         data={data}
         keyExtractor={(item) => item.id}
         renderItem={({ item, index }) => (
           <Animated.View
-            style={styles.itemContainer}
+            style={[styles.itemContainer, { marginTop: index <= 2 ? 10 : 5 }]}
             entering={FadeInDown.delay(index * 150)}
             exiting={FadeOutDown}
           >
+            <View style={styles.badgeContainer}>
+              <Text style={styles.badgeText}>Soon</Text>
+            </View>
             {item.component}
           </Animated.View>
         )}
@@ -105,11 +114,34 @@ const styles = StyleSheet.create({
   itemContainer: {
     width: itemSize,
     height: itemSize,
-    margin: 5,
+
+    margin: interMargin,
+    position: "relative",
+    overflow: "visible", // Ensure badge does not get clipped
+  },
+  badgeContainer: {
+    position: "absolute",
+    backgroundColor: Colors.black,
+
+    paddingHorizontal: 6,
+    paddingVertical: 5,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+    zIndex: 1000,
+    right: -6,
+    top: -8,
+    overflow: "visible", // Ensure badge text does not get clipped
+  },
+  badgeText: {
+    fontSize: 9,
+    color: "white",
+    lineHeight: 10,
   },
   text: {
     color: "whitesmoke",
-    fontSize: 16,
+    fontSize: textSize,
     fontWeight: "600",
     textTransform: "uppercase",
   },

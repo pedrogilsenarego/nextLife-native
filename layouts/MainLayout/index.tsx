@@ -60,7 +60,7 @@ const MainLayout = ({
   });
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ backgroundColor: mainColor }}>
       <StatusBar barStyle={"light-content"} />
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <Animated.View
@@ -124,8 +124,8 @@ const MainLayout = ({
 
                 zIndex: 2000,
                 paddingBottom: 10,
-                width: deviceWidth,
-                left: -deviceWidth,
+                width: deviceWidth - 50,
+                left: -deviceWidth + 50,
                 height: "95.8%",
 
                 paddingVertical: 100,

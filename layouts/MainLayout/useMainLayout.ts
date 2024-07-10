@@ -67,7 +67,7 @@ const useMainLayout = () => {
 
   const translateInterpolate3 = scaleAnim3.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, deviceWidth],
+    outputRange: [0, deviceWidth - 50],
   });
 
   const [translateX, setTranslateX] = useState(translateInterpolate2);
