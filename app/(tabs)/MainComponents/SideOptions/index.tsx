@@ -7,6 +7,7 @@ import { useTheme } from "@/providers/ThemeContext";
 import { useState } from "react";
 import { Pressable, View, Text, StyleSheet } from "react-native";
 import { BlurView } from "expo-blur";
+import { AntDesign } from "@expo/vector-icons";
 
 export const SideOptions = () => {
   const logout = async () => {
@@ -16,21 +17,33 @@ export const SideOptions = () => {
   const { theme } = useTheme();
 
   return (
-    <View style={{ display: "flex", rowGap: 10 }}>
+    <View
+      style={{
+        display: "flex",
+        rowGap: 15,
+        justifyContent: "flex-end",
+
+        height: "100%",
+        paddingBottom: 60,
+      }}
+    >
       <Pressable>
         <BlurView intensity={100} style={styles.blurContainer}>
+          <AntDesign color={"whitesmoke"} size={20} name="user" />
           <Text style={styles.text}>User</Text>
         </BlurView>
       </Pressable>
 
       <Pressable onPress={() => setOPenSettings(true)}>
         <BlurView intensity={100} style={styles.blurContainer}>
+          <AntDesign color={"whitesmoke"} size={20} name="setting" />
           <Text style={styles.text}>Settings</Text>
         </BlurView>
       </Pressable>
       <>
         <Pressable onPress={logout}>
           <BlurView intensity={100} style={styles.blurContainer}>
+            <AntDesign color={"whitesmoke"} size={20} name="logout" />
             <Text style={styles.text}>Logout</Text>
           </BlurView>
         </Pressable>
@@ -88,17 +101,20 @@ export const SideOptions = () => {
 
 const styles = StyleSheet.create({
   blurContainer: {
-    padding: 10,
+    paddingVertical: 15,
+    paddingHorizontal: 15,
     width: "100%",
     textAlign: "center",
-    justifyContent: "center",
-
+    justifyContent: "flex-start",
+    display: "flex",
+    flexDirection: "row",
+    columnGap: 15,
     overflow: "hidden",
     borderRadius: 70,
   },
   text: {
     color: "whitesmoke",
-    fontSize: 24,
+    fontSize: 16,
     fontWeight: "600",
     textTransform: "uppercase",
   },

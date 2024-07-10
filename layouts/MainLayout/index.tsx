@@ -99,8 +99,8 @@ const MainLayout = ({
 
                 zIndex: 2000,
                 paddingBottom: 10,
-                width: 222,
-                right: -250,
+                width: 252,
+                right: -265,
                 height: "95.8%",
                 paddingVertical: 100,
               },
