@@ -5,7 +5,8 @@ import SwitchTheme from "@/components/Molecules/SwitchTheme";
 import { supabase } from "@/lib/supabase";
 import { useTheme } from "@/providers/ThemeContext";
 import { useState } from "react";
-import { Pressable, View, Text } from "react-native";
+import { Pressable, View, Text, StyleSheet } from "react-native";
+import { BlurView } from "expo-blur";
 
 export const SideOptions = () => {
   const logout = async () => {
@@ -13,66 +14,25 @@ export const SideOptions = () => {
   };
   const [openSettings, setOPenSettings] = useState(false);
   const { theme } = useTheme();
+
   return (
-    <View>
-      <View
-        style={{
-          padding: 20,
+    <View style={{ display: "flex", rowGap: 10 }}>
+      <Pressable>
+        <BlurView intensity={100} style={styles.blurContainer}>
+          <Text style={styles.text}>User</Text>
+        </BlurView>
+      </Pressable>
 
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Pressable>
-          <Text
-            style={{
-              color: "whitesmoke",
-              fontSize: 24,
-              fontWeight: "600",
-            }}
-          >
-            User
-          </Text>
-        </Pressable>
-      </View>
-      <View
-        style={{
-          padding: 20,
-
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Pressable onPress={() => setOPenSettings(true)}>
-          <Text
-            style={{
-              color: "whitesmoke",
-              fontSize: 24,
-              fontWeight: "600",
-            }}
-          >
-            Settings
-          </Text>
-        </Pressable>
-      </View>
-      <View
-        style={{
-          padding: 20,
-
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+      <Pressable onPress={() => setOPenSettings(true)}>
+        <BlurView intensity={100} style={styles.blurContainer}>
+          <Text style={styles.text}>Settings</Text>
+        </BlurView>
+      </Pressable>
+      <>
         <Pressable onPress={logout}>
-          <Text
-            style={{
-              color: "whitesmoke",
-              fontSize: 24,
-              fontWeight: "600",
-            }}
-          >
-            Logout
-          </Text>
+          <BlurView intensity={100} style={styles.blurContainer}>
+            <Text style={styles.text}>Logout</Text>
+          </BlurView>
         </Pressable>
         <BottomPopup
           fullHeight
@@ -121,7 +81,25 @@ export const SideOptions = () => {
           </View>
           <ColorPicker />
         </BottomPopup>
-      </View>
+      </>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  blurContainer: {
+    padding: 10,
+    width: "100%",
+    textAlign: "center",
+    justifyContent: "center",
+
+    overflow: "hidden",
+    borderRadius: 70,
+  },
+  text: {
+    color: "whitesmoke",
+    fontSize: 24,
+    fontWeight: "600",
+    textTransform: "uppercase",
+  },
+});

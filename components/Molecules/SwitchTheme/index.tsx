@@ -1,9 +1,4 @@
-import {
-  Appearance,
-  Pressable,
-  StyleSheet,
-  useWindowDimensions,
-} from "react-native";
+import { Pressable, StyleSheet, useWindowDimensions } from "react-native";
 import React, { useEffect, useState } from "react";
 import Animated, {
   useAnimatedStyle,

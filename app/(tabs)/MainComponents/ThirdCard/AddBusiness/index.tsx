@@ -45,8 +45,18 @@ export const AddBusiness: React.FC = () => {
   };
   return (
     <>
-      <Pressable onPress={() => setOpenModal(true)}>
-        <Container containerStyles={{ justifyContent: "center" }}>
+      <Pressable
+        onPress={() => setOpenModal(true)}
+        style={{ display: "flex", flexDirection: "row" }}
+      >
+        <Container
+          containerStyles={{
+            justifyContent: "center",
+            alignItems: "center",
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
           <Text style={{ fontSize: 16, fontWeight: "600" }}>
             Add New Business +
           </Text>
