@@ -79,17 +79,8 @@ export const AddBusiness: React.FC = () => {
             }}
           >
             <IconSelector />
-            <Text
-              style={{
-                color: theme === "dark" ? "white" : "black",
-                fontSize: 20,
 
-                fontWeight: "bold",
-              }}
-            >
-              New Business
-            </Text>
-            <ControlledInput name="businessName" />
+            <ControlledInput name="businessName" placeholder="Name" />
             <View style={{ width: "100%" }}>
               <Select
                 height={160}

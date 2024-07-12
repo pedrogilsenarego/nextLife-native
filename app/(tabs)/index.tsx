@@ -8,6 +8,7 @@ import Options from "./MainComponents/ThirdCard";
 import SecondaryCard from "./MainComponents/SecondaryCard";
 import { useRef, useState } from "react";
 import { runOnJS, useSharedValue, withTiming } from "react-native-reanimated";
+import { SelectedBusinessProvider } from "./MainComponents/ThirdCard/BusinessContext";
 
 export default function TabOneScreen() {
   const width = Dimensions.get("window").width;
@@ -51,7 +52,9 @@ export default function TabOneScreen() {
           }}
           renderItem={({ index }) =>
             index === 0 ? (
-              <Options />
+              <SelectedBusinessProvider>
+                <Options />
+              </SelectedBusinessProvider>
             ) : index === 1 ? (
               <MainCard />
             ) : (

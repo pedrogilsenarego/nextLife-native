@@ -11,11 +11,13 @@ import { AddBusiness } from "./AddBusiness";
 
 import { HorizontalBarChartBusiness } from "./HorizontalBarBusiness";
 import useMetrics from "@/hooks/useMetrics";
+import { useSelectedBusiness } from "./BusinessContext";
 
 const ThirdCard = () => {
   const businesses = useBusinesses();
   const { theme } = useTheme();
-  const [businessSelected, setBusinessSelected] = useState<number | null>(null);
+  const { setSelectedBusiness, selectedBusiness } = useSelectedBusiness();
+
   const { getExpensesPerBusiness, getIncomesPerBusiness } = useMetrics();
   const businessData =
     businesses?.data?.map((business) => {
@@ -156,15 +158,8 @@ const ThirdCard = () => {
                       <HorizontalBarChartBusiness businessData={businessData} />
                     </View>
                   </View>
-                  {businessData?.map((businessData, index) => {
-                    return (
-                      <BusinessCard
-                        businessData={businessData}
-                        onPress={() => {
-                          setBusinessSelected(index);
-                        }}
-                      />
-                    );
+                  {businessData?.map((businessData) => {
+                    return <BusinessCard businessData={businessData} />;
                   })}
 
                   {(businesses.data?.length || 0) < 5 && <AddBusiness />}
@@ -175,15 +170,10 @@ const ThirdCard = () => {
           <BottomPopup
             fullHeight
             closeIcon
-            openModal={businessSelected !== null}
-            onClose={() => setBusinessSelected(null)}
+            openModal={!!selectedBusiness}
+            onClose={() => setSelectedBusiness(null)}
           >
-            {businessSelected !== null && businesses?.data && (
-              <ModalBusinessContent
-                business={businesses?.data?.[businessSelected]}
-                setBusinessSelected={setBusinessSelected}
-              />
-            )}
+            <ModalBusinessContent />
           </BottomPopup>
         </>
       )}

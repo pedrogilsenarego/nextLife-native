@@ -22,7 +22,7 @@ interface TextInputProps extends RNTextInputProps, UseControllerProps {
 
 const ControlledInput = ({ variant = "default", ...props }: TextInputProps) => {
   const formContext = useFormContext();
-  const { theme } = useTheme();
+  const { theme, mainColor } = useTheme();
   const { formState } = formContext;
   const { name, label, rules, defaultValue, ...inputProps } = props;
   const { field } = useController({ name, rules, defaultValue });
@@ -47,7 +47,7 @@ const ControlledInput = ({ variant = "default", ...props }: TextInputProps) => {
       paddingLeft: 20,
       borderRadius: 30,
       width: "100%",
-      borderColor: "gray",
+      borderColor: mainColor,
     },
     inputBig: {
       fontWeight: "bold",

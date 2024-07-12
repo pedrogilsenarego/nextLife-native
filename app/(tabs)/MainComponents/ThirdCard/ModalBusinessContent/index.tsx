@@ -3,19 +3,21 @@ import { View, Text, ScrollView } from "react-native";
 import PieChartMain from "../../MainCard/PieChartMain/PieChartMain";
 import { Header } from "./Header";
 import { Dispatch, SetStateAction } from "react";
+import { useSelectedBusiness } from "../BusinessContext";
+import useBusinesses from "@/hooks/useBusinesses";
 
-type Props = {
-  business: Business;
-  setBusinessSelected: Dispatch<SetStateAction<number | null>>;
-};
+export const ModalBusinessContent: React.FC = () => {
+  const { selectedBusiness } = useSelectedBusiness();
+  const businesses = useBusinesses();
 
-export const ModalBusinessContent: React.FC<Props> = ({
-  business,
-  setBusinessSelected,
-}) => {
+  const business = businesses?.data?.find(
+    (business) => business.id === selectedBusiness
+  ) as Business | undefined;
+
+  if (!selectedBusiness || !business) return;
   return (
     <View style={{ alignItems: "center" }}>
-      <Header business={business} setBusinessSelected={setBusinessSelected} />
+      <Header business={business} />
       <ScrollView
         showsVerticalScrollIndicator={false}
         scrollEventThrottle={16}
@@ -27,7 +29,7 @@ export const ModalBusinessContent: React.FC<Props> = ({
         }}
       >
         <View style={{ marginTop: 20 }}>
-          <PieChartMain businessSelected={business.id} />
+          <PieChartMain businessSelected={selectedBusiness} />
         </View>
       </ScrollView>
     </View>

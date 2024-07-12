@@ -1,28 +1,31 @@
 import { Container } from "@/components/Atoms/Container";
 import { IconCard } from "@/components/Atoms/IconCard";
+import BottomPopup from "@/components/BottomPopup";
 import { defaultBusiness } from "@/constants/defaultBusinesses";
 import { useBusinessIcons } from "@/constants/useBusinessIcons";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 import { Business } from "@/types/businessTypes";
 import { getStatusColor } from "@/utils/business";
+import { useState } from "react";
 import { View, Text, Pressable } from "react-native";
+import { ModalBusinessContent } from "../ModalBusinessContent";
+import { useSelectedBusiness } from "../BusinessContext";
 
 type Props = {
   businessData: { business: Business; balance: number };
-  onPress: () => void;
 };
 
-export const BusinessCard: React.FC<Props> = ({ businessData, onPress }) => {
+export const BusinessCard: React.FC<Props> = ({ businessData }) => {
   const { theme } = useTheme();
-
+  const { setSelectedBusiness } = useSelectedBusiness();
   const businessLabel = defaultBusiness.find(
     (item) => item.value === businessData.business.type
   )?.label;
-  const businessIcons = useBusinessIcons({ size: 30 });
+
   const businessIcon = businessData.business?.iconType || 0;
 
   return (
-    <Pressable onPress={onPress}>
+    <Pressable onPress={() => setSelectedBusiness(businessData.business.id)}>
       <Container
         status={getStatusColor(businessData.balance)}
         key={businessData.business.id}

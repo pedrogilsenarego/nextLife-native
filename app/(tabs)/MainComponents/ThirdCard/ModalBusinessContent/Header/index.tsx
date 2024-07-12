@@ -9,10 +9,9 @@ import { Dispatch, SetStateAction } from "react";
 
 type Props = {
   business: Business;
-  setBusinessSelected: Dispatch<SetStateAction<number | null>>;
 };
 
-export const Header: React.FC<Props> = ({ business, setBusinessSelected }) => {
+export const Header: React.FC<Props> = ({ business }) => {
   const { theme } = useTheme();
 
   const businessLabel = defaultBusiness.find(
@@ -64,10 +63,7 @@ export const Header: React.FC<Props> = ({ business, setBusinessSelected }) => {
             </Text>
           </View>
         </View>
-        <Settings
-          businessId={business.id}
-          setBusinessSelected={setBusinessSelected}
-        />
+        <Settings businessId={business.id} />
       </View>
     </>
   );

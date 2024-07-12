@@ -11,16 +11,14 @@ import useBusinesses from "@/hooks/useBusinesses";
 import ControlledInput from "@/components/inputs/TextField";
 import { useTheme } from "@/providers/ThemeContext";
 import Button from "@/components/button/ButtonComponent";
+import { useSelectedBusiness } from "../../../BusinessContext";
 
 type Props = {
   businessId: string;
-  setBusinessSelected: Dispatch<SetStateAction<number | null>>;
 };
 
-export const Settings: React.FC<Props> = ({
-  businessId,
-  setBusinessSelected,
-}) => {
+export const Settings: React.FC<Props> = ({ businessId }) => {
+  const { setSelectedBusiness } = useSelectedBusiness();
   const [openSettingsModal, setOpenSettingsModal] = useState<boolean>(false);
   const { theme } = useTheme();
   const defaultValues: Partial<DeleteBusinessType> = {
@@ -39,7 +37,7 @@ export const Settings: React.FC<Props> = ({
     onSuccess: (data: any) => {
       setOpenSettingsModal(false);
       businesses.refetch();
-      setBusinessSelected(null);
+      setSelectedBusiness(null);
     },
     onSettled: async () => {},
   });
