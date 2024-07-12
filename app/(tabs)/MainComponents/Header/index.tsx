@@ -113,7 +113,11 @@ export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
             }}
             onPress={() => setSideLeftMenu(true)}
           >
-            <Entypo size={22} name="add-to-list" color={Colors.pearlWhite} />
+            <Entypo
+              size={22}
+              name="add-to-list"
+              color={theme === "light" ? Colors.black : Colors.lightGray}
+            />
           </Pressable>
           <Pressable
             style={{
@@ -123,7 +127,11 @@ export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
             }}
             onPress={() => setSideMenu(true)}
           >
-            <AntDesign size={20} name="menu-fold" color={Colors.pearlWhite} />
+            <AntDesign
+              size={20}
+              name="menu-fold"
+              color={theme === "light" ? Colors.black : Colors.lightGray}
+            />
           </Pressable>
         </View>
       </View>

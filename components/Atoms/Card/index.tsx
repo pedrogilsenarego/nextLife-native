@@ -4,18 +4,12 @@ import { View, StyleSheet } from "react-native";
 type Props = {
   children: React.ReactNode;
   footer?: boolean;
-  sticky?: boolean;
 };
 
-export const Card: React.FC<Props> = ({ children, footer, sticky }) => {
+export const Card: React.FC<Props> = ({ children, footer }) => {
   const { theme, mainColor } = useTheme();
   return (
     <View style={{ position: "relative" }}>
-      {sticky && (
-        <View style={[styles.stickyContainer, { backgroundColor: mainColor }]}>
-          <View style={[styles.innerShadow]} />
-        </View>
-      )}
       <View
         style={{
           height: "100%",
@@ -48,37 +42,3 @@ export const Card: React.FC<Props> = ({ children, footer, sticky }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  stickyContainer: {
-    position: "absolute",
-    zIndex: 1000,
-    top: 46,
-    right: 4,
-    width: 120,
-    height: 44,
-
-    borderTopStartRadius: 6,
-    borderBottomStartRadius: 6,
-  },
-  innerShadow: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-
-    height: "auto",
-    width: "auto",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: -2, // Adjust for left inner shadow
-      height: 0,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-    elevation: 5, // Android elevation for shadow
-    borderTopStartRadius: 6,
-    borderBottomStartRadius: 6,
-  },
-});

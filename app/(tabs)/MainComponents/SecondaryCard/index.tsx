@@ -11,7 +11,7 @@ const SecondaryCard = () => {
   const businesses = useBusinesses();
 
   return (
-    <Card footer sticky>
+    <Card footer>
       {(businesses.data?.length || 0) < 1 ? (
         <View
           style={{

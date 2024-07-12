@@ -70,11 +70,13 @@ export const SideLeftOptions = () => {
       component: (
         <Pressable>
           <BlurView intensity={100} style={styles.blurContainer}>
-            <Foundation
-              color={"whitesmoke"}
-              size={iconSize}
-              name="torso-business"
-            />
+            <View style={{ marginBottom: -6 }}>
+              <Foundation
+                color={"whitesmoke"}
+                size={iconSize + 6}
+                name="torso-business"
+              />
+            </View>
             <Text style={styles.text}>Businesses</Text>
           </BlurView>
         </Pressable>
@@ -85,7 +87,13 @@ export const SideLeftOptions = () => {
       component: (
         <Pressable>
           <BlurView intensity={100} style={styles.blurContainer}>
-            <FontAwesome5 color={"whitesmoke"} size={iconSize} name="coins" />
+            <View style={{ paddingVertical: 2 }}>
+              <FontAwesome5
+                color={"whitesmoke"}
+                size={iconSize - 6}
+                name="coins"
+              />
+            </View>
             <Text style={styles.text}>Deposits</Text>
           </BlurView>
         </Pressable>

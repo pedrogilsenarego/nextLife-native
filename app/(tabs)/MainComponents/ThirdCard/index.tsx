@@ -31,7 +31,7 @@ const ThirdCard = () => {
     }) || [];
 
   return (
-    <Card footer sticky>
+    <Card footer>
       {businesses.isLoading ? (
         <LoaderSpinner />
       ) : (
@@ -120,6 +120,7 @@ const ThirdCard = () => {
                           columnGap: 5,
                           alignItems: "center",
                           paddingHorizontal: 2,
+                          paddingBottom: 10,
                           justifyContent: "center",
                         }}
                       >
