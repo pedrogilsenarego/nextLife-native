@@ -13,6 +13,7 @@ export const NewEntrySchema = z.object({
   created_at: z.date(),
   category: z.string(),
   businessId: z.string(),
+  depositId: z.number().optional(),
 });
 
 export type NewEntryType = z.infer<typeof NewEntrySchema>;

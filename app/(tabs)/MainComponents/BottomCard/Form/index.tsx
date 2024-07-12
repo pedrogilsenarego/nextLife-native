@@ -16,12 +16,13 @@ import { useEffect, useState } from "react";
 import { addIncome } from "@/actions/incomesActions";
 import useIncomes from "@/hooks/useIncomes";
 import { PressableTextOption } from "@/components/Atoms/PressableTextOption";
-import { Entypo, FontAwesome } from "@expo/vector-icons";
+import { Entypo, FontAwesome, FontAwesome5 } from "@expo/vector-icons";
 import { NoteDrawer } from "./NoteDrawer";
 import { useForme } from "./useForme";
 import { useApp } from "@/providers/AppProvider";
 import { DateDrawer } from "./DateDrawer";
 import { Divider } from "@/components/Atoms/Divider";
+import { DepositDrawer } from "./DepositDrawer";
 
 type Props = {
   listBusiness: { value: string; label: string }[];
@@ -33,8 +34,15 @@ const Form = ({ listBusiness }: Props) => {
   const incomes = useIncomes();
   const { theme } = useTheme();
   const [mode, setMode] = useState<"expense" | "income">("expense");
-  const { openNoteModal, setOpenNoteModal, openDateModal, setOpenDateModal } =
-    useForme();
+  const {
+    openNoteModal,
+    setOpenNoteModal,
+    openDateModal,
+    setOpenDateModal,
+    openDepositModal,
+    setOpenDepositModal,
+    depositList,
+  } = useForme();
 
   useEffect(() => {
     if (!bottomCardOpen) methods.reset();
@@ -46,6 +54,7 @@ const Form = ({ listBusiness }: Props) => {
     created_at: new Date(),
     category: defaultCategories[0].value,
     businessId: listBusiness[0]?.value || "",
+    depositId: undefined,
   };
   const methods = useForm<NewEntryType>({
     resolver: zodResolver(NewEntrySchema),
@@ -182,8 +191,28 @@ const Form = ({ listBusiness }: Props) => {
           <Divider />
         </View>
         <View
-          style={{ rowGap: 20, paddingHorizontal: 10, paddingVertical: 25 }}
+          style={{ rowGap: 13, paddingHorizontal: 10, paddingVertical: 16 }}
         >
+          <PressableTextOption
+            onPress={() => setOpenDepositModal(true)}
+            label="Choose Deposit"
+            helperText={
+              depositList?.find(
+                (option) => option.value === methods.watch("depositId")
+              )?.label || "Associate the transaction to a deposit"
+            }
+            icon={
+              <FontAwesome5
+                name="coins"
+                size={20}
+                color={
+                  methods.watch("depositId") === undefined
+                    ? Colors.steelGray
+                    : "green"
+                }
+              />
+            }
+          />
           <PressableTextOption
             onPress={() => setOpenDateModal(true)}
             label="Change Date"
@@ -203,7 +232,7 @@ const Form = ({ listBusiness }: Props) => {
           <PressableTextOption
             validated={methods.watch("note") !== undefined}
             onPress={() => setOpenNoteModal(true)}
-            label="Add note"
+            label="Add Note"
             helperText="Create a note for this entry"
             icon={
               <FontAwesome
@@ -229,6 +258,14 @@ const Form = ({ listBusiness }: Props) => {
         </View>
         <NoteDrawer openModal={openNoteModal} setOpenModal={setOpenNoteModal} />
         <DateDrawer openModal={openDateModal} setOpenModal={setOpenDateModal} />
+        <DepositDrawer
+          depositList={[
+            { value: undefined, label: "None" },
+            ...(depositList || []),
+          ]}
+          openModal={openDepositModal}
+          setOpenModal={setOpenDepositModal}
+        />
       </FormProvider>
     </View>
   );

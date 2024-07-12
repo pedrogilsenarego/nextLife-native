@@ -3,7 +3,7 @@ import { Pressable, PressableProps, Text, View } from "react-native";
 
 type Props = PressableProps & {
   label: string;
-  helperText?: string;
+  helperText?: string | number;
   icon?: React.ReactNode;
   validated?: boolean;
 };

@@ -70,7 +70,7 @@ export const getDeposits = async (): Promise<DepositQuery> => {
         depositType: deposit.type,
         id: deposit.id,
         createdAt: deposit.created_at,
-        depositName: deposit.business_name,
+        depositName: deposit.deposit_name,
       }));
 
       resolve(formattedDeposits || []);

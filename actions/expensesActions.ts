@@ -56,6 +56,7 @@ type AddExpenseProps = {
   note?: string;
   amount: number;
   created_at: Date;
+  depositId?: number;
 };
 
 export const addExpense = async (
@@ -72,10 +73,11 @@ export const addExpense = async (
         return reject(new Error("User not authenticated"));
       }
 
-      const { businessId, note, amount, category, created_at } = newExpenseData;
+      const { businessId, note, amount, category, created_at, depositId } =
+        newExpenseData;
       const user_id = user.id;
 
-      const { error: userError } = await supabase.from("expenses").upsert([
+      const { error: expenseError } = await supabase.from("expenses").upsert([
         {
           businessId,
           note,
@@ -83,12 +85,40 @@ export const addExpense = async (
           category,
           user_id: user_id,
           created_at,
+          deposit_id: depositId,
         },
       ]);
 
-      if (userError) {
-        console.error(userError);
-        return reject(userError);
+      if (expenseError) {
+        console.error(expenseError);
+        return reject(expenseError);
+      }
+
+      if (depositId) {
+        const { data: depositData, error: depositFetchError } = await supabase
+          .from("deposits")
+          .select("amount")
+          .eq("id", depositId)
+          .single();
+
+        if (depositFetchError) {
+          console.error(depositFetchError);
+          return reject(depositFetchError);
+        }
+
+        const newAmount = depositData.amount - amount;
+
+        const { error: depositUpdateError } = await supabase
+          .from("deposits")
+          .update({
+            amount: newAmount,
+          })
+          .eq("id", depositId);
+
+        if (depositUpdateError) {
+          console.error(depositUpdateError);
+          return reject(depositUpdateError);
+        }
       }
 
       resolve("Success");

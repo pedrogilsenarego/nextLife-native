@@ -12,10 +12,11 @@ import { Pressable, Text, View } from "react-native";
 interface PickerPropsI extends PickerProps, UseControllerProps {
   label?: string;
   defaultValue?: string;
-  listOptions: { label: string; value: string | number }[];
+  listOptions: { label: string; value: string | number | undefined }[];
   left?: boolean;
   right?: boolean;
   height?: number;
+  onChange?: () => void;
 }
 
 const Select = (props: PickerPropsI) => {
@@ -66,7 +67,12 @@ const Select = (props: PickerPropsI) => {
             marginVertical: 0,
           }}
           selectedValue={field.value}
-          onValueChange={(itemValue, itemIndex) => field.onChange(itemValue)}
+          onValueChange={(itemValue, itemIndex) => {
+            field.onChange(itemValue);
+            if (props.onChange) {
+              props.onChange();
+            }
+          }}
         >
           {props.listOptions.map((item, index) => {
             return (

@@ -4,6 +4,6 @@ export type Deposit = {
   depositName: string;
   userId: string;
   createdAt: Date;
-  id: string;
+  id: number;
   depositType: number;
 };
