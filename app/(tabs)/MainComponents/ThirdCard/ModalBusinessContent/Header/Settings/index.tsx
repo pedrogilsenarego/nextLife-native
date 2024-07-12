@@ -1,6 +1,6 @@
 import BottomPopup from "@/components/BottomPopup";
 import { AntDesign } from "@expo/vector-icons";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { Pressable, View, Text } from "react-native";
 import { DeleteBusinessSchema, DeleteBusinessType } from "./validation";
@@ -15,9 +15,10 @@ import { useSelectedBusiness } from "../../../BusinessContext";
 
 type Props = {
   businessId: string;
+  businessName: string;
 };
 
-export const Settings: React.FC<Props> = ({ businessId }) => {
+export const Settings: React.FC<Props> = ({ businessId, businessName }) => {
   const { setSelectedBusiness } = useSelectedBusiness();
   const [openSettingsModal, setOpenSettingsModal] = useState<boolean>(false);
   const { theme } = useTheme();
@@ -74,7 +75,17 @@ export const Settings: React.FC<Props> = ({ businessId }) => {
                 fontWeight: "bold",
               }}
             >
-              Write "confirm" to delete the business
+              Your are deleting {businessName}, are you sure?
+            </Text>
+            <Text
+              style={{
+                color: theme === "dark" ? "white" : "black",
+                fontSize: 20,
+
+                fontWeight: "bold",
+              }}
+            >
+              If yes write "Confirm" to delete the business
             </Text>
             <ControlledInput name="confirm" />
 

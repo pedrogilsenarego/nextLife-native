@@ -63,7 +63,10 @@ export const Header: React.FC<Props> = ({ business }) => {
             </Text>
           </View>
         </View>
-        <Settings businessId={business.id} />
+        <Settings
+          businessId={business.id}
+          businessName={business.businessName}
+        />
       </View>
     </>
   );

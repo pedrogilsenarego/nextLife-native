@@ -5,7 +5,7 @@ import { Colors, useTheme } from "@/providers/ThemeContext";
 import { View, Pressable, ScrollView, Text } from "react-native";
 import { BusinessCard } from "./BusinessCard";
 import BottomPopup from "@/components/BottomPopup";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ModalBusinessContent } from "./ModalBusinessContent";
 import { AddBusiness } from "./AddBusiness";
 

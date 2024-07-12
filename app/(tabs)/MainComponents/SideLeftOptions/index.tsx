@@ -8,7 +8,7 @@ import {
   Dimensions,
 } from "react-native";
 import { BlurView } from "expo-blur";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, FontAwesome5, Foundation } from "@expo/vector-icons";
 import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
 import { Colors } from "@/providers/ThemeContext";
 
@@ -61,6 +61,32 @@ export const SideLeftOptions = () => {
           <BlurView intensity={100} style={styles.blurContainer}>
             <AntDesign color={"whitesmoke"} size={iconSize} name="calendar" />
             <Text style={styles.text}>Calendar</Text>
+          </BlurView>
+        </Pressable>
+      ),
+    },
+    {
+      id: "5",
+      component: (
+        <Pressable>
+          <BlurView intensity={100} style={styles.blurContainer}>
+            <Foundation
+              color={"whitesmoke"}
+              size={iconSize}
+              name="torso-business"
+            />
+            <Text style={styles.text}>Businesses</Text>
+          </BlurView>
+        </Pressable>
+      ),
+    },
+    {
+      id: "5",
+      component: (
+        <Pressable>
+          <BlurView intensity={100} style={styles.blurContainer}>
+            <FontAwesome5 color={"whitesmoke"} size={iconSize} name="coins" />
+            <Text style={styles.text}>Deposits</Text>
           </BlurView>
         </Pressable>
       ),
