@@ -2,46 +2,45 @@ import { Container } from "@/components/Atoms/Container";
 import BottomPopup from "@/components/BottomPopup";
 import Button from "@/components/button/ButtonComponent";
 import ControlledInput from "@/components/inputs/TextField";
-import { useTheme } from "@/providers/ThemeContext";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { Pressable, Text, View } from "react-native";
-import { NewBusinessSchema, NewBusinessType } from "./validation";
-import { addBusiness } from "@/actions/businessActions";
 import Select from "@/components/inputs/Select";
 import { defaultBusiness } from "@/constants/defaultBusinesses";
-import useBusinesses from "@/hooks/useBusinesses";
-import { IconSelector } from "./IconSelector";
+import { NewDepositSchema, NewDepositType } from "./validation";
+import { addDeposit } from "@/actions/depositActions";
+import useDeposits from "@/hooks/useDeposits";
+import { defaultDeposits } from "@/constants/defaultDeposits";
 
-export const AddBusiness: React.FC = () => {
+export const AddDeposit: React.FC = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
 
-  const business = useBusinesses();
+  const deposits = useDeposits();
   const defaultValues = {
-    iconType: 0,
-    businessName: undefined,
+    depositName: undefined,
     type: 0,
+    amount: undefined,
   };
-  const methods = useForm<NewBusinessType>({
-    resolver: zodResolver(NewBusinessSchema),
+  const methods = useForm<NewDepositType>({
+    resolver: zodResolver(NewDepositSchema),
     defaultValues,
   });
-  const { mutate: addBusinessMutation, isPending } = useMutation({
-    mutationFn: addBusiness,
+  const { mutate: addDepositMutation, isPending } = useMutation({
+    mutationFn: addDeposit,
     onError: (error: any) => {
       console.log("error", error);
     },
     onSuccess: (data: any) => {
       setOpenModal(false);
-      business.refetch();
+      deposits.refetch();
     },
     onSettled: async () => {},
   });
 
-  const onSubmit: SubmitHandler<NewBusinessType> = (data) => {
-    addBusinessMutation(data);
+  const onSubmit: SubmitHandler<NewDepositType> = (data) => {
+    addDepositMutation(data);
   };
   return (
     <>
@@ -58,7 +57,7 @@ export const AddBusiness: React.FC = () => {
           }}
         >
           <Text style={{ fontSize: 16, fontWeight: "600" }}>
-            Add New Business +
+            Add New Deposit +
           </Text>
         </Container>
       </Pressable>
@@ -78,21 +77,26 @@ export const AddBusiness: React.FC = () => {
               rowGap: 20,
             }}
           >
-            <IconSelector />
-
-            <ControlledInput name="businessName" placeholder="Name" />
+            <ControlledInput name="depositName" placeholder="Name" />
+            <ControlledInput
+              variant="big"
+              keyboardType="decimal-pad"
+              name="amount"
+              placeholder="0.0"
+              units="€"
+            />
             <View style={{ width: "100%" }}>
               <Select
                 height={160}
                 style={{ borderTopRightRadius: 6 }}
                 name="type"
-                listOptions={defaultBusiness}
+                listOptions={defaultDeposits}
               />
             </View>
             <View style={{ width: "100%" }}>
               <Button
                 isLoading={isPending}
-                label="Add Business"
+                label="Add Deposit"
                 onPress={methods.handleSubmit(onSubmit)}
               />
             </View>
