@@ -13,10 +13,11 @@ import { NewDepositSchema, NewDepositType } from "./validation";
 import { addDeposit } from "@/actions/depositActions";
 import useDeposits from "@/hooks/useDeposits";
 import { defaultDeposits } from "@/constants/defaultDeposits";
+import { useTheme } from "@/providers/ThemeContext";
 
 export const AddDeposit: React.FC = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
-
+  const { mainColor } = useTheme();
   const deposits = useDeposits();
   const defaultValues = {
     depositName: undefined,
@@ -50,14 +51,17 @@ export const AddDeposit: React.FC = () => {
       >
         <Container
           containerStyles={{
+            width: 120,
+            height: 120,
+            backgroundColor: mainColor,
             justifyContent: "center",
             alignItems: "center",
             display: "flex",
             flexDirection: "row",
           }}
         >
-          <Text style={{ fontSize: 16, fontWeight: "600" }}>
-            Add New Deposit +
+          <Text style={{ fontSize: 16, fontWeight: "600", color: "white" }}>
+            Add Deposit
           </Text>
         </Container>
       </Pressable>

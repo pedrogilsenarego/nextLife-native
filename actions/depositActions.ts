@@ -67,10 +67,11 @@ export const getDeposits = async (): Promise<DepositQuery> => {
 
       const formattedDeposits: DepositQuery = deposits.map((deposit: any) => ({
         userId: deposit.user_id,
-        depositType: deposit.type,
+        depositType: deposit.deposit_type,
         id: deposit.id,
         createdAt: deposit.created_at,
         depositName: deposit.deposit_name,
+        amount: deposit.amount,
       }));
 
       resolve(formattedDeposits || []);

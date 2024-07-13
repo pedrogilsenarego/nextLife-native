@@ -1,5 +1,6 @@
 import { useTheme } from "@/providers/ThemeContext";
 import { Picker, PickerProps } from "@react-native-picker/picker";
+import { useEffect } from "react";
 
 import {
   UseControllerProps,

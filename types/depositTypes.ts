@@ -6,4 +6,5 @@ export type Deposit = {
   createdAt: Date;
   id: number;
   depositType: number;
+  amount: number;
 };

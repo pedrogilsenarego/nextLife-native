@@ -14,6 +14,7 @@ import useMetrics from "@/hooks/useMetrics";
 import { useSelectedBusiness } from "./BusinessContext";
 import useDeposits from "@/hooks/useDeposits";
 import { AddDeposit } from "./AddDeposit";
+import { DepositsScroller } from "./DepositsScroller";
 
 const ThirdCard = () => {
   const businesses = useBusinesses();
@@ -172,12 +173,12 @@ const ThirdCard = () => {
                           />
                         </View>
                       </View>
+                      {(deposits.data?.length || 0) < 5 && <DepositsScroller />}
                       {businessData?.map((businessData) => {
                         return <BusinessCard businessData={businessData} />;
                       })}
 
                       {(businesses.data?.length || 0) < 5 && <AddBusiness />}
-                      {(deposits.data?.length || 0) < 5 && <AddDeposit />}
                     </View>
                   </Pressable>
                 )}
