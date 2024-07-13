@@ -47,21 +47,29 @@ export const AddDeposit: React.FC = () => {
     <>
       <Pressable
         onPress={() => setOpenModal(true)}
-        style={{ display: "flex", flexDirection: "row" }}
+        style={{ display: "flex", flexDirection: "row", paddingVertical: 6 }}
       >
         <Container
           containerStyles={{
             width: 120,
             height: 120,
-            backgroundColor: mainColor,
+            backgroundColor: `${mainColor}`,
             justifyContent: "center",
             alignItems: "center",
             display: "flex",
             flexDirection: "row",
+            borderWidth: 0,
           }}
         >
-          <Text style={{ fontSize: 16, fontWeight: "600", color: "white" }}>
-            Add Deposit
+          <Text
+            style={{
+              fontSize: 100,
+              fontWeight: "600",
+              color: "#ffffffE6",
+              lineHeight: 100,
+            }}
+          >
+            +
           </Text>
         </Container>
       </Pressable>

@@ -54,10 +54,10 @@ export const HorizontalBarChart: React.FC<Props> = ({ data, height }) => {
                     position: "absolute",
                     backgroundColor: "gray",
                     borderRadius: 4,
-                    width: 2,
+                    width: 1,
                     left: "50%",
-                    top: -6,
-                    height: "450%",
+                    top: -data.length * 2,
+                    height: `${data.length * 150}%`,
 
                     zIndex: 100,
                   }}

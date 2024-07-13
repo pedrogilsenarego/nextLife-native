@@ -15,6 +15,8 @@ import { useSelectedBusiness } from "./BusinessContext";
 import useDeposits from "@/hooks/useDeposits";
 import { AddDeposit } from "./AddDeposit";
 import { DepositsScroller } from "./DepositsScroller";
+import { Divider } from "@/components/Atoms/Divider";
+import { HeaderMetrics } from "./HeaderMetrics";
 
 const ThirdCard = () => {
   const businesses = useBusinesses();
@@ -106,11 +108,12 @@ const ThirdCard = () => {
                   </View>
                 ) : (
                   <Pressable>
+                    <Divider />
                     <View
                       style={{
                         width: "100%",
                         paddingHorizontal: 4,
-                        marginTop: 20,
+                        marginTop: 16,
                         rowGap: 6,
                       }}
                     >
@@ -125,48 +128,7 @@ const ThirdCard = () => {
                           justifyContent: "center",
                         }}
                       >
-                        <View
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            rowGap: 1,
-                            paddingLeft: 5,
-                            width: "40%",
-                          }}
-                        >
-                          <Text style={{ fontSize: 16, fontWeight: "600" }}>
-                            Patrimony: 323k
-                          </Text>
-                          <Text
-                            style={{
-                              fontSize: 14,
-                              fontWeight: "500",
-                              color: "gray",
-                            }}
-                          >
-                            Businesses: {businesses.data?.length || 0}
-                          </Text>
-                          <Text
-                            style={{
-                              fontSize: 14,
-                              fontWeight: "500",
-
-                              color: "gray",
-                            }}
-                          >
-                            Properties: 1
-                          </Text>
-                          <Text
-                            style={{
-                              fontSize: 14,
-                              fontWeight: "500",
-                              marginBottom: 10,
-                              color: "gray",
-                            }}
-                          >
-                            Veicules: 1
-                          </Text>
-                        </View>
+                        <HeaderMetrics />
                         <View style={{ width: "60%" }}>
                           <HorizontalBarChartBusiness
                             businessData={businessData}
