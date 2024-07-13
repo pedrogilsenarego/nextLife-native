@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { Pressable, Text, View } from "react-native";
+import { Dimensions, Pressable, Text, View } from "react-native";
 import Select from "@/components/inputs/Select";
 import { defaultBusiness } from "@/constants/defaultBusinesses";
 import { NewDepositSchema, NewDepositType } from "./validation";
@@ -18,6 +18,7 @@ import { useTheme } from "@/providers/ThemeContext";
 export const AddDeposit: React.FC = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const { mainColor } = useTheme();
+  const width = Dimensions.get("screen").width;
   const deposits = useDeposits();
   const defaultValues = {
     depositName: undefined,
@@ -36,6 +37,7 @@ export const AddDeposit: React.FC = () => {
     onSuccess: (data: any) => {
       setOpenModal(false);
       deposits.refetch();
+      methods.reset();
     },
     onSettled: async () => {},
   });
@@ -51,8 +53,8 @@ export const AddDeposit: React.FC = () => {
       >
         <Container
           containerStyles={{
-            width: 120,
-            height: 120,
+            width: width / 3 - 10,
+            height: width / 3 - 10,
             backgroundColor: `${mainColor}`,
             justifyContent: "center",
             alignItems: "center",

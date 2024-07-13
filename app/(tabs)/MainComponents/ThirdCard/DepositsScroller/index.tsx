@@ -1,28 +1,25 @@
 import { Container } from "@/components/Atoms/Container";
-import { Divider } from "@/components/Atoms/Divider";
+
 import useDeposits from "@/hooks/useDeposits";
-import { Colors, useTheme } from "@/providers/ThemeContext";
+import { Colors } from "@/providers/ThemeContext";
 import { Deposit } from "@/types/depositTypes";
-import { View, Text, ScrollView, Pressable } from "react-native";
+import { View, Text, ScrollView, Pressable, Dimensions } from "react-native";
 import { AddDeposit } from "../AddDeposit";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 export const DepositsScroller: React.FC = () => {
   const deposits = useDeposits();
-  const { theme, mainColor } = useTheme();
+  const width = Dimensions.get("screen").width;
 
   const DepositItem = ({ deposit }: { deposit: Deposit }) => {
     return (
       <Pressable style={{ paddingVertical: 6 }}>
         <Container
           containerStyles={{
-            width: 120,
-            height: 120,
+            width: width / 3 - 10,
+            height: width / 3 - 10,
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "column",
-
-            borderWidth: 2,
           }}
         >
           <Text
