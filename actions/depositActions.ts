@@ -8,7 +8,7 @@ export const addDeposit = async ({
 }: {
   depositName: string;
   type: number;
-  amount?: string;
+  amount: number;
 }): Promise<string> => {
   return new Promise(async (resolve, reject) => {
     console.log("addDeposit", depositName);
