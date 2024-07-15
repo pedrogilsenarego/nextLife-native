@@ -4,8 +4,7 @@ const NumberStringSchema = z
   .string()
   .refine((val) => !isNaN(Number(val.replace(",", "."))), {
     message: "Input must be a valid number string",
-  })
-  .optional();
+  });
 
 export const NewDepositSchema = z.object({
   depositName: z.string().max(20).min(3),

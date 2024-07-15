@@ -8,7 +8,7 @@ import { AddDeposit } from "../AddDeposit";
 
 export const DepositsScroller: React.FC = () => {
   const deposits = useDeposits();
-  const firstDeposit = !!(deposits?.data?.length || 0 < 1);
+  const firstDeposit = !!((deposits?.data?.length || 0) < 1);
   const width = Dimensions.get("screen").width;
 
   const DepositItem = ({ deposit }: { deposit: Deposit }) => {
@@ -61,36 +61,41 @@ export const DepositsScroller: React.FC = () => {
           <View
             style={{
               justifyContent: "center",
+              borderWidth: 1,
+              borderRadius: 6,
+              overflow: "visible",
+              borderColor: Colors.lightGray,
             }}
           >
             <Text
               style={{
                 textAlign: "center",
                 color: "gray",
-                marginTop: 20,
-
                 paddingTop: 10,
+                paddingHorizontal: 6,
+
                 lineHeight: 20,
               }}
             >
-              Altough the businesses are independent it's always nice to keep
-              track of the money available.
+              This are typicaly used for{" "}
+              <Text style={{ fontWeight: 800 }}>Bank</Text> or{" "}
+              <Text style={{ fontWeight: 800 }}>Cash</Text>, and can be related
+              to the <Text style={{ fontWeight: 800 }}>Businesses</Text>,{" "}
+              <Text style={{ fontWeight: 800 }}>Expenses</Text> or{" "}
+              <Text style={{ fontWeight: 800 }}>Incomes</Text>.
             </Text>
             <Text
               style={{
                 textAlign: "center",
                 color: "gray",
                 paddingTop: 10,
+                paddingHorizontal: 6,
                 paddingBottom: 20,
 
                 lineHeight: 20,
               }}
             >
-              This are typical <Text style={{ fontWeight: 800 }}>Bank</Text> or{" "}
-              <Text style={{ fontWeight: 800 }}>Cash</Text>, and can be related
-              to the <Text style={{ fontWeight: 800 }}>Businesses</Text>,{" "}
-              <Text style={{ fontWeight: 800 }}>Expenses</Text> or{" "}
-              <Text style={{ fontWeight: 800 }}>Incomes</Text>.
+              They help track the money available.
             </Text>
             <AddDeposit />
           </View>

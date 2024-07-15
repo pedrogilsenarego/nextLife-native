@@ -8,7 +8,6 @@ import { useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { Dimensions, Pressable, Text, View } from "react-native";
 import Select from "@/components/inputs/Select";
-import { defaultBusiness } from "@/constants/defaultBusinesses";
 import { NewDepositSchema, NewDepositType } from "./validation";
 import { addDeposit } from "@/actions/depositActions";
 import useDeposits from "@/hooks/useDeposits";
@@ -20,7 +19,7 @@ export const AddDeposit: React.FC = () => {
   const { mainColor } = useTheme();
   const width = Dimensions.get("screen").width;
   const deposits = useDeposits();
-  const firstDeposit = !!(deposits?.data?.length || 0 < 1);
+  const firstDeposit = !!((deposits?.data?.length || 0) < 1);
   const defaultValues = {
     depositName: undefined,
     type: 0,
@@ -44,7 +43,11 @@ export const AddDeposit: React.FC = () => {
   });
 
   const onSubmit: SubmitHandler<NewDepositType> = (data) => {
-    addDepositMutation(data);
+    const newData = {
+      ...data,
+      amount: Number(data.amount.replace(",", ".")),
+    };
+    addDepositMutation(newData);
   };
   return (
     <>
