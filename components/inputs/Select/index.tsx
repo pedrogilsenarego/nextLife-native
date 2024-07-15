@@ -1,6 +1,5 @@
 import { useTheme } from "@/providers/ThemeContext";
 import { Picker, PickerProps } from "@react-native-picker/picker";
-import { useEffect } from "react";
 
 import {
   UseControllerProps,
@@ -17,7 +16,6 @@ interface PickerPropsI extends PickerProps, UseControllerProps {
   left?: boolean;
   right?: boolean;
   height?: number;
-  onChange?: () => void;
 }
 
 const Select = (props: PickerPropsI) => {
@@ -28,6 +26,18 @@ const Select = (props: PickerPropsI) => {
   const { field } = useController({ name, rules, defaultValue });
   const error = formState.errors[name];
 
+  const handleValueChange = (itemValue: string | number) => {
+    // Find the original option to get its type
+    const originalOption = props.listOptions.find(
+      (option) => option.value == itemValue
+    );
+    if (originalOption) {
+      field.onChange(originalOption.value);
+    } else {
+      field.onChange(itemValue); // fallback in case the option is not found
+    }
+  };
+
   return (
     <View style={{ height: (props?.height || 150) + 30 }}>
       {label && (
@@ -35,7 +45,6 @@ const Select = (props: PickerPropsI) => {
           style={{
             fontSize: 14,
             fontWeight: "600",
-
             textAlign: "center",
             color: theme === "dark" ? "white" : "black",
           }}
@@ -52,7 +61,6 @@ const Select = (props: PickerPropsI) => {
         }}
         style={{
           height: props.height || 120,
-
           justifyContent: "center",
           overflow: "hidden",
           backgroundColor: "transparent",
@@ -68,12 +76,7 @@ const Select = (props: PickerPropsI) => {
             marginVertical: 0,
           }}
           selectedValue={field.value}
-          onValueChange={(itemValue, itemIndex) => {
-            field.onChange(itemValue);
-            if (props.onChange) {
-              props.onChange();
-            }
-          }}
+          onValueChange={(itemValue, itemIndex) => handleValueChange(itemValue)}
         >
           {props.listOptions.map((item, index) => {
             return (

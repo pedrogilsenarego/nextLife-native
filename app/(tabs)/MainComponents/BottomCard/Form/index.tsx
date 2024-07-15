@@ -16,7 +16,12 @@ import { useEffect, useState } from "react";
 import { addIncome } from "@/actions/incomesActions";
 import useIncomes from "@/hooks/useIncomes";
 import { PressableTextOption } from "@/components/Atoms/PressableTextOption";
-import { Entypo, FontAwesome, FontAwesome5 } from "@expo/vector-icons";
+import {
+  AntDesign,
+  Entypo,
+  FontAwesome,
+  FontAwesome5,
+} from "@expo/vector-icons";
 import { NoteDrawer } from "./NoteDrawer";
 import { useForme } from "./useForme";
 import { useApp } from "@/providers/AppProvider";
@@ -94,6 +99,7 @@ const Form = ({ listBusiness }: Props) => {
       methods.setValue("category", defaultIncomesCategories[0].value);
     }
   }, [mode, methods]);
+  const depositId = methods.watch("depositId");
 
   return (
     <View style={{ width: "100%", marginTop: 50 }}>
@@ -202,15 +208,13 @@ const Form = ({ listBusiness }: Props) => {
               )?.label || "Associate the transaction to a deposit"
             }
             icon={
-              <FontAwesome5
-                name="coins"
-                size={20}
-                color={
-                  methods.watch("depositId") === undefined
-                    ? Colors.steelGray
-                    : "green"
-                }
-              />
+              <View style={{ padding: 2 }}>
+                <FontAwesome5
+                  name="coins"
+                  size={20}
+                  color={depositId === undefined ? Colors.steelGray : "green"}
+                />
+              </View>
             }
           />
           <PressableTextOption
@@ -235,7 +239,7 @@ const Form = ({ listBusiness }: Props) => {
             label="Add Note"
             helperText="Create a note for this entry"
             icon={
-              <FontAwesome
+              <AntDesign
                 name="edit"
                 size={24}
                 color={

@@ -47,12 +47,14 @@ export const DepositDrawer: React.FC<Props> = ({
         </Text>
         <View style={{ width: "100%" }}>
           <Select
-            onChange={() => setOpenModal(false)}
             height={160}
             style={{ borderTopRightRadius: 6 }}
             name="depositId"
             listOptions={depositList || []}
           />
+        </View>
+        <View style={{ width: "100%" }}>
+          <Button label="Change" onPress={() => setOpenModal(false)} />
         </View>
       </Pressable>
     </BottomPopup>

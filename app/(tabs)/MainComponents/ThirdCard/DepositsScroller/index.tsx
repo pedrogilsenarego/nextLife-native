@@ -8,6 +8,7 @@ import { AddDeposit } from "../AddDeposit";
 
 export const DepositsScroller: React.FC = () => {
   const deposits = useDeposits();
+  const firstDeposit = !!(deposits?.data?.length || 0 < 1);
   const width = Dimensions.get("screen").width;
 
   const DepositItem = ({ deposit }: { deposit: Deposit }) => {
@@ -56,20 +57,60 @@ export const DepositsScroller: React.FC = () => {
           paddingVertical: 4,
         }}
       >
-        <ScrollView
-          horizontal
-          contentContainerStyle={{
-            flexDirection: "row",
-            columnGap: 4,
-          }}
-          scrollEnabled
-          nestedScrollEnabled
-        >
-          {deposits?.data.map((deposit) => (
-            <DepositItem deposit={deposit} key={deposit.id} />
-          ))}
-          <AddDeposit />
-        </ScrollView>
+        {firstDeposit ? (
+          <View
+            style={{
+              justifyContent: "center",
+            }}
+          >
+            <Text
+              style={{
+                textAlign: "center",
+                color: "gray",
+                marginTop: 20,
+
+                paddingTop: 10,
+                lineHeight: 20,
+              }}
+            >
+              Altough the businesses are independent it's always nice to keep
+              track of the money available.
+            </Text>
+            <Text
+              style={{
+                textAlign: "center",
+                color: "gray",
+                paddingTop: 10,
+                paddingBottom: 20,
+
+                lineHeight: 20,
+              }}
+            >
+              This are typical <Text style={{ fontWeight: 800 }}>Bank</Text> or{" "}
+              <Text style={{ fontWeight: 800 }}>Cash</Text>, and can be related
+              to the <Text style={{ fontWeight: 800 }}>Businesses</Text>,{" "}
+              <Text style={{ fontWeight: 800 }}>Expenses</Text> or{" "}
+              <Text style={{ fontWeight: 800 }}>Incomes</Text>.
+            </Text>
+            <AddDeposit />
+          </View>
+        ) : (
+          <ScrollView
+            horizontal
+            contentContainerStyle={{
+              flexDirection: "row",
+              columnGap: 4,
+            }}
+            scrollEnabled
+            nestedScrollEnabled
+            showsHorizontalScrollIndicator={false}
+          >
+            {deposits?.data.map((deposit) => (
+              <DepositItem deposit={deposit} key={deposit.id} />
+            ))}
+            <AddDeposit />
+          </ScrollView>
+        )}
       </View>
     </View>
   );

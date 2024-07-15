@@ -4,6 +4,7 @@ import React, { ReactNode, useEffect, useState } from "react";
 import {
   Modal,
   Pressable,
+  StatusBar,
   StyleSheet,
   TouchableWithoutFeedback,
   View,
@@ -54,6 +55,9 @@ const BottomPopup = ({
       visible={openModal}
       onRequestClose={onClose}
     >
+      <StatusBar
+        barStyle={theme === "dark" ? "light-content" : "dark-content"}
+      />
       <TouchableWithoutFeedback
         onPress={() => {
           if (!fullHeight) handlePressOutside();
@@ -85,13 +89,17 @@ const BottomPopup = ({
             {closeIcon && (
               <Pressable
                 onPress={onClose}
-                style={{ position: "absolute", right: 12, top: 52, padding: 5 }}
+                style={{
+                  position: "absolute",
+                  right: 12,
+                  top: 52,
+                  padding: 5,
+                  borderWidth: 2,
+                  borderColor: "gray",
+                  borderRadius: 4,
+                }}
               >
-                <AntDesign
-                  name="close"
-                  size={22}
-                  color={theme === "light" ? "black" : "white"}
-                />
+                <AntDesign name="close" size={22} color="gray" />
               </Pressable>
             )}
             {children}

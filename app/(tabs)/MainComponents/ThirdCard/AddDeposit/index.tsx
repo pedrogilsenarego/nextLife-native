@@ -20,6 +20,7 @@ export const AddDeposit: React.FC = () => {
   const { mainColor } = useTheme();
   const width = Dimensions.get("screen").width;
   const deposits = useDeposits();
+  const firstDeposit = !!(deposits?.data?.length || 0 < 1);
   const defaultValues = {
     depositName: undefined,
     type: 0,
@@ -47,34 +48,54 @@ export const AddDeposit: React.FC = () => {
   };
   return (
     <>
-      <Pressable
-        onPress={() => setOpenModal(true)}
-        style={{ display: "flex", flexDirection: "row", paddingVertical: 6 }}
-      >
-        <Container
-          containerStyles={{
-            width: width / 3 - 10,
-            height: width / 3 - 10,
-            backgroundColor: `${mainColor}`,
-            justifyContent: "center",
-            alignItems: "center",
-            display: "flex",
-            flexDirection: "row",
-            borderWidth: 0,
-          }}
+      {firstDeposit ? (
+        <Pressable
+          onPress={() => setOpenModal(true)}
+          style={{ display: "flex", flexDirection: "row" }}
         >
-          <Text
-            style={{
-              fontSize: 100,
-              fontWeight: "600",
-              color: "#ffffffE6",
-              lineHeight: 100,
+          <Container
+            containerStyles={{
+              justifyContent: "center",
+              alignItems: "center",
+              display: "flex",
+              flexDirection: "row",
             }}
           >
-            +
-          </Text>
-        </Container>
-      </Pressable>
+            <Text style={{ fontSize: 16, fontWeight: "600" }}>
+              Add New Deposit +
+            </Text>
+          </Container>
+        </Pressable>
+      ) : (
+        <Pressable
+          onPress={() => setOpenModal(true)}
+          style={{ display: "flex", flexDirection: "row", paddingVertical: 6 }}
+        >
+          <Container
+            containerStyles={{
+              width: width / 3 - 10,
+              height: width / 3 - 10,
+              backgroundColor: `${mainColor}`,
+              justifyContent: "center",
+              alignItems: "center",
+              display: "flex",
+              flexDirection: "row",
+              borderWidth: 0,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 100,
+                fontWeight: "600",
+                color: "#ffffffE6",
+                lineHeight: 100,
+              }}
+            >
+              +
+            </Text>
+          </Container>
+        </Pressable>
+      )}
       <BottomPopup
         fullHeight
         closeIcon
