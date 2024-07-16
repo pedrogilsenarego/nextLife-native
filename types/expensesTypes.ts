@@ -7,6 +7,14 @@ export type Expense = {
   category: string;
   amount: number;
   icon_type: number;
+  deposit_id: number;
+  business: {
+    icon_type: number;
+    business_name: string;
+  };
+  deposits: {
+    deposit_name: string;
+  };
 };
 
 export type ExpensesQuery = Expense[];

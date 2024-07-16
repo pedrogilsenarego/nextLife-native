@@ -31,7 +31,7 @@ export const DepositsScroller: React.FC = () => {
               fontWeight: "700",
             }}
           >
-            {deposit.amount}€
+            {deposit.amount.toFixed(0)}€
           </Text>
           <Text
             style={{

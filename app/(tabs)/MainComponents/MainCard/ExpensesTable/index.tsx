@@ -1,16 +1,16 @@
 import { FlatList } from "react-native-gesture-handler";
 import Item from "./Item";
 import useExpenses from "@/hooks/useExpenses";
-
 import { useState, useEffect, useMemo } from "react";
 import { View, Text } from "react-native";
-
-import { useTheme } from "@/providers/ThemeContext";
 import useIncomes from "@/hooks/useIncomes";
 import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
 import { useApp } from "@/providers/AppProvider";
 import { listPerDay } from "@/utils/dateFormat";
 import { format } from "date-fns";
+import BottomPopup from "@/components/BottomPopup";
+import { TransactionContent } from "./TransactionContent";
+import { useSelectedTransactions } from "./TransactionContext";
 
 type Props = {
   selectedStatus: "expenses" | "incomes" | "both";
@@ -22,7 +22,8 @@ const ExpensesTable = ({ selectedStatus, amountToShow }: Props) => {
   const { dateRange, selectedDate } = useApp();
   const expenses = useExpenses();
   const incomes = useIncomes();
-  const { contrastColor, theme } = useTheme();
+  const { selectedTransactionId, setSelectedTransactionId } =
+    useSelectedTransactions();
   const [listDelete, setListDelete] = useState<string[]>([]);
 
   const incomesData = useMemo(() => {
@@ -95,30 +96,40 @@ const ExpensesTable = ({ selectedStatus, amountToShow }: Props) => {
       : dataSelected.slice(0, amountToShow);
 
   return (
-    <View
-      style={{
-        backgroundColor: "#ffffff1A",
+    <>
+      <View
+        style={{
+          backgroundColor: "#ffffff1A",
 
-        paddingTop: 4,
-      }}
-    >
-      <FlatList
-        data={dataToShow}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item, index }) => (
-          <Animated.View
-            entering={FadeInDown.delay(index * 150)}
-            exiting={FadeOutDown}
-          >
-            <Item
-              expense={item}
-              handleDelete={handleAddToDelete}
-              handleRemoveDelete={handleRemoveToDelete}
-            />
-          </Animated.View>
-        )}
-      />
-    </View>
+          paddingTop: 4,
+        }}
+      >
+        <FlatList
+          data={dataToShow}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item, index }) => (
+            <Animated.View
+              entering={FadeInDown.delay(index * 150)}
+              exiting={FadeOutDown}
+            >
+              <Item
+                expense={item}
+                handleDelete={handleAddToDelete}
+                handleRemoveDelete={handleRemoveToDelete}
+              />
+            </Animated.View>
+          )}
+        />
+      </View>
+      <BottomPopup
+        fullHeight
+        closeIcon
+        openModal={!!selectedTransactionId}
+        onClose={() => setSelectedTransactionId(null)}
+      >
+        <TransactionContent />
+      </BottomPopup>
+    </>
   );
 };
 

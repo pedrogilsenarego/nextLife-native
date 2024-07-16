@@ -135,7 +135,7 @@ const ThirdCard = () => {
                           />
                         </View>
                       </View>
-                      {(deposits.data?.length || 0) < 5 && <DepositsScroller />}
+                      <DepositsScroller />
                       {businessData?.map((businessData) => {
                         return <BusinessCard businessData={businessData} />;
                       })}

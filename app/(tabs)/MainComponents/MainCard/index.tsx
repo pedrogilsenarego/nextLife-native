@@ -5,6 +5,7 @@ import ExpensesTable from "./ExpensesTable";
 import { Card } from "@/components/Atoms/Card";
 import { CardFooter } from "@/components/Molecules/CardFooter";
 import useBusinesses from "@/hooks/useBusinesses";
+import { SelectedTransactionProvider } from "./ExpensesTable/TransactionContext";
 
 const MainCard = () => {
   const [amountToShow, setAmountToShow] = useState<number>(10);
@@ -89,10 +90,12 @@ const MainCard = () => {
             </View>
 
             <View style={{ marginTop: 6 }}>
-              <ExpensesTable
-                amountToShow={amountToShow}
-                selectedStatus={selectedStatus}
-              />
+              <SelectedTransactionProvider>
+                <ExpensesTable
+                  amountToShow={amountToShow}
+                  selectedStatus={selectedStatus}
+                />
+              </SelectedTransactionProvider>
             </View>
           </Pressable>
         </ScrollView>

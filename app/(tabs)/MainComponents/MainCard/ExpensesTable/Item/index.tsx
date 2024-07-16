@@ -10,6 +10,7 @@ import { useMutation } from "@tanstack/react-query";
 import moment from "moment";
 import { View, Text, Animated, Dimensions, Pressable } from "react-native";
 import { Swipeable } from "react-native-gesture-handler";
+import { useSelectedTransactions } from "../TransactionContext";
 
 type Props = {
   expense: any;
@@ -21,6 +22,8 @@ const Item = ({ expense, handleDelete, handleRemoveDelete }: Props) => {
   const expenses = useExpenses();
   const icons = useBusinessIcons({ size: 30 });
   const incomes = useIncomes();
+  const { setSelectedTransactionId, setSelectedMode } =
+    useSelectedTransactions();
   const { theme } = useTheme();
   const dateFormatter = (date: Date) => {
     return moment(date).format("DD MMM HH:MM");
@@ -74,75 +77,81 @@ const Item = ({ expense, handleDelete, handleRemoveDelete }: Props) => {
       </Pressable>
     );
   };
+  const handlePress = () => {
+    setSelectedTransactionId(expense.id);
+    setSelectedMode(expense.type);
+  };
   return (
-    <Swipeable
-      renderRightActions={RightAction}
-      onSwipeableOpen={() => handleDelete(expense.id)}
-      onSwipeableClose={() => handleRemoveDelete(expense.id)}
-    >
-      <View
-        style={{
-          borderBottomWidth: theme === "light" ? 1 : 0,
-          borderColor: Colors.lightGray,
-
-          paddingVertical: 8,
-          paddingHorizontal: 10,
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
+    <Pressable onPress={handlePress}>
+      <Swipeable
+        renderRightActions={RightAction}
+        onSwipeableOpen={() => handleDelete(expense.id)}
+        onSwipeableClose={() => handleRemoveDelete(expense.id)}
       >
-        <View style={{ rowGap: 3, width: "40%" }}>
-          <Text
-            style={{
-              color: theme === "light" ? Colors.black : "white",
-              fontSize: 16,
-              textTransform: "capitalize",
-            }}
-          >
-            {expense.category}
-          </Text>
-          <FontAwesome6
-            name={expense.type === "expense" ? "turn-down" : "turn-up"}
-            color={expense.type === "expense" ? "orangered" : "green"}
-            style={{ opacity: 0.8, marginLeft: 5 }}
-          />
-        </View>
         <View
           style={{
-            opacity: 0.05,
-            width: "20%",
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+            borderBottomWidth: theme === "light" ? 1 : 0,
+            borderColor: Colors.lightGray,
+
+            paddingVertical: 8,
+            paddingHorizontal: 10,
             flexDirection: "row",
-            overflow: "hidden",
+            justifyContent: "space-between",
           }}
         >
-          {expense?.business?.icon_type &&
-            icons[expense?.business?.icon_type].icon}
-        </View>
-        <View style={{ alignItems: "flex-end", width: "40%" }}>
-          <Text
+          <View style={{ rowGap: 3, width: "40%" }}>
+            <Text
+              style={{
+                color: theme === "light" ? Colors.black : "white",
+                fontSize: 16,
+                textTransform: "capitalize",
+              }}
+            >
+              {expense.category}
+            </Text>
+            <FontAwesome6
+              name={expense.type === "expense" ? "turn-down" : "turn-up"}
+              color={expense.type === "expense" ? "orangered" : "green"}
+              style={{ opacity: 0.8, marginLeft: 5 }}
+            />
+          </View>
+          <View
             style={{
-              color: theme === "light" ? Colors.black : "white",
-              fontSize: 16,
-              fontWeight: "600",
+              opacity: 0.05,
+              width: "20%",
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "row",
+              overflow: "hidden",
             }}
           >
-            {expense.amount}€
-          </Text>
-          <Text
-            style={{
-              color: theme === "light" ? Colors.black : "white",
-              fontSize: 12,
-            }}
-          >
-            {dateFormatter(expense.created_at)}
-          </Text>
+            {expense?.business?.icon_type &&
+              icons[expense?.business?.icon_type].icon}
+          </View>
+          <View style={{ alignItems: "flex-end", width: "40%" }}>
+            <Text
+              style={{
+                color: theme === "light" ? Colors.black : "white",
+                fontSize: 16,
+                fontWeight: "600",
+              }}
+            >
+              {expense.amount}€
+            </Text>
+            <Text
+              style={{
+                color: theme === "light" ? Colors.black : "white",
+                fontSize: 12,
+              }}
+            >
+              {dateFormatter(expense.created_at)}
+            </Text>
+          </View>
         </View>
-      </View>
-    </Swipeable>
+      </Swipeable>
+    </Pressable>
   );
 };
 

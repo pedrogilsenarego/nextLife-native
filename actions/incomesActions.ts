@@ -29,7 +29,8 @@ export const getIncomes = async ({
         .select(
           `
         *,
-        business:businessId (icon_type)
+        business:businessId (icon_type, business_name),
+        deposits:deposit_id (deposit_name)
       `
         )
         .eq("user_id", user.id)
