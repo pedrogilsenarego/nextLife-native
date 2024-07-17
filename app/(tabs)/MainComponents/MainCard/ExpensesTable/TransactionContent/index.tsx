@@ -6,8 +6,8 @@ import { Divider } from "@/components/Atoms/Divider";
 import { useBusinessIcons } from "@/constants/useBusinessIcons";
 import Button from "@/components/button/ButtonComponent";
 import { useMutation } from "@tanstack/react-query";
-import { deleteExpenses } from "@/actions/expensesActions";
-import { deleteIncomes } from "@/actions/incomesActions";
+import { deleteExpense } from "@/actions/expensesActions";
+import { deleteIncome } from "@/actions/incomesActions";
 
 export const TransactionContent = () => {
   const { selectedTransactionId, selectedMode, setSelectedTransactionId } =
@@ -21,7 +21,7 @@ export const TransactionContent = () => {
       : incomes?.data.find((incomes) => incomes.id === selectedTransactionId);
 
   const { mutate: deleteMutation, isPending } = useMutation({
-    mutationFn: selectedMode === "expense" ? deleteExpenses : deleteIncomes,
+    mutationFn: selectedMode === "expense" ? deleteExpense : deleteIncome,
     onError: (error: any) => {
       console.log("error", error);
     },
@@ -33,7 +33,7 @@ export const TransactionContent = () => {
   });
 
   const handleDelete = () => {
-    if (transaction?.id) deleteMutation([transaction?.id]);
+    if (transaction?.id) deleteMutation(transaction?.id);
   };
 
   return (

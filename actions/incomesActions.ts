@@ -130,10 +130,7 @@ export const addIncome = async (
   });
 };
 
-export const deleteIncomes = async (
-  expensesToDelete: string[]
-): Promise<string> => {
-  console.log("deleting Incomes");
+export const deleteIncome = async (expenseId: string): Promise<any> => {
   return new Promise(async (resolve, reject) => {
     try {
       const {
@@ -144,21 +141,63 @@ export const deleteIncomes = async (
         return reject(new Error("User not authenticated"));
       }
 
-      // Delete expenses based on the provided IDs
+      // Fetch the expense to get the deposit_id and amount
+      const { data: expense, error: fetchError } = await supabase
+        .from("incomes")
+        .select("*")
+        .eq("id", expenseId)
+        .single();
+
+      if (fetchError) {
+        console.error(fetchError);
+        return reject(fetchError);
+      }
+
+      if (!expense) {
+        return reject(new Error("Expense not found"));
+      }
+
+      const { deposit_id, amount } = expense;
+
+      // Delete the expense
       const { error: deleteError } = await supabase
         .from("incomes")
         .delete()
-        .in(
-          "id",
-          expensesToDelete.map((expense) => expense)
-        );
+        .eq("id", expenseId);
 
       if (deleteError) {
         console.error(deleteError);
         return reject(deleteError);
       }
 
-      resolve("Success");
+      if (deposit_id) {
+        const { data: depositData, error: depositFetchError } = await supabase
+          .from("deposits")
+          .select("amount")
+          .eq("id", deposit_id)
+          .single();
+
+        if (depositFetchError) {
+          console.error(depositFetchError);
+          return reject(depositFetchError);
+        }
+
+        const newAmount = depositData.amount - amount;
+
+        const { error: depositUpdateError } = await supabase
+          .from("deposits")
+          .update({
+            amount: newAmount,
+          })
+          .eq("id", deposit_id);
+
+        if (depositUpdateError) {
+          console.error(depositUpdateError);
+          return reject(depositUpdateError);
+        }
+      }
+
+      resolve({ message: "Income deleted and deposit updated successfully" });
     } catch (error) {
       console.error(error);
       reject(error);
