@@ -64,46 +64,49 @@ const BottomPopup = ({
         }}
       >
         <View style={styles.container}>
-          <Animated.View
-            style={[
-              {
-                height: fullHeight ? "100%" : undefined,
-                position: "relative",
-                //marginHorizontal: 4,
-                borderTopLeftRadius: 12,
-                borderTopRightRadius: 12,
-                paddingHorizontal: 30,
-                paddingBottom: 40,
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 0,
-                  height: 10,
+          <Pressable>
+            <Animated.View
+              style={[
+                {
+                  height: fullHeight ? "100%" : undefined,
+                  position: "relative",
+
+                  //marginHorizontal: 4,
+                  borderTopLeftRadius: 12,
+                  borderTopRightRadius: 12,
+                  paddingHorizontal: 30,
+                  paddingBottom: 40,
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 10,
+                  },
+                  shadowOpacity: 0.51,
+                  shadowRadius: 13.16,
+                  elevation: 20,
                 },
-                shadowOpacity: 0.51,
-                shadowRadius: 13.16,
-                elevation: 20,
-              },
-              backgroundColorAnimation,
-            ]}
-          >
-            {closeIcon && (
-              <Pressable
-                onPress={onClose}
-                style={{
-                  position: "absolute",
-                  right: 12,
-                  top: 52,
-                  padding: 5,
-                  borderWidth: 2,
-                  borderColor: "gray",
-                  borderRadius: 4,
-                }}
-              >
-                <AntDesign name="close" size={22} color="gray" />
-              </Pressable>
-            )}
-            {children}
-          </Animated.View>
+                backgroundColorAnimation,
+              ]}
+            >
+              {closeIcon && (
+                <Pressable
+                  onPress={onClose}
+                  style={{
+                    position: "absolute",
+                    right: 12,
+                    top: 52,
+                    padding: 5,
+                    borderWidth: 2,
+                    borderColor: "gray",
+                    borderRadius: 4,
+                  }}
+                >
+                  <AntDesign name="close" size={22} color="gray" />
+                </Pressable>
+              )}
+              {children}
+            </Animated.View>
+          </Pressable>
         </View>
       </TouchableWithoutFeedback>
     </Modal>

@@ -1,7 +1,7 @@
 import { FlatList } from "react-native-gesture-handler";
 import Item from "./Item";
 import useExpenses from "@/hooks/useExpenses";
-import { useState, useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { View, Text } from "react-native";
 import useIncomes from "@/hooks/useIncomes";
 import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
@@ -24,7 +24,6 @@ const ExpensesTable = ({ selectedStatus, amountToShow }: Props) => {
   const incomes = useIncomes();
   const { selectedTransactionId, setSelectedTransactionId } =
     useSelectedTransactions();
-  const [listDelete, setListDelete] = useState<string[]>([]);
 
   const incomesData = useMemo(() => {
     return (
@@ -66,14 +65,6 @@ const ExpensesTable = ({ selectedStatus, amountToShow }: Props) => {
     return sortedData;
   }, [expenses.data, incomes.data]);
 
-  const handleAddToDelete = (id: string) => {
-    setListDelete((listDelete) => [...listDelete, id]);
-  };
-
-  const handleRemoveToDelete = (id: string) => {
-    setListDelete((listDelete) => listDelete.filter((item) => item !== id));
-  };
-
   const dataSelected =
     selectedStatus === "expenses"
       ? expensesData
@@ -112,18 +103,12 @@ const ExpensesTable = ({ selectedStatus, amountToShow }: Props) => {
               entering={FadeInDown.delay(index * 150)}
               exiting={FadeOutDown}
             >
-              <Item
-                expense={item}
-                handleDelete={handleAddToDelete}
-                handleRemoveDelete={handleRemoveToDelete}
-              />
+              <Item expense={item} />
             </Animated.View>
           )}
         />
       </View>
       <BottomPopup
-        fullHeight
-        closeIcon
         openModal={!!selectedTransactionId}
         onClose={() => setSelectedTransactionId(null)}
       >
