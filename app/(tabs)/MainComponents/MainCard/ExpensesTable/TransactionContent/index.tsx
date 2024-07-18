@@ -8,6 +8,7 @@ import Button from "@/components/button/ButtonComponent";
 import { useMutation } from "@tanstack/react-query";
 import { deleteExpense } from "@/actions/expensesActions";
 import { deleteIncome } from "@/actions/incomesActions";
+import Form from "./Form";
 
 export const TransactionContent = () => {
   const { selectedTransactionId, selectedMode, setSelectedTransactionId } =
@@ -51,11 +52,8 @@ export const TransactionContent = () => {
           icons[transaction?.business?.icon_type].icon}
       </View>
       <Divider />
-      <Text>Amount: {transaction?.amount}</Text>
-      <Text>Category: {transaction?.category}</Text>
-      <Text>Note: {transaction?.note}</Text>
-      <Text>Business: {transaction?.business?.business_name}</Text>
-      <Text>Deposit: {transaction?.deposits?.deposit_name}</Text>
+
+      <Form transaction={transaction} />
       <Button label="Delete" onPress={handleDelete} isLoading={isPending} />
     </View>
   );

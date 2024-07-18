@@ -6,6 +6,7 @@ import { useTheme } from "@/providers/ThemeContext";
 import { View, Text, Pressable, Keyboard } from "react-native";
 
 type Props = {
+  name?: string;
   openModal: boolean;
   setOpenModal: (openModal: boolean) => void;
   depositList: { label: string; value: number | undefined }[];
@@ -15,6 +16,7 @@ export const DepositDrawer: React.FC<Props> = ({
   openModal,
   setOpenModal,
   depositList,
+  name,
 }) => {
   const { theme } = useTheme();
 
@@ -49,7 +51,7 @@ export const DepositDrawer: React.FC<Props> = ({
           <Select
             height={160}
             style={{ borderTopRightRadius: 6 }}
-            name="depositId"
+            name={name || "depositId"}
             listOptions={depositList || []}
           />
         </View>
