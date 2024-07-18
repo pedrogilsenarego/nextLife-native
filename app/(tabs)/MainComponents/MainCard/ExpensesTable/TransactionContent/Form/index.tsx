@@ -123,11 +123,10 @@ const Form = ({ transaction }: Props) => {
     });
 
     if (transaction) {
-      console.log(updatedFields);
-      // addExpenseMutation({
-      //   expenseId: transaction.id,
-      //   updatedFields,
-      // });
+      addExpenseMutation({
+        expenseId: transaction.id,
+        updatedFields,
+      });
     }
   };
 
