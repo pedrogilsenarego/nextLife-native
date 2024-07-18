@@ -75,7 +75,7 @@ const Form = ({ transaction }: Props) => {
       : undefined,
     category: transaction?.category,
     businessId: transaction?.businessId,
-    deposit_id: transaction?.deposit_id,
+    deposit_id: transaction?.deposit_id || undefined,
   };
   const methods = useForm<NewEntryType>({
     resolver: zodResolver(NewEntrySchema),
@@ -124,10 +124,10 @@ const Form = ({ transaction }: Props) => {
 
     if (transaction) {
       console.log(updatedFields);
-      addExpenseMutation({
-        expenseId: transaction.id,
-        updatedFields,
-      });
+      // addExpenseMutation({
+      //   expenseId: transaction.id,
+      //   updatedFields,
+      // });
     }
   };
 

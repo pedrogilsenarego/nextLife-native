@@ -250,14 +250,11 @@ export const updateExpense = async ({
       const { deposit_id: existingDepositId, amount: existingAmount } =
         existingExpense;
 
-      console.log("old values", existingDepositId, existingAmount);
-
       const {
         deposit_id: newDepositId = existingDepositId,
         amount: newAmount = existingAmount,
       } = updatedFields;
 
-      console.log("new values", newDepositId, newAmount);
       // Update the expense
       const { error: expenseError } = await supabase
         .from("expenses")

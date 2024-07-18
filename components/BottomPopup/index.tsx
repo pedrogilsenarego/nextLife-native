@@ -56,7 +56,9 @@ const BottomPopup = ({
       onRequestClose={onClose}
     >
       <StatusBar
-        barStyle={theme === "dark" ? "light-content" : "dark-content"}
+        barStyle={
+          theme === "dark" || !fullHeight ? "light-content" : "dark-content"
+        }
       />
       <TouchableWithoutFeedback
         onPress={() => {
