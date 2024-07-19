@@ -19,7 +19,7 @@ export const HeaderMetrics = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        paddingTop: 40,
+
         rowGap: 1,
         paddingLeft: 5,
       }}
@@ -34,19 +34,16 @@ export const HeaderMetrics = () => {
         {totalPatrimony.toFixed(1)}
         <Text style={{ fontSize: 26 }}> €</Text>
       </Text>
-      <BlurView
-        intensity={150}
+      <View
         style={{
-          overflow: "hidden",
-          marginTop: 10,
           borderRadius: 20,
           paddingVertical: 2,
           paddingHorizontal: 10,
-          backgroundColor: mainColor,
+          backgroundColor: `${mainColor}66`,
         }}
       >
         <Text style={{ color: Colors.white }}>Metrics</Text>
-      </BlurView>
+      </View>
     </View>
   );
 };

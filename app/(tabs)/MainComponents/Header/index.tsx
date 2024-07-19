@@ -39,8 +39,7 @@ export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
         paddingHorizontal: 12,
         paddingVertical: 6,
         marginHorizontal: 10,
-        borderWidth: 1,
-        borderColor: Colors.black,
+
         backgroundColor: mainColor,
         borderRadius: 20,
         width: width - 20,

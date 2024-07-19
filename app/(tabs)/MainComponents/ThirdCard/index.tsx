@@ -122,19 +122,21 @@ const ThirdCard = () => {
                         style={{
                           display: "flex",
                           flexDirection: "row",
-                          columnGap: 5,
+
                           alignItems: "center",
                           paddingHorizontal: 2,
-                          paddingBottom: 10,
+                          paddingTop: 140,
                           justifyContent: "center",
+
+                          height: 250,
                         }}
                       >
                         <HeaderMetrics />
                       </View>
-                      <View style={{ marginTop: 80 }}>
+                      <View>
                         <DepositsScroller />
                       </View>
-                      <View style={{ marginTop: 0 }}>
+                      <View>
                         <DividerCTA />
                       </View>
                       <View style={{ marginTop: 50 }}>
