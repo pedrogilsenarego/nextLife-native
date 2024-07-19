@@ -9,7 +9,7 @@ export const DividerCTA = () => {
       <View
         style={{
           position: "absolute",
-          top: -20,
+          top: -18,
           width: "100%",
           display: "flex",
           justifyContent: "center",

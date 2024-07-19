@@ -26,7 +26,7 @@ export const HeaderMetrics = () => {
     >
       <Text
         style={{
-          fontSize: 45,
+          fontSize: 50,
           fontWeight: "700",
           color: mainColor,
         }}

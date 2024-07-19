@@ -125,21 +125,21 @@ const ThirdCard = () => {
 
                           alignItems: "center",
                           paddingHorizontal: 2,
-                          paddingTop: 140,
+
                           justifyContent: "center",
 
-                          height: 250,
+                          height: 220,
                         }}
                       >
                         <HeaderMetrics />
                       </View>
-                      <View>
+                      <View style={{ marginTop: 0 }}>
                         <DepositsScroller />
                       </View>
-                      <View>
+                      <View style={{ marginTop: 40 }}>
                         <DividerCTA />
                       </View>
-                      <View style={{ marginTop: 50 }}>
+                      <View style={{ marginTop: 80 }}>
                         <HorizontalBarChartBusiness
                           businessData={businessData}
                         />

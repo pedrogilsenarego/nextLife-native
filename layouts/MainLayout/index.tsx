@@ -82,7 +82,7 @@ const MainLayout = ({
               },
             ]}
           >
-            <View style={{ position: "absolute", top: 14, zIndex: 20 }}>
+            <View style={{ position: "absolute", top: 6, zIndex: 20 }}>
               <Header
                 setSideMenu={setSideMenu}
                 setSideLeftMenu={setSideLeftMenu}
