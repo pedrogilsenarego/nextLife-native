@@ -205,7 +205,7 @@ export const deleteExpense = async (expenseId: string): Promise<any> => {
   });
 };
 type UpdateExpenseProps = {
-  expenseId: string;
+  transactionId: string;
   originalDepositId?: number;
   updatedFields: Partial<{
     businessId?: string;
@@ -218,7 +218,7 @@ type UpdateExpenseProps = {
 };
 
 export const updateExpense = async ({
-  expenseId,
+  transactionId,
   updatedFields,
 }: UpdateExpenseProps): Promise<string> => {
   return new Promise(async (resolve, reject) => {
@@ -235,7 +235,7 @@ export const updateExpense = async ({
       const { data: existingExpense, error: fetchError } = await supabase
         .from("expenses")
         .select("*")
-        .eq("id", expenseId)
+        .eq("id", transactionId)
         .single();
 
       if (fetchError) {
@@ -258,7 +258,7 @@ export const updateExpense = async ({
       const { error: expenseError } = await supabase
         .from("expenses")
         .update({ deposit_id: newDepositId, amount: newAmount })
-        .eq("id", expenseId);
+        .eq("id", transactionId);
 
       if (expenseError) {
         console.error(expenseError);

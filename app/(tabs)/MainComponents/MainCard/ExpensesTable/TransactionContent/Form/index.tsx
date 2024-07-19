@@ -12,7 +12,7 @@ import useExpenses from "@/hooks/useExpenses";
 import { ArrayButtons } from "@/components/Molecules/ArrayButtons";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 import { useEffect, useState } from "react";
-import { addIncome } from "@/actions/incomesActions";
+import { addIncome, updateIncome } from "@/actions/incomesActions";
 import useIncomes from "@/hooks/useIncomes";
 import { PressableTextOption } from "@/components/Atoms/PressableTextOption";
 import {
@@ -83,7 +83,7 @@ const Form = ({ transaction }: Props) => {
   });
 
   const { mutate: addExpenseMutation, isPending } = useMutation({
-    mutationFn: selectedMode === "expense" ? updateExpense : updateExpense,
+    mutationFn: selectedMode === "expense" ? updateExpense : updateIncome,
     onError: (error: any) => {
       console.log("error", error);
     },
@@ -124,7 +124,7 @@ const Form = ({ transaction }: Props) => {
 
     if (transaction) {
       addExpenseMutation({
-        expenseId: transaction.id,
+        transactionId: transaction.id,
         updatedFields,
       });
     }

@@ -204,3 +204,151 @@ export const deleteIncome = async (expenseId: string): Promise<any> => {
     }
   });
 };
+
+type UpdateIncomeProps = {
+  transactionId: string;
+  originalDepositId?: number;
+  updatedFields: Partial<{
+    businessId?: string;
+    category?: string;
+    note?: string;
+    amount?: number;
+    created_at?: Date;
+    deposit_id?: number;
+  }>;
+};
+
+export const updateIncome = async ({
+  transactionId,
+  updatedFields,
+}: UpdateIncomeProps): Promise<string> => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        return reject(new Error("User not authenticated"));
+      }
+
+      // Fetch the existing income
+      const { data: existingIncome, error: fetchError } = await supabase
+        .from("incomes")
+        .select("*")
+        .eq("id", transactionId)
+        .single();
+
+      if (fetchError) {
+        console.error(fetchError);
+        return reject(fetchError);
+      }
+
+      if (!existingIncome) {
+        return reject(new Error("Income not found"));
+      }
+
+      const { deposit_id: existingDepositId, amount: existingAmount } =
+        existingIncome;
+      const {
+        deposit_id: newDepositId = null, // Default to null if undefined
+        amount: newAmount = existingAmount,
+      } = updatedFields;
+
+      // Update the income
+      const { error: incomeError } = await supabase
+        .from("incomes")
+        .update({ deposit_id: newDepositId, amount: newAmount })
+        .eq("id", transactionId);
+
+      if (incomeError) {
+        console.error(incomeError);
+        return reject(incomeError);
+      }
+
+      // If deposit ID has changed or amount needs updating
+      if (newDepositId !== existingDepositId || newAmount !== existingAmount) {
+        // Handle the old deposit update if it exists
+        if (existingDepositId) {
+          const { data: oldDeposit, error: oldDepositError } = await supabase
+            .from("deposits")
+            .select("amount")
+            .eq("id", existingDepositId)
+            .single();
+
+          if (oldDepositError) {
+            console.error(oldDepositError);
+            return reject(oldDepositError);
+          }
+
+          // Subtract the original amount from the old deposit
+          const updatedOldAmount = oldDeposit.amount - existingAmount;
+          const { error: updateOldDepositError } = await supabase
+            .from("deposits")
+            .update({ amount: updatedOldAmount })
+            .eq("id", existingDepositId);
+
+          if (updateOldDepositError) {
+            console.error(updateOldDepositError);
+            return reject(updateOldDepositError);
+          }
+        }
+
+        // Handle the new deposit update if a new deposit ID is provided
+        if (newDepositId) {
+          const { data: newDeposit, error: newDepositError } = await supabase
+            .from("deposits")
+            .select("amount")
+            .eq("id", newDepositId)
+            .single();
+
+          if (newDepositError) {
+            console.error(newDepositError);
+            return reject(newDepositError);
+          }
+
+          // Add the new amount to the new deposit
+          const updatedNewAmount = newDeposit.amount + newAmount;
+          const { error: updateNewDepositError } = await supabase
+            .from("deposits")
+            .update({ amount: updatedNewAmount })
+            .eq("id", newDepositId);
+
+          if (updateNewDepositError) {
+            console.error(updateNewDepositError);
+            return reject(updateNewDepositError);
+          }
+        }
+      } else if (existingDepositId && newDepositId === null) {
+        // Case 3: No new deposit ID, but we have an existing deposit ID
+        const { data: oldDeposit, error: oldDepositError } = await supabase
+          .from("deposits")
+          .select("amount")
+          .eq("id", existingDepositId)
+          .single();
+
+        if (oldDepositError) {
+          console.error(oldDepositError);
+          return reject(oldDepositError);
+        }
+
+        // Subtract the original amount from the old deposit
+        const updatedOldAmount = oldDeposit.amount - existingAmount;
+        const { error: updateOldDepositError } = await supabase
+          .from("deposits")
+          .update({ amount: updatedOldAmount })
+          .eq("id", existingDepositId);
+
+        if (updateOldDepositError) {
+          console.error(updateOldDepositError);
+          return reject(updateOldDepositError);
+        }
+      }
+
+      resolve("Success");
+    } catch (error) {
+      console.error(error);
+      reject(error);
+    }
+  });
+};
