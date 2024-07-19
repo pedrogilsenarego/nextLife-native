@@ -16,7 +16,7 @@ type Props = {
 };
 
 export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
-  const { theme } = useTheme();
+  const { theme, mainColor } = useTheme();
   const userQuery = useUser();
   const expenses = useExpenses();
   const incomes = useIncomes();
@@ -36,15 +36,29 @@ export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
       style={{
         flexDirection: "row",
         justifyContent: "space-between",
-        paddingHorizontal: 18,
+        paddingHorizontal: 12,
+        paddingVertical: 6,
+        marginHorizontal: 10,
+        borderWidth: 1,
+        borderColor: Colors.black,
+        backgroundColor: mainColor,
+        borderRadius: 20,
+        width: width - 20,
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
 
-        width,
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
       }}
     >
       <View style={{ rowGap: 2 }}>
         <Text
           style={{
-            color: theme === "light" ? Colors.black : "white",
+            color: "white",
             fontSize: 20,
           }}
         >
@@ -61,7 +75,7 @@ export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
         <Text
           style={{
             fontSize: 12,
-            color: theme === "light" ? "gray" : "whitesmoke",
+            color: "whitesmoke",
           }}
         >
           Your {dateRangeLabel(dateRange)} balance
@@ -69,7 +83,7 @@ export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
         {!loading && (
           <Text
             style={{
-              color: theme === "light" ? Colors.black : "white",
+              color: "white",
               fontSize: 18,
               fontWeight: "bold",
             }}
@@ -90,7 +104,7 @@ export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
         <Text
           style={{
             marginTop: 6,
-            color: theme === "light" ? Colors.black : "whitesmoke",
+            color: "whitesmoke",
           }}
         >
           {formattedDate}
@@ -113,11 +127,7 @@ export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
             }}
             onPress={() => setSideLeftMenu(true)}
           >
-            <Entypo
-              size={22}
-              name="add-to-list"
-              color={theme === "light" ? Colors.black : Colors.lightGray}
-            />
+            <Entypo size={22} name="add-to-list" color={Colors.lightGray} />
           </Pressable>
           <Pressable
             style={{
@@ -127,11 +137,7 @@ export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
             }}
             onPress={() => setSideMenu(true)}
           >
-            <AntDesign
-              size={20}
-              name="menu-fold"
-              color={theme === "light" ? Colors.black : Colors.lightGray}
-            />
+            <AntDesign size={20} name="menu-fold" color={Colors.lightGray} />
           </Pressable>
         </View>
       </View>

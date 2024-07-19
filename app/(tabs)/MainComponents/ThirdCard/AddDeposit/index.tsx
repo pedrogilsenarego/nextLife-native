@@ -76,9 +76,10 @@ export const AddDeposit: React.FC = () => {
         >
           <Container
             containerStyles={{
-              width: width / 3 - 10,
-              height: width / 3 - 10,
+              width: width / 4 - 24,
+              height: width / 4 - 24,
               backgroundColor: `${mainColor}`,
+              borderRadius: 50,
               justifyContent: "center",
               alignItems: "center",
               display: "flex",
@@ -88,10 +89,10 @@ export const AddDeposit: React.FC = () => {
           >
             <Text
               style={{
-                fontSize: 100,
+                fontSize: 50,
                 fontWeight: "600",
                 color: "#ffffffE6",
-                lineHeight: 100,
+                lineHeight: 50,
               }}
             >
               +

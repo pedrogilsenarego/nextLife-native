@@ -17,6 +17,7 @@ import { AddDeposit } from "./AddDeposit";
 import { DepositsScroller } from "./DepositsScroller";
 import { Divider } from "@/components/Atoms/Divider";
 import { HeaderMetrics } from "./HeaderMetrics";
+import { DividerCTA } from "./DividerCTA";
 
 const ThirdCard = () => {
   const businesses = useBusinesses();
@@ -129,13 +130,18 @@ const ThirdCard = () => {
                         }}
                       >
                         <HeaderMetrics />
-                        <View style={{ width: "60%" }}>
-                          <HorizontalBarChartBusiness
-                            businessData={businessData}
-                          />
-                        </View>
                       </View>
-                      <DepositsScroller />
+                      <View style={{ marginTop: 80 }}>
+                        <DepositsScroller />
+                      </View>
+                      <View style={{ marginTop: 0 }}>
+                        <DividerCTA />
+                      </View>
+                      <View style={{ marginTop: 50 }}>
+                        <HorizontalBarChartBusiness
+                          businessData={businessData}
+                        />
+                      </View>
                       {businessData?.map((businessData) => {
                         return <BusinessCard businessData={businessData} />;
                       })}
