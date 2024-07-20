@@ -5,7 +5,7 @@ import { useTheme } from "@/providers/ThemeContext";
 
 const BottomCard = () => {
   const business = useBusinesses();
-  const { theme } = useTheme();
+  const { theme, mainColor } = useTheme();
   const listBusiness = business?.data?.map((business) => {
     const list = {
       label: business.businessName,
@@ -22,13 +22,13 @@ const BottomCard = () => {
     >
       <Text
         style={{
-          fontSize: 20,
+          fontSize: 22,
           fontWeight: "bold",
           marginTop: 14,
-          color: theme === "dark" ? "white" : "black",
+          color: mainColor,
         }}
       >
-        Add new entry
+        New Entry
       </Text>
       {(business.data?.length || 0) < 1 ? (
         <View style={{ paddingHorizontal: 20 }}>

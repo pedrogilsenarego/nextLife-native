@@ -23,7 +23,7 @@ export const DepositsScroller: React.FC = () => {
         onPress={() => setSelectedDeposit(deposit.id)}
       >
         <BlurView
-          intensity={10}
+          intensity={5}
           style={{ width: width / 4 - 24, height: width / 4 - 24 }}
         >
           <View
@@ -52,7 +52,7 @@ export const DepositsScroller: React.FC = () => {
               height: "60%",
               textAlign: "center",
               color: "gray",
-              fontSize: 12,
+              fontSize: 13,
             }}
           >
             {deposit.depositName}

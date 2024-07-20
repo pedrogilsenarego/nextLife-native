@@ -83,8 +83,7 @@ export const CardFooter: React.FC<Props> = ({ handleMoveCarousel, index }) => {
               paddingHorizontal: 10,
               borderRadius: 40,
 
-              backgroundColor:
-                theme === "dark" ? "#ffffff0F" : `${mainColor}0D`,
+              backgroundColor: `${mainColor}80`,
               display: "flex",
               alignItems: "center",
               flexDirection: "row",
@@ -94,7 +93,7 @@ export const CardFooter: React.FC<Props> = ({ handleMoveCarousel, index }) => {
             <Text
               style={{
                 fontSize: 10,
-                color: theme === "dark" ? Colors.lightGray : "black",
+                color: Colors.white,
               }}
             >
               {dateRangeLabel(dateRange)}
@@ -102,7 +101,7 @@ export const CardFooter: React.FC<Props> = ({ handleMoveCarousel, index }) => {
             <Ionicons
               name="filter-circle-outline"
               size={20}
-              color={theme === "dark" ? Colors.lightGray : "black"}
+              color={Colors.white}
             />
           </Pressable>
         </View>
