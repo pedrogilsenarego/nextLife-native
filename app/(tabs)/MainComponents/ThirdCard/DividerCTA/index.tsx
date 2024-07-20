@@ -5,7 +5,7 @@ import { View, Text } from "react-native";
 export const DividerCTA = () => {
   const { mainColor } = useTheme();
   return (
-    <View style={{ marginTop: 40, position: "relative" }}>
+    <View style={{ position: "relative" }}>
       <View
         style={{
           position: "absolute",

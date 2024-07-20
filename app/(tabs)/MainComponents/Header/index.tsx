@@ -41,7 +41,7 @@ export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
         marginHorizontal: 10,
 
         backgroundColor: mainColor,
-        borderRadius: 10,
+        borderRadius: 7,
         width: width - 20,
         shadowColor: "#000",
         shadowOffset: {
@@ -126,7 +126,12 @@ export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
             }}
             onPress={() => setSideLeftMenu(true)}
           >
-            <Entypo size={22} name="add-to-list" color={Colors.lightGray} />
+            <Entypo
+              size={26}
+              name="add-to-list"
+              color={Colors.lightGray}
+              style={{ padding: -4 }}
+            />
           </Pressable>
           <Pressable
             style={{

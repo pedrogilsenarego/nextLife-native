@@ -2,7 +2,13 @@ import { Card } from "@/components/Atoms/Card";
 import LoaderSpinner from "@/components/Atoms/LoaderSpinner";
 import useBusinesses from "@/hooks/useBusinesses";
 import { Colors, useTheme } from "@/providers/ThemeContext";
-import { View, Pressable, ScrollView, Text } from "react-native";
+import {
+  View,
+  Pressable,
+  ScrollView,
+  Text,
+  ImageBackground,
+} from "react-native";
 import { BusinessCard } from "./BusinessCard";
 import BottomPopup from "@/components/BottomPopup";
 import { useEffect, useState } from "react";
@@ -18,6 +24,7 @@ import { DepositsScroller } from "./DepositsScroller";
 import { Divider } from "@/components/Atoms/Divider";
 import { HeaderMetrics } from "./HeaderMetrics";
 import { DividerCTA } from "./DividerCTA";
+import { SelectedDepositProvider } from "./DepositsContext";
 
 const ThirdCard = () => {
   const businesses = useBusinesses();
@@ -35,7 +42,7 @@ const ThirdCard = () => {
     }) || [];
 
   return (
-    <Card footer>
+    <Card footer paperStyles={{ paddingTop: 6 }}>
       {businesses.isLoading ? (
         <LoaderSpinner />
       ) : (
@@ -86,8 +93,7 @@ const ThirdCard = () => {
                 showsVerticalScrollIndicator={false}
                 scrollEventThrottle={16}
                 style={{
-                  marginHorizontal: 10,
-                  borderRadius: 8,
+                  borderRadius: 12,
 
                   position: "relative",
                   height: "100%",
@@ -109,46 +115,60 @@ const ThirdCard = () => {
                   </View>
                 ) : (
                   <Pressable>
-                    <Divider />
                     <View
                       style={{
                         width: "100%",
-                        paddingHorizontal: 4,
-                        marginTop: 16,
-                        rowGap: 6,
                       }}
                     >
-                      <View
-                        style={{
-                          display: "flex",
-                          flexDirection: "row",
+                      <ImageBackground
+                        imageStyle={{
+                          opacity: theme === "light" ? 0.9 : 0,
 
-                          alignItems: "center",
-                          paddingHorizontal: 2,
-
-                          justifyContent: "center",
-
-                          height: 220,
+                          borderWidth: 4,
+                          borderColor: "white",
+                          height: "100%",
                         }}
+                        source={require("../../../../assets/images/pattern.png")}
+                        style={{}}
                       >
-                        <HeaderMetrics />
-                      </View>
-                      <View style={{ marginTop: 0 }}>
-                        <DepositsScroller />
-                      </View>
-                      <View style={{ marginTop: 40 }}>
+                        <View
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+
+                            alignItems: "center",
+                            paddingHorizontal: 2,
+
+                            justifyContent: "center",
+                            paddingTop: 150,
+                            height: 480,
+                          }}
+                        >
+                          <HeaderMetrics />
+                        </View>
+                        <View
+                          style={{ marginBottom: 60, paddingHorizontal: 14 }}
+                        >
+                          <SelectedDepositProvider>
+                            <DepositsScroller />
+                          </SelectedDepositProvider>
+                        </View>
+                      </ImageBackground>
+                      <View>
                         <DividerCTA />
                       </View>
-                      <View style={{ marginTop: 80 }}>
-                        <HorizontalBarChartBusiness
-                          businessData={businessData}
-                        />
-                      </View>
-                      {businessData?.map((businessData) => {
-                        return <BusinessCard businessData={businessData} />;
-                      })}
+                      <View style={{ paddingHorizontal: 14 }}>
+                        <View style={{ marginTop: 80 }}>
+                          <HorizontalBarChartBusiness
+                            businessData={businessData}
+                          />
+                        </View>
+                        {businessData?.map((businessData) => {
+                          return <BusinessCard businessData={businessData} />;
+                        })}
 
-                      {(businesses.data?.length || 0) < 5 && <AddBusiness />}
+                        {(businesses.data?.length || 0) < 5 && <AddBusiness />}
+                      </View>
                     </View>
                   </Pressable>
                 )}
