@@ -8,6 +8,7 @@ import { AddDeposit } from "../AddDeposit";
 import { BlurView } from "expo-blur";
 import { useSelectedDeposit } from "../DepositsContext";
 import BottomPopup from "@/components/BottomPopup";
+import DepositContent from "../DepositContent";
 
 export const DepositsScroller: React.FC = () => {
   const { selectedDeposit, setSelectedDeposit } = useSelectedDeposit();
@@ -136,7 +137,7 @@ export const DepositsScroller: React.FC = () => {
         onClose={() => setSelectedDeposit(null)}
       >
         <View style={{ height: 200 }}>
-          <Text>teste</Text>
+          <DepositContent />
         </View>
       </BottomPopup>
     </>

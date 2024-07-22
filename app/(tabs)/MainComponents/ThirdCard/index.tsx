@@ -124,7 +124,7 @@ const ThirdCard = () => {
                         imageStyle={{
                           opacity: theme === "light" ? 0.9 : 0,
 
-                          borderWidth: 4,
+                          borderWidth: 3,
                           borderColor: "white",
                           height: "100%",
                         }}

@@ -21,6 +21,7 @@ interface IProps {
   openModal: boolean;
   fullHeight?: boolean;
   closeIcon?: boolean;
+  bgColor?: boolean;
 }
 
 const BottomPopup = ({
@@ -29,12 +30,17 @@ const BottomPopup = ({
   openModal,
   fullHeight,
   closeIcon,
+  bgColor,
 }: IProps) => {
-  const { theme } = useTheme();
+  const { theme, mainColor } = useTheme();
 
-  const backgroundColor = useDerivedValue(() => {
-    return theme === "light" ? "white" : Colors.gray;
-  }, [theme]);
+  const backgroundColor = bgColor
+    ? useDerivedValue(() => {
+        return theme === "light" ? mainColor : Colors.gray;
+      }, [theme])
+    : useDerivedValue(() => {
+        return theme === "light" ? "white" : Colors.gray;
+      }, [theme]);
 
   const handlePressOutside = () => {
     if (onClose) {
@@ -65,7 +71,7 @@ const BottomPopup = ({
           if (!fullHeight) handlePressOutside();
         }}
       >
-        <View style={styles.container}>
+        <View style={[styles.container]}>
           <Pressable>
             <Animated.View
               style={[

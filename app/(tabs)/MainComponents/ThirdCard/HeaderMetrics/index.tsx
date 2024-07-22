@@ -29,13 +29,26 @@ export const HeaderMetrics = () => {
           fontSize: 55,
           fontWeight: "700",
           color: mainColor,
+          lineHeight: 55,
         }}
       >
         {totalPatrimony.toFixed(1)}
         <Text style={{ fontSize: 26 }}> €</Text>
       </Text>
+      <Text
+        style={{
+          marginTop: -6,
+          fontSize: 20,
+          lineHeight: 20,
+          fontWeight: "500",
+          color: mainColor,
+        }}
+      >
+        Available Cash
+      </Text>
       <View
         style={{
+          marginTop: 10,
           borderRadius: 20,
           paddingVertical: 2,
           paddingHorizontal: 10,
