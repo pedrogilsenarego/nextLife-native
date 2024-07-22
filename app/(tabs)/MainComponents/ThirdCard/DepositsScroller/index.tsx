@@ -136,9 +136,7 @@ export const DepositsScroller: React.FC = () => {
         openModal={!!selectedDeposit}
         onClose={() => setSelectedDeposit(null)}
       >
-        <View style={{ height: 200 }}>
-          <DepositContent />
-        </View>
+        <DepositContent />
       </BottomPopup>
     </>
   );

@@ -28,7 +28,7 @@ export const DepositContent: React.FC = () => {
         </Text>
         <Text
           style={{
-            marginVertical: 20,
+            marginVertical: 40,
             fontSize: 26,
             color: mainColor,
             textAlign: "center",
@@ -39,11 +39,12 @@ export const DepositContent: React.FC = () => {
         </Text>
       </View>
       <Button
-        buttonStyle={{ backgroundColor: "white", elevation: 2 }}
+        variant="ghost"
         textStyle={{ color: mainColor }}
         label="Update Amount"
       />
-      <Button label="Transfer Money" />
+      <Button variant="ghost" label="Transfer Money" />
+      <Button variant="danger" label="Delete" />
     </View>
   );
 };
