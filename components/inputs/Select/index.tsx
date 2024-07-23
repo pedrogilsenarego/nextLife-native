@@ -16,6 +16,7 @@ interface PickerPropsI extends PickerProps, UseControllerProps {
   left?: boolean;
   right?: boolean;
   height?: number;
+  onChange?: () => void;
 }
 
 const Select = (props: PickerPropsI) => {
@@ -27,15 +28,15 @@ const Select = (props: PickerPropsI) => {
   const error = formState.errors[name];
 
   const handleValueChange = (itemValue: string | number) => {
-    // Find the original option to get its type
     const originalOption = props.listOptions.find(
       (option) => option.value == itemValue
     );
     if (originalOption) {
       field.onChange(originalOption.value);
     } else {
-      field.onChange(itemValue); // fallback in case the option is not found
+      field.onChange(itemValue);
     }
+    if (props.onChange) props.onChange();
   };
 
   return (
