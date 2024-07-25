@@ -81,3 +81,76 @@ export const getDeposits = async (): Promise<DepositQuery> => {
     }
   });
 };
+
+export const transferMoneyDepositToDeposit = async ({
+  amount,
+  transferFromId,
+  transferToId,
+}: {
+  amount: number;
+  transferFromId: number;
+  transferToId: number;
+}): Promise<string> => {
+  return new Promise(async (resolve, reject) => {
+    console.log("transferMoneyDepositToDeposit");
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        return reject(new Error("User not authenticated"));
+      }
+
+      // Fetch deposits
+      const { data: fromDeposit, error: fromError } = await supabase
+        .from("deposits")
+        .select("*")
+        .eq("id", transferFromId)
+        .single();
+
+      const { data: toDeposit, error: toError } = await supabase
+        .from("deposits")
+        .select("*")
+        .eq("id", transferToId)
+        .single();
+
+      if (fromError || toError) {
+        console.error("Error fetching deposits", fromError || toError);
+        return reject(fromError || toError);
+      }
+
+      if (!fromDeposit || !toDeposit) {
+        return reject(new Error("Deposits not found"));
+      }
+
+      if (fromDeposit.amount < amount) {
+        return reject(new Error("Insufficient funds in the source deposit"));
+      }
+
+      // Begin transaction
+      const { error: updateFromError } = await supabase
+        .from("deposits")
+        .update({ amount: fromDeposit.amount - amount })
+        .eq("id", transferFromId);
+
+      const { error: updateToError } = await supabase
+        .from("deposits")
+        .update({ amount: toDeposit.amount + amount })
+        .eq("id", transferToId);
+
+      if (updateFromError || updateToError) {
+        console.error(
+          "Error updating deposits",
+          updateFromError || updateToError
+        );
+        return reject(updateFromError || updateToError);
+      }
+
+      resolve("Transfer successful");
+    } catch (error) {
+      console.error("Error during transfer", error);
+      reject(error);
+    }
+  });
+};

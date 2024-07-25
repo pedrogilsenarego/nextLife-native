@@ -158,7 +158,6 @@ export const TransferInput: React.FC = () => {
         closeIcon
         onClose={() => setOpenInputModal(false)}
       >
-        {" "}
         <Input />
       </BottomPopup>
     </>

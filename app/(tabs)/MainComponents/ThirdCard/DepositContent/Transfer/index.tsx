@@ -9,6 +9,8 @@ import { TransferSchema, TransferType } from "./validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ControlledInput from "@/components/inputs/TextField";
 import { TransferInput } from "./TransferInput";
+import { useMutation } from "@tanstack/react-query";
+import { transferMoneyDepositToDeposit } from "@/actions/depositActions";
 
 export const Transfer = () => {
   const deposits = useDeposits();
@@ -28,12 +30,26 @@ export const Transfer = () => {
     defaultValues,
   });
 
+  const { mutate: transferDepositMutation, isPending } = useMutation({
+    mutationFn: transferMoneyDepositToDeposit,
+    onError: (error: any) => {
+      console.log("error", error);
+    },
+    onSuccess: (data: any) => {
+      methods.reset();
+      deposits.refetch();
+    },
+    onSettled: async () => {},
+  });
+
   const onSubmit: SubmitHandler<TransferType> = (data) => {
+    if (!selectedDeposit) return;
     const newData = {
       ...data,
       amount: Number(data.amount.replace(",", ".")),
+      transferFromId: selectedDeposit,
     };
-    console.log(newData);
+    transferDepositMutation(newData);
   };
 
   return (
@@ -64,7 +80,11 @@ export const Transfer = () => {
             />
           </View>
           <View style={{ width: "100%" }}>
-            <Button label="Transfer" onPress={methods.handleSubmit(onSubmit)} />
+            <Button
+              isLoading={isPending}
+              label="Transfer"
+              onPress={methods.handleSubmit(onSubmit)}
+            />
           </View>
         </View>
       </View>

@@ -40,7 +40,7 @@ export const DepositContent: React.FC = () => {
               fontWeight: 800,
             }}
           >
-            {depositData?.amount}
+            {depositData?.amount.toFixed(1)}
           </Text>
         </View>
         <Button
@@ -59,7 +59,7 @@ export const DepositContent: React.FC = () => {
         fullHeight
         closeIcon
         openModal={openTransferModal}
-        onClose={() => setOpenTransferModal(true)}
+        onClose={() => setOpenTransferModal(false)}
       >
         <Transfer />
       </BottomPopup>
