@@ -87,3 +87,56 @@ export const getUserData = async (): Promise<UserQuery> => {
     }
   });
 };
+
+export const updateDepositAmount = async ({
+  depositId,
+  amount,
+}: {
+  depositId: number;
+  amount: number;
+}): Promise<string> => {
+  return new Promise(async (resolve, reject) => {
+    console.log("updateDepositAmount");
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        return reject(new Error("User not authenticated"));
+      }
+
+      // Fetch the deposit
+      const { data: deposit, error: fetchError } = await supabase
+        .from("deposits")
+        .select("*")
+        .eq("id", depositId)
+        .single();
+
+      if (fetchError) {
+        console.error("Error fetching deposit", fetchError);
+        return reject(fetchError);
+      }
+
+      if (!deposit) {
+        return reject(new Error("Deposit not found"));
+      }
+
+      // Update the deposit amount
+      const { error: updateError } = await supabase
+        .from("deposits")
+        .update({ amount })
+        .eq("id", depositId);
+
+      if (updateError) {
+        console.error("Error updating deposit amount", updateError);
+        return reject(updateError);
+      }
+
+      resolve("Deposit amount updated successfully");
+    } catch (error) {
+      console.error("Error updating deposit amount", error);
+      reject(error);
+    }
+  });
+};

@@ -7,10 +7,13 @@ import { defaultDeposits } from "@/constants/defaultDeposits";
 import BottomPopup from "@/components/BottomPopup";
 import { Transfer } from "./Transfer";
 import { useState } from "react";
+import { UpdateAmount } from "./UpdateAmount";
 
 export const DepositContent: React.FC = () => {
   const { selectedDeposit } = useSelectedDeposit();
   const [openTransferModal, setOpenTransferModal] = useState<boolean>(false);
+  const [openUpdateAmountModal, setOpenUpdateAmountModal] =
+    useState<boolean>(false);
   const { mainColor } = useTheme();
   const deposits = useDeposits();
 
@@ -47,6 +50,7 @@ export const DepositContent: React.FC = () => {
           variant="ghost"
           textStyle={{ color: mainColor }}
           label="Update Amount"
+          onPress={() => setOpenUpdateAmountModal(true)}
         />
         <Button
           variant="ghost"
@@ -62,6 +66,14 @@ export const DepositContent: React.FC = () => {
         onClose={() => setOpenTransferModal(false)}
       >
         <Transfer />
+      </BottomPopup>
+      <BottomPopup
+        fullHeight
+        closeIcon
+        openModal={openUpdateAmountModal}
+        onClose={() => setOpenUpdateAmountModal(false)}
+      >
+        <UpdateAmount setOpenUpdateAmountModal={setOpenUpdateAmountModal} />
       </BottomPopup>
     </>
   );
