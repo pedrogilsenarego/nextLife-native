@@ -28,10 +28,8 @@ import { SelectedDepositProvider } from "./DepositsContext";
 
 const ThirdCard = () => {
   const businesses = useBusinesses();
-  const deposits = useDeposits();
   const { theme } = useTheme();
   const { setSelectedBusiness, selectedBusiness } = useSelectedBusiness();
-
   const { getExpensesPerBusiness, getIncomesPerBusiness } = useMetrics();
   const businessData =
     businesses?.data?.map((business) => {
@@ -157,7 +155,7 @@ const ThirdCard = () => {
                       <View>
                         <DividerCTA />
                       </View>
-                      <View style={{ paddingHorizontal: 14 }}>
+                      <View style={{ paddingHorizontal: 14, rowGap: 8 }}>
                         <View style={{ marginTop: 80 }}>
                           <HorizontalBarChartBusiness
                             businessData={businessData}

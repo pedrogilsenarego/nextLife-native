@@ -16,16 +16,14 @@ export const HorizontalBarChart: React.FC<Props> = ({ data, height }) => {
   const maxValue = Math.max(...data.map((item) => item.value));
   const minValue = Math.min(...data.map((item) => item.value));
   const absoluteMax = Math.max(Math.abs(maxValue), Math.abs(minValue));
+  const range = Math.abs(maxValue) + (minValue < 0 ? Math.abs(minValue) : 0);
+  const left = Math.abs((minValue / absoluteMax) * 100);
 
   return (
     <View style={{ rowGap: 5, position: "relative" }}>
       {data?.map((item, index) => {
         const leftPercentage =
-          minValue >= 0
-            ? 0
-            : item.value > 0 && minValue < 0
-            ? 50
-            : 50 - (Math.abs(item.value) / absoluteMax) * 50;
+          minValue >= 0 ? 0 : item.value > 0 && minValue < 0 ? left : 0;
 
         return (
           <View
@@ -55,7 +53,7 @@ export const HorizontalBarChart: React.FC<Props> = ({ data, height }) => {
                     backgroundColor: "gray",
                     borderRadius: 4,
                     width: 1,
-                    left: "50%",
+                    left: `${left}%`,
                     top: -data.length * 2,
                     height: `${data.length * 150}%`,
 
@@ -73,26 +71,14 @@ export const HorizontalBarChart: React.FC<Props> = ({ data, height }) => {
                     leftPercentage < 50 && minValue < 0 ? 2 : 0,
                   borderBottomStartRadius:
                     leftPercentage < 50 && minValue < 0 ? 2 : 0,
-                  borderTopEndRadius:
-                    (leftPercentage === 0 && minValue > 0) ||
-                    leftPercentage === 50
-                      ? 2
-                      : 0,
-                  borderBottomEndRadius:
-                    (leftPercentage === 0 && minValue > 0) ||
-                    leftPercentage === 50
-                      ? 2
-                      : 0,
+                  borderTopEndRadius: item.value > 0 ? 2 : 0,
+                  borderBottomEndRadius: item.value > 0 ? 2 : 0,
                   width: `${
-                    ((Math.abs(item.value) / absoluteMax) * 100) /
-                    (minValue < 0 ? 2 : 1)
+                    (Math.abs(item.value) / absoluteMax) *
+                    100 *
+                    ((100 - leftPercentage) / 100)
                   }%`,
                   height: "100%",
-                  //   shadowColor: "#000",
-                  //   shadowOffset: { height: 0, width: 4 },
-                  //   shadowOpacity: 0.45,
-                  //   shadowRadius: 4,
-                  //   elevation: 4,
                 }}
               />
             </View>

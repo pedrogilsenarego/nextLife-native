@@ -10,7 +10,7 @@ import { updateDepositAmount } from "@/actions/userActions";
 import ControlledInput from "@/components/inputs/TextField";
 
 type Props = {
-  setOpenUpdateAmountModal: () => void;
+  setOpenUpdateAmountModal: (value: boolean) => void;
 };
 
 export const UpdateAmount = ({ setOpenUpdateAmountModal }: Props) => {
