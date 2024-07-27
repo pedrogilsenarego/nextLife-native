@@ -175,12 +175,12 @@ const ThirdCard = () => {
                         {(businesses.data?.length || 0) < 5 && <AddBusiness />}
                       </View>
                     </View>
-                    <View>
+                    <View style={{ marginTop: 60 }}>
                       <DividerCTA label={"Praise"} />
                     </View>
                     <View
                       style={{
-                        marginTop: 60,
+                        marginTop: 40,
                         marginBottom: 40,
                         paddingHorizontal: 20,
                         flex: 1,
