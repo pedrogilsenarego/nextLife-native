@@ -14,14 +14,18 @@ import { useSelectedTransactions } from "./TransactionContext";
 
 type Props = {
   selectedStatus: "expenses" | "incomes" | "both";
-
+  selectedBusiness?: string;
   amountToShow: number;
 };
 
-const ExpensesTable = ({ selectedStatus, amountToShow }: Props) => {
+const ExpensesTable = ({
+  selectedStatus,
+  amountToShow,
+  selectedBusiness,
+}: Props) => {
   const { dateRange, selectedDate } = useApp();
-  const expenses = useExpenses();
-  const incomes = useIncomes();
+  const expenses = useExpenses({ businessSelected: selectedBusiness });
+  const incomes = useIncomes({ businessSelected: selectedBusiness });
   const { selectedTransactionId, setSelectedTransactionId } =
     useSelectedTransactions();
 

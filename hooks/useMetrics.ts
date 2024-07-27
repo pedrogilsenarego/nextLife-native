@@ -16,7 +16,6 @@ const useMetrics = ({ businessSelected }: Props = {}) => {
   const expenses = useExpenses({ businessSelected });
   const incomes = useIncomes({ businessSelected });
   const { dateRange } = useApp();
-
   const totalExpenses = () =>
     expenses?.data?.reduce((acc, item) => {
       return acc + item.amount;
@@ -104,7 +103,7 @@ const useMetrics = ({ businessSelected }: Props = {}) => {
     return totalPerMonth;
   };
 
-  const calculateCategoryPercentage = (expensesData: Expense[]) => {
+  const calculateCategoryPercentage = (expensesData: Expense[] | Income[]) => {
     const minPercentage = expensesData.length > 10 ? 2.5 : 1.5;
     const categoryTotal = expensesData.reduce((acc: any, expense) => {
       acc[expense.category] = (acc[expense.category] || 0) + expense.amount;

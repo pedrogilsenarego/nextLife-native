@@ -16,7 +16,7 @@ type Props = {
 };
 
 export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
-  const { theme, mainColor } = useTheme();
+  const { mainColor } = useTheme();
   const userQuery = useUser();
   const expenses = useExpenses();
   const incomes = useIncomes();
@@ -26,6 +26,7 @@ export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
     month: "long",
   });
   const { totalExpenses, totalIncomes } = useMetrics();
+
   const formattedDate = `${currentDate.getDate()}, ${monthInLetters} ${currentDate.getFullYear()}`;
   const width = Dimensions.get("screen").width;
   const loading = expenses.isLoading || incomes.isLoading;

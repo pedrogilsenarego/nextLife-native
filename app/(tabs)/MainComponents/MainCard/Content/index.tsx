@@ -1,15 +1,12 @@
 import { View, Pressable, ScrollView, Text } from "react-native";
-
 import React, { useState } from "react";
-
-import useBusinesses from "@/hooks/useBusinesses";
 import ChartInitial from "../ChartInitial";
 import { SelectedTransactionProvider } from "../ExpensesTable/TransactionContext";
 import ExpensesTable from "../ExpensesTable";
 
-const Content = () => {
+const Content = ({ selectedBusiness }: { selectedBusiness?: string }) => {
   const [amountToShow, setAmountToShow] = useState<number>(10);
-  const businesses = useBusinesses();
+
   const [selectedStatus, setSelectedStatus] = useState<
     "expenses" | "incomes" | "both"
   >("expenses");
@@ -40,6 +37,7 @@ const Content = () => {
       <Pressable>
         <View>
           <ChartInitial
+            selectedBusiness={selectedBusiness}
             selectedStatus={selectedStatus}
             setSelectedStatus={setSelectedStatus}
             setAmountToShow={setAmountToShow}
@@ -49,6 +47,7 @@ const Content = () => {
         <View style={{ marginTop: 6 }}>
           <SelectedTransactionProvider>
             <ExpensesTable
+              selectedBusiness={selectedBusiness}
               amountToShow={amountToShow}
               selectedStatus={selectedStatus}
             />

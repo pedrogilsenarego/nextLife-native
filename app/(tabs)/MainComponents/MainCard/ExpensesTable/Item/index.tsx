@@ -1,6 +1,4 @@
 import { useBusinessIcons } from "@/constants/useBusinessIcons";
-import useExpenses from "@/hooks/useExpenses";
-import useIncomes from "@/hooks/useIncomes";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 import { FontAwesome6 } from "@expo/vector-icons";
 import moment from "moment";
@@ -12,9 +10,8 @@ type Props = {
 };
 
 const Item = ({ expense }: Props) => {
-  const expenses = useExpenses();
   const icons = useBusinessIcons({ size: 30 });
-  const incomes = useIncomes();
+
   const { setSelectedTransactionId, setSelectedMode } =
     useSelectedTransactions();
   const { theme } = useTheme();

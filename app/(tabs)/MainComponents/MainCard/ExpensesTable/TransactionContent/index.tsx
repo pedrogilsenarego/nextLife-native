@@ -39,7 +39,12 @@ export const TransactionContent = () => {
   return (
     <View style={{ paddingTop: 10 }}>
       <Form transaction={transaction} />
-      <Button label="Delete" onPress={handleDelete} isLoading={isPending} />
+      <Button
+        variant="danger"
+        label="Delete"
+        onPress={handleDelete}
+        isLoading={isPending}
+      />
     </View>
   );
 };

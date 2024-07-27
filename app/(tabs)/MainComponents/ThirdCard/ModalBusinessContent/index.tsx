@@ -44,7 +44,7 @@ export const ModalBusinessContent: React.FC = () => {
             <PieChartMain businessSelected={selectedBusiness} />
           </ScrollView>
         ) : (
-          <Content />
+          <Content selectedBusiness={selectedBusiness} />
         )}
       </View>
     </View>

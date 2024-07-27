@@ -1,14 +1,10 @@
 import { Container } from "@/components/Atoms/Container";
 import { IconCard } from "@/components/Atoms/IconCard";
-import BottomPopup from "@/components/BottomPopup";
 import { defaultBusiness } from "@/constants/defaultBusinesses";
-import { useBusinessIcons } from "@/constants/useBusinessIcons";
-import { Colors, useTheme } from "@/providers/ThemeContext";
+import { useTheme } from "@/providers/ThemeContext";
 import { Business } from "@/types/businessTypes";
 import { getStatusColor } from "@/utils/business";
-import { useState } from "react";
 import { View, Text, Pressable } from "react-native";
-import { ModalBusinessContent } from "../ModalBusinessContent";
 import { useSelectedBusiness } from "../BusinessContext";
 
 type Props = {

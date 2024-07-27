@@ -11,7 +11,6 @@ type Props = {
 
 const useExpenses = ({ businessSelected }: Props = {}) => {
   const { dateRange, businessFilter } = useApp();
-
   const datesToQuery = dateQueriesMap(dateRange);
 
   const expensesQuery = useQuery<ExpensesQuery, Error>({
@@ -25,7 +24,7 @@ const useExpenses = ({ businessSelected }: Props = {}) => {
       }),
     staleTime: Infinity,
   });
-
+  console.log(expensesQuery.data);
   const filteredExpenses = businessSelected
     ? (expensesQuery.data || []).filter(
         (expense) => expense.businessId === businessSelected

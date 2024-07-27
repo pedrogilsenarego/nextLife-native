@@ -269,6 +269,7 @@ const Form = ({ transaction }: Props) => {
         <Divider />
         <View style={{ marginTop: 20 }}>
           <Button
+            variant="ghost"
             isLoading={isPending}
             label="Update"
             onPress={methods.handleSubmit(onSubmit)}

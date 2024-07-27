@@ -18,20 +18,20 @@ import { listPerDay } from "@/utils/dateFormat";
 type Props = {
   selectedStatus: "expenses" | "incomes" | "both";
   setSelectedStatus: (selectedStatus: "expenses" | "incomes" | "both") => void;
-
+  selectedBusiness?: string;
   setAmountToShow: (value: number) => void;
 };
 
 const ChartInitial = ({
   selectedStatus,
   setSelectedStatus,
-
+  selectedBusiness,
   setAmountToShow,
 }: Props) => {
   const accValue = useSharedValue(0);
   const accValue2 = useSharedValue(0);
-  const expenses = useExpenses();
-  const incomes = useIncomes();
+  const expenses = useExpenses({ businessSelected: selectedBusiness });
+  const incomes = useIncomes({ businessSelected: selectedBusiness });
 
   const { theme } = useTheme();
   const { dateRange, selectedDate, changeSelectedDate } = useApp();
@@ -40,7 +40,7 @@ const ChartInitial = ({
     expensesTotalPerMonth,
     incomesTotalPerMonth,
     incomesTotalPerDay,
-  } = useMetrics();
+  } = useMetrics({ businessSelected: selectedBusiness });
 
   const expensesPerDay = listPerDay.includes(dateRange)
     ? expensesTotalPerDay()
