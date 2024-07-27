@@ -153,20 +153,69 @@ const ThirdCard = () => {
                         </View>
                       </ImageBackground>
                       <View>
-                        <DividerCTA />
+                        <DividerCTA label={"Business"} />
                       </View>
-                      <View style={{ paddingHorizontal: 14, rowGap: 8 }}>
-                        <View style={{ marginTop: 80 }}>
-                          <HorizontalBarChartBusiness
-                            businessData={businessData}
-                          />
-                        </View>
+                      <View style={{ marginTop: 60, paddingHorizontal: 14 }}>
+                        <HorizontalBarChartBusiness
+                          businessData={businessData}
+                        />
+                      </View>
+                      <View
+                        style={{
+                          rowGap: 8,
+                          marginTop: 40,
+                          marginBottom: 40,
+                          paddingHorizontal: 14,
+                        }}
+                      >
                         {businessData?.map((businessData) => {
                           return <BusinessCard businessData={businessData} />;
                         })}
 
                         {(businesses.data?.length || 0) < 5 && <AddBusiness />}
                       </View>
+                    </View>
+                    <View>
+                      <DividerCTA label={"Praise"} />
+                    </View>
+                    <View
+                      style={{
+                        marginTop: 60,
+                        marginBottom: 40,
+                        paddingHorizontal: 20,
+                        flex: 1,
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Text
+                        style={{
+                          textAlign: "center",
+                          color: "gray",
+                          marginTop: 20,
+
+                          paddingTop: 10,
+                          lineHeight: 20,
+                        }}
+                      >
+                        The Application has been developed to improve the
+                        overall finances{" "}
+                        <Text style={{ fontWeight: 800 }}>knowledge</Text> and{" "}
+                        <Text style={{ fontWeight: 800 }}>awereness</Text> of
+                        people.
+                      </Text>
+                      <Text
+                        style={{
+                          textAlign: "center",
+                          color: "gray",
+                          paddingTop: 10,
+                          paddingBottom: 20,
+
+                          lineHeight: 20,
+                        }}
+                      >
+                        If you need contact pls send an email to
+                        pedrogilsenarego@gmail.com
+                      </Text>
                     </View>
                   </Pressable>
                 )}

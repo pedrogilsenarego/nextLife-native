@@ -1,32 +1,18 @@
-import { View, Pressable, ScrollView, Text } from "react-native";
-import ChartInitial from "./ChartInitial";
+import { View, Text } from "react-native";
+
 import React, { useState } from "react";
-import ExpensesTable from "./ExpensesTable";
+
 import { Card } from "@/components/Atoms/Card";
-import { CardFooter } from "@/components/Molecules/CardFooter";
+
 import useBusinesses from "@/hooks/useBusinesses";
-import { SelectedTransactionProvider } from "./ExpensesTable/TransactionContext";
+
+import Content from "./Content";
 
 const MainCard = () => {
-  const [amountToShow, setAmountToShow] = useState<number>(10);
   const businesses = useBusinesses();
-  const [selectedStatus, setSelectedStatus] = useState<
-    "expenses" | "incomes" | "both"
-  >("expenses");
-
-  const handleScroll = (event: any) => {
-    const { layoutMeasurement, contentOffset, contentSize } = event.nativeEvent;
-    const paddingToBottom = 20;
-    if (
-      layoutMeasurement.height + contentOffset.y >=
-      contentSize.height - paddingToBottom
-    ) {
-      setAmountToShow((prev) => prev + 10);
-    }
-  };
 
   return (
-    <Card footer>
+    <Card footer paperStyles={{ paddingHorizontal: 10 }}>
       {(businesses.data?.length || 0) < 1 ? (
         <View
           style={{
@@ -68,37 +54,7 @@ const MainCard = () => {
           </Text>
         </View>
       ) : (
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          onScroll={handleScroll}
-          scrollEventThrottle={16}
-          style={{
-            marginHorizontal: 10,
-            borderRadius: 8,
-            paddingTop: 16,
-            position: "relative",
-            height: "100%",
-          }}
-        >
-          <Pressable>
-            <View>
-              <ChartInitial
-                selectedStatus={selectedStatus}
-                setSelectedStatus={setSelectedStatus}
-                setAmountToShow={setAmountToShow}
-              />
-            </View>
-
-            <View style={{ marginTop: 6 }}>
-              <SelectedTransactionProvider>
-                <ExpensesTable
-                  amountToShow={amountToShow}
-                  selectedStatus={selectedStatus}
-                />
-              </SelectedTransactionProvider>
-            </View>
-          </Pressable>
-        </ScrollView>
+        <Content />
       )}
     </Card>
   );

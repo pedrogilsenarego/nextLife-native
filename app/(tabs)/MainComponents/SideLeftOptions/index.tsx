@@ -19,7 +19,11 @@ const itemSize = (width - 50 - 40 - paddingH * 2) / 3 - interMargin;
 const iconSize = itemSize / 2;
 const textSize = itemSize / 8;
 
-export const SideLeftOptions = () => {
+type Props = {
+  open: boolean;
+};
+
+export const SideLeftOptions = ({ open }: Props) => {
   const data = [
     {
       id: "1",
@@ -110,24 +114,26 @@ export const SideLeftOptions = () => {
         paddingHorizontal: paddingH,
       }}
     >
-      <FlatList
-        style={{ paddingHorizontal: 5 }}
-        numColumns={3}
-        data={data}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item, index }) => (
-          <Animated.View
-            style={[styles.itemContainer, { marginTop: index <= 2 ? 10 : 5 }]}
-            entering={FadeInDown.delay(index * 150)}
-            exiting={FadeOutDown}
-          >
-            <View style={styles.badgeContainer}>
-              <Text style={styles.badgeText}>Soon</Text>
-            </View>
-            {item.component}
-          </Animated.View>
-        )}
-      />
+      {open && (
+        <FlatList
+          style={{ paddingHorizontal: 5 }}
+          numColumns={3}
+          data={data}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item, index }) => (
+            <Animated.View
+              style={[styles.itemContainer, { marginTop: index <= 2 ? 10 : 5 }]}
+              entering={FadeInDown.delay(index * 150)}
+              exiting={FadeOutDown}
+            >
+              <View style={styles.badgeContainer}>
+                <Text style={styles.badgeText}>Soon</Text>
+              </View>
+              {item.component}
+            </Animated.View>
+          )}
+        />
+      )}
     </View>
   );
 };

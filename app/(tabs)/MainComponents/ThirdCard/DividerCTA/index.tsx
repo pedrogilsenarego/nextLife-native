@@ -2,7 +2,11 @@ import { Divider } from "@/components/Atoms/Divider";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 import { View, Text } from "react-native";
 
-export const DividerCTA = () => {
+type Props = {
+  label: string;
+};
+
+export const DividerCTA = ({ label }: Props) => {
   const { mainColor } = useTheme();
   return (
     <View style={{ position: "relative" }}>
@@ -44,7 +48,7 @@ export const DividerCTA = () => {
               fontWeight: 800,
             }}
           >
-            Business
+            {label}
           </Text>
         </View>
       </View>

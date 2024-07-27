@@ -22,13 +22,13 @@ export const Header: React.FC<Props> = ({ business }) => {
     <>
       <View
         style={{
-          marginTop: 55,
-          justifyContent: "space-between",
+          marginTop: 40,
+
           alignItems: "center",
           width: "100%",
           flexDirection: "row",
           paddingBottom: 10,
-          columnGap: 10,
+          columnGap: 20,
         }}
       >
         <View

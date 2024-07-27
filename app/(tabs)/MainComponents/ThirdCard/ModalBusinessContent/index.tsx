@@ -1,13 +1,15 @@
 import { Business } from "@/types/businessTypes";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, Pressable } from "react-native";
 import PieChartMain from "../../MainCard/PieChartMain/PieChartMain";
 import { Header } from "./Header";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { useSelectedBusiness } from "../BusinessContext";
 import useBusinesses from "@/hooks/useBusinesses";
+import Content from "../../MainCard/Content";
 
 export const ModalBusinessContent: React.FC = () => {
   const { selectedBusiness } = useSelectedBusiness();
+  const [mode, setMode] = useState<"chart" | "pie">("pie");
   const businesses = useBusinesses();
 
   const business = businesses?.data?.find(
@@ -18,20 +20,33 @@ export const ModalBusinessContent: React.FC = () => {
   return (
     <View style={{ alignItems: "center" }}>
       <Header business={business} />
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        scrollEventThrottle={16}
-        style={{
-          borderRadius: 8,
+      <View style={{ flexDirection: "row", columnGap: 20 }}>
+        <Pressable onPress={() => setMode("pie")}>
+          <Text>Categories</Text>
+        </Pressable>
+        <Pressable onPress={() => setMode("chart")}>
+          <Text>Chart</Text>
+        </Pressable>
+      </View>
 
-          position: "relative",
-          height: "100%",
-        }}
-      >
-        <View style={{ marginTop: 20 }}>
-          <PieChartMain businessSelected={selectedBusiness} />
-        </View>
-      </ScrollView>
+      <View style={{ marginTop: 20 }}>
+        {mode === "pie" ? (
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            scrollEventThrottle={16}
+            style={{
+              borderRadius: 8,
+
+              position: "relative",
+              height: "100%",
+            }}
+          >
+            <PieChartMain businessSelected={selectedBusiness} />
+          </ScrollView>
+        ) : (
+          <Content />
+        )}
+      </View>
     </View>
   );
 };
