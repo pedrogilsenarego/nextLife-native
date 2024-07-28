@@ -30,14 +30,14 @@ const useExpenses = ({ businessSelected, selectedCategory }: Props = {}) => {
     ? (expensesQuery.data || []).filter(
         (expense) => expense.businessId === businessSelected
       )
-    : businessFilter && businessFilter.length > 0
-    ? (expensesQuery.data || []).filter((expense) =>
-        businessFilter.includes(expense.businessId)
+    : businessFilter.length > 0
+    ? (expensesQuery.data || []).filter(
+        (expense) => !businessFilter.includes(expense.businessId)
       )
     : expensesQuery.data || [];
 
   const filteredExpensesByCategory = selectedCategory
-    ? expensesQuery.data?.filter(
+    ? filteredExpensesByBusiness?.filter(
         (expense) => expense.category === selectedCategory
       )
     : filteredExpensesByBusiness;

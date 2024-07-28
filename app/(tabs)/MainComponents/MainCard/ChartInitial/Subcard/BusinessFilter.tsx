@@ -20,7 +20,7 @@ export const BusinessFilter = () => {
               containerStyles={{
                 padding: 2,
                 borderWidth: 2,
-                borderColor: businessFilter?.includes(business.id)
+                borderColor: !businessFilter?.includes(business.id)
                   ? mainColor
                   : "transparent",
               }}
