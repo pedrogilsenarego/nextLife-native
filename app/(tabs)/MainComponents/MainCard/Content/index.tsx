@@ -4,7 +4,12 @@ import ChartInitial from "../ChartInitial";
 import { SelectedTransactionProvider } from "../ExpensesTable/TransactionContext";
 import ExpensesTable from "../ExpensesTable";
 
-const Content = ({ selectedBusiness }: { selectedBusiness?: string }) => {
+type Props = {
+  selectedBusiness?: string;
+  selectedCategory?: string;
+};
+
+const Content = (props: Props) => {
   const [amountToShow, setAmountToShow] = useState<number>(10);
 
   const [selectedStatus, setSelectedStatus] = useState<
@@ -37,7 +42,8 @@ const Content = ({ selectedBusiness }: { selectedBusiness?: string }) => {
       <Pressable>
         <View>
           <ChartInitial
-            selectedBusiness={selectedBusiness}
+            selectedCategory={props.selectedCategory}
+            selectedBusiness={props.selectedBusiness}
             selectedStatus={selectedStatus}
             setSelectedStatus={setSelectedStatus}
             setAmountToShow={setAmountToShow}
@@ -47,7 +53,8 @@ const Content = ({ selectedBusiness }: { selectedBusiness?: string }) => {
         <View style={{ marginTop: 6 }}>
           <SelectedTransactionProvider>
             <ExpensesTable
-              selectedBusiness={selectedBusiness}
+              selectedCategory={props.selectedCategory}
+              selectedBusiness={props.selectedBusiness}
               amountToShow={amountToShow}
               selectedStatus={selectedStatus}
             />

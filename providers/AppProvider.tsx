@@ -24,8 +24,8 @@ interface AppContexType {
   changeSelectedDate: (selectedDate: string) => void;
   bottomCardOpen: boolean;
   setBottomCardOpen: (bottomCardOpen: boolean) => void;
-  addBusinessFilter: (id: string) => void;
-  businessFilter: string[] | null;
+  updateBusinessFilter: (id: string) => void;
+  businessFilter: string[];
 }
 
 const AppContext = createContext<AppContexType | undefined>(undefined);
@@ -33,7 +33,7 @@ const AppContext = createContext<AppContexType | undefined>(undefined);
 export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [dateRange, setDateRange] = useState<DateRangeValues>("currentMonth");
   const [selectedDate, setSelectedDate] = useState<string>("Total");
-  const [businessFilter, setBusinessFilter] = useState<string[] | null>(null);
+  const [businessFilter, setBusinessFilter] = useState<string[]>([]);
   const [bottomCardOpen, setBottomCardOpen] = useState<boolean>(false);
 
   useEffect(() => {
@@ -71,12 +71,13 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     setSelectedDate(value);
   };
 
-  const addBusinessFilter = (id: string) => {
+  const updateBusinessFilter = (id: string) => {
     setBusinessFilter((prevBusinessFilter) => {
-      if (!prevBusinessFilter?.includes(id) && prevBusinessFilter) {
+      if (!prevBusinessFilter?.includes(id)) {
         return [...prevBusinessFilter, id];
+      } else {
+        return prevBusinessFilter.filter((item) => item !== id);
       }
-      return prevBusinessFilter;
     });
   };
 
@@ -87,7 +88,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         changeSelectedDate,
         dateRange,
         changeDateRange,
-        addBusinessFilter,
+        updateBusinessFilter,
         bottomCardOpen,
         setBottomCardOpen,
         businessFilter,

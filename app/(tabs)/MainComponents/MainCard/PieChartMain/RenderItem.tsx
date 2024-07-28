@@ -1,7 +1,14 @@
-import { StyleSheet, Text, View, useWindowDimensions } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+} from "react-native";
 import React from "react";
 import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
 import { Colors, useTheme } from "@/providers/ThemeContext";
+import { useSelectedCategory } from "./CategoriesContext";
 
 interface Data {
   category: string;
@@ -18,6 +25,7 @@ type Props = {
 
 const RenderItem = ({ item, index, numberOfMonths }: Props) => {
   const { theme } = useTheme();
+  const { setSelectedCategory } = useSelectedCategory();
   const styles = StyleSheet.create({
     contentContainer: {
       flexDirection: "row",
@@ -41,60 +49,62 @@ const RenderItem = ({ item, index, numberOfMonths }: Props) => {
     },
   });
   return (
-    <Animated.View
-      entering={FadeInDown.delay(index * 200)}
-      exiting={FadeOutDown}
-    >
-      <View style={styles.contentContainer}>
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            columnGap: 10,
-            alignItems: "center",
-          }}
-        >
-          <View style={[styles.color, { backgroundColor: item.color }]} />
-          <Text
+    <Pressable onPress={() => setSelectedCategory(item.category)}>
+      <Animated.View
+        entering={FadeInDown.delay(index * 200)}
+        exiting={FadeOutDown}
+      >
+        <View style={styles.contentContainer}>
+          <View
             style={{
-              color: theme === "light" ? Colors.black : "white",
-              fontSize: 16,
-              textTransform: "capitalize",
+              display: "flex",
+              flexDirection: "row",
+              columnGap: 10,
+              alignItems: "center",
             }}
           >
-            {item.category}
-          </Text>
-        </View>
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-end",
-          }}
-        >
-          <Text
+            <View style={[styles.color, { backgroundColor: item.color }]} />
+            <Text
+              style={{
+                color: theme === "light" ? Colors.black : "white",
+                fontSize: 16,
+                textTransform: "capitalize",
+              }}
+            >
+              {item.category}
+            </Text>
+          </View>
+          <View
             style={{
-              color: theme === "light" ? Colors.black : "white",
-              fontSize: 16,
-              fontWeight: "600",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-end",
             }}
           >
-            {item.percentage}%
-          </Text>
+            <Text
+              style={{
+                color: theme === "light" ? Colors.black : "white",
+                fontSize: 16,
+                fontWeight: "600",
+              }}
+            >
+              {item.percentage}%
+            </Text>
 
-          <Text
-            style={{
-              color: theme === "light" ? Colors.black : "white",
-              fontSize: 12,
-            }}
-          >
-            &#931; {item.amount.toFixed(0)}
-            {numberOfMonths > 1 &&
-              `  ~ ${(item.amount / numberOfMonths).toFixed(0)}`}
-          </Text>
+            <Text
+              style={{
+                color: theme === "light" ? Colors.black : "white",
+                fontSize: 12,
+              }}
+            >
+              &#931; {item.amount.toFixed(0)}
+              {numberOfMonths > 1 &&
+                `  ~ ${(item.amount / numberOfMonths).toFixed(0)}`}
+            </Text>
+          </View>
         </View>
-      </View>
-    </Animated.View>
+      </Animated.View>
+    </Pressable>
   );
 };
 

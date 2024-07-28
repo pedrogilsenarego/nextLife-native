@@ -19,6 +19,7 @@ type Props = {
   selectedStatus: "expenses" | "incomes" | "both";
   setSelectedStatus: (selectedStatus: "expenses" | "incomes" | "both") => void;
   selectedBusiness?: string;
+  selectedCategory?: string;
   setAmountToShow: (value: number) => void;
 };
 
@@ -26,12 +27,19 @@ const ChartInitial = ({
   selectedStatus,
   setSelectedStatus,
   selectedBusiness,
+  selectedCategory,
   setAmountToShow,
 }: Props) => {
   const accValue = useSharedValue(0);
   const accValue2 = useSharedValue(0);
-  const expenses = useExpenses({ businessSelected: selectedBusiness });
-  const incomes = useIncomes({ businessSelected: selectedBusiness });
+  const expenses = useExpenses({
+    businessSelected: selectedBusiness,
+    selectedCategory,
+  });
+  const incomes = useIncomes({
+    businessSelected: selectedBusiness,
+    selectedCategory,
+  });
 
   const { theme } = useTheme();
   const { dateRange, selectedDate, changeSelectedDate } = useApp();
@@ -40,7 +48,7 @@ const ChartInitial = ({
     expensesTotalPerMonth,
     incomesTotalPerMonth,
     incomesTotalPerDay,
-  } = useMetrics({ businessSelected: selectedBusiness });
+  } = useMetrics({ businessSelected: selectedBusiness, selectedCategory });
 
   const expensesPerDay = listPerDay.includes(dateRange)
     ? expensesTotalPerDay()

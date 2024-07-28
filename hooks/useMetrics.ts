@@ -10,11 +10,12 @@ import { differenceInMonths, endOfMonth, startOfMonth } from "date-fns";
 
 type Props = {
   businessSelected?: string;
+  selectedCategory?: string;
 };
 
-const useMetrics = ({ businessSelected }: Props = {}) => {
-  const expenses = useExpenses({ businessSelected });
-  const incomes = useIncomes({ businessSelected });
+const useMetrics = ({ businessSelected, selectedCategory }: Props = {}) => {
+  const expenses = useExpenses({ businessSelected, selectedCategory });
+  const incomes = useIncomes({ businessSelected, selectedCategory });
   const { dateRange } = useApp();
   const totalExpenses = () =>
     expenses?.data?.reduce((acc, item) => {

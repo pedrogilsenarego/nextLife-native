@@ -16,16 +16,24 @@ type Props = {
   selectedStatus: "expenses" | "incomes" | "both";
   selectedBusiness?: string;
   amountToShow: number;
+  selectedCategory?: string;
 };
 
 const ExpensesTable = ({
   selectedStatus,
   amountToShow,
+  selectedCategory,
   selectedBusiness,
 }: Props) => {
   const { dateRange, selectedDate } = useApp();
-  const expenses = useExpenses({ businessSelected: selectedBusiness });
-  const incomes = useIncomes({ businessSelected: selectedBusiness });
+  const expenses = useExpenses({
+    businessSelected: selectedBusiness,
+    selectedCategory,
+  });
+  const incomes = useIncomes({
+    businessSelected: selectedBusiness,
+    selectedCategory,
+  });
   const { selectedTransactionId, setSelectedTransactionId } =
     useSelectedTransactions();
 

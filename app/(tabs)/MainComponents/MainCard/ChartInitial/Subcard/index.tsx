@@ -5,6 +5,7 @@ import { RightComponent } from "./RightComponent";
 import { View, Text } from "react-native";
 import { Colors } from "@/providers/ThemeContext";
 import { Divider } from "@/components/Atoms/Divider";
+import { BusinessFilter } from "./BusinessFilter";
 
 type Props = {
   expensesPerDay: { value: number; label: string }[];
@@ -57,6 +58,8 @@ const Subcard = ({
           expensesPerDay={expensesPerDay}
           incomesPerDay={incomesPerDay}
         />
+        <Divider />
+        <BusinessFilter />
       </Container>
     </>
   );

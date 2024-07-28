@@ -12,8 +12,10 @@ import { useApp } from "@/providers/AppProvider";
 import useExpenses from "@/hooks/useExpenses";
 import useIncomes from "@/hooks/useIncomes";
 import LoaderSpinner from "@/components/Atoms/LoaderSpinner";
+import { SelectedCategoryProvider } from "./CategoriesContext";
+import { CategoriesList } from "./CategoriesList";
 
-type Data = {
+export type Data = {
   category: string;
   percentage: number;
   color: string;
@@ -314,26 +316,12 @@ const PieChartMain = ({ businessSelected }: Props) => {
                 onSelected={handleOnSelected}
               />
             </Container>
-
-            <View style={{ marginTop: 6 }}>
-              <View
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                {dataToRender?.map((item, index) => {
-                  return item.percentage <= 0 ? null : (
-                    <RenderItem
-                      item={item}
-                      key={index}
-                      index={index}
-                      numberOfMonths={numberOfMonths}
-                    />
-                  );
-                })}
-              </View>
-            </View>
+            <SelectedCategoryProvider>
+              <CategoriesList
+                dataToRender={dataToRender}
+                numberOfMonths={numberOfMonths}
+              />
+            </SelectedCategoryProvider>
           </View>
         )}
       </View>

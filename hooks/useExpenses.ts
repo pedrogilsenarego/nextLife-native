@@ -7,9 +7,10 @@ import { useApp } from "@/providers/AppProvider";
 
 type Props = {
   businessSelected?: string;
+  selectedCategory?: string;
 };
 
-const useExpenses = ({ businessSelected }: Props = {}) => {
+const useExpenses = ({ businessSelected, selectedCategory }: Props = {}) => {
   const { dateRange, businessFilter } = useApp();
   const datesToQuery = dateQueriesMap(dateRange);
 
@@ -24,8 +25,8 @@ const useExpenses = ({ businessSelected }: Props = {}) => {
       }),
     staleTime: Infinity,
   });
-  console.log(expensesQuery.data);
-  const filteredExpenses = businessSelected
+
+  const filteredExpensesByBusiness = businessSelected
     ? (expensesQuery.data || []).filter(
         (expense) => expense.businessId === businessSelected
       )
@@ -35,9 +36,15 @@ const useExpenses = ({ businessSelected }: Props = {}) => {
       )
     : expensesQuery.data || [];
 
+  const filteredExpensesByCategory = selectedCategory
+    ? expensesQuery.data?.filter(
+        (expense) => expense.category === selectedCategory
+      )
+    : filteredExpensesByBusiness;
+
   return {
     ...expensesQuery,
-    data: filteredExpenses,
+    data: filteredExpensesByCategory,
   };
 };
 
