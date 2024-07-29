@@ -34,6 +34,7 @@ export const CategoriesList = (props: Props) => {
         </View>
       </View>
       <BottomPopup
+        title={selectedCategory || ""}
         openModal={!!selectedCategory}
         fullHeight
         onClose={() => setSelectedCategory(null)}

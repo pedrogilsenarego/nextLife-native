@@ -64,7 +64,9 @@ const BottomPopup = ({
     >
       <StatusBar
         barStyle={
-          theme === "dark" || !fullHeight ? "light-content" : "dark-content"
+          theme === "dark" || !fullHeight || !openModal
+            ? "light-content"
+            : "dark-content"
         }
       />
       <TouchableWithoutFeedback
@@ -106,9 +108,9 @@ const BottomPopup = ({
                     alignItems: "center",
                     columnGap: 10,
                     borderBottomWidth: 1,
-                    marginTop: 26,
+                    marginTop: 38,
                     borderBottomColor: "gray",
-                    paddingVertical: 12,
+                    paddingVertical: 4,
                   }}
                 >
                   <View
@@ -139,7 +141,11 @@ const BottomPopup = ({
                 </View>
               )}
               <View
-                style={{ paddingHorizontal: 30, paddingBottom: 40, flex: 1 }}
+                style={{
+                  paddingHorizontal: 30,
+                  paddingBottom: 40,
+                  flex: fullHeight ? 1 : undefined,
+                }}
               >
                 {children}
               </View>
