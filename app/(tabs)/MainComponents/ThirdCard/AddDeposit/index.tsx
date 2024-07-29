@@ -102,7 +102,6 @@ export const AddDeposit: React.FC = () => {
       )}
       <BottomPopup
         fullHeight
-        closeIcon
         openModal={openModal}
         onClose={() => setOpenModal(false)}
       >

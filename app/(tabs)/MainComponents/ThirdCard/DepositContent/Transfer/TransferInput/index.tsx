@@ -155,7 +155,6 @@ export const TransferInput: React.FC = () => {
       <BottomPopup
         openModal={openInputModal}
         fullHeight
-        closeIcon
         onClose={() => setOpenInputModal(false)}
       >
         <Input />

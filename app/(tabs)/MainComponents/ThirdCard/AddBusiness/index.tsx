@@ -64,7 +64,7 @@ export const AddBusiness: React.FC = () => {
       </Pressable>
       <BottomPopup
         fullHeight
-        closeIcon
+        title={"Add Business"}
         openModal={openModal}
         onClose={() => setOpenModal(false)}
       >

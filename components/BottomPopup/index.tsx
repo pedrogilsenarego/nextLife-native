@@ -8,6 +8,7 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   View,
+  Text,
 } from "react-native";
 import Animated, {
   useAnimatedStyle,
@@ -20,7 +21,7 @@ interface IProps {
   onClose?: () => void;
   openModal: boolean;
   fullHeight?: boolean;
-  closeIcon?: boolean;
+  title?: string;
   bgColor?: boolean;
 }
 
@@ -29,7 +30,7 @@ const BottomPopup = ({
   onClose,
   openModal,
   fullHeight,
-  closeIcon,
+  title,
   bgColor,
 }: IProps) => {
   const { theme, mainColor } = useTheme();
@@ -82,8 +83,7 @@ const BottomPopup = ({
                   //marginHorizontal: 4,
                   borderTopLeftRadius: 12,
                   borderTopRightRadius: 12,
-                  paddingHorizontal: 30,
-                  paddingBottom: 40,
+
                   shadowColor: "#000",
                   shadowOffset: {
                     width: 0,
@@ -96,23 +96,53 @@ const BottomPopup = ({
                 backgroundColorAnimation,
               ]}
             >
-              {closeIcon && (
-                <Pressable
-                  onPress={onClose}
+              {fullHeight && (
+                <View
                   style={{
-                    position: "absolute",
-                    right: 12,
-                    top: 52,
-                    padding: 5,
-                    borderWidth: 2,
-                    borderColor: "gray",
-                    borderRadius: 4,
+                    display: "flex",
+                    paddingHorizontal: 25,
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    columnGap: 10,
+                    borderBottomWidth: 1,
+                    marginTop: 26,
+                    borderBottomColor: "gray",
+                    paddingVertical: 12,
                   }}
                 >
-                  <AntDesign name="close" size={22} color="gray" />
-                </Pressable>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      width: "20%",
+                      justifyContent: "flex-start",
+                    }}
+                  >
+                    <Pressable
+                      onPress={onClose}
+                      style={{
+                        padding: 5,
+
+                        borderRadius: 4,
+                      }}
+                    >
+                      <AntDesign name="close" size={26} color={mainColor} />
+                    </Pressable>
+                  </View>
+
+                  {title && (
+                    <Text style={{ fontSize: 20, fontWeight: 700 }}>
+                      {title}
+                    </Text>
+                  )}
+                  <View style={{ width: "20%" }} />
+                </View>
               )}
-              {children}
+              <View
+                style={{ paddingHorizontal: 30, paddingBottom: 40, flex: 1 }}
+              >
+                {children}
+              </View>
             </Animated.View>
           </Pressable>
         </View>

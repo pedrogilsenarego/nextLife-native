@@ -53,7 +53,6 @@ export const Settings: React.FC<Props> = ({ businessId, businessName }) => {
       </Pressable>
       <BottomPopup
         fullHeight
-        closeIcon
         openModal={openSettingsModal}
         onClose={() => setOpenSettingsModal(false)}
       >

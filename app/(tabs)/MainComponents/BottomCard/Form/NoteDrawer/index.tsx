@@ -14,7 +14,6 @@ export const NoteDrawer: React.FC<Props> = ({ openModal, setOpenModal }) => {
   return (
     <BottomPopup
       fullHeight
-      closeIcon
       openModal={openModal}
       onClose={() => setOpenModal(false)}
     >

@@ -118,7 +118,7 @@ const ThirdCard = () => {
                         width: "100%",
                       }}
                     >
-                      <ImageBackground
+                      {/* <ImageBackground
                         imageStyle={{
                           opacity: theme === "light" ? 0.9 : 0,
 
@@ -151,7 +151,7 @@ const ThirdCard = () => {
                             <DepositsScroller />
                           </SelectedDepositProvider>
                         </View>
-                      </ImageBackground>
+                      </ImageBackground> */}
                       <View>
                         <DividerCTA label={"Business"} />
                       </View>
@@ -222,7 +222,11 @@ const ThirdCard = () => {
               </ScrollView>
               <BottomPopup
                 fullHeight
-                closeIcon
+                title={
+                  businessData.find(
+                    (business) => business.business.id === selectedBusiness
+                  )?.business.businessName
+                }
                 openModal={!!selectedBusiness}
                 onClose={() => setSelectedBusiness(null)}
               >

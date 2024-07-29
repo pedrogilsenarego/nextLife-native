@@ -23,7 +23,6 @@ export const DepositDrawer: React.FC<Props> = ({
   return (
     <BottomPopup
       fullHeight
-      closeIcon
       openModal={openModal}
       onClose={() => setOpenModal(false)}
     >

@@ -26,7 +26,6 @@ export const IconSelectModal: React.FC<Props> = ({
       </Pressable>
       <BottomPopup
         fullHeight
-        closeIcon
         openModal={openModalIcons}
         onClose={() => setOpenModalIcons(false)}
       >

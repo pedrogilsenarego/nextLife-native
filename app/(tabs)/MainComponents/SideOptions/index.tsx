@@ -49,7 +49,6 @@ export const SideOptions = () => {
         </Pressable>
         <BottomPopup
           fullHeight
-          closeIcon
           openModal={openSettings}
           onClose={() => setOPenSettings(false)}
         >

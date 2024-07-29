@@ -15,7 +15,6 @@ export const DateDrawer: React.FC<Props> = ({ openModal, setOpenModal }) => {
   return (
     <BottomPopup
       fullHeight
-      closeIcon
       openModal={openModal}
       onClose={() => setOpenModal(false)}
     >

@@ -61,7 +61,6 @@ export const DepositContent: React.FC = () => {
       </View>
       <BottomPopup
         fullHeight
-        closeIcon
         openModal={openTransferModal}
         onClose={() => setOpenTransferModal(false)}
       >
@@ -69,7 +68,6 @@ export const DepositContent: React.FC = () => {
       </BottomPopup>
       <BottomPopup
         fullHeight
-        closeIcon
         openModal={openUpdateAmountModal}
         onClose={() => setOpenUpdateAmountModal(false)}
       >

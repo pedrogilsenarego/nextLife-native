@@ -107,8 +107,8 @@ export const CardFooter: React.FC<Props> = ({ handleMoveCarousel, index }) => {
         </View>
       </View>
       <BottomPopup
+        title="Filters"
         fullHeight
-        closeIcon
         openModal={openFilters}
         onClose={() => setOpenFilters(false)}
       >
