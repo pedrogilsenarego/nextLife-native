@@ -8,7 +8,7 @@ import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
 import { useApp } from "@/providers/AppProvider";
 import { listPerDay } from "@/utils/dateFormat";
 import { format } from "date-fns";
-import BottomPopup from "@/components/BottomPopup";
+import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
 import { TransactionContent } from "./TransactionContent";
 import { useSelectedTransactions } from "./TransactionContext";
 
@@ -124,7 +124,9 @@ const ExpensesTable = ({
         openModal={!!selectedTransactionId}
         onClose={() => setSelectedTransactionId(null)}
       >
-        <TransactionContent />
+        <BottomPopupContent>
+          <TransactionContent />
+        </BottomPopupContent>
       </BottomPopup>
     </>
   );

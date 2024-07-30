@@ -1,4 +1,4 @@
-import BottomPopup from "@/components/BottomPopup";
+import { BottomPopup } from "@/components/BottomPopup";
 import useExpenses from "@/hooks/useExpenses";
 import useIncomes from "@/hooks/useIncomes";
 import { dateRangeLabel } from "@/mappers/dateRange";
@@ -8,7 +8,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 
 import { View, Text, Pressable } from "react-native";
-import { FilterModal } from "./FilterModal";
+import { FiltersModal } from "./FiltersModal";
 import { StateSelecter } from "@/app/(tabs)/MainComponents/Header/StateSelecter";
 import { SharedValue } from "react-native-reanimated";
 
@@ -106,14 +106,8 @@ export const CardFooter: React.FC<Props> = ({ handleMoveCarousel, index }) => {
           </Pressable>
         </View>
       </View>
-      <BottomPopup
-        title="Filters"
-        fullHeight
-        openModal={openFilters}
-        onClose={() => setOpenFilters(false)}
-      >
-        <FilterModal />
-      </BottomPopup>
+
+      <FiltersModal openModal={openFilters} setOpenModal={setOpenFilters} />
     </>
   );
 };

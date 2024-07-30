@@ -1,4 +1,4 @@
-import BottomPopup from "@/components/BottomPopup";
+import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
 import Select from "@/components/inputs/Select";
 import useDeposits from "@/hooks/useDeposits";
 import { Colors, useTheme } from "@/providers/ThemeContext";
@@ -157,7 +157,9 @@ export const TransferInput: React.FC = () => {
         fullHeight
         onClose={() => setOpenInputModal(false)}
       >
-        <Input />
+        <BottomPopupContent>
+          <Input />
+        </BottomPopupContent>
       </BottomPopup>
     </>
   );

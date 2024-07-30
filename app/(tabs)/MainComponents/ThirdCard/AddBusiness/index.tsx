@@ -1,8 +1,8 @@
 import { Container } from "@/components/Atoms/Container";
-import BottomPopup from "@/components/BottomPopup";
+import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
 import Button from "@/components/button/ButtonComponent";
 import ControlledInput from "@/components/inputs/TextField";
-import { useTheme } from "@/providers/ThemeContext";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
@@ -68,36 +68,38 @@ export const AddBusiness: React.FC = () => {
         openModal={openModal}
         onClose={() => setOpenModal(false)}
       >
-        <FormProvider {...methods}>
-          <View
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flex: 1,
-              rowGap: 20,
-            }}
-          >
-            <IconSelector />
+        <BottomPopupContent>
+          <FormProvider {...methods}>
+            <View
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flex: 1,
+                rowGap: 20,
+              }}
+            >
+              <IconSelector />
 
-            <ControlledInput name="businessName" placeholder="Name" />
-            <View style={{ width: "100%" }}>
-              <Select
-                height={160}
-                style={{ borderTopRightRadius: 6 }}
-                name="type"
-                listOptions={defaultBusiness}
-              />
+              <ControlledInput name="businessName" placeholder="Name" />
+              <View style={{ width: "100%" }}>
+                <Select
+                  height={160}
+                  style={{ borderTopRightRadius: 6 }}
+                  name="type"
+                  listOptions={defaultBusiness}
+                />
+              </View>
+              <View style={{ width: "100%" }}>
+                <Button
+                  isLoading={isPending}
+                  label="Add Business"
+                  onPress={methods.handleSubmit(onSubmit)}
+                />
+              </View>
             </View>
-            <View style={{ width: "100%" }}>
-              <Button
-                isLoading={isPending}
-                label="Add Business"
-                onPress={methods.handleSubmit(onSubmit)}
-              />
-            </View>
-          </View>
-        </FormProvider>
+          </FormProvider>
+        </BottomPopupContent>
       </BottomPopup>
     </>
   );

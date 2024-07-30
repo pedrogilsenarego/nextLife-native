@@ -1,5 +1,5 @@
 import { IconCard } from "@/components/Atoms/IconCard";
-import BottomPopup from "@/components/BottomPopup";
+import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
 import { useBusinessIcons } from "@/constants/useBusinessIcons";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 import { FlatList, Pressable } from "react-native";
@@ -29,34 +29,36 @@ export const IconSelectModal: React.FC<Props> = ({
         openModal={openModalIcons}
         onClose={() => setOpenModalIcons(false)}
       >
-        <FlatList
-          data={businessIcons}
-          keyExtractor={(item) => item.value.toString()}
-          renderItem={({ item }) => (
-            <Pressable onPress={() => handleSelectIcon(item.value)}>
-              <IconCard
-                iconId={item.value}
-                size={45}
-                containerStyles={{
-                  borderWidth: item.value === iconId ? 3 : 1,
-                  borderColor:
-                    item.value === iconId ? mainColor : Colors.lightGray,
-                  margin: 5,
-                }}
-              />
-            </Pressable>
-          )}
-          numColumns={4}
-          contentContainerStyle={{
-            flex: 1,
+        <BottomPopupContent>
+          <FlatList
+            data={businessIcons}
+            keyExtractor={(item) => item.value.toString()}
+            renderItem={({ item }) => (
+              <Pressable onPress={() => handleSelectIcon(item.value)}>
+                <IconCard
+                  iconId={item.value}
+                  size={45}
+                  containerStyles={{
+                    borderWidth: item.value === iconId ? 3 : 1,
+                    borderColor:
+                      item.value === iconId ? mainColor : Colors.lightGray,
+                    margin: 5,
+                  }}
+                />
+              </Pressable>
+            )}
+            numColumns={4}
+            contentContainerStyle={{
+              flex: 1,
 
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          columnWrapperStyle={{
-            justifyContent: "space-between",
-          }}
-        />
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            columnWrapperStyle={{
+              justifyContent: "space-between",
+            }}
+          />
+        </BottomPopupContent>
       </BottomPopup>
     </>
   );

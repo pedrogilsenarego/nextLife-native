@@ -1,5 +1,5 @@
 import { Container } from "@/components/Atoms/Container";
-import BottomPopup from "@/components/BottomPopup";
+import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
 import Button from "@/components/button/ButtonComponent";
 import ControlledInput from "@/components/inputs/TextField";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -105,41 +105,43 @@ export const AddDeposit: React.FC = () => {
         openModal={openModal}
         onClose={() => setOpenModal(false)}
       >
-        <FormProvider {...methods}>
-          <View
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flex: 1,
-              rowGap: 20,
-            }}
-          >
-            <ControlledInput name="depositName" placeholder="Name" />
-            <ControlledInput
-              variant="big"
-              keyboardType="decimal-pad"
-              name="amount"
-              placeholder="0.0"
-              units="€"
-            />
-            <View style={{ width: "100%" }}>
-              <Select
-                height={160}
-                style={{ borderTopRightRadius: 6 }}
-                name="type"
-                listOptions={defaultDeposits}
+        <BottomPopupContent>
+          <FormProvider {...methods}>
+            <View
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flex: 1,
+                rowGap: 20,
+              }}
+            >
+              <ControlledInput name="depositName" placeholder="Name" />
+              <ControlledInput
+                variant="big"
+                keyboardType="decimal-pad"
+                name="amount"
+                placeholder="0.0"
+                units="€"
               />
+              <View style={{ width: "100%" }}>
+                <Select
+                  height={160}
+                  style={{ borderTopRightRadius: 6 }}
+                  name="type"
+                  listOptions={defaultDeposits}
+                />
+              </View>
+              <View style={{ width: "100%" }}>
+                <Button
+                  isLoading={isPending}
+                  label="Add Deposit"
+                  onPress={methods.handleSubmit(onSubmit)}
+                />
+              </View>
             </View>
-            <View style={{ width: "100%" }}>
-              <Button
-                isLoading={isPending}
-                label="Add Deposit"
-                onPress={methods.handleSubmit(onSubmit)}
-              />
-            </View>
-          </View>
-        </FormProvider>
+          </FormProvider>
+        </BottomPopupContent>
       </BottomPopup>
     </>
   );

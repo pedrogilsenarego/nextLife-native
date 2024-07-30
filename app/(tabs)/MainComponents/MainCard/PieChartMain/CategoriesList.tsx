@@ -1,7 +1,7 @@
 import { View, Text } from "react-native";
 import RenderItem from "./RenderItem";
 import { Data } from "./PieChartMain";
-import BottomPopup from "@/components/BottomPopup";
+import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
 import { useSelectedCategory } from "./CategoriesContext";
 import { CategoryContent } from "./CategoryContent";
 
@@ -39,7 +39,9 @@ export const CategoriesList = (props: Props) => {
         fullHeight
         onClose={() => setSelectedCategory(null)}
       >
-        <CategoryContent />
+        <BottomPopupContent>
+          <CategoryContent />
+        </BottomPopupContent>
       </BottomPopup>
     </>
   );

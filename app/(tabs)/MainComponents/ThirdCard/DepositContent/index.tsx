@@ -2,9 +2,9 @@ import { View, Text } from "react-native";
 import { useSelectedDeposit } from "../DepositsContext";
 import useDeposits from "@/hooks/useDeposits";
 import Button from "@/components/button/ButtonComponent";
-import { Colors, useTheme } from "@/providers/ThemeContext";
+import { useTheme } from "@/providers/ThemeContext";
 import { defaultDeposits } from "@/constants/defaultDeposits";
-import BottomPopup from "@/components/BottomPopup";
+import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
 import { Transfer } from "./Transfer";
 import { useState } from "react";
 import { UpdateAmount } from "./UpdateAmount";
@@ -64,14 +64,18 @@ export const DepositContent: React.FC = () => {
         openModal={openTransferModal}
         onClose={() => setOpenTransferModal(false)}
       >
-        <Transfer />
+        <BottomPopupContent>
+          <Transfer />
+        </BottomPopupContent>
       </BottomPopup>
       <BottomPopup
         fullHeight
         openModal={openUpdateAmountModal}
         onClose={() => setOpenUpdateAmountModal(false)}
       >
-        <UpdateAmount setOpenUpdateAmountModal={setOpenUpdateAmountModal} />
+        <BottomPopupContent>
+          <UpdateAmount setOpenUpdateAmountModal={setOpenUpdateAmountModal} />
+        </BottomPopupContent>
       </BottomPopup>
     </>
   );

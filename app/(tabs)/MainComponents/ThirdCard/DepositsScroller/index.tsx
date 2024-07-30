@@ -1,5 +1,3 @@
-import { Container } from "@/components/Atoms/Container";
-
 import useDeposits from "@/hooks/useDeposits";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 import { Deposit } from "@/types/depositTypes";
@@ -7,7 +5,7 @@ import { View, Text, ScrollView, Pressable, Dimensions } from "react-native";
 import { AddDeposit } from "../AddDeposit";
 import { BlurView } from "expo-blur";
 import { useSelectedDeposit } from "../DepositsContext";
-import BottomPopup from "@/components/BottomPopup";
+import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
 import DepositContent from "../DepositContent";
 
 export const DepositsScroller: React.FC = () => {
@@ -136,7 +134,9 @@ export const DepositsScroller: React.FC = () => {
         openModal={!!selectedDeposit}
         onClose={() => setSelectedDeposit(null)}
       >
-        <DepositContent />
+        <BottomPopupContent>
+          <DepositContent />
+        </BottomPopupContent>
       </BottomPopup>
     </>
   );

@@ -140,20 +140,76 @@ const BottomPopup = ({
                   <View style={{ width: "20%" }} />
                 </View>
               )}
-              <View
-                style={{
-                  paddingHorizontal: 30,
-                  paddingBottom: 40,
-                  flex: fullHeight ? 1 : undefined,
-                }}
-              >
-                {children}
-              </View>
+              {children}
             </Animated.View>
           </Pressable>
         </View>
       </TouchableWithoutFeedback>
     </Modal>
+  );
+};
+
+type BottomPopupContentProps = {
+  children: React.ReactNode;
+  fullHeight?: boolean;
+};
+
+const BottomPopupContent: React.FC<BottomPopupContentProps> = (props) => {
+  return (
+    <View
+      style={{
+        paddingHorizontal: 30,
+
+        height: "auto",
+        paddingBottom: 40,
+        flexGrow: 1,
+      }}
+    >
+      {props.children}
+    </View>
+  );
+};
+
+type Props = {
+  label?: string;
+  children?: React.ReactNode;
+};
+
+const BottomPopupNotification: React.FC<Props> = (props) => {
+  const { mainColor } = useTheme();
+  return (
+    <View
+      style={{
+        backgroundColor: mainColor,
+        paddingVertical: 16,
+        paddingHorizontal: 30,
+      }}
+    >
+      {props.label && (
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "flex-start",
+            columnGap: 10,
+          }}
+        >
+          <AntDesign name="infocirlce" color={"white"} size={16} />
+          <Text
+            style={{
+              color: Colors.white,
+              flex: 1,
+              flexWrap: "wrap",
+              fontSize: 14,
+              lineHeight: 16,
+            }}
+          >
+            {props.label}
+          </Text>
+        </View>
+      )}
+      {props.children}
+    </View>
   );
 };
 
@@ -165,4 +221,4 @@ const styles = StyleSheet.create({
   modalContent: {},
 });
 
-export default BottomPopup;
+export { BottomPopup, BottomPopupNotification, BottomPopupContent };

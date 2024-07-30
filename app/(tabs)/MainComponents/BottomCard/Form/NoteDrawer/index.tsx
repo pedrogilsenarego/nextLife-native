@@ -1,4 +1,4 @@
-import BottomPopup from "@/components/BottomPopup";
+import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
 import Button from "@/components/button/ButtonComponent";
 import ControlledInput from "@/components/inputs/TextField";
 import { useTheme } from "@/providers/ThemeContext";
@@ -17,31 +17,33 @@ export const NoteDrawer: React.FC<Props> = ({ openModal, setOpenModal }) => {
       openModal={openModal}
       onClose={() => setOpenModal(false)}
     >
-      <Pressable
-        onPress={() => Keyboard.dismiss()}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flex: 1,
-          rowGap: 50,
-        }}
-      >
-        <Text
+      <BottomPopupContent>
+        <Pressable
+          onPress={() => Keyboard.dismiss()}
           style={{
-            color: theme === "dark" ? "white" : "black",
-            fontSize: 20,
-
-            fontWeight: "bold",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flex: 1,
+            rowGap: 50,
           }}
         >
-          Add a note to this entry
-        </Text>
-        <ControlledInput name="note" multiline />
-        <View style={{ width: "100%" }}>
-          <Button label="Add" onPress={() => setOpenModal(false)} />
-        </View>
-      </Pressable>
+          <Text
+            style={{
+              color: theme === "dark" ? "white" : "black",
+              fontSize: 20,
+
+              fontWeight: "bold",
+            }}
+          >
+            Add a note to this entry
+          </Text>
+          <ControlledInput name="note" multiline />
+          <View style={{ width: "100%" }}>
+            <Button label="Add" onPress={() => setOpenModal(false)} />
+          </View>
+        </Pressable>
+      </BottomPopupContent>
     </BottomPopup>
   );
 };

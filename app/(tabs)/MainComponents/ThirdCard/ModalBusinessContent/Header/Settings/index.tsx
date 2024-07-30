@@ -1,4 +1,4 @@
-import BottomPopup from "@/components/BottomPopup";
+import { BottomPopup } from "@/components/BottomPopup";
 import { AntDesign } from "@expo/vector-icons";
 import { useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";

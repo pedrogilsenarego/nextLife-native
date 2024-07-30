@@ -10,18 +10,17 @@ import {
   ImageBackground,
 } from "react-native";
 import { BusinessCard } from "./BusinessCard";
-import BottomPopup from "@/components/BottomPopup";
-import { useEffect, useState } from "react";
+import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
+
 import { ModalBusinessContent } from "./ModalBusinessContent";
 import { AddBusiness } from "./AddBusiness";
 
 import { HorizontalBarChartBusiness } from "./HorizontalBarBusiness";
 import useMetrics from "@/hooks/useMetrics";
 import { useSelectedBusiness } from "./BusinessContext";
-import useDeposits from "@/hooks/useDeposits";
-import { AddDeposit } from "./AddDeposit";
+
 import { DepositsScroller } from "./DepositsScroller";
-import { Divider } from "@/components/Atoms/Divider";
+
 import { HeaderMetrics } from "./HeaderMetrics";
 import { DividerCTA } from "./DividerCTA";
 import { SelectedDepositProvider } from "./DepositsContext";
@@ -230,7 +229,9 @@ const ThirdCard = () => {
                 openModal={!!selectedBusiness}
                 onClose={() => setSelectedBusiness(null)}
               >
-                <ModalBusinessContent />
+                <BottomPopupContent>
+                  <ModalBusinessContent />
+                </BottomPopupContent>
               </BottomPopup>
             </>
           )}
