@@ -4,14 +4,19 @@ import { useApp } from "@/providers/AppProvider";
 import { useTheme } from "@/providers/ThemeContext";
 import { Pressable, View } from "react-native";
 
-export const BusinessFilter = () => {
+type Props = {
+  size?: number;
+  gap?: number;
+};
+
+export const BusinessFilter = (props: Props) => {
   const businesses = useBusinesses();
   const { mainColor } = useTheme();
   const { updateBusinessFilter, businessFilter } = useApp();
   if (!businesses.data) return;
 
   return (
-    <View style={{ flexDirection: "row", columnGap: 2 }}>
+    <View style={{ flexDirection: "row", columnGap: props.gap || 2 }}>
       {businesses.data.map((business) => {
         const businessIcon = business?.iconType || 0;
         return (
@@ -25,7 +30,7 @@ export const BusinessFilter = () => {
                   : "transparent",
               }}
               iconId={businessIcon}
-              size={18}
+              size={props.size || 18}
             />
           </Pressable>
         );

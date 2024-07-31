@@ -1,4 +1,5 @@
 import { HorizontalBarChart } from "@/components/Organisms/HorizontalBarChart";
+import { useApp } from "@/providers/AppProvider";
 import { Business } from "@/types/businessTypes";
 
 type Props = {
@@ -8,11 +9,17 @@ type Props = {
 export const HorizontalBarChartBusiness: React.FC<Props> = ({
   businessData,
 }) => {
-  const data = businessData?.map((businessData) => {
-    return {
-      value: businessData.balance,
-      iconId: businessData.business.iconType,
-    };
-  });
+  const { businessFilter } = useApp();
+
+  const data = businessData
+    .map((businessData) => {
+      if (businessFilter.includes(businessData.business.id)) return undefined;
+      return {
+        value: businessData.balance,
+        iconId: businessData.business.iconType,
+      };
+    })
+    .filter(Boolean) as { value: number; iconId: number }[];
+
   return <HorizontalBarChart data={data} height={12} />;
 };

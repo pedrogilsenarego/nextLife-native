@@ -4,7 +4,8 @@ import {
   BottomPopupNotification,
 } from "@/components/BottomPopup";
 import { RangeDataChoose } from "@/components/Molecules/RangeDataChoose";
-import { View } from "react-native";
+import { View, Text } from "react-native";
+import { BusinessFilter } from "../../BusinessFilter";
 
 type Props = {
   openModal: boolean;
@@ -25,8 +26,15 @@ export const FiltersModal: React.FC<Props> = (props) => {
         }
       />
       <BottomPopupContent>
-        <View style={{ flex: 1, justifyContent: "center" }}>
-          <RangeDataChoose />
+        <View style={{ flex: 1, paddingVertical: 20, rowGap: 20 }}>
+          <View style={{ rowGap: 6 }}>
+            <Text style={{ fontWeight: 600, fontSize: 16 }}>Businesses</Text>
+            <BusinessFilter size={40} gap={6} />
+          </View>
+          <View style={{ rowGap: 6 }}>
+            <Text style={{ fontWeight: 600, fontSize: 16 }}>Date Range</Text>
+            <RangeDataChoose />
+          </View>
         </View>
       </BottomPopupContent>
     </BottomPopup>

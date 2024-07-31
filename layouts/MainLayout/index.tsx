@@ -113,7 +113,7 @@ const MainLayout = ({
               },
             ]}
           >
-            <SideOptions />
+            <SideOptions open={sideMenu} />
           </RnAnimated.View>
           <RnAnimated.View
             style={[

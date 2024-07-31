@@ -5,7 +5,7 @@ import { RightComponent } from "./RightComponent";
 import { View, Text } from "react-native";
 import { Colors } from "@/providers/ThemeContext";
 import { Divider } from "@/components/Atoms/Divider";
-import { BusinessFilter } from "./BusinessFilter";
+import { BusinessFilter } from "../../../../../../components/Molecules/BusinessFilter";
 
 type Props = {
   expensesPerDay: { value: number; label: string }[];

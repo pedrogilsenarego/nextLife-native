@@ -1,16 +1,10 @@
-import { BottomPopup } from "@/components/BottomPopup";
 import useExpenses from "@/hooks/useExpenses";
 import useIncomes from "@/hooks/useIncomes";
-import { dateRangeLabel } from "@/mappers/dateRange";
-import { useApp } from "@/providers/AppProvider";
 import { Colors, useTheme } from "@/providers/ThemeContext";
-import { Ionicons } from "@expo/vector-icons";
-import { useState } from "react";
-
 import { View, Text, Pressable } from "react-native";
-import { FiltersModal } from "./FiltersModal";
 import { StateSelecter } from "@/app/(tabs)/MainComponents/Header/StateSelecter";
 import { SharedValue } from "react-native-reanimated";
+import { FiltersButton } from "./FiltersButton";
 
 type Props = {
   handleMoveCarousel: (index: number) => void;
@@ -20,9 +14,8 @@ type Props = {
 export const CardFooter: React.FC<Props> = ({ handleMoveCarousel, index }) => {
   const expenses = useExpenses();
   const incomes = useIncomes();
-  const { theme, mainColor } = useTheme();
-  const { dateRange } = useApp();
-  const [openFilters, setOpenFilters] = useState<boolean>(false);
+  const { theme } = useTheme();
+
   return (
     <>
       <View
@@ -76,38 +69,9 @@ export const CardFooter: React.FC<Props> = ({ handleMoveCarousel, index }) => {
             alignItems: "flex-end",
           }}
         >
-          <Pressable
-            onPress={() => setOpenFilters(true)}
-            style={{
-              paddingVertical: 1,
-              paddingHorizontal: 10,
-              borderRadius: 40,
-
-              backgroundColor: `${mainColor}80`,
-              display: "flex",
-              alignItems: "center",
-              flexDirection: "row",
-              columnGap: 10,
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 10,
-                color: Colors.white,
-              }}
-            >
-              {dateRangeLabel(dateRange)}
-            </Text>
-            <Ionicons
-              name="filter-circle-outline"
-              size={20}
-              color={Colors.white}
-            />
-          </Pressable>
+          <FiltersButton />
         </View>
       </View>
-
-      <FiltersModal openModal={openFilters} setOpenModal={setOpenFilters} />
     </>
   );
 };

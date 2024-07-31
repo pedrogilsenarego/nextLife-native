@@ -24,12 +24,14 @@ import { DepositsScroller } from "./DepositsScroller";
 import { HeaderMetrics } from "./HeaderMetrics";
 import { DividerCTA } from "./DividerCTA";
 import { SelectedDepositProvider } from "./DepositsContext";
+import { useApp } from "@/providers/AppProvider";
 
 const ThirdCard = () => {
   const businesses = useBusinesses();
   const { theme } = useTheme();
   const { setSelectedBusiness, selectedBusiness } = useSelectedBusiness();
   const { getExpensesPerBusiness, getIncomesPerBusiness } = useMetrics();
+  const { businessFilter } = useApp();
   const businessData =
     businesses?.data?.map((business) => {
       const totalExpenses = getExpensesPerBusiness(business.id);
@@ -168,7 +170,11 @@ const ThirdCard = () => {
                         }}
                       >
                         {businessData?.map((businessData) => {
-                          return <BusinessCard businessData={businessData} />;
+                          return businessFilter.includes(
+                            businessData.business.id
+                          ) ? null : (
+                            <BusinessCard businessData={businessData} />
+                          );
                         })}
 
                         {(businesses.data?.length || 0) < 5 && <AddBusiness />}
