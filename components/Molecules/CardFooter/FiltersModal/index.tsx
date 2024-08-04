@@ -6,6 +6,7 @@ import {
 import { RangeDataChoose } from "@/components/Molecules/RangeDataChoose";
 import { View, Text } from "react-native";
 import { BusinessFilter } from "../../BusinessFilter";
+import { CategoriesFilter } from "./CategoriesFilter";
 
 type Props = {
   openModal: boolean;
@@ -30,6 +31,10 @@ export const FiltersModal: React.FC<Props> = (props) => {
           <View style={{ rowGap: 6 }}>
             <Text style={{ fontWeight: 600, fontSize: 16 }}>Businesses</Text>
             <BusinessFilter size={40} gap={6} />
+          </View>
+          <View style={{ rowGap: 6 }}>
+            <Text style={{ fontWeight: 600, fontSize: 16 }}>Categories</Text>
+            <CategoriesFilter />
           </View>
           <View style={{ rowGap: 6 }}>
             <Text style={{ fontWeight: 600, fontSize: 16 }}>Date Range</Text>

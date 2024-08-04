@@ -8,10 +8,10 @@ import { Ionicons } from "@expo/vector-icons";
 
 export const FiltersButton: React.FC = () => {
   const [openFilters, setOpenFilters] = useState<boolean>(false);
-  const { dateRange, businessFilter } = useApp();
+  const { dateRange, businessFilter, categoryFilter } = useApp();
   const { mainColor } = useTheme();
 
-  const numberBadge = businessFilter.length;
+  const numberBadge = businessFilter.length + categoryFilter.length;
 
   return (
     <>

@@ -15,6 +15,7 @@ export const defaultCategories = [
   { value: "transports", label: "Transports" },
   { value: "sports", label: "Sports" },
   { value: "stocks", label: "Stocks" },
+  { value: "taxes", label: "Taxes" },
   { value: "travel", label: "Travel" },
   { value: "water", label: "Water" },
 ];
@@ -26,4 +27,5 @@ export const defaultIncomesCategories = [
   { value: "guests", label: "Guests" },
   { value: "management", label: "Management" },
   { value: "salary", label: "Salary" },
+  { value: "taxes", label: "Taxes" },
 ];
