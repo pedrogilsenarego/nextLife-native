@@ -41,7 +41,7 @@ export const RecoverPassword: React.FC = () => {
         openModal={openPopup}
         onClose={() => setOpenPopup(false)}
       >
-        <RecoverPasswordModal />
+        <RecoverPasswordModal setOpenPopup={setOpenPopup} />
       </BottomPopup>
     </>
   );

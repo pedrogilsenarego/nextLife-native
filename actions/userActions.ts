@@ -1,5 +1,24 @@
 import { supabase } from "@/lib/supabase";
 import { UserQuery } from "@/types/userTypes";
+export const recoverPassword = async ({
+  email,
+}: {
+  email: string;
+}): Promise<string> => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email);
+      if (error) {
+        reject(error?.message);
+      } else {
+        resolve("Password reset email sent successfully");
+      }
+    } catch (error: any) {
+      console.log("error", error);
+      reject(error.message);
+    }
+  });
+};
 
 export const signinUser = async ({
   email,

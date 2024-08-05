@@ -2,7 +2,11 @@ import { defaultCategories } from "@/app/(tabs)/MainComponents/BottomCard/consta
 import { BottomPopup } from "@/components/BottomPopup";
 import { useApp } from "@/providers/AppProvider";
 import { Colors, useTheme } from "@/providers/ThemeContext";
-import { AntDesign } from "@expo/vector-icons";
+import {
+  AntDesign,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import { useState } from "react";
 import { View, Text, FlatList, Pressable } from "react-native";
 
@@ -57,9 +61,43 @@ export const CategoriesFilter = () => {
                 columnGap: 8,
               }}
             >
-              <Text style={{ fontSize: 16 }}>{category.item.label}</Text>
+              {category.item.icon && (
+                <View
+                  style={{
+                    backgroundColor: mainColor,
+                    height: 30,
+                    width: 30,
+                    borderRadius: 30,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  {!category.item.variation ? (
+                    <AntDesign
+                      color={Colors.white}
+                      name={category.item.icon as any}
+                      size={18}
+                    />
+                  ) : category.item.variation === "materialIcons" ? (
+                    <MaterialIcons
+                      name={category.item.icon as any}
+                      color={Colors.white}
+                      size={18}
+                    />
+                  ) : (
+                    <MaterialCommunityIcons
+                      name={category.item.icon as any}
+                      color={Colors.white}
+                      size={18}
+                    />
+                  )}
+                </View>
+              )}
+              <Text style={{ fontSize: 18, color: Colors.gray }}>
+                {category.item.label}
+              </Text>
               {categoryFilter.includes(category.item.value) && (
-                <AntDesign name="check" size={20} color={mainColor} />
+                <AntDesign name="check" size={24} color={mainColor} />
               )}
             </Pressable>
           )}
