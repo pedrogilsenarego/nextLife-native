@@ -24,13 +24,15 @@ export const CategoriesFilter = () => {
                 <View
                   key={index}
                   style={{
-                    padding: 6,
+                    padding: 8,
                     paddingVertical: 2,
                     borderRadius: 6,
                     backgroundColor: `${mainColor}66`,
                   }}
                 >
-                  <Text style={{ color: "white" }}>{category}</Text>
+                  <Text style={{ color: "white", textTransform: "capitalize" }}>
+                    {category}
+                  </Text>
                 </View>
               );
             })}
