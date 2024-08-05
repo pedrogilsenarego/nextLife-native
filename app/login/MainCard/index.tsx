@@ -1,5 +1,4 @@
 import {
-  View,
   Text,
   ImageBackground,
   Animated,
@@ -7,12 +6,11 @@ import {
   Keyboard,
 } from "react-native";
 import Forms from "../Forms";
-import LottieView from "lottie-react-native";
 import { useRef, useState } from "react";
 import { Entypo } from "@expo/vector-icons";
-import { Colors, ColorsProp, useTheme } from "@/providers/ThemeContext";
-import SelectColorItem from "./ColorPicker/SelectColorItem";
+import { useTheme } from "@/providers/ThemeContext";
 import ColorPicker from "./ColorPicker";
+import { RecoverPassword } from "./RecoverPassword";
 
 const MainCard = () => {
   const flipAnim = useRef(new Animated.Value(0)).current;
@@ -133,33 +131,7 @@ const MainCard = () => {
             </Pressable>
             <Forms />
 
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "flex-end",
-                columnGap: 10,
-              }}
-            >
-              <Text
-                style={{
-                  fontWeight: "500",
-                  color: "gray",
-                  lineHeight: 27,
-                }}
-              >
-                Forgot Password?
-              </Text>
-              <LottieView
-                autoPlay
-                style={{
-                  width: 40,
-                  aspectRatio: 1,
-                  opacity: 0.2,
-                }}
-                source={require("../../../assets/images/Initial.json")}
-              />
-            </View>
+            <RecoverPassword />
           </Animated.View>
 
           <Animated.View

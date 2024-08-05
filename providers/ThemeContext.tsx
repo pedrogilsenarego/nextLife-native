@@ -34,6 +34,7 @@ export const Colors = {
   greenPuke: "#eaf984",
   red: "#FF0000",
   pearlWhite: "#F5F5F5",
+  nightBlue: "#0a2463",
 };
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {

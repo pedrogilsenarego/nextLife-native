@@ -140,6 +140,18 @@ const BottomPopup = ({
                   <View style={{ width: "20%" }} />
                 </View>
               )}
+              {title && !fullHeight && (
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: 700,
+                    textAlign: "center",
+                    paddingVertical: 10,
+                  }}
+                >
+                  {title}
+                </Text>
+              )}
               {children}
             </Animated.View>
           </Pressable>

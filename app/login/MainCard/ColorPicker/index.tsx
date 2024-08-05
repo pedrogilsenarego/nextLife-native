@@ -20,13 +20,12 @@ const ColorPicker = ({ rotate = false }: Props) => {
       </Text>
       <View style={{ display: "flex", flexDirection: "row", columnGap: 10 }}>
         <SelectColorItem color={"black"} />
-        <SelectColorItem color={"orangeRed"} />
+
         <SelectColorItem color={"fuchsia"} />
-        <SelectColorItem color={"tealc"} />
+
         <SelectColorItem color={"purple"} />
-        <SelectColorItem color={"saphire"} />
-        <SelectColorItem color={"white"} />
-        <SelectColorItem color={"greenPuke"} />
+        <SelectColorItem color={"nightBlue"} />
+
         <SelectColorItem color={"gray"} />
       </View>
     </View>
