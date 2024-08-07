@@ -33,8 +33,16 @@ export const FiltersModal: React.FC<Props> = (props) => {
             <BusinessFilter size={40} gap={6} />
           </View>
           <View style={{ rowGap: 6 }}>
-            <Text style={{ fontWeight: 600, fontSize: 16 }}>Categories</Text>
-            <CategoriesFilter />
+            <Text style={{ fontWeight: 600, fontSize: 16 }}>
+              Categories Expenses
+            </Text>
+            <CategoriesFilter mode="expenses" />
+          </View>
+          <View style={{ rowGap: 6 }}>
+            <Text style={{ fontWeight: 600, fontSize: 16 }}>
+              Categories Incomes
+            </Text>
+            <CategoriesFilter mode="incomes" />
           </View>
           <View style={{ rowGap: 6 }}>
             <Text style={{ fontWeight: 600, fontSize: 16 }}>Date Range</Text>

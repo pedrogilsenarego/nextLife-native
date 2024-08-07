@@ -4,7 +4,6 @@ import { dateQueriesMap } from "@/utils/dateFormat";
 import { getIncomes } from "@/actions/incomesActions";
 import { IncomesQuery } from "@/types/incomesTypes";
 import { useApp } from "@/providers/AppProvider";
-import { CategoriesFilter } from "@/components/Molecules/CardFooter/FiltersModal/CategoriesFilter";
 
 type Props = {
   businessSelected?: string;
@@ -12,7 +11,7 @@ type Props = {
 };
 
 const useIncomes = ({ businessSelected, selectedCategory }: Props = {}) => {
-  const { dateRange, businessFilter, categoryFilter } = useApp();
+  const { dateRange, businessFilter, categoryFilterIncomes } = useApp();
   const datesToQuery = dateQueriesMap(dateRange);
 
   const expensesQuery = useQuery<IncomesQuery, Error>({
@@ -41,9 +40,9 @@ const useIncomes = ({ businessSelected, selectedCategory }: Props = {}) => {
     ? filteredExpensesByBusiness?.filter(
         (expense) => expense.category === selectedCategory
       )
-    : CategoriesFilter.length > 0
+    : categoryFilterIncomes.length > 0
     ? filteredExpensesByBusiness.filter(
-        (income) => !categoryFilter.includes(income.category)
+        (income) => !categoryFilterIncomes.includes(income.category)
       )
     : filteredExpensesByBusiness;
   return {

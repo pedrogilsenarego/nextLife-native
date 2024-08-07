@@ -44,11 +44,16 @@ export const defaultCategories = [
 ];
 
 export const defaultIncomesCategories = [
-  { value: "allowence", label: "Allowence" },
-  { value: "freelance", label: "Freelance" },
-  { value: "general", label: "General" },
-  { value: "guests", label: "Guests" },
-  { value: "management", label: "Management" },
-  { value: "salary", label: "Salary" },
-  { value: "taxes", label: "Taxes" },
+  {
+    value: "allowence",
+    label: "Allowence",
+    variation: "materialIcons",
+    icon: "attach-money",
+  },
+  { value: "freelance", label: "Freelance", icon: "codepen" },
+  { value: "general", label: "General", icon: "setting" },
+  { value: "guests", label: "Guests", icon: "home" },
+  { value: "management", label: "Management", icon: "calculator" },
+  { value: "salary", label: "Salary", icon: "work", variant: "materialIcons" },
+  { value: "taxes", label: "Taxes", icon: "form" },
 ];

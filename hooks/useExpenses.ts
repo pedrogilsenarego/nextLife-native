@@ -11,7 +11,7 @@ type Props = {
 };
 
 const useExpenses = ({ businessSelected, selectedCategory }: Props = {}) => {
-  const { dateRange, businessFilter, categoryFilter } = useApp();
+  const { dateRange, businessFilter, categoryFilterExpenses } = useApp();
   const datesToQuery = dateQueriesMap(dateRange);
 
   const expensesQuery = useQuery<ExpensesQuery, Error>({
@@ -40,9 +40,9 @@ const useExpenses = ({ businessSelected, selectedCategory }: Props = {}) => {
     ? filteredExpensesByBusiness?.filter(
         (expense) => expense.category === selectedCategory
       )
-    : categoryFilter.length > 0
+    : categoryFilterExpenses.length > 0
     ? filteredExpensesByBusiness.filter(
-        (expense) => !categoryFilter.includes(expense.category)
+        (expense) => !categoryFilterExpenses.includes(expense.category)
       )
     : filteredExpensesByBusiness;
 

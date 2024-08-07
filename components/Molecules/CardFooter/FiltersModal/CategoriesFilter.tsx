@@ -1,4 +1,7 @@
-import { defaultCategories } from "@/app/(tabs)/MainComponents/BottomCard/constants";
+import {
+  defaultCategories,
+  defaultIncomesCategories,
+} from "@/app/(tabs)/MainComponents/BottomCard/constants";
 import { BottomPopup } from "@/components/BottomPopup";
 import { useApp } from "@/providers/AppProvider";
 import { Colors, useTheme } from "@/providers/ThemeContext";
@@ -10,16 +13,33 @@ import {
 import { useState } from "react";
 import { View, Text, FlatList, Pressable } from "react-native";
 
-export const CategoriesFilter = () => {
+type Props = {
+  mode: "expenses" | "incomes";
+};
+
+export const CategoriesFilter = (props: Props) => {
   const { mainColor } = useTheme();
-  const { categoryFilter, updateCategoryFilter } = useApp();
+  const {
+    categoryFilterExpenses,
+    updateCategoryFilterExpenses,
+    categoryFilterIncomes,
+    updateCategoryFilterIncomes,
+  } = useApp();
   const [open, setOpen] = useState<boolean>(false);
+  const data =
+    props.mode === "expenses" ? categoryFilterExpenses : categoryFilterIncomes;
+  const defaultData =
+    props.mode === "expenses"
+      ? defaultCategories
+      : props.mode === "incomes"
+      ? defaultIncomesCategories
+      : defaultCategories;
   return (
     <>
       <Pressable onPress={() => setOpen(true)}>
-        {categoryFilter.length > 0 ? (
+        {data.length > 0 ? (
           <View style={{ flexDirection: "row", columnGap: 6 }}>
-            {categoryFilter.map((category, index) => {
+            {data.map((category, index) => {
               return (
                 <View
                   key={index}
@@ -42,17 +62,23 @@ export const CategoriesFilter = () => {
         )}
       </Pressable>
       <BottomPopup
-        title="Categories"
+        title={`${
+          props.mode === "expenses" ? "Expenses" : "Incomes"
+        } Categories`}
         openModal={open}
         onClose={() => setOpen(false)}
         fullHeight
       >
         <FlatList
-          data={defaultCategories}
+          data={defaultData}
           renderItem={(category) => (
             <Pressable
               key={category.index}
-              onPress={() => updateCategoryFilter(category.item.value)}
+              onPress={() => {
+                props.mode === "expenses"
+                  ? updateCategoryFilterExpenses(category.item.value)
+                  : updateCategoryFilterIncomes(category.item.value);
+              }}
               style={{
                 paddingVertical: 14,
                 paddingHorizontal: 10,
@@ -98,7 +124,7 @@ export const CategoriesFilter = () => {
               <Text style={{ fontSize: 18, color: Colors.gray }}>
                 {category.item.label}
               </Text>
-              {categoryFilter.includes(category.item.value) && (
+              {data.includes(category.item.value) && (
                 <AntDesign name="check" size={24} color={mainColor} />
               )}
             </Pressable>

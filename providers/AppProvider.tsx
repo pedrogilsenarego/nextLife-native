@@ -26,8 +26,10 @@ interface AppContexType {
   setBottomCardOpen: (bottomCardOpen: boolean) => void;
   updateBusinessFilter: (id: string) => void;
   businessFilter: string[];
-  updateCategoryFilter: (id: string) => void;
-  categoryFilter: string[];
+  updateCategoryFilterExpenses: (id: string) => void;
+  categoryFilterExpenses: string[];
+  updateCategoryFilterIncomes: (id: string) => void;
+  categoryFilterIncomes: string[];
 }
 
 const AppContext = createContext<AppContexType | undefined>(undefined);
@@ -36,7 +38,12 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [dateRange, setDateRange] = useState<DateRangeValues>("currentMonth");
   const [selectedDate, setSelectedDate] = useState<string>("Total");
   const [businessFilter, setBusinessFilter] = useState<string[]>([]);
-  const [categoryFilter, setCategoryFilter] = useState<string[]>([]);
+  const [categoryFilterExpenses, setCategoryFilterExpenses] = useState<
+    string[]
+  >([]);
+  const [categoryFilterIncomes, setCategoryFilterIncomes] = useState<string[]>(
+    []
+  );
   const [bottomCardOpen, setBottomCardOpen] = useState<boolean>(false);
 
   useEffect(() => {
@@ -84,8 +91,18 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  const updateCategoryFilter = (id: string) => {
-    setCategoryFilter((prevCategoryFilter) => {
+  const updateCategoryFilterExpenses = (id: string) => {
+    setCategoryFilterExpenses((prevCategoryFilter) => {
+      if (!prevCategoryFilter?.includes(id)) {
+        return [...prevCategoryFilter, id];
+      } else {
+        return prevCategoryFilter.filter((item) => item !== id);
+      }
+    });
+  };
+
+  const updateCategoryFilterIncomes = (id: string) => {
+    setCategoryFilterIncomes((prevCategoryFilter) => {
       if (!prevCategoryFilter?.includes(id)) {
         return [...prevCategoryFilter, id];
       } else {
@@ -105,8 +122,10 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         bottomCardOpen,
         setBottomCardOpen,
         businessFilter,
-        updateCategoryFilter,
-        categoryFilter,
+        updateCategoryFilterExpenses,
+        categoryFilterExpenses,
+        updateCategoryFilterIncomes,
+        categoryFilterIncomes,
       }}
     >
       {children}

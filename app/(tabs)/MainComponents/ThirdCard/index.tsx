@@ -119,7 +119,7 @@ const ThirdCard = () => {
                         width: "100%",
                       }}
                     >
-                      <ImageBackground
+                      {/* <ImageBackground
                         imageStyle={{
                           opacity: theme === "light" ? 0.9 : 0,
 
@@ -152,7 +152,7 @@ const ThirdCard = () => {
                             <DepositsScroller />
                           </SelectedDepositProvider>
                         </View>
-                      </ImageBackground>
+                      </ImageBackground> */}
                       <View>
                         <DividerCTA label={"Business"} />
                       </View>
