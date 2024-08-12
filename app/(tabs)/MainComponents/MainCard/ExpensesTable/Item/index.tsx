@@ -19,50 +19,12 @@ const Item = ({ expense }: Props) => {
     return moment(date).format("DD MMM HH:MM");
   };
 
-  // const RightAction = (percentage: any, dragX: any) => {
-  //   const scale = dragX.interpolate({
-  //     inputRange: [-100, 0],
-  //     outputRange: [1, 0],
-  //     extrapolate: "clamp",
-  //   });
-
-  //   return isPending ? (
-  //     <View
-  //       style={{ flexDirection: "row", alignItems: "center", height: "100%" }}
-  //     >
-  //       <LoaderSpinner color={"red"} />
-  //     </View>
-  //   ) : (
-  //     <Pressable
-  //       onPress={handleLocalDelete}
-  //       style={{
-  //         justifyContent: "center",
-  //         alignItems: "flex-end",
-  //         paddingHorizontal: 12,
-  //       }}
-  //     >
-  //       <Animated.Text
-  //         style={[
-  //           { color: "orangered", fontSize: 16 },
-  //           { transform: [{ scale }] },
-  //         ]}
-  //       >
-  //         Delete
-  //       </Animated.Text>
-  //     </Pressable>
-  //   );
-  // };
   const handlePress = () => {
     setSelectedTransactionId(expense.id);
     setSelectedMode(expense.type);
   };
   return (
     <Pressable onPress={handlePress}>
-      {/* <Swipeable
-        renderRightActions={RightAction}
-        onSwipeableOpen={() => handleDelete(expense.id)}
-        onSwipeableClose={() => handleRemoveDelete(expense.id)}
-      > */}
       <View
         style={{
           borderBottomWidth: theme === "light" ? 1 : 0,
@@ -125,7 +87,6 @@ const Item = ({ expense }: Props) => {
           </Text>
         </View>
       </View>
-      {/* </Swipeable> */}
     </Pressable>
   );
 };

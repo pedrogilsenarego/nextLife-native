@@ -28,6 +28,7 @@ import { useApp } from "@/providers/AppProvider";
 import { DateDrawer } from "./DateDrawer";
 import { Divider } from "@/components/Atoms/Divider";
 import { DepositDrawer } from "./DepositDrawer";
+import useDeposits from "@/hooks/useDeposits";
 
 type Props = {
   listBusiness: { value: string; label: string }[];
@@ -35,6 +36,7 @@ type Props = {
 
 const Form = ({ listBusiness }: Props) => {
   const { setBottomCardOpen, bottomCardOpen } = useApp();
+  const deposits = useDeposits();
   const expenses = useExpenses();
   const incomes = useIncomes();
   const { theme } = useTheme();
@@ -79,6 +81,7 @@ const Form = ({ listBusiness }: Props) => {
         methods.setValue("category", defaultIncomesCategories[0].value);
       }
       mode === "expense" ? expenses.refetch() : incomes.refetch();
+      deposits.refetch();
       setBottomCardOpen(false);
     },
     onSettled: async () => {},

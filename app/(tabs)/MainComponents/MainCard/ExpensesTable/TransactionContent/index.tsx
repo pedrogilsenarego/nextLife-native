@@ -8,12 +8,14 @@ import { useMutation } from "@tanstack/react-query";
 import { deleteExpense } from "@/actions/expensesActions";
 import { deleteIncome } from "@/actions/incomesActions";
 import Form from "./Form";
+import useDeposits from "@/hooks/useDeposits";
 
 export const TransactionContent = () => {
   const { selectedTransactionId, selectedMode, setSelectedTransactionId } =
     useSelectedTransactions();
   const expenses = useExpenses();
   const incomes = useIncomes();
+  const deposits = useDeposits();
 
   const transaction =
     selectedMode === "expense"
@@ -28,6 +30,7 @@ export const TransactionContent = () => {
     onSuccess: (data: any) => {
       selectedMode === "expense" ? expenses.refetch() : incomes.refetch();
       setSelectedTransactionId(null);
+      if (transaction?.deposit_id) deposits.refetch();
     },
     onSettled: async () => {},
   });

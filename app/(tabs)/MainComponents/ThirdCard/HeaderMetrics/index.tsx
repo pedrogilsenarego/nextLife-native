@@ -1,18 +1,21 @@
-import useBusinesses from "@/hooks/useBusinesses";
 import useDeposits from "@/hooks/useDeposits";
 import { Colors, useTheme } from "@/providers/ThemeContext";
-import { formatAmount } from "@/utils/money";
-import { BlurView } from "expo-blur";
+import { useEffect, useState } from "react";
 import { View, Text } from "react-native";
 
 export const HeaderMetrics = () => {
-  const businesses = useBusinesses();
   const { mainColor } = useTheme();
+  const [total, setTotal] = useState<string | undefined>();
   const deposits = useDeposits();
   const totalDepositsAmount = deposits?.data?.reduce((acc, deposit) => {
     return acc + (deposit.amount || 0);
   }, 0);
-  const totalPatrimony = totalDepositsAmount || 0;
+  const totalPatrimony = totalDepositsAmount?.toFixed(1) || "0";
+
+  useEffect(() => {
+    setTotal(totalPatrimony);
+  }, [deposits]);
+
   return (
     <View
       style={{
@@ -32,7 +35,7 @@ export const HeaderMetrics = () => {
           lineHeight: 55,
         }}
       >
-        {totalPatrimony.toFixed(1)}
+        {total}
         <Text style={{ fontSize: 26 }}> €</Text>
       </Text>
       <Text
