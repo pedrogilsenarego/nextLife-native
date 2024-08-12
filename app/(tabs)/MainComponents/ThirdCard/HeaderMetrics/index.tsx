@@ -5,16 +5,12 @@ import { View, Text } from "react-native";
 
 export const HeaderMetrics = () => {
   const { mainColor } = useTheme();
-  const [total, setTotal] = useState<string | undefined>();
+
   const deposits = useDeposits();
   const totalDepositsAmount = deposits?.data?.reduce((acc, deposit) => {
     return acc + (deposit.amount || 0);
   }, 0);
   const totalPatrimony = totalDepositsAmount?.toFixed(1) || "0";
-
-  useEffect(() => {
-    setTotal(totalPatrimony);
-  }, [deposits]);
 
   return (
     <View
@@ -35,7 +31,7 @@ export const HeaderMetrics = () => {
           lineHeight: 55,
         }}
       >
-        {total}
+        {totalPatrimony}
         <Text style={{ fontSize: 26 }}> €</Text>
       </Text>
       <Text
