@@ -9,6 +9,7 @@ import useExpenses from "@/hooks/useExpenses";
 import useIncomes from "@/hooks/useIncomes";
 import { dateRangeLabel } from "@/mappers/dateRange";
 import { useApp } from "@/providers/AppProvider";
+import { useMemo } from "react";
 
 type Props = {
   setSideMenu: (sideMenu: boolean) => void;
@@ -30,7 +31,9 @@ export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
   const formattedDate = `${currentDate.getDate()}, ${monthInLetters} ${currentDate.getFullYear()}`;
   const width = Dimensions.get("screen").width;
   const loading = expenses.isLoading || incomes.isLoading;
-  const balance = (totalIncomes() - totalExpenses()).toFixed(1);
+  const balance = useMemo(() => {
+    return (totalIncomes() - totalExpenses()).toFixed(1);
+  }, [totalIncomes, totalExpenses]);
 
   return (
     <View
