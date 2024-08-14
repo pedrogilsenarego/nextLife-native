@@ -11,7 +11,7 @@ import useBusinesses from "@/hooks/useBusinesses";
 import ControlledInput from "@/components/inputs/TextField";
 import { useTheme } from "@/providers/ThemeContext";
 import Button from "@/components/button/ButtonComponent";
-import { useSelectedBusiness } from "../../../BusinessContext";
+import { useSelectedBusiness } from "../../BusinessContext";
 
 type Props = {
   businessId: string;

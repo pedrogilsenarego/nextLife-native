@@ -22,6 +22,7 @@ interface IProps {
   openModal: boolean;
   fullHeight?: boolean;
   title?: string;
+  subtitle?: string;
   bgColor?: boolean;
 }
 
@@ -31,6 +32,7 @@ const BottomPopup = ({
   openModal,
   fullHeight,
   title,
+  subtitle,
   bgColor,
 }: IProps) => {
   const { theme, mainColor } = useTheme();
@@ -104,19 +106,20 @@ const BottomPopup = ({
                     display: "flex",
                     paddingHorizontal: 25,
                     flexDirection: "row",
-                    justifyContent: "space-between",
+                    columnGap: 5,
+                    justifyContent: "flex-start",
                     alignItems: "center",
-                    columnGap: 10,
+
                     borderBottomWidth: 1,
                     marginTop: 38,
-                    borderBottomColor: "gray",
+                    borderBottomColor: "lightgray",
                     paddingVertical: 4,
                   }}
                 >
                   <View
                     style={{
                       flexDirection: "row",
-                      width: "20%",
+
                       justifyContent: "flex-start",
                     }}
                   >
@@ -128,14 +131,33 @@ const BottomPopup = ({
                         borderRadius: 4,
                       }}
                     >
-                      <AntDesign name="close" size={26} color={mainColor} />
+                      <AntDesign
+                        name="closecircle"
+                        size={22}
+                        color={mainColor}
+                      />
                     </Pressable>
                   </View>
-
                   {title && (
-                    <Text style={{ fontSize: 20, fontWeight: 700 }}>
-                      {title}
-                    </Text>
+                    <View>
+                      {title && (
+                        <Text style={{ fontSize: 16, fontWeight: 700 }}>
+                          {title}
+                        </Text>
+                      )}
+                      {subtitle && (
+                        <Text
+                          style={{
+                            fontSize: 12,
+                            fontWeight: 500,
+                            color: "gray",
+                            lineHeight: 12,
+                          }}
+                        >
+                          {subtitle}
+                        </Text>
+                      )}
+                    </View>
                   )}
                   <View style={{ width: "20%" }} />
                 </View>

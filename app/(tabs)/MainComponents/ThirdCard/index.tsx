@@ -25,6 +25,7 @@ import { HeaderMetrics } from "./HeaderMetrics";
 import { DividerCTA } from "./DividerCTA";
 import { SelectedDepositProvider } from "./DepositsContext";
 import { useApp } from "@/providers/AppProvider";
+import { defaultBusiness } from "@/constants/defaultBusinesses";
 
 const ThirdCard = () => {
   const businesses = useBusinesses();
@@ -148,9 +149,9 @@ const ThirdCard = () => {
                         <View
                           style={{ marginBottom: 60, paddingHorizontal: 14 }}
                         >
-                          <SelectedDepositProvider>
+                          {/* <SelectedDepositProvider>
                             <DepositsScroller />
-                          </SelectedDepositProvider>
+                          </SelectedDepositProvider> */}
                         </View>
                       </ImageBackground>
                       <View>
@@ -227,6 +228,15 @@ const ThirdCard = () => {
               </ScrollView>
               <BottomPopup
                 fullHeight
+                subtitle={
+                  defaultBusiness.find(
+                    (item) =>
+                      item.value ===
+                      businessData.find(
+                        (business) => business.business.id === selectedBusiness
+                      )?.business.type
+                  )?.label
+                }
                 title={
                   businessData.find(
                     (business) => business.business.id === selectedBusiness

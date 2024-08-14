@@ -9,6 +9,7 @@ import Content from "../../MainCard/Content";
 
 import { ArrayButtonsIcons } from "@/components/Molecules/ArrayButtonsIcons";
 import { useSharedValue, withTiming } from "react-native-reanimated";
+import { Settings } from "./Settings";
 
 export const ModalBusinessContent: React.FC = () => {
   const { selectedBusiness } = useSelectedBusiness();
@@ -23,16 +24,22 @@ export const ModalBusinessContent: React.FC = () => {
   if (!selectedBusiness || !business) return;
   return (
     <View style={{ alignItems: "center" }}>
+      <View style={{ width: "100%", alignItems: "flex-end" }}>
+        <ArrayButtonsIcons
+          iconSize={18}
+          buttonList={["piechart", "dotchart"]}
+          onChange={(id) => {
+            setMode(id);
+          }}
+          id={mode}
+        />
+        <Settings
+          businessId={business.id}
+          businessName={business.businessName}
+        />
+      </View>
       <Header business={business} />
 
-      <ArrayButtonsIcons
-        iconSize={30}
-        buttonList={["dotchart", "piechart", "setting"]}
-        onChange={(id) => {
-          setMode(id);
-        }}
-        id={mode}
-      />
       <View style={{ marginTop: 20 }}>
         {mode === 0 ? (
           <ScrollView
