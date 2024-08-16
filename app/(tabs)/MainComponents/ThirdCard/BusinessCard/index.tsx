@@ -67,7 +67,7 @@ export const BusinessCard: React.FC<Props> = ({ businessData }) => {
             flexDirection: "column",
             justifyContent: "space-between",
             alignItems: "flex-end",
-            rowGap: 2,
+            rowGap: 6,
             padding: 4,
           }}
         >
@@ -79,8 +79,7 @@ export const BusinessCard: React.FC<Props> = ({ businessData }) => {
               color: theme === "light" ? "black" : "white",
             }}
           >
-            {businessData.balance.toFixed(0)}
-            <Text style={{ fontSize: 20 }}>€</Text>
+            {businessData.balance.toFixed(0)} €
           </Text>
         </View>
       </Container>

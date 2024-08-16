@@ -49,7 +49,7 @@ export const Settings: React.FC<Props> = ({ businessId, businessName }) => {
   return (
     <>
       <Pressable onPress={() => setOpenSettingsModal(true)}>
-        <AntDesign name="setting" size={24} color={Colors.gray} />
+        <AntDesign name="setting" size={24} color={Colors.white} />
       </Pressable>
       <BottomPopup
         fullHeight

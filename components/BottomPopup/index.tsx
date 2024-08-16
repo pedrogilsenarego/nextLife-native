@@ -69,7 +69,7 @@ const BottomPopup = ({
     >
       <StatusBar
         barStyle={
-          theme === "dark" || !fullHeight || !openModal
+          theme === "dark" || !fullHeight || !openModal || bgColor
             ? "light-content"
             : "dark-content"
         }
@@ -145,14 +145,20 @@ const BottomPopup = ({
                         <AntDesign
                           name="closecircle"
                           size={22}
-                          color={mainColor}
+                          color={bgColor ? Colors.white : mainColor}
                         />
                       </Pressable>
                     </View>
                     {title && (
                       <View>
                         {title && (
-                          <Text style={{ fontSize: 16, fontWeight: 700 }}>
+                          <Text
+                            style={{
+                              fontSize: 16,
+                              fontWeight: 700,
+                              color: bgColor ? Colors.white : Colors.black,
+                            }}
+                          >
                             {title}
                           </Text>
                         )}

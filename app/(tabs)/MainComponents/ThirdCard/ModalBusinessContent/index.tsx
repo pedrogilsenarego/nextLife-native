@@ -1,7 +1,7 @@
 import { Business } from "@/types/businessTypes";
-import { View, Text, ScrollView, Pressable } from "react-native";
+import { View, Text, ScrollView, Pressable, Dimensions } from "react-native";
 import PieChartMain from "../../MainCard/PieChartMain/PieChartMain";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useSelectedBusiness } from "../BusinessContext";
 import useBusinesses from "@/hooks/useBusinesses";
 import Content from "../../MainCard/Content";
@@ -12,6 +12,8 @@ import { Settings } from "./Settings";
 import { useTheme } from "@/providers/ThemeContext";
 import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
 import { defaultBusiness } from "@/constants/defaultBusinesses";
+import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
+import { useSharedValue } from "react-native-reanimated";
 
 type Props = {
   businessData: {
@@ -25,14 +27,17 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
   const [mode, setMode] = useState(0);
   const businesses = useBusinesses();
   const { setSelectedBusiness, selectedBusiness } = useSelectedBusiness();
-
+  const [moving, setMoving] = useState(false);
+  const currentIndex = useSharedValue<number>(0);
   const business = businesses?.data?.find(
     (business) => business.id === selectedBusiness
   ) as Business | undefined;
-
+  const carouselRef = useRef<ICarouselInstance>(null);
+  const width = Dimensions.get("window").width;
   if (!selectedBusiness || !business) return;
   return (
     <BottomPopup
+      bgColor
       fullHeight
       subtitle={
         defaultBusiness.find(
@@ -60,6 +65,10 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
             columnGap: 4,
           }}
         >
+          <Settings
+            businessId={business.id}
+            businessName={business.businessName}
+          />
           <ArrayButtonsIcons
             iconSize={10}
             buttonList={["piechart", "dotchart"]}
@@ -68,52 +77,93 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
             }}
             id={mode}
           />
-          <Settings
-            businessId={business.id}
-            businessName={business.businessName}
-          />
         </View>
       }
     >
-      <BottomPopupContent styles={{ backgroundColor: mainColor }}>
-        <View style={{ alignItems: "center" }}>
-          <View
-            style={{
-              marginTop: 6,
-              borderWidth: 2,
-              backgroundColor: "white",
-              borderColor: mainColor,
-              paddingVertical: 15,
-              paddingHorizontal: 10,
-              borderRadius: 6,
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 0,
-                height: 1,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 1,
-              elevation: 2,
-            }}
-          >
-            {mode === 0 ? (
-              <ScrollView
-                showsVerticalScrollIndicator={false}
-                scrollEventThrottle={16}
+      <BottomPopupContent
+        styles={{
+          backgroundColor: mainColor,
+          paddingHorizontal: 0,
+          paddingBottom: 0,
+        }}
+      >
+        <Carousel
+          ref={carouselRef}
+          width={width}
+          style={{ paddingBottom: 10 }}
+          data={[...new Array(3).keys()]}
+          scrollAnimationDuration={1000}
+          onScrollEnd={() => setMoving(false)}
+          onProgressChange={(off, total) => {
+            if (
+              currentIndex.value !== undefined &&
+              !moving &&
+              Math.abs(total - currentIndex.value) > 0.2
+            ) {
+              currentIndex.value = carouselRef.current?.getCurrentIndex() || 0;
+            }
+          }}
+          renderItem={({ index }) =>
+            index === 0 ? (
+              <View
                 style={{
-                  borderRadius: 8,
+                  marginTop: 6,
+                  marginHorizontal: 6,
+                  backgroundColor: "white",
 
-                  position: "relative",
-                  height: "100%",
+                  paddingVertical: 15,
+                  paddingHorizontal: 10,
+                  borderRadius: 6,
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 1,
+                  },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 1,
+                  elevation: 2,
                 }}
               >
-                <PieChartMain businessSelected={selectedBusiness} />
-              </ScrollView>
+                <ScrollView
+                  showsVerticalScrollIndicator={false}
+                  scrollEventThrottle={16}
+                  style={{
+                    borderRadius: 8,
+
+                    position: "relative",
+                    height: "100%",
+                  }}
+                >
+                  <PieChartMain businessSelected={selectedBusiness} />
+                </ScrollView>
+              </View>
             ) : (
-              <Content selectedBusiness={selectedBusiness} />
-            )}
-          </View>
-        </View>
+              <View
+                style={{
+                  marginTop: 6,
+
+                  marginHorizontal: 6,
+                  backgroundColor: "white",
+
+                  paddingVertical: 15,
+                  paddingHorizontal: 10,
+                  borderRadius: 6,
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 1,
+                  },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 1,
+                  elevation: 2,
+                }}
+              >
+                <Content selectedBusiness={selectedBusiness} />
+              </View>
+            )
+          }
+        />
+        <View style={{ height: 40 }}></View>
       </BottomPopupContent>
     </BottomPopup>
   );
