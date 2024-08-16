@@ -113,7 +113,7 @@ const BottomPopup = ({
                     justifyContent: "space-between",
                     alignItems: "center",
 
-                    borderBottomWidth: 1,
+                    borderBottomWidth: bgColor ? 0 : 1,
                     marginTop: 52,
                     borderBottomColor: "lightgray",
                     paddingVertical: 12,

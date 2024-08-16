@@ -107,8 +107,7 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
             index === 0 ? (
               <View
                 style={{
-                  marginTop: 6,
-                  marginHorizontal: 6,
+                  marginHorizontal: 8,
                   backgroundColor: "white",
 
                   paddingVertical: 15,
@@ -140,9 +139,7 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
             ) : (
               <View
                 style={{
-                  marginTop: 6,
-
-                  marginHorizontal: 6,
+                  marginHorizontal: 8,
                   backgroundColor: "white",
 
                   paddingVertical: 15,
@@ -163,7 +160,7 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
             )
           }
         />
-        <View style={{ height: 40 }}></View>
+        <View style={{ height: 50 }}></View>
       </BottomPopupContent>
     </BottomPopup>
   );
