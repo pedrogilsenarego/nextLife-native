@@ -6,6 +6,7 @@ import { Business } from "@/types/businessTypes";
 import { getStatusColor } from "@/utils/business";
 import { View, Text, Pressable } from "react-native";
 import { useSelectedBusiness } from "../BusinessContext";
+import { useBusinessIcons } from "@/constants/useBusinessIcons";
 
 type Props = {
   businessData: { business: Business; balance: number };
@@ -19,7 +20,8 @@ export const BusinessCard: React.FC<Props> = ({ businessData }) => {
   )?.label;
 
   const businessIcon = businessData.business?.iconType || 0;
-
+  const businessIcons = useBusinessIcons({ size: 24 });
+  const icon = () => businessIcons[businessIcon || 0].icon;
   return (
     <Pressable onPress={() => setSelectedBusiness(businessData.business.id)}>
       <Container
@@ -27,14 +29,14 @@ export const BusinessCard: React.FC<Props> = ({ businessData }) => {
         key={businessData.business.id}
         containerStyles={{
           flexDirection: "row",
-          alignItems: "stretch",
+          alignItems: "flex-start",
         }}
       >
         <View
           style={{
             display: "flex",
             flexDirection: "column",
-            rowGap: 5,
+            rowGap: 0,
             padding: 4,
           }}
         >
@@ -43,6 +45,7 @@ export const BusinessCard: React.FC<Props> = ({ businessData }) => {
               textTransform: "capitalize",
               fontWeight: "bold",
               fontSize: 16,
+              lineHeight: 16,
               color: theme === "light" ? "black" : "white",
             }}
           >
@@ -51,21 +54,11 @@ export const BusinessCard: React.FC<Props> = ({ businessData }) => {
           <Text
             style={{
               textTransform: "capitalize",
-              color: theme === "light" ? "black" : "white",
-              fontSize: 14,
-            }}
-          >
-            {businessLabel}
-          </Text>
-          <Text
-            style={{
-              textTransform: "capitalize",
-              marginTop: 6,
               color: "gray",
               fontSize: 12,
             }}
           >
-            Current balance
+            {businessLabel}
           </Text>
         </View>
         <View
@@ -74,18 +67,20 @@ export const BusinessCard: React.FC<Props> = ({ businessData }) => {
             flexDirection: "column",
             justifyContent: "space-between",
             alignItems: "flex-end",
-            rowGap: 5,
+            rowGap: 2,
+            padding: 4,
           }}
         >
-          <IconCard iconId={businessIcon} size={30} />
+          {icon()}
           <Text
             style={{
               fontWeight: "bold",
-              fontSize: 16,
+              fontSize: 24,
               color: theme === "light" ? "black" : "white",
             }}
           >
-            {businessData.balance.toFixed(0)} €
+            {businessData.balance.toFixed(0)}
+            <Text style={{ fontSize: 20 }}>€</Text>
           </Text>
         </View>
       </Container>

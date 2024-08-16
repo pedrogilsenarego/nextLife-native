@@ -9,7 +9,7 @@ import { useMutation } from "@tanstack/react-query";
 import { deleteBusiness } from "@/actions/businessActions";
 import useBusinesses from "@/hooks/useBusinesses";
 import ControlledInput from "@/components/inputs/TextField";
-import { useTheme } from "@/providers/ThemeContext";
+import { Colors, useTheme } from "@/providers/ThemeContext";
 import Button from "@/components/button/ButtonComponent";
 import { useSelectedBusiness } from "../../BusinessContext";
 
@@ -49,7 +49,7 @@ export const Settings: React.FC<Props> = ({ businessId, businessName }) => {
   return (
     <>
       <Pressable onPress={() => setOpenSettingsModal(true)}>
-        <AntDesign name="setting" size={30} />
+        <AntDesign name="setting" size={24} color={Colors.gray} />
       </Pressable>
       <BottomPopup
         fullHeight

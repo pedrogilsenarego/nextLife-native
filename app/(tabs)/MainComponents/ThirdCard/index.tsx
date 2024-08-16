@@ -17,21 +17,20 @@ import { AddBusiness } from "./AddBusiness";
 
 import { HorizontalBarChartBusiness } from "./HorizontalBarBusiness";
 import useMetrics from "@/hooks/useMetrics";
-import { useSelectedBusiness } from "./BusinessContext";
 
-import { DepositsScroller } from "./DepositsScroller";
-
-import { HeaderMetrics } from "./HeaderMetrics";
 import { DividerCTA } from "./DividerCTA";
-import { SelectedDepositProvider } from "./DepositsContext";
+
 import { useApp } from "@/providers/AppProvider";
-import { defaultBusiness } from "@/constants/defaultBusinesses";
+import { SelectedDepositProvider } from "./DepositsContext";
+import { DepositsScroller } from "./DepositsScroller";
+import { HeaderMetrics } from "./HeaderMetrics";
 
 const ThirdCard = () => {
   const businesses = useBusinesses();
   const { theme } = useTheme();
-  const { setSelectedBusiness, selectedBusiness } = useSelectedBusiness();
+
   const { getExpensesPerBusiness, getIncomesPerBusiness } = useMetrics();
+
   const { businessFilter } = useApp();
   const businessData =
     businesses?.data?.map((business) => {
@@ -149,9 +148,9 @@ const ThirdCard = () => {
                         <View
                           style={{ marginBottom: 60, paddingHorizontal: 14 }}
                         >
-                          {/* <SelectedDepositProvider>
+                          <SelectedDepositProvider>
                             <DepositsScroller />
-                          </SelectedDepositProvider> */}
+                          </SelectedDepositProvider>
                         </View>
                       </ImageBackground>
                       <View>
@@ -226,29 +225,8 @@ const ThirdCard = () => {
                   </Pressable>
                 )}
               </ScrollView>
-              <BottomPopup
-                fullHeight
-                subtitle={
-                  defaultBusiness.find(
-                    (item) =>
-                      item.value ===
-                      businessData.find(
-                        (business) => business.business.id === selectedBusiness
-                      )?.business.type
-                  )?.label
-                }
-                title={
-                  businessData.find(
-                    (business) => business.business.id === selectedBusiness
-                  )?.business.businessName
-                }
-                openModal={!!selectedBusiness}
-                onClose={() => setSelectedBusiness(null)}
-              >
-                <BottomPopupContent>
-                  <ModalBusinessContent />
-                </BottomPopupContent>
-              </BottomPopup>
+
+              <ModalBusinessContent businessData={businessData} />
             </>
           )}
         </>

@@ -1,6 +1,6 @@
 import { Colors, useTheme } from "@/providers/ThemeContext";
 import { AntDesign } from "@expo/vector-icons";
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { CSSProperties, ReactNode, useEffect, useState } from "react";
 import {
   Modal,
   Pressable,
@@ -9,6 +9,7 @@ import {
   TouchableWithoutFeedback,
   View,
   Text,
+  ViewProps,
 } from "react-native";
 import Animated, {
   useAnimatedStyle,
@@ -24,6 +25,7 @@ interface IProps {
   title?: string;
   subtitle?: string;
   bgColor?: boolean;
+  rightHeaderComponent?: React.ReactNode;
 }
 
 const BottomPopup = ({
@@ -31,6 +33,7 @@ const BottomPopup = ({
   onClose,
   openModal,
   fullHeight,
+  rightHeaderComponent,
   title,
   subtitle,
   bgColor,
@@ -104,62 +107,71 @@ const BottomPopup = ({
                 <View
                   style={{
                     display: "flex",
-                    paddingHorizontal: 25,
+                    paddingHorizontal: 20,
                     flexDirection: "row",
                     columnGap: 5,
-                    justifyContent: "flex-start",
+                    justifyContent: "space-between",
                     alignItems: "center",
 
                     borderBottomWidth: 1,
-                    marginTop: 38,
+                    marginTop: 52,
                     borderBottomColor: "lightgray",
-                    paddingVertical: 4,
+                    paddingVertical: 12,
                   }}
                 >
                   <View
                     style={{
                       flexDirection: "row",
-
+                      columnGap: 5,
                       justifyContent: "flex-start",
+                      alignItems: "center",
                     }}
                   >
-                    <Pressable
-                      onPress={onClose}
+                    <View
                       style={{
-                        padding: 5,
+                        flexDirection: "row",
 
-                        borderRadius: 4,
+                        justifyContent: "flex-start",
                       }}
                     >
-                      <AntDesign
-                        name="closecircle"
-                        size={22}
-                        color={mainColor}
-                      />
-                    </Pressable>
-                  </View>
-                  {title && (
-                    <View>
-                      {title && (
-                        <Text style={{ fontSize: 16, fontWeight: 700 }}>
-                          {title}
-                        </Text>
-                      )}
-                      {subtitle && (
-                        <Text
-                          style={{
-                            fontSize: 12,
-                            fontWeight: 500,
-                            color: "gray",
-                            lineHeight: 12,
-                          }}
-                        >
-                          {subtitle}
-                        </Text>
-                      )}
+                      <Pressable
+                        onPress={onClose}
+                        style={{
+                          padding: 5,
+
+                          borderRadius: 4,
+                        }}
+                      >
+                        <AntDesign
+                          name="closecircle"
+                          size={22}
+                          color={mainColor}
+                        />
+                      </Pressable>
                     </View>
-                  )}
-                  <View style={{ width: "20%" }} />
+                    {title && (
+                      <View>
+                        {title && (
+                          <Text style={{ fontSize: 16, fontWeight: 700 }}>
+                            {title}
+                          </Text>
+                        )}
+                        {subtitle && (
+                          <Text
+                            style={{
+                              fontSize: 12,
+                              fontWeight: 500,
+                              color: "gray",
+                              lineHeight: 12,
+                            }}
+                          >
+                            {subtitle}
+                          </Text>
+                        )}
+                      </View>
+                    )}
+                  </View>
+                  {rightHeaderComponent}
                 </View>
               )}
               {title && !fullHeight && (
@@ -174,6 +186,7 @@ const BottomPopup = ({
                   {title}
                 </Text>
               )}
+
               {children}
             </Animated.View>
           </Pressable>
@@ -186,18 +199,21 @@ const BottomPopup = ({
 type BottomPopupContentProps = {
   children: React.ReactNode;
   fullHeight?: boolean;
+  styles?: ViewProps["style"];
 };
 
 const BottomPopupContent: React.FC<BottomPopupContentProps> = (props) => {
   return (
     <View
-      style={{
-        paddingHorizontal: 30,
-
-        height: "auto",
-        paddingBottom: 40,
-        flexGrow: 1,
-      }}
+      style={[
+        {
+          paddingHorizontal: 20,
+          height: props.fullHeight ? "100%" : "auto",
+          paddingBottom: 40,
+          flexGrow: 1,
+        },
+        props.styles,
+      ]}
     >
       {props.children}
     </View>
