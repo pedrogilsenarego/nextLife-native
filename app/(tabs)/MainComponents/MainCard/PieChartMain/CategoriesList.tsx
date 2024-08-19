@@ -48,7 +48,7 @@ export const CategoriesList = (props: Props) => {
         >
           <View
             style={{
-              marginHorizontal: 8,
+              marginHorizontal: 6,
               backgroundColor: "white",
 
               paddingVertical: 15,
