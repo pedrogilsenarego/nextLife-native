@@ -13,13 +13,7 @@ import { Colors } from "@/providers/ThemeContext";
 import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
 import { defaultBusiness } from "@/constants/defaultBusinesses";
 import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
-import {
-  runOnJS,
-  useAnimatedReaction,
-  useDerivedValue,
-  useSharedValue,
-  withTiming,
-} from "react-native-reanimated";
+import { runOnJS, useSharedValue, withTiming } from "react-native-reanimated";
 import useExpenses from "@/hooks/useExpenses";
 import useIncomes from "@/hooks/useIncomes";
 import { FiltersButton } from "@/components/Molecules/CardFooter/FiltersButton";
@@ -38,13 +32,7 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
   const { setSelectedBusiness, selectedBusiness } = useSelectedBusiness();
   const [moving, setMoving] = useState(false);
   const currentIndex = useSharedValue<number>(0);
-  const [currentIndexState, setCurrentIndexState] = useState(0);
-  useAnimatedReaction(
-    () => currentIndex.value,
-    (value) => {
-      runOnJS(setCurrentIndexState)(value);
-    }
-  );
+
   const business = businesses?.data?.find(
     (business) => business.id === selectedBusiness
   ) as Business | undefined;
@@ -83,22 +71,6 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
       }
       openModal={!!selectedBusiness}
       onClose={() => setSelectedBusiness(null)}
-      rightHeaderComponent={
-        <View
-          style={{
-            alignItems: "center",
-            flexDirection: "row",
-            marginTop: 0,
-            justifyContent: "flex-end",
-            columnGap: 4,
-          }}
-        >
-          <Settings
-            businessId={business.id}
-            businessName={business.businessName}
-          />
-        </View>
-      }
     >
       <BottomPopupContent
         styles={{
@@ -110,19 +82,16 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
           ref={carouselRef}
           width={width}
           style={{ paddingBottom: 10 }}
-          data={[...new Array(4)]}
+          data={[0, 1, 2]}
           scrollAnimationDuration={1000}
           onScrollEnd={() => setMoving(false)}
-          onProgressChange={(off, total) => {
+          onProgressChange={(offset, total) => {
             if (
               currentIndex.value !== undefined &&
               !moving &&
               Math.abs(total - currentIndex.value) > 0.2
             ) {
-              currentIndex.value =
-                (carouselRef.current?.getCurrentIndex() || 0) > 1
-                  ? (carouselRef.current?.getCurrentIndex() || 0) - 2
-                  : carouselRef.current?.getCurrentIndex() || 0;
+              currentIndex.value = carouselRef.current?.getCurrentIndex() || 0;
             }
           }}
           renderItem={({ index }) =>
@@ -158,7 +127,7 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
                   <PieChartMain businessSelected={selectedBusiness} />
                 </ScrollView>
               </View>
-            ) : (
+            ) : index === 1 ? (
               <View
                 style={{
                   marginHorizontal: 6,
@@ -179,6 +148,43 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
               >
                 <Content selectedBusiness={selectedBusiness} />
               </View>
+            ) : (
+              <View
+                style={{
+                  marginHorizontal: 6,
+                  backgroundColor: "white",
+
+                  paddingVertical: 15,
+                  paddingHorizontal: 10,
+                  borderRadius: 6,
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 1,
+                  },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 1,
+                  elevation: 2,
+                }}
+              >
+                <ScrollView
+                  showsVerticalScrollIndicator={false}
+                  scrollEventThrottle={16}
+                  style={{
+                    borderRadius: 8,
+
+                    position: "relative",
+                    height: "100%",
+                  }}
+                >
+                  <Pressable>
+                    <Settings
+                      businessId={business.id}
+                      businessName={business.businessName}
+                    />
+                  </Pressable>
+                </ScrollView>
+              </View>
             )
           }
         />
@@ -196,7 +202,7 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
           <View style={{ width: "30%" }}>
             <ArrayButtonsIcons
               iconSize={10}
-              buttonList={["piechart", "dotchart"]}
+              buttonList={["piechart", "dotchart", "setting"]}
               onChange={handleMoveCarousel}
               id={currentIndex}
             />
