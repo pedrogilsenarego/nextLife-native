@@ -148,9 +148,9 @@ const ThirdCard = () => {
                         <View
                           style={{ marginBottom: 60, paddingHorizontal: 14 }}
                         >
-                          <SelectedDepositProvider>
+                          {/* <SelectedDepositProvider>
                             <DepositsScroller />
-                          </SelectedDepositProvider>
+                          </SelectedDepositProvider> */}
                         </View>
                       </ImageBackground>
                       <View>

@@ -34,13 +34,38 @@ export const CategoriesList = (props: Props) => {
         </View>
       </View>
       <BottomPopup
+        bgColor
         title={selectedCategory || ""}
         openModal={!!selectedCategory}
         fullHeight
         onClose={() => setSelectedCategory(null)}
       >
-        <BottomPopupContent>
-          <CategoryContent />
+        <BottomPopupContent
+          styles={{
+            paddingHorizontal: 0,
+            paddingBottom: 50,
+          }}
+        >
+          <View
+            style={{
+              marginHorizontal: 8,
+              backgroundColor: "white",
+
+              paddingVertical: 15,
+              paddingHorizontal: 10,
+              borderRadius: 6,
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 1,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 1,
+              elevation: 2,
+            }}
+          >
+            <CategoryContent />
+          </View>
         </BottomPopupContent>
       </BottomPopup>
     </>

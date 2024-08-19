@@ -114,9 +114,9 @@ const BottomPopup = ({
                     alignItems: "center",
 
                     borderBottomWidth: bgColor ? 0 : 1,
-                    marginTop: 52,
+                    marginTop: 45,
                     borderBottomColor: "lightgray",
-                    paddingVertical: 12,
+                    paddingVertical: 8,
                   }}
                 >
                   <View
@@ -154,6 +154,7 @@ const BottomPopup = ({
                         {title && (
                           <Text
                             style={{
+                              textTransform: "capitalize",
                               fontSize: 16,
                               fontWeight: 700,
                               color: bgColor ? Colors.white : Colors.black,

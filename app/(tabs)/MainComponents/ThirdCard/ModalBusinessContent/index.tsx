@@ -9,11 +9,14 @@ import Content from "../../MainCard/Content";
 import { ArrayButtonsIcons } from "@/components/Molecules/ArrayButtonsIcons";
 
 import { Settings } from "./Settings";
-import { useTheme } from "@/providers/ThemeContext";
+import { Colors, useTheme } from "@/providers/ThemeContext";
 import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
 import { defaultBusiness } from "@/constants/defaultBusinesses";
 import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
-import { useSharedValue } from "react-native-reanimated";
+import { runOnJS, useSharedValue, withTiming } from "react-native-reanimated";
+import useExpenses from "@/hooks/useExpenses";
+import useIncomes from "@/hooks/useIncomes";
+import { FiltersButton } from "@/components/Molecules/CardFooter/FiltersButton";
 
 type Props = {
   businessData: {
@@ -23,8 +26,10 @@ type Props = {
 };
 
 export const ModalBusinessContent: React.FC<Props> = (props) => {
-  const { mainColor } = useTheme();
+  const { mainColor, theme } = useTheme();
   const [mode, setMode] = useState(0);
+  const expenses = useExpenses();
+  const incomes = useIncomes();
   const businesses = useBusinesses();
   const { setSelectedBusiness, selectedBusiness } = useSelectedBusiness();
   const [moving, setMoving] = useState(false);
@@ -35,6 +40,18 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
   const carouselRef = useRef<ICarouselInstance>(null);
   const width = Dimensions.get("window").width;
   if (!selectedBusiness || !business) return;
+
+  const handleMoveCarousel = (index: number) => {
+    currentIndex.value = withTiming(index);
+
+    runOnJS(scrollToIndex)(index);
+  };
+
+  const scrollToIndex = (index: number) => {
+    if (carouselRef.current) {
+      carouselRef.current.scrollTo({ index, animated: true });
+    }
+  };
   return (
     <BottomPopup
       bgColor
@@ -69,20 +86,11 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
             businessId={business.id}
             businessName={business.businessName}
           />
-          <ArrayButtonsIcons
-            iconSize={10}
-            buttonList={["piechart", "dotchart"]}
-            onChange={(id) => {
-              setMode(id);
-            }}
-            id={mode}
-          />
         </View>
       }
     >
       <BottomPopupContent
         styles={{
-          backgroundColor: mainColor,
           paddingHorizontal: 0,
           paddingBottom: 0,
         }}
@@ -104,7 +112,7 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
             }
           }}
           renderItem={({ index }) =>
-            index === 0 ? (
+            currentIndex.value === 0 ? (
               <View
                 style={{
                   marginHorizontal: 8,
@@ -160,7 +168,62 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
             )
           }
         />
-        <View style={{ height: 50 }}></View>
+
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            paddingHorizontal: 14,
+            alignItems: "center",
+          }}
+        >
+          <View style={{ width: "30%" }}>
+            <ArrayButtonsIcons
+              iconSize={10}
+              buttonList={["piechart", "dotchart"]}
+              onChange={handleMoveCarousel}
+              id={currentIndex}
+            />
+          </View>
+          <View
+            style={{
+              width: "40%",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <Text
+              style={{
+                color: Colors.pearlWhite,
+                fontSize: 10,
+                lineHeight: 12,
+              }}
+            >
+              {expenses?.data?.length} expenses
+            </Text>
+            <Text
+              style={{
+                color: Colors.pearlWhite,
+                fontSize: 10,
+                lineHeight: 12,
+              }}
+            >
+              {incomes?.data?.length} incomes
+            </Text>
+          </View>
+          <View
+            style={{
+              width: "30%",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "flex-end",
+              alignItems: "flex-end",
+            }}
+          >
+            <FiltersButton />
+          </View>
+        </View>
       </BottomPopupContent>
     </BottomPopup>
   );

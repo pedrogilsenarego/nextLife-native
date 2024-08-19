@@ -12,7 +12,7 @@ import { Colors, useTheme } from "@/providers/ThemeContext";
 
 type Props = {
   onChange: (id: number) => void;
-  id: number; //SharedValue<number>;
+  id: SharedValue<number>;
   buttonList: string[];
   iconSize?: number;
 };
@@ -25,17 +25,17 @@ export const ArrayButtonsIcons: React.FC<Props> = ({
 }) => {
   const { mainColor, contrastColor, theme } = useTheme();
 
-  const BUTTON_GAP = 10;
+  const BUTTON_GAP = 0;
   const ICON_SIZE = iconSize;
-  const ICON_PADDING = 8;
-  const BUTTON_WIDTH = iconSize + ICON_PADDING * 2;
-  const BUTTON_PADDING = ICON_PADDING / 2;
+  const ICON_PADDING = 6;
+  const BUTTON_WIDTH = 18;
+  const BUTTON_PADDING = 2;
   const [selected, setSelected] = useState(0);
 
   const animationLeft = useAnimatedStyle(() => {
     return {
-      left: ICON_PADDING / 2,
-      top: ICON_PADDING / 2,
+      left: BUTTON_PADDING,
+      top: BUTTON_PADDING,
       position: "absolute",
       backgroundColor: theme === "light" ? mainColor : Colors.black,
       borderRadius: ICON_SIZE,
@@ -43,9 +43,13 @@ export const ArrayButtonsIcons: React.FC<Props> = ({
       width: BUTTON_WIDTH,
       transform: [
         {
-          translateX: withTiming(BUTTON_WIDTH * id + BUTTON_GAP * id, {
-            duration: 400,
-          }),
+          translateX: withTiming(
+            BUTTON_WIDTH * id.value +
+              (BUTTON_GAP + BUTTON_PADDING * 2) * id.value,
+            {
+              duration: 200,
+            }
+          ),
         },
       ],
     };
@@ -56,7 +60,7 @@ export const ArrayButtonsIcons: React.FC<Props> = ({
       return id;
     },
     () => {
-      runOnJS(setSelected)(id);
+      runOnJS(setSelected)(id.value);
     },
     []
   );
@@ -68,12 +72,13 @@ export const ArrayButtonsIcons: React.FC<Props> = ({
 
         width:
           BUTTON_WIDTH * buttonList.length +
+          BUTTON_PADDING * (buttonList.length - 1) +
           BUTTON_GAP * (buttonList.length - 1) +
-          ICON_PADDING,
-        borderRadius: 2 * BUTTON_WIDTH,
+          8,
+        borderRadius: 24,
         flexDirection: "row",
         display: "flex",
-        padding: BUTTON_PADDING,
+        padding: 0,
         position: "relative",
         columnGap: BUTTON_GAP,
       }}
@@ -84,6 +89,7 @@ export const ArrayButtonsIcons: React.FC<Props> = ({
           <Pressable
             onPress={() => onChange(index)}
             style={{
+              borderRadius: 18,
               padding: ICON_PADDING,
               display: "flex",
               justifyContent: "center",
@@ -94,7 +100,7 @@ export const ArrayButtonsIcons: React.FC<Props> = ({
               name={button as any}
               color={
                 theme === "light"
-                  ? id === index
+                  ? id.value === index
                     ? "white"
                     : "#ffffff66"
                   : contrastColor
