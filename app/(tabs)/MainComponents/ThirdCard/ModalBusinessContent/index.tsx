@@ -77,7 +77,7 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
           style={{
             alignItems: "center",
             flexDirection: "row",
-            marginTop: 10,
+            marginTop: 0,
             justifyContent: "flex-end",
             columnGap: 4,
           }}
@@ -171,11 +171,12 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
 
         <View
           style={{
+            height: 50,
             display: "flex",
             flexDirection: "row",
             justifyContent: "space-between",
             paddingHorizontal: 14,
-            alignItems: "center",
+            alignItems: "flex-start",
           }}
         >
           <View style={{ width: "30%" }}>

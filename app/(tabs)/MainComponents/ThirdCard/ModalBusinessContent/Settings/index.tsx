@@ -1,5 +1,5 @@
 import { BottomPopup } from "@/components/BottomPopup";
-import { AntDesign } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { Pressable, View, Text } from "react-native";
@@ -49,7 +49,7 @@ export const Settings: React.FC<Props> = ({ businessId, businessName }) => {
   return (
     <>
       <Pressable onPress={() => setOpenSettingsModal(true)}>
-        <AntDesign name="setting" size={24} color={Colors.white} />
+        <Ionicons name="settings-sharp" size={24} color={Colors.pearlWhite} />
       </Pressable>
       <BottomPopup
         fullHeight

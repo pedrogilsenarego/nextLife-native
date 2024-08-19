@@ -74,7 +74,7 @@ export const ArrayButtonsIcons: React.FC<Props> = ({
           BUTTON_WIDTH * buttonList.length +
           BUTTON_PADDING * (buttonList.length - 1) +
           BUTTON_GAP * (buttonList.length - 1) +
-          8,
+          6,
         borderRadius: 24,
         flexDirection: "row",
         display: "flex",
