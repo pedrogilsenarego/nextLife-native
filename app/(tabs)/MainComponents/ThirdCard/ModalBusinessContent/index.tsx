@@ -114,18 +114,20 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
                   elevation: 2,
                 }}
               >
-                <ScrollView
-                  showsVerticalScrollIndicator={false}
-                  scrollEventThrottle={16}
-                  style={{
-                    borderRadius: 8,
+                <Pressable>
+                  <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    scrollEventThrottle={16}
+                    style={{
+                      borderRadius: 8,
 
-                    position: "relative",
-                    height: "100%",
-                  }}
-                >
-                  <PieChartMain businessSelected={selectedBusiness} />
-                </ScrollView>
+                      position: "relative",
+                      height: "100%",
+                    }}
+                  >
+                    <PieChartMain businessSelected={selectedBusiness} />
+                  </ScrollView>
+                </Pressable>
               </View>
             ) : index === 1 ? (
               <View
@@ -146,7 +148,9 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
                   elevation: 2,
                 }}
               >
-                <Content selectedBusiness={selectedBusiness} />
+                <Pressable>
+                  <Content selectedBusiness={selectedBusiness} />
+                </Pressable>
               </View>
             ) : (
               <View
@@ -167,23 +171,23 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
                   elevation: 2,
                 }}
               >
-                <ScrollView
-                  showsVerticalScrollIndicator={false}
-                  scrollEventThrottle={16}
-                  style={{
-                    borderRadius: 8,
+                <Pressable>
+                  <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    scrollEventThrottle={16}
+                    style={{
+                      borderRadius: 8,
 
-                    position: "relative",
-                    height: "100%",
-                  }}
-                >
-                  <Pressable>
+                      position: "relative",
+                      height: "100%",
+                    }}
+                  >
                     <Settings
                       businessId={business.id}
                       businessName={business.businessName}
                     />
-                  </Pressable>
-                </ScrollView>
+                  </ScrollView>
+                </Pressable>
               </View>
             )
           }
