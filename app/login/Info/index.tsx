@@ -1,17 +1,20 @@
+import Logo from "@/components/Logo";
+import { useTheme } from "@/providers/ThemeContext";
 import { Image, View, Text } from "react-native";
 
 const Info = () => {
+  const { mainColor } = useTheme();
   return (
     <>
-      <Image
-        style={{ width: 150, objectFit: "contain" }}
-        source={require("../../../assets/images/logo.png")}
-      />
+      <View style={{ marginTop: 30, marginBottom: 2 }}>
+        <Logo scale={0.5} secondary={mainColor} />
+      </View>
+
       <View
         style={{
           display: "flex",
           flexDirection: "row",
-          marginTop: -20,
+          marginTop: 0,
 
           alignItems: "center",
           columnGap: 4,

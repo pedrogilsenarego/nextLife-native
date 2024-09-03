@@ -7,7 +7,9 @@ export const recoverPassword = async ({
 }): Promise<string> => {
   return new Promise(async (resolve, reject) => {
     try {
-      const { error } = await supabase.auth.resetPasswordForEmail(email);
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: "https://zyr-o.com/reset-password",
+      });
       if (error) {
         reject(error?.message);
       } else {

@@ -65,7 +65,7 @@ const Button = ({
       color:
         variant === "ghost" ? mainColor : theme === "dark" ? "black" : "white",
       fontWeight: "bold",
-      textTransform: "uppercase",
+      textTransform: "capitalize",
       letterSpacing: 1,
       fontSize: 16,
     },

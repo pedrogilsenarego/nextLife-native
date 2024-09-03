@@ -4,6 +4,10 @@ import { Data } from "./PieChartMain";
 import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
 import { useSelectedCategory } from "./CategoriesContext";
 import { CategoryContent } from "./CategoryContent";
+import { Colors } from "@/providers/ThemeContext";
+import useExpenses from "@/hooks/useExpenses";
+import useIncomes from "@/hooks/useIncomes";
+import { FiltersButton } from "@/components/Molecules/CardFooter/FiltersButton";
 
 type Props = {
   dataToRender: Data[] | null;
@@ -12,6 +16,8 @@ type Props = {
 
 export const CategoriesList = (props: Props) => {
   const { selectedCategory, setSelectedCategory } = useSelectedCategory();
+  const expenses = useExpenses();
+  const incomes = useIncomes();
   return (
     <>
       <View style={{ marginTop: 6 }}>
@@ -43,28 +49,91 @@ export const CategoriesList = (props: Props) => {
         <BottomPopupContent
           styles={{
             paddingHorizontal: 0,
-            paddingBottom: 50,
+            paddingVertical: 0,
+            paddingBottom: 0,
           }}
         >
           <View
             style={{
-              marginHorizontal: 6,
-              backgroundColor: "white",
+              paddingBottom: 10,
 
-              paddingVertical: 15,
-              paddingHorizontal: 10,
-              borderRadius: 6,
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 0,
-                height: 1,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 1,
-              elevation: 2,
+              flexGrow: 1,
+              height: "auto",
+              flex: 1,
             }}
           >
-            <CategoryContent />
+            <View
+              style={{
+                marginHorizontal: 6,
+                backgroundColor: "white",
+                height: "100%",
+                flex: 1,
+                flexGrow: 1,
+                paddingVertical: 15,
+                paddingHorizontal: 10,
+                borderRadius: 6,
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 1,
+                },
+                shadowOpacity: 0.25,
+                shadowRadius: 1,
+                elevation: 2,
+              }}
+            >
+              <CategoryContent />
+            </View>
+          </View>
+          <View
+            style={{
+              height: 50,
+
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              paddingHorizontal: 14,
+              alignItems: "flex-start",
+            }}
+          >
+            <View style={{ width: "30%" }}></View>
+            <View
+              style={{
+                width: "40%",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <Text
+                style={{
+                  color: Colors.pearlWhite,
+                  fontSize: 10,
+                  lineHeight: 12,
+                }}
+              >
+                {expenses?.data?.length} expenses
+              </Text>
+              <Text
+                style={{
+                  color: Colors.pearlWhite,
+                  fontSize: 10,
+                  lineHeight: 12,
+                }}
+              >
+                {incomes?.data?.length} incomes
+              </Text>
+            </View>
+            <View
+              style={{
+                width: "30%",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "flex-end",
+                alignItems: "flex-end",
+              }}
+            >
+              <FiltersButton />
+            </View>
           </View>
         </BottomPopupContent>
       </BottomPopup>

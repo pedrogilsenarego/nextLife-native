@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, Linking } from "react-native";
 import LottieView from "lottie-react-native";
 import { useState } from "react";
 import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
@@ -6,10 +6,17 @@ import { RecoverPasswordModal } from "./RecoverPasswordModal";
 
 export const RecoverPassword: React.FC = () => {
   const [openPopup, setOpenPopup] = useState<boolean>(false);
+  const handlePress = () => {
+    //setOpenPopup(true)
+    const url = "https://zyr-o.com/recover-password";
+    Linking.openURL(url).catch((err) =>
+      console.error("Failed to open URL:", err)
+    );
+  };
   return (
     <>
       <Pressable
-        onPress={() => setOpenPopup(true)}
+        onPress={handlePress}
         style={{
           display: "flex",
           flexDirection: "row",

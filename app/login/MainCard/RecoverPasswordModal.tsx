@@ -47,13 +47,16 @@ export const RecoverPasswordModal: React.FC<Props> = (props) => {
   });
 
   const onSubmit: SubmitHandler<RecoverEmailType> = (data) => {
+    console.log(data);
     mutate(data);
   };
 
   return (
-    <BottomPopupContent>
+    <BottomPopupContent fullHeight>
       <FormProvider {...methods}>
-        <View>
+        <View
+          style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+        >
           <ControlledInput name="email" />
           <Button
             isLoading={isPending}
