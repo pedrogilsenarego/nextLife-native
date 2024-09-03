@@ -1,4 +1,5 @@
-import { View, Image } from "react-native";
+import Logo from "@/components/Logo";
+import { View } from "react-native";
 
 const Loading = () => {
   return (
@@ -10,10 +11,7 @@ const Loading = () => {
         backgroundColor: "white",
       }}
     >
-      <Image
-        style={{ width: 100, objectFit: "contain" }}
-        source={require("../../../assets/images/logo.png")}
-      />
+      <Logo scale={0.8} secondary="#0a2463" />
     </View>
   );
 };

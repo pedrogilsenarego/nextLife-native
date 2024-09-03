@@ -111,7 +111,7 @@ const MainCard = () => {
               },
             ]}
           >
-            <Pressable
+            {/* <Pressable
               onPress={flip}
               style={{
                 display: "flex",
@@ -128,7 +128,7 @@ const MainCard = () => {
                 color={"gray"}
               />
               <Text style={{ color: "gray" }}>Options</Text>
-            </Pressable>
+            </Pressable> */}
             <Forms />
 
             <RecoverPassword />
