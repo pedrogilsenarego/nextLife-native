@@ -6,7 +6,7 @@ const Info = () => {
   const { mainColor } = useTheme();
   return (
     <>
-      <View style={{ marginTop: 30, marginBottom: 2 }}>
+      <View style={{ marginTop: 10, marginBottom: 2 }}>
         <Logo scale={0.5} secondary={mainColor} />
       </View>
 
