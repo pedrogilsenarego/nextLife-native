@@ -13,17 +13,26 @@ type Props = {
 
 export const HorizontalBarChart: React.FC<Props> = ({ data, height }) => {
   const { mainColor } = useTheme();
+
   const maxValue = Math.max(...data.map((item) => item.value));
   const minValue = Math.min(...data.map((item) => item.value));
-  const absoluteMax = Math.max(Math.abs(maxValue), Math.abs(minValue));
+
   const range = Math.abs(maxValue) + (minValue < 0 ? Math.abs(minValue) : 0);
-  const left = Math.abs((minValue / absoluteMax) * 100);
+
+  const left = Math.abs((minValue / range) * 100);
 
   return (
     <View style={{ rowGap: 5, position: "relative" }}>
       {data?.map((item, index) => {
         const leftPercentage =
-          minValue >= 0 ? 0 : item.value > 0 && minValue < 0 ? left : 0;
+          minValue >= 0
+            ? 0
+            : item.value > 0 && minValue < 0
+            ? left
+            : Math.abs((item.value - minValue) / minValue) *
+              100 *
+              Math.abs(minValue / range);
+        const width = (Math.abs(item.value) / range) * 100;
 
         return (
           <View
@@ -68,16 +77,18 @@ export const HorizontalBarChart: React.FC<Props> = ({ data, height }) => {
                   backgroundColor: mainColor,
                   flex: 1,
                   borderTopStartRadius:
-                    leftPercentage < 50 && minValue < 0 ? 2 : 0,
+                    leftPercentage < Math.abs((minValue / range) * 100) &&
+                    minValue < 0
+                      ? 2
+                      : 0,
                   borderBottomStartRadius:
-                    leftPercentage < 50 && minValue < 0 ? 2 : 0,
+                    leftPercentage < Math.abs((minValue / range) * 100) &&
+                    minValue < 0
+                      ? 2
+                      : 0,
                   borderTopEndRadius: item.value > 0 ? 2 : 0,
                   borderBottomEndRadius: item.value > 0 ? 2 : 0,
-                  width: `${
-                    (Math.abs(item.value) / absoluteMax) *
-                    100 *
-                    ((100 - leftPercentage) / 100)
-                  }%`,
+                  width: `${width}%`,
                   height: "100%",
                 }}
               />
