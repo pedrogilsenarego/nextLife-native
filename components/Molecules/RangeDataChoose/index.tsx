@@ -15,7 +15,8 @@ export const RangeDataChoose: React.FC = () => {
       style={{
         position: "relative",
         height: 66,
-        marginVertical: 20,
+        marginTop: 20,
+        marginBottom: 10,
       }}
     >
       <View

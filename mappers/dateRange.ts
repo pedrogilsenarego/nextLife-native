@@ -5,9 +5,9 @@ export const dateRangeLabel = (dateRange: DateRangeValues) => {
   const currentDate = new Date();
   const lastMonth = addMonths(currentDate, -1);
   const lastLastMonth = addMonths(currentDate, -2);
-  const currentMonth = format(currentDate, "MMMM");
-  const lastMonthF = format(lastMonth, "MMMM");
-  const lastLastMonthF = format(lastLastMonth, "MMMM");
+  const currentMonth = format(currentDate, "MMM");
+  const lastMonthF = format(lastMonth, "MMM");
+  const lastLastMonthF = format(lastLastMonth, "MMM");
   switch (dateRange) {
     case "1year":
       return "1Y";
