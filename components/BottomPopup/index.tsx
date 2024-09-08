@@ -107,7 +107,7 @@ const BottomPopup = ({
                 <View
                   style={{
                     display: "flex",
-                    paddingHorizontal: 15,
+                    paddingHorizontal: 5,
                     flexDirection: "row",
                     columnGap: 5,
                     justifyContent: "space-between",
@@ -239,7 +239,7 @@ const BottomPopupNotification: React.FC<Props> = (props) => {
       style={{
         backgroundColor: mainColor,
         paddingVertical: 16,
-        paddingHorizontal: 30,
+        paddingHorizontal: 15,
       }}
     >
       {props.label && (
