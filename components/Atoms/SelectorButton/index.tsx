@@ -6,7 +6,7 @@ import { Pressable, Text } from "react-native";
 type Props = {
   onPress: () => void;
   label: string;
-  value: string | string[];
+  value: string[];
 };
 
 export const SelectorButton = (props: Props) => {
@@ -34,9 +34,9 @@ export const SelectorButton = (props: Props) => {
           }}
         >
           <View style={{ flexDirection: "row", columnGap: 6 }}>
-            {typeof props.value === "string" ? (
-              <Text style={{ color: "white", textTransform: "capitalize" }}>
-                {props.value}
+            {props.value.length > 3 ? (
+              <Text style={{ textTransform: "capitalize" }}>
+                {props.label}({props.value.length})
               </Text>
             ) : (
               props.value.map((category, index) => {

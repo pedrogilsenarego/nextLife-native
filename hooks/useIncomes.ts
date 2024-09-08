@@ -41,8 +41,8 @@ const useIncomes = ({ businessSelected, selectedCategory }: Props = {}) => {
         (expense) => expense.category === selectedCategory
       )
     : categoryFilterIncomes.length > 0
-    ? filteredExpensesByBusiness.filter(
-        (income) => !categoryFilterIncomes.includes(income.category)
+    ? filteredExpensesByBusiness.filter((income) =>
+        categoryFilterIncomes.includes(income.category)
       )
     : filteredExpensesByBusiness;
   return {

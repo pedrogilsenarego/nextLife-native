@@ -7,6 +7,10 @@ import React, {
 } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { dateRangeList } from "@/utils/dateFormat";
+import {
+  defaultCategories,
+  defaultIncomesCategories,
+} from "@/app/(tabs)/MainComponents/BottomCard/constants";
 
 export type DateRangeValues =
   | "1year"
@@ -30,6 +34,10 @@ interface AppContexType {
   categoryFilterExpenses: string[];
   updateCategoryFilterIncomes: (id: string) => void;
   categoryFilterIncomes: string[];
+  resetCategoryFilterIncomes: () => void;
+  resetCategoryFilterExpenses: () => void;
+  selectAllExpensesCategories: () => void;
+  selectAllIncomesCategories: () => void;
 }
 
 const AppContext = createContext<AppContexType | undefined>(undefined);
@@ -111,6 +119,28 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
+  const resetCategoryFilterIncomes = () => {
+    setCategoryFilterIncomes([]);
+  };
+
+  const resetCategoryFilterExpenses = () => {
+    setCategoryFilterExpenses([]);
+  };
+
+  const selectAllExpensesCategories = () => {
+    const allExpenseCategories = defaultCategories.map(
+      (category) => category.value
+    );
+    setCategoryFilterExpenses(allExpenseCategories);
+  };
+
+  const selectAllIncomesCategories = () => {
+    const allIncomeCategories = defaultIncomesCategories.map(
+      (category) => category.value
+    );
+    setCategoryFilterIncomes(allIncomeCategories);
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -126,6 +156,10 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         categoryFilterExpenses,
         updateCategoryFilterIncomes,
         categoryFilterIncomes,
+        resetCategoryFilterIncomes,
+        resetCategoryFilterExpenses,
+        selectAllExpensesCategories,
+        selectAllIncomesCategories,
       }}
     >
       {children}

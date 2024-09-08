@@ -41,8 +41,8 @@ const useExpenses = ({ businessSelected, selectedCategory }: Props = {}) => {
         (expense) => expense.category === selectedCategory
       )
     : categoryFilterExpenses.length > 0
-    ? filteredExpensesByBusiness.filter(
-        (expense) => !categoryFilterExpenses.includes(expense.category)
+    ? filteredExpensesByBusiness.filter((expense) =>
+        categoryFilterExpenses.includes(expense.category)
       )
     : filteredExpensesByBusiness;
 
