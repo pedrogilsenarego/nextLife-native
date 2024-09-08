@@ -66,63 +66,66 @@ const ChartInitial = ({
         position: "relative",
       }}
     >
-      <Pressable
-        style={{
-          position: "absolute",
-          right: 12,
-          top: 20,
-          zIndex: 100,
-          backgroundColor: theme === "light" ? "white" : Colors.gray,
-          padding: 4,
-          borderRadius: 20,
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 0,
-            height: 2,
-          },
-          shadowOpacity: 0.25,
-          shadowRadius: 3.84,
-          elevation: 5,
-        }}
-        onPress={() => {
-          changeSelectedDate("Total");
-        }}
-      >
-        <MaterialIcons
-          name="settings-backup-restore"
-          color={
-            selectedDate === "Total"
-              ? theme === "light"
-                ? Colors.lightGray
-                : "#ffffff66"
-              : theme === "light"
-              ? Colors.black
-              : "whitesmoke"
-          }
-          size={22}
-        />
-      </Pressable>
-      {expenses.isLoading || incomes.isLoading ? (
-        <View
+      <View>
+        <Pressable
           style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: 233,
-            width: "100%",
+            position: "absolute",
+            right: 12,
+            top: 20,
+            zIndex: 100,
+            backgroundColor: theme === "light" ? "white" : Colors.gray,
+            padding: 4,
+            borderRadius: 20,
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+            elevation: 5,
+          }}
+          onPress={() => {
+            changeSelectedDate("Total");
           }}
         >
-          <LoaderSpinner color={Colors.black} />
-        </View>
-      ) : (
-        <LineChartGifted
-          data={selectedStatus === "expenses" ? expensesPerDay : incomesPerDay}
-          data2={selectedStatus === "both" ? expensesPerDay : undefined}
-          color1={selectedStatus === "expenses" ? "#c80815" : colorIncomes}
-          color2={selectedStatus === "both" ? "#c80815" : undefined}
-        />
-      )}
-
+          <MaterialIcons
+            name="settings-backup-restore"
+            color={
+              selectedDate === "Total"
+                ? theme === "light"
+                  ? Colors.lightGray
+                  : "#ffffff66"
+                : theme === "light"
+                ? Colors.black
+                : "whitesmoke"
+            }
+            size={22}
+          />
+        </Pressable>
+        {expenses.isLoading || incomes.isLoading ? (
+          <View
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: 233,
+              width: "100%",
+            }}
+          >
+            <LoaderSpinner color={Colors.black} />
+          </View>
+        ) : (
+          <LineChartGifted
+            data={
+              selectedStatus === "expenses" ? expensesPerDay : incomesPerDay
+            }
+            data2={selectedStatus === "both" ? expensesPerDay : undefined}
+            color1={selectedStatus === "expenses" ? "#c80815" : colorIncomes}
+            color2={selectedStatus === "both" ? "#c80815" : undefined}
+          />
+        )}
+      </View>
       <Subcard
         selectedStatus={selectedStatus}
         setSelectedStatus={setSelectedStatus}

@@ -107,7 +107,7 @@ const BottomPopup = ({
                 <View
                   style={{
                     display: "flex",
-                    paddingHorizontal: 20,
+                    paddingHorizontal: 15,
                     flexDirection: "row",
                     columnGap: 5,
                     justifyContent: "space-between",
@@ -214,7 +214,7 @@ const BottomPopupContent: React.FC<BottomPopupContentProps> = (props) => {
     <View
       style={[
         {
-          paddingHorizontal: 20,
+          paddingHorizontal: 15,
           height: props.fullHeight ? "100%" : "auto",
           paddingBottom: 40,
           flexGrow: 1,

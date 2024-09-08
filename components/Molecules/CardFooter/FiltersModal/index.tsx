@@ -7,6 +7,8 @@ import { RangeDataChoose } from "@/components/Molecules/RangeDataChoose";
 import { View, Text } from "react-native";
 import { BusinessFilter } from "../../BusinessFilter";
 import { CategoriesFilter } from "./CategoriesFilter";
+import { Card } from "@/components/Atoms/Card";
+import { Container } from "@/components/Atoms/Container";
 
 type Props = {
   openModal: boolean;
@@ -27,28 +29,28 @@ export const FiltersModal: React.FC<Props> = (props) => {
         }
       />
       <BottomPopupContent>
-        <View style={{ flex: 1, paddingVertical: 20, rowGap: 20 }}>
-          <View style={{ rowGap: 6 }}>
-            <Text style={{ fontWeight: 600, fontSize: 16 }}>Businesses</Text>
-            <BusinessFilter size={40} gap={6} />
+        <RangeDataChoose />
+
+        <Container>
+          <View style={{ flex: 1, paddingVertical: 20, rowGap: 20 }}>
+            <View style={{ rowGap: 6 }}>
+              <Text style={{ fontWeight: 600, fontSize: 16 }}>Businesses</Text>
+              <BusinessFilter size={40} gap={6} />
+            </View>
+            <View style={{ rowGap: 6 }}>
+              <Text style={{ fontWeight: 600, fontSize: 16 }}>
+                Categories Expenses
+              </Text>
+              <CategoriesFilter mode="expenses" />
+            </View>
+            <View style={{ rowGap: 6 }}>
+              <Text style={{ fontWeight: 600, fontSize: 16 }}>
+                Categories Incomes
+              </Text>
+              <CategoriesFilter mode="incomes" />
+            </View>
           </View>
-          <View style={{ rowGap: 6 }}>
-            <Text style={{ fontWeight: 600, fontSize: 16 }}>
-              Categories Expenses
-            </Text>
-            <CategoriesFilter mode="expenses" />
-          </View>
-          <View style={{ rowGap: 6 }}>
-            <Text style={{ fontWeight: 600, fontSize: 16 }}>
-              Categories Incomes
-            </Text>
-            <CategoriesFilter mode="incomes" />
-          </View>
-          <View style={{ rowGap: 6 }}>
-            <Text style={{ fontWeight: 600, fontSize: 16 }}>Date Range</Text>
-            <RangeDataChoose />
-          </View>
-        </View>
+        </Container>
       </BottomPopupContent>
     </BottomPopup>
   );

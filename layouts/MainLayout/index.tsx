@@ -19,7 +19,6 @@ import Animated, {
 import { SideOptions } from "@/app/(tabs)/MainComponents/SideOptions";
 import { Colors } from "@/providers/ThemeContext";
 import { CardFooter } from "@/components/Molecules/CardFooter";
-import { LinearGradient } from "expo-linear-gradient";
 import { SideLeftOptions } from "@/app/(tabs)/MainComponents/SideLeftOptions";
 
 type Props = {

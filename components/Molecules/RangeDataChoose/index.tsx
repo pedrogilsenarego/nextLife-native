@@ -1,21 +1,72 @@
 import { DateRangeValues, useApp } from "@/providers/AppProvider";
-import { Colors, useTheme } from "@/providers/ThemeContext";
+import { useTheme } from "@/providers/ThemeContext";
 import { addMonths, format } from "date-fns";
+import { useEffect } from "react";
 import { View, Text, Pressable } from "react-native";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+} from "react-native-reanimated";
 
 export const RangeDataChoose: React.FC = () => {
   const { dateRange, changeDateRange, changeSelectedDate } = useApp();
-  const { theme } = useTheme();
+  const { mainColor } = useTheme();
   const currentDate = new Date();
   const lastMonth = addMonths(currentDate, -1);
   const lastLastMonth = addMonths(currentDate, -2);
-  const currentMonth = format(currentDate, "MMMM");
-  const lastMonthF = format(lastMonth, "MMMM");
-  const lastLastMonthF = format(lastLastMonth, "MMMM");
+  const currentMonth = format(currentDate, "MMM");
+  const lastMonthF = format(lastMonth, "MMM");
+  const lastLastMonthF = format(lastLastMonth, "MMM");
+
+  console.log("render");
 
   const handleChange = (key: DateRangeValues) => {
     changeSelectedDate("Total");
     changeDateRange(key);
+  };
+
+  type selectorProps = {
+    alias: DateRangeValues;
+    value: string;
+  };
+
+  const Selector = (props: selectorProps) => {
+    const paddingValue = useSharedValue(dateRange === props.alias ? 15 : 10);
+    useEffect(() => {
+      paddingValue.value = withTiming(dateRange === props.alias ? 15 : 10, {
+        duration: 300,
+      });
+    }, [dateRange]);
+    const animatedStyle = useAnimatedStyle(() => {
+      return {
+        paddingVertical: paddingValue.value,
+      };
+    });
+    return (
+      <Pressable onPress={() => handleChange(props.alias)}>
+        <Animated.View
+          style={[
+            animatedStyle,
+            {
+              backgroundColor: mainColor,
+              paddingHorizontal: 10,
+              borderRadius: 4,
+            },
+          ]}
+        >
+          <Text
+            style={{
+              color: "white",
+              fontSize: dateRange === props.alias ? 18 : 16,
+              fontWeight: dateRange === props.alias ? "bold" : "normal",
+            }}
+          >
+            {props.value}
+          </Text>
+        </Animated.View>
+      </Pressable>
+    );
   };
 
   return (
@@ -24,63 +75,18 @@ export const RangeDataChoose: React.FC = () => {
         display: "flex",
         marginTop: 10,
         flexDirection: "row",
-        columnGap: 15,
-        backgroundColor:
-          theme === "light" ? `${Colors.lightGray}CE` : Colors.gray,
-        paddingHorizontal: 10,
+        columnGap: 5,
+        justifyContent: "space-between",
         paddingVertical: 4,
       }}
     >
-      <Pressable onPress={() => handleChange("currentMonth")}>
-        <Text
-          style={{
-            color: theme === "light" ? "black" : "white",
-            fontWeight: dateRange === "currentMonth" ? "bold" : "normal",
-          }}
-        >
-          {currentMonth}
-        </Text>
-      </Pressable>
-      <Pressable onPress={() => handleChange("lastMonth")}>
-        <Text
-          style={{
-            fontWeight: dateRange === "lastMonth" ? "bold" : "normal",
-            color: theme === "light" ? "black" : "white",
-          }}
-        >
-          {lastMonthF}
-        </Text>
-      </Pressable>
-      <Pressable onPress={() => handleChange("lastLastMonth")}>
-        <Text
-          style={{
-            color: theme === "light" ? "black" : "white",
-            fontWeight: dateRange === "lastLastMonth" ? "bold" : "normal",
-          }}
-        >
-          {lastLastMonthF}
-        </Text>
-      </Pressable>
-      <Pressable onPress={() => handleChange("3Months")}>
-        <Text
-          style={{
-            color: theme === "light" ? "black" : "white",
-            fontWeight: dateRange === "3Months" ? "bold" : "normal",
-          }}
-        >
-          3 M
-        </Text>
-      </Pressable>
-      <Text onPress={() => handleChange("6Months")}>
-        <Text
-          style={{
-            color: theme === "light" ? "black" : "white",
-            fontWeight: dateRange === "6Months" ? "bold" : "normal",
-          }}
-        >
-          6 M
-        </Text>
-      </Text>
+      <Selector alias="currentMonth" value={currentMonth} />
+      <Selector alias="lastMonth" value={lastMonthF} />
+      <Selector alias="lastLastMonth" value={lastLastMonthF} />
+      <Selector alias="3Months" value="3 M" />
+      <Selector alias="6Months" value="6 M" />
+      <Selector alias="1year" value="1 Y" />
+      <Selector alias="3years" value="3 Y" />
     </View>
   );
 };

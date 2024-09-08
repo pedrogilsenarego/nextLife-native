@@ -3,7 +3,6 @@ import { SharedValue } from "react-native-reanimated";
 import { LeftComponent } from "./LeftComponent";
 import { RightComponent } from "./RightComponent";
 import { View, Text } from "react-native";
-import { Colors } from "@/providers/ThemeContext";
 import { Divider } from "@/components/Atoms/Divider";
 import { BusinessFilter } from "../../../../../../components/Molecules/BusinessFilter";
 
