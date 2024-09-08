@@ -218,6 +218,7 @@ const BottomPopupContent: React.FC<BottomPopupContentProps> = (props) => {
           height: props.fullHeight ? "100%" : "auto",
           paddingBottom: 40,
           flexGrow: 1,
+          backgroundColor: props.fullHeight ? Colors.pearlWhite : Colors.white,
         },
         props.styles,
       ]}

@@ -28,25 +28,18 @@ export const FiltersModal: React.FC<Props> = (props) => {
           "Clicking on a specific card will display data for that item only, overriding the filters. You can still use other filters like category."
         }
       />
-      <BottomPopupContent>
+      <BottomPopupContent fullHeight>
         <RangeDataChoose />
 
         <Container>
-          <View style={{ flex: 1, paddingVertical: 20, rowGap: 20 }}>
+          <View style={{ flex: 1, paddingVertical: 20, rowGap: 15 }}>
             <View style={{ rowGap: 6 }}>
               <Text style={{ fontWeight: 600, fontSize: 16 }}>Businesses</Text>
               <BusinessFilter size={40} gap={6} />
             </View>
-            <View style={{ rowGap: 6 }}>
-              <Text style={{ fontWeight: 600, fontSize: 16 }}>
-                Categories Expenses
-              </Text>
+            <View style={{ rowGap: 5 }}>
               <CategoriesFilter mode="expenses" />
-            </View>
-            <View style={{ rowGap: 6 }}>
-              <Text style={{ fontWeight: 600, fontSize: 16 }}>
-                Categories Incomes
-              </Text>
+
               <CategoriesFilter mode="incomes" />
             </View>
           </View>

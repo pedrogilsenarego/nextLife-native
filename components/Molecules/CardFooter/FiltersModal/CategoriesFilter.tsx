@@ -2,6 +2,7 @@ import {
   defaultCategories,
   defaultIncomesCategories,
 } from "@/app/(tabs)/MainComponents/BottomCard/constants";
+import { SelectorButton } from "@/components/Atoms/SelectorButton";
 import { BottomPopup } from "@/components/BottomPopup";
 import { useApp } from "@/providers/AppProvider";
 import { Colors, useTheme } from "@/providers/ThemeContext";
@@ -36,31 +37,12 @@ export const CategoriesFilter = (props: Props) => {
       : defaultCategories;
   return (
     <>
-      <Pressable onPress={() => setOpen(true)}>
-        {data.length > 0 ? (
-          <View style={{ flexDirection: "row", columnGap: 6 }}>
-            {data.map((category, index) => {
-              return (
-                <View
-                  key={index}
-                  style={{
-                    padding: 8,
-                    paddingVertical: 2,
-                    borderRadius: 6,
-                    backgroundColor: `${mainColor}66`,
-                  }}
-                >
-                  <Text style={{ color: "white", textTransform: "capitalize" }}>
-                    {category}
-                  </Text>
-                </View>
-              );
-            })}
-          </View>
-        ) : (
-          <Text>No Categories filtered</Text>
-        )}
-      </Pressable>
+      <Pressable onPress={() => setOpen(true)}></Pressable>
+      <SelectorButton
+        label={props.mode === "expenses" ? "Expenses" : "Incomes"}
+        onPress={() => setOpen(true)}
+        value={data}
+      />
       <BottomPopup
         title={`${
           props.mode === "expenses" ? "Expenses" : "Incomes"
