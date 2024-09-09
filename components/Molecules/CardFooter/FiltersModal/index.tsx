@@ -7,8 +7,9 @@ import { RangeDataChoose } from "@/components/Molecules/RangeDataChoose";
 import { View, Text } from "react-native";
 import { BusinessFilter } from "../../BusinessFilter";
 import { CategoriesFilter } from "./CategoriesFilter";
-import { Card } from "@/components/Atoms/Card";
+
 import { Container } from "@/components/Atoms/Container";
+import { Colors } from "@/providers/ThemeContext";
 
 type Props = {
   openModal: boolean;
@@ -28,11 +29,14 @@ export const FiltersModal: React.FC<Props> = (props) => {
           "Clicking on a specific card will display data for that item only, overriding the filters. You can still use other filters like category."
         }
       />
-      <BottomPopupContent fullHeight>
+      <BottomPopupContent
+        fullHeight
+        styles={{ backgroundColor: Colors.pearlWhite }}
+      >
         <RangeDataChoose />
 
         <Container>
-          <View style={{ flex: 1, paddingVertical: 20, rowGap: 15 }}>
+          <View style={{ width: "100%", rowGap: 15 }}>
             <View style={{ rowGap: 6 }}>
               <Text style={{ fontWeight: 600, fontSize: 16 }}>Businesses</Text>
               <BusinessFilter size={40} gap={6} />

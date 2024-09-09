@@ -220,7 +220,6 @@ const BottomPopupContent: React.FC<BottomPopupContentProps> = (props) => {
           borderTopLeftRadius: 12,
           borderTopRightRadius: 12,
           flexGrow: 1,
-          backgroundColor: props.fullHeight ? Colors.pearlWhite : Colors.white,
         },
         props.styles,
       ]}

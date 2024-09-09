@@ -3,11 +3,11 @@ import RenderItem from "./RenderItem";
 import { Data } from "./PieChartMain";
 import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
 import { useSelectedCategory } from "./CategoriesContext";
-import { CategoryContent } from "./CategoryContent";
 import { Colors } from "@/providers/ThemeContext";
 import useExpenses from "@/hooks/useExpenses";
 import useIncomes from "@/hooks/useIncomes";
 import { FiltersButton } from "@/components/Molecules/CardFooter/FiltersButton";
+import Content from "../Content";
 
 type Props = {
   dataToRender: Data[] | null;
@@ -65,12 +65,12 @@ export const CategoriesList = (props: Props) => {
             <View
               style={{
                 marginHorizontal: 6,
-                backgroundColor: "white",
+                backgroundColor: Colors.pearlWhite,
                 height: "100%",
                 flex: 1,
                 flexGrow: 1,
                 paddingVertical: 15,
-                paddingHorizontal: 10,
+
                 borderRadius: 6,
                 shadowColor: "#000",
                 shadowOffset: {
@@ -82,7 +82,7 @@ export const CategoriesList = (props: Props) => {
                 elevation: 2,
               }}
             >
-              <CategoryContent />
+              <Content selectedCategory={selectedCategory!} />
             </View>
           </View>
           <View

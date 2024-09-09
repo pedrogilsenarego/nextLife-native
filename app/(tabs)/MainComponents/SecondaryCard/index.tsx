@@ -57,9 +57,9 @@ const SecondaryCard = () => {
         <ScrollView
           showsVerticalScrollIndicator={false}
           style={{
-            marginHorizontal: 10,
             borderRadius: 8,
             paddingTop: 16,
+            paddingHorizontal: 10,
             position: "relative",
             height: "100%",
           }}

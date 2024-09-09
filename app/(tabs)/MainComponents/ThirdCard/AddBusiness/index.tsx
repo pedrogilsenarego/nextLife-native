@@ -55,6 +55,7 @@ export const AddBusiness: React.FC = () => {
             alignItems: "center",
             display: "flex",
             flexDirection: "row",
+            width: "100%",
           }}
         >
           <Text style={{ fontSize: 16, fontWeight: "600" }}>

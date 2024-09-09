@@ -99,10 +99,10 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
               <View
                 style={{
                   marginHorizontal: 6,
-                  backgroundColor: "white",
+                  backgroundColor: Colors.pearlWhite,
 
                   paddingVertical: 15,
-                  paddingHorizontal: 10,
+
                   borderRadius: 6,
                   shadowColor: "#000",
                   shadowOffset: {
@@ -120,7 +120,7 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
                     scrollEventThrottle={16}
                     style={{
                       borderRadius: 8,
-
+                      paddingHorizontal: 10,
                       position: "relative",
                       height: "100%",
                     }}
@@ -133,10 +133,10 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
               <View
                 style={{
                   marginHorizontal: 6,
-                  backgroundColor: "white",
+                  backgroundColor: Colors.pearlWhite,
 
                   paddingVertical: 15,
-                  paddingHorizontal: 10,
+
                   borderRadius: 6,
                   shadowColor: "#000",
                   shadowOffset: {
@@ -156,10 +156,10 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
               <View
                 style={{
                   marginHorizontal: 6,
-                  backgroundColor: "white",
+                  backgroundColor: Colors.pearlWhite,
 
                   paddingVertical: 15,
-                  paddingHorizontal: 10,
+
                   borderRadius: 6,
                   shadowColor: "#000",
                   shadowOffset: {
@@ -177,7 +177,7 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
                     scrollEventThrottle={16}
                     style={{
                       borderRadius: 8,
-
+                      paddingHorizontal: 10,
                       position: "relative",
                       height: "100%",
                     }}

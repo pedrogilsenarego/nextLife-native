@@ -146,9 +146,10 @@ export const CategoriesFilter = (props: Props) => {
         </ScrollView>
         <View
           style={{
-            paddingVertical: 10,
+            paddingTop: 10,
             borderTopWidth: 1,
             borderTopColor: Colors.lightGray,
+            paddingBottom: 30,
           }}
         >
           <View style={{ width: "100%", alignItems: "center" }}>
@@ -164,20 +165,17 @@ export const CategoriesFilter = (props: Props) => {
             label={`Select All`}
           />
           {data?.length > 0 && (
-            <>
-              <Button
-                onPress={
-                  props.mode === "expenses"
-                    ? resetCategoryFilterExpenses
-                    : resetCategoryFilterIncomes
-                }
-                variant="ghost"
-                label={`Reset Filters (${data.length})`}
-              />
-
-              <Button onPress={() => setOpen(false)} label="Apply Filters" />
-            </>
+            <Button
+              onPress={
+                props.mode === "expenses"
+                  ? resetCategoryFilterExpenses
+                  : resetCategoryFilterIncomes
+              }
+              variant="ghost"
+              label={`Reset Filters (${data.length})`}
+            />
           )}
+          <Button onPress={() => setOpen(false)} label="Apply Filters" />
         </View>
       </BottomPopup>
     </>

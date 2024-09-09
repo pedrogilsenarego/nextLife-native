@@ -23,7 +23,7 @@ export const Container: React.FC<Props> = ({
     paddingVertical: 15,
     paddingHorizontal: 10,
     borderRadius: 6,
-    borderWidth: theme === "light" ? 1 : 0,
+
     borderLeftWidth: status ? 0 : undefined,
     borderColor: Colors.lightGray,
     justifyContent: "space-between",
@@ -34,17 +34,14 @@ export const Container: React.FC<Props> = ({
       width: 0,
       height: 1,
     },
+
     shadowOpacity: 0.25,
-    shadowRadius: 1,
-    elevation: 2,
+    shadowRadius: 2.84,
+    elevation: 1,
   };
 
   // Merge the default styles with the styles passed via props
-  const mergedStyles: StyleProp<ViewStyle> = [
-    defaultStyles,
-    containerStyles,
-    { flex: 1 },
-  ];
+  const mergedStyles: StyleProp<ViewStyle> = [defaultStyles, containerStyles];
 
   return (
     <View style={mergedStyles} {...props}>

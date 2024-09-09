@@ -35,6 +35,7 @@ const Content = (props: Props) => {
       style={{
         borderRadius: 8,
         paddingTop: 16,
+        paddingHorizontal: 10,
         position: "relative",
         height: "100%",
       }}

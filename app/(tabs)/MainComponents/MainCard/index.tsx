@@ -12,7 +12,7 @@ const MainCard = () => {
   const businesses = useBusinesses();
 
   return (
-    <Card footer paperStyles={{ paddingHorizontal: 10 }}>
+    <Card footer>
       {(businesses.data?.length || 0) < 1 ? (
         <View
           style={{
