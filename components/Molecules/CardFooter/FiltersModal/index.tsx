@@ -55,6 +55,7 @@ export const FiltersModal: React.FC<Props> = (props) => {
               <CategoriesFilter mode="incomes" />
             </View>
             <Button
+              textStyle={{ color: "red" }}
               onPress={handleResetFilters}
               label="Reset filters"
               variant="ghost"

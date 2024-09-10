@@ -35,8 +35,8 @@ export const Container: React.FC<Props> = ({
       height: 1,
     },
 
-    shadowOpacity: 0.15,
-    shadowRadius: 2.84,
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
     elevation: 1,
   };
 

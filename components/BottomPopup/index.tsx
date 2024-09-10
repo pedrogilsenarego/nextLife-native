@@ -47,7 +47,7 @@ const BottomPopup = ({
         return theme === "light" ? mainColor : Colors.gray;
       }, [theme])
     : useDerivedValue(() => {
-        return theme === "light" ? "white" : Colors.gray;
+        return theme === "light" ? Colors.pearlWhite : Colors.gray;
       }, [theme]);
 
   const handlePressOutside = () => {
@@ -255,7 +255,7 @@ const BottomPopupNotification: React.FC<Props> = (props) => {
             columnGap: 10,
           }}
         >
-          <AntDesign name="infocirlce" color={"white"} size={16} />
+          <AntDesign name="infocirlce" color={Colors.white} size={16} />
           <Text
             style={{
               color: Colors.white,

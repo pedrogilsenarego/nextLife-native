@@ -20,7 +20,7 @@ export const SelectorButton = (props: Props) => {
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
-          borderRadius: 8,
+          borderRadius: 4,
           alignItems: "center",
           paddingHorizontal: 10,
           paddingVertical: 10,

@@ -25,7 +25,6 @@ export const BusinessFilter = () => {
           }}
           iconId={businessIcon}
           size={18}
-          color={Colors.lightGray}
         />
       );
     });
