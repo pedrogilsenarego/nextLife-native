@@ -20,7 +20,6 @@ type Props = {
 };
 
 const BarChart = (props: Props) => {
-  const { mainColor } = useTheme();
   const labelWidth = 7;
   const chartHeight = props.height || 250;
   const bottomLabelHeight = 12;
@@ -80,8 +79,8 @@ const BarChart = (props: Props) => {
             {
               height: 1,
               borderBottomWidth: 1,
-              borderColor: Colors.gray,
-              borderStyle: "dashed",
+              borderColor: "gray",
+              //borderStyle: "dashed",
               width: "100%",
               position: "absolute",
               zIndex: 20,
@@ -108,7 +107,7 @@ const BarChart = (props: Props) => {
               <Text style={{ fontSize: 12, paddingHorizontal: 4 }}>
                 {avgAbsolute > 1000
                   ? (avgAbsolute / 1000).toFixed(1) + "k"
-                  : avgAbsolute.toFixed(1)}
+                  : avgAbsolute.toFixed(1) + "k"}
               </Text>
             </View>
           </View>

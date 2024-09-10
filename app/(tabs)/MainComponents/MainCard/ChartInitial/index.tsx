@@ -130,7 +130,7 @@ const ChartInitial = ({
           // />
         )}
       </View>
-      <View style={{ marginTop: 10 }}>
+      <View style={{ marginTop: 20 }}>
         <Subcard
           selectedStatus={selectedStatus}
           setSelectedStatus={setSelectedStatus}
