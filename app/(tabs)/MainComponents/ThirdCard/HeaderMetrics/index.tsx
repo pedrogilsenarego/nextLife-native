@@ -40,7 +40,7 @@ export const HeaderMetrics = () => {
           fontSize: 20,
           lineHeight: 20,
           fontWeight: "500",
-          color: mainColor,
+          color: Colors.black,
         }}
       >
         Available Cash
@@ -51,10 +51,10 @@ export const HeaderMetrics = () => {
           borderRadius: 20,
           paddingVertical: 2,
           paddingHorizontal: 10,
-          backgroundColor: `${mainColor}66`,
+          backgroundColor: Colors.lightGray,
         }}
       >
-        <Text style={{ color: Colors.white }}>Metrics</Text>
+        <Text style={{ color: Colors.gray }}>Metrics</Text>
       </View>
     </View>
   );

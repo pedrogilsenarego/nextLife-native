@@ -28,7 +28,7 @@ export const FiltersButton: React.FC = () => {
         style={{
           paddingVertical: 1,
           paddingHorizontal: 10,
-          borderRadius: 8,
+          borderRadius: 30,
           position: "relative",
           backgroundColor: `${mainColor}80`,
           display: "flex",

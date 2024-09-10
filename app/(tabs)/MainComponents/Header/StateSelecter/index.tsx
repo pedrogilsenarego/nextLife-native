@@ -63,9 +63,9 @@ export const StateSelecter: React.FC<Props> = ({
   return (
     <View
       style={{
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black,
         width: BUTTON_WIDTH * 3 + BUTTON_PADDING * 2 + BUTTON_GAP * 2 + 8,
-        borderRadius: 6,
+        borderRadius: 30,
         flexDirection: "row",
         display: "flex",
         padding: 0,

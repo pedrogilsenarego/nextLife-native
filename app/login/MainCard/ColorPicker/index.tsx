@@ -27,6 +27,7 @@ const ColorPicker = ({ rotate = false }: Props) => {
         <SelectColorItem color={"nightBlue"} />
 
         <SelectColorItem color={"gray"} />
+        <SelectColorItem color={"orangeRed"} />
       </View>
     </View>
   );

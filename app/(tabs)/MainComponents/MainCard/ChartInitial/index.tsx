@@ -1,20 +1,16 @@
-import LineChart from "@/components/Charts/LineChart";
 import useMetrics from "@/hooks/useMetrics";
 import { Colors, useTheme } from "@/providers/ThemeContext";
-import { useFont } from "@shopify/react-native-skia";
-import { useState } from "react";
 import { View, Text, Pressable } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 import Subcard from "./Subcard";
 import { MaterialIcons } from "@expo/vector-icons";
-import { RangeDataChoose } from "../../../../../components/Molecules/RangeDataChoose";
 import { useApp } from "@/providers/AppProvider";
 import { LineChartGifted } from "@/components/Charts/LIneChartGifted";
 import useExpenses from "@/hooks/useExpenses";
 import useIncomes from "@/hooks/useIncomes";
 import LoaderSpinner from "@/components/Atoms/LoaderSpinner";
 import { listPerDay } from "@/utils/dateFormat";
-import BarChart from "@/components/Charts/BarChart";
+import BarChart from "@/components/Charts/BarChart/BarChart";
 
 type Props = {
   selectedStatus: "expenses" | "incomes" | "both";
@@ -117,29 +113,34 @@ const ChartInitial = ({
             <LoaderSpinner color={Colors.black} />
           </View>
         ) : (
-          <LineChartGifted
-            data={
-              selectedStatus === "expenses" ? expensesPerDay : incomesPerDay
-            }
-            data2={selectedStatus === "both" ? expensesPerDay : undefined}
-            color1={selectedStatus === "expenses" ? "#c80815" : colorIncomes}
-            color2={selectedStatus === "both" ? "#c80815" : undefined}
-          />
+          <View style={{ marginTop: 20 }}>
+            <BarChart
+              data={
+                selectedStatus === "expenses" ? expensesPerDay : incomesPerDay
+              }
+            />
+          </View>
+          // <LineChartGifted
+          //   data={
+          //     selectedStatus === "expenses" ? expensesPerDay : incomesPerDay
+          //   }
+          //   data2={selectedStatus === "both" ? expensesPerDay : undefined}
+          //   color1={selectedStatus === "expenses" ? "#c80815" : colorIncomes}
+          //   color2={selectedStatus === "both" ? "#c80815" : undefined}
+          // />
         )}
       </View>
-      <BarChart
-        leftLabel
-        data={selectedStatus === "expenses" ? expensesPerDay : incomesPerDay}
-      />
-      <Subcard
-        selectedStatus={selectedStatus}
-        setSelectedStatus={setSelectedStatus}
-        accValue={accValue}
-        accValue2={accValue2}
-        expensesPerDay={expensesPerDay}
-        incomesPerDay={incomesPerDay}
-        setAmountToShow={setAmountToShow}
-      />
+      <View style={{ marginTop: 10 }}>
+        <Subcard
+          selectedStatus={selectedStatus}
+          setSelectedStatus={setSelectedStatus}
+          accValue={accValue}
+          accValue2={accValue2}
+          expensesPerDay={expensesPerDay}
+          incomesPerDay={incomesPerDay}
+          setAmountToShow={setAmountToShow}
+        />
+      </View>
     </View>
   );
 };
