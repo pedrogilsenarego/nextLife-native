@@ -127,7 +127,10 @@ const ChartInitial = ({
           />
         )}
       </View>
-      <BarChart leftLabel />
+      <BarChart
+        leftLabel
+        data={selectedStatus === "expenses" ? expensesPerDay : incomesPerDay}
+      />
       <Subcard
         selectedStatus={selectedStatus}
         setSelectedStatus={setSelectedStatus}
