@@ -37,7 +37,7 @@ export const ArrayButtonsIcons: React.FC<Props> = ({
       left: BUTTON_PADDING,
       top: BUTTON_PADDING,
       borderWidth: 1,
-      borderColor: Colors.white,
+
       position: "absolute",
       backgroundColor: theme === "light" ? mainColor : Colors.black,
       borderRadius: ICON_SIZE,
@@ -75,7 +75,8 @@ export const ArrayButtonsIcons: React.FC<Props> = ({
           BUTTON_PADDING * (buttonList.length - 1) +
           BUTTON_GAP * (buttonList.length - 1) +
           8,
-        borderRadius: 6,
+        backgroundColor: Colors.black,
+        borderRadius: 30,
         flexDirection: "row",
         display: "flex",
         padding: 0,

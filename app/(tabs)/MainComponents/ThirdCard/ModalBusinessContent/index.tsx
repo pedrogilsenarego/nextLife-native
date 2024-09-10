@@ -55,6 +55,7 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
     <BottomPopup
       bgColor
       fullHeight
+      subtitleColor={Colors.pearlWhite}
       subtitle={
         defaultBusiness.find(
           (item) =>

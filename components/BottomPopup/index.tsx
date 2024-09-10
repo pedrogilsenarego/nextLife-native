@@ -24,6 +24,7 @@ interface IProps {
   fullHeight?: boolean;
   title?: string;
   subtitle?: string;
+  subtitleColor?: string;
   bgColor?: boolean;
   rightHeaderComponent?: React.ReactNode;
 }
@@ -36,6 +37,7 @@ const BottomPopup = ({
   rightHeaderComponent,
   title,
   subtitle,
+  subtitleColor,
   bgColor,
 }: IProps) => {
   const { theme, mainColor } = useTheme();
@@ -168,7 +170,7 @@ const BottomPopup = ({
                             style={{
                               fontSize: 12,
                               fontWeight: 500,
-                              color: "gray",
+                              color: subtitleColor || "gray",
                               lineHeight: 12,
                             }}
                           >
