@@ -57,9 +57,9 @@ export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = memo(
     return (
       <View
         style={{
-          backgroundColor: theme === "light" ? Colors.black : "#ffffff1A",
+          backgroundColor: Colors.pearlWhite,
           position: "relative",
-          borderRadius: 24,
+          borderRadius: 7,
           flexDirection: "row",
 
           padding: 3,
@@ -70,11 +70,11 @@ export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = memo(
           style={{
             top: 3,
             left: 3,
-            backgroundColor: theme === "light" ? mainColor : Colors.black,
+            backgroundColor: Colors.white,
             height: 22,
             width: animationWidth,
 
-            borderRadius: 20,
+            borderRadius: 6,
             position: "absolute",
             padding: 4,
             paddingHorizontal: 8,
@@ -95,8 +95,6 @@ export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = memo(
               }}
               onLayout={(e) => handleLayout(e, index)}
               style={{
-                // backgroundColor:
-                //   selectedStatus === button ? mainColor : "transparent",
                 borderRadius: 20,
                 padding: 4,
                 paddingHorizontal: 8,
@@ -105,7 +103,7 @@ export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = memo(
             >
               <Text
                 style={{
-                  color: theme === "light" ? "white" : contrastColor,
+                  color: mainColor,
                   fontSize: 12,
                   lineHeight: 14,
                   opacity: selectedStatus === button ? 1 : 0.7,

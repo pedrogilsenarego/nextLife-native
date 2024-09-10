@@ -1,7 +1,7 @@
 import { IconCard } from "@/components/Atoms/IconCard";
 import useBusinesses from "@/hooks/useBusinesses";
 import { useApp } from "@/providers/AppProvider";
-import { useTheme } from "@/providers/ThemeContext";
+import { Colors, useTheme } from "@/providers/ThemeContext";
 import { Pressable, View } from "react-native";
 
 type Props = {
@@ -24,13 +24,14 @@ export const BusinessFilter = (props: Props) => {
             <IconCard
               containerStyles={{
                 padding: 2,
-                borderWidth: 2,
-                borderColor: !businessFilter?.includes(business.id)
-                  ? mainColor
-                  : "transparent",
               }}
               iconId={businessIcon}
               size={props.size || 18}
+              color={
+                businessFilter?.includes(business.id)
+                  ? Colors.lightGray
+                  : mainColor
+              }
             />
           </Pressable>
         );

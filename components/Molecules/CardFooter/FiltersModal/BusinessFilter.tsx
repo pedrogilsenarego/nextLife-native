@@ -22,13 +22,10 @@ export const BusinessFilter = () => {
         <IconCard
           containerStyles={{
             padding: 2,
-            borderWidth: 2,
-            borderColor: !businessFilter?.includes(business.id)
-              ? mainColor
-              : "transparent",
           }}
           iconId={businessIcon}
           size={18}
+          color={Colors.lightGray}
         />
       );
     });

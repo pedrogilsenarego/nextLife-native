@@ -3,12 +3,13 @@ import { AntDesign } from "@expo/vector-icons";
 
 type Props = {
   size?: number;
+  dColor?: string;
 };
 
-export const useBusinessIcons = ({ size }: Props) => {
+export const useBusinessIcons = ({ size, dColor }: Props) => {
   const { mainColor } = useTheme();
 
-  const color = mainColor;
+  const color = dColor || mainColor;
   return [
     {
       value: 0,

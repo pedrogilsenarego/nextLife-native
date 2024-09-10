@@ -13,7 +13,6 @@ export const DepositsScroller: React.FC = () => {
   const deposits = useDeposits();
   const { mainColor } = useTheme();
   const firstDeposit = !!((deposits?.data?.length || 0) < 1);
-  const width = Dimensions.get("screen").width;
 
   const DepositItem = ({ deposit }: { deposit: Deposit }) => {
     return (
@@ -21,41 +20,47 @@ export const DepositsScroller: React.FC = () => {
         style={{ paddingTop: 6, paddingBottom: 30 }}
         onPress={() => setSelectedDeposit(deposit.id)}
       >
-        <BlurView
-          intensity={5}
-          style={{ width: width / 4 - 24, height: width / 4 - 24 }}
-        >
+        <BlurView intensity={5} style={{ height: 100, width: 170 }}>
           <View
             style={{
               height: "100%",
               display: "flex",
               backgroundColor: `${mainColor}0D`,
-
               justifyContent: "center",
-              alignItems: "center",
-              borderRadius: 50,
+              alignItems: "flex-start",
+              borderRadius: 8,
+              padding: 20,
             }}
           >
             <Text
               style={{
+                textAlign: "center",
+                color: Colors.black,
+                fontSize: 15,
+              }}
+            >
+              {deposit.depositName}
+            </Text>
+            <Text
+              style={{
+                marginTop: 8,
                 color: mainColor,
                 fontSize: 18,
                 fontWeight: "700",
               }}
             >
-              {deposit.amount.toFixed(0)}
+              €{deposit.amount.toFixed(1)}
+            </Text>
+            <Text
+              style={{
+                textAlign: "center",
+                color: "gray",
+                fontSize: 13,
+              }}
+            >
+              +21.5% last Month
             </Text>
           </View>
-          <Text
-            style={{
-              height: "60%",
-              textAlign: "center",
-              color: "gray",
-              fontSize: 13,
-            }}
-          >
-            {deposit.depositName}
-          </Text>
         </BlurView>
       </Pressable>
     );
@@ -117,7 +122,7 @@ export const DepositsScroller: React.FC = () => {
             horizontal
             contentContainerStyle={{
               flexDirection: "row",
-              columnGap: 20,
+              columnGap: 10,
             }}
             scrollEnabled
             nestedScrollEnabled

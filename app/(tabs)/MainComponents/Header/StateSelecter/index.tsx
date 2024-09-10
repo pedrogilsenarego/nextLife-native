@@ -32,7 +32,7 @@ export const StateSelecter: React.FC<Props> = ({
       left: BUTTON_PADDING,
       top: BUTTON_PADDING,
       position: "absolute",
-      backgroundColor: theme === "light" ? mainColor : Colors.black,
+      backgroundColor: `${mainColor}80`,
       borderRadius: 13,
       height: BUTTON_WIDTH,
       width: BUTTON_WIDTH,
@@ -63,9 +63,9 @@ export const StateSelecter: React.FC<Props> = ({
   return (
     <View
       style={{
-        backgroundColor: theme === "light" ? Colors.black : "#ffffff1A",
+        backgroundColor: Colors.white,
         width: BUTTON_WIDTH * 3 + BUTTON_PADDING * 2 + BUTTON_GAP * 2 + 8,
-        borderRadius: 24,
+        borderRadius: 6,
         flexDirection: "row",
         display: "flex",
         padding: 0,
@@ -90,7 +90,7 @@ export const StateSelecter: React.FC<Props> = ({
             theme === "light"
               ? index.value === 0
                 ? "white"
-                : "#ffffff66"
+                : Colors.lightGray
               : contrastColor
           }
           size={ICON_SIZE}
@@ -112,7 +112,7 @@ export const StateSelecter: React.FC<Props> = ({
             theme === "light"
               ? index.value === 1
                 ? "white"
-                : "#ffffff66"
+                : Colors.lightGray
               : contrastColor
           }
           size={ICON_SIZE}
@@ -134,7 +134,7 @@ export const StateSelecter: React.FC<Props> = ({
             theme === "light"
               ? index.value === 2
                 ? "white"
-                : "#ffffff66"
+                : Colors.lightGray
               : contrastColor
           }
           size={ICON_SIZE}

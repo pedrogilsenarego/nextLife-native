@@ -4,7 +4,7 @@ import { View, ViewStyle } from "react-native";
 
 type Props = {
   size?: number;
-
+  color?: string;
   containerStyles?: ViewStyle;
   iconId?: number;
 };
@@ -13,9 +13,10 @@ export const IconCard: React.FC<Props> = ({
   size,
   containerStyles,
   iconId,
+  color,
 }) => {
   const { theme } = useTheme();
-  const businessIcons = useBusinessIcons({ size: size || 30 });
+  const businessIcons = useBusinessIcons({ size: size || 30, dColor: color });
   const icon = businessIcons[iconId || 0].icon;
   return (
     <View

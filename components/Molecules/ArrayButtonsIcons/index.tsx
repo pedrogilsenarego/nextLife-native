@@ -36,6 +36,8 @@ export const ArrayButtonsIcons: React.FC<Props> = ({
     return {
       left: BUTTON_PADDING,
       top: BUTTON_PADDING,
+      borderWidth: 1,
+      borderColor: Colors.white,
       position: "absolute",
       backgroundColor: theme === "light" ? mainColor : Colors.black,
       borderRadius: ICON_SIZE,
@@ -68,14 +70,12 @@ export const ArrayButtonsIcons: React.FC<Props> = ({
   return (
     <View
       style={{
-        backgroundColor: theme === "light" ? Colors.black : "#ffffff1A",
-
         width:
           BUTTON_WIDTH * buttonList.length +
           BUTTON_PADDING * (buttonList.length - 1) +
           BUTTON_GAP * (buttonList.length - 1) +
           8,
-        borderRadius: 24,
+        borderRadius: 6,
         flexDirection: "row",
         display: "flex",
         padding: 0,

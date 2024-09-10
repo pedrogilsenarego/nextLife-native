@@ -1,4 +1,5 @@
 import { ArrayButtons } from "@/components/Molecules/ArrayButtons";
+import { BusinessFilter } from "@/components/Molecules/BusinessFilter";
 import { useApp } from "@/providers/AppProvider";
 import { memo, useCallback } from "react";
 import { View } from "react-native";
@@ -26,10 +27,20 @@ export const RightComponent = memo(
       accValue.value = 0;
     }, []);
     return (
-      <ArrayButtons
-        buttons={["expenses", "incomes", "both"]}
-        onSelected={handleOnSelected}
-      />
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          width: "100%",
+          alignItems: "center",
+        }}
+      >
+        <ArrayButtons
+          buttons={["expenses", "incomes", "both"]}
+          onSelected={handleOnSelected}
+        />
+        <BusinessFilter />
+      </View>
     );
   }
 );
