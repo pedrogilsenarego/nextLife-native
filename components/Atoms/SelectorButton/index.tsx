@@ -16,7 +16,7 @@ export const SelectorButton = (props: Props) => {
     <Pressable onPress={props.onPress}>
       <View
         style={{
-          backgroundColor: Colors.pearlWhite,
+          backgroundColor: `${Colors.pearlWhite}66`,
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
