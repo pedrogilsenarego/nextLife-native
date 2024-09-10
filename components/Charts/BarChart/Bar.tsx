@@ -1,3 +1,4 @@
+import { useApp } from "@/providers/AppProvider";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 import { useEffect, useState } from "react";
 import { View, Text, Pressable } from "react-native";
@@ -15,7 +16,8 @@ type Props = {
 
 export const Bar = (props: Props) => {
   const { mainColor } = useTheme();
-  const [selected, setSelected] = useState(false);
+  const { changeSelectedDate, selectedDate } = useApp();
+
   const barHeight = useSharedValue(0);
 
   useEffect(() => {
@@ -32,17 +34,22 @@ export const Bar = (props: Props) => {
 
   return (
     <Pressable
-      onPress={() => setSelected(!selected)}
+      onPress={() => {
+        changeSelectedDate(
+          props.item.label === selectedDate ? "Total" : props.item.label
+        );
+      }}
       style={{
         height: "100%",
-        width: `${100 / props.totalValues - 10 / props.totalValues}%`,
+        width: `${
+          100 / props.totalValues - Math.min(1.5, 10 / props.totalValues)
+        }%`,
       }}
     >
       <View
         style={{
           height: "100%",
           position: "relative",
-          backgroundColor: "#ffffff66",
           borderRadius: 4,
           overflow: "hidden",
           width: "100%",
@@ -53,13 +60,16 @@ export const Bar = (props: Props) => {
           style={[
             animatedBarStyle,
             {
-              backgroundColor: `${mainColor}B3`,
+              backgroundColor:
+                selectedDate === props.item.label
+                  ? mainColor
+                  : `${mainColor}B3`,
               borderRadius: 4,
               bottom: 0,
             },
           ]}
         />
-        {selected && (
+        {props.item.label === selectedDate && props.totalValues <= 5 && (
           <View
             style={{
               position: "absolute",
@@ -97,7 +107,11 @@ export const Bar = (props: Props) => {
           height: props.bottomLabelHeight,
         }}
       >
-        <Text style={{ fontSize: 9, lineHeight: 12 }}>{props.item.label}</Text>
+        <Text
+          style={{ fontSize: props.totalValues > 20 ? 7 : 9, lineHeight: 12 }}
+        >
+          {props.item.label}
+        </Text>
       </View>
     </Pressable>
   );

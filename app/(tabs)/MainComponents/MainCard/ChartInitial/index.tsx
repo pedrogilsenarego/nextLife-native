@@ -64,7 +64,7 @@ const ChartInitial = ({
       }}
     >
       <View>
-        <Pressable
+        {/* <Pressable
           style={{
             position: "absolute",
             right: 12,
@@ -99,7 +99,7 @@ const ChartInitial = ({
             }
             size={22}
           />
-        </Pressable>
+        </Pressable> */}
         {expenses.isLoading || incomes.isLoading ? (
           <View
             style={{

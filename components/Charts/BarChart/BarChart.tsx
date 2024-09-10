@@ -50,6 +50,31 @@ const BarChart = (props: Props) => {
     };
   });
 
+  const renderDashedLine = () => {
+    const dashArray = Array.from({ length: 40 });
+    return (
+      <View
+        style={{
+          flexDirection: "row",
+          width: "100%",
+          justifyContent: "space-between",
+        }}
+      >
+        {dashArray.map((_, index) => (
+          <View
+            key={index}
+            style={{
+              width: 4,
+              height: 1,
+              backgroundColor: "gray",
+              marginRight: 2,
+            }}
+          />
+        ))}
+      </View>
+    );
+  };
+
   return (
     <View style={{ height: chartHeight, flexDirection: "row" }}>
       {props.leftLabel && (
@@ -70,7 +95,6 @@ const BarChart = (props: Props) => {
           width: props.leftLabel ? `${100 - labelWidth}%` : "100%",
           flexDirection: "row",
           position: "relative",
-
           justifyContent: "space-between",
         }}
       >
@@ -78,9 +102,6 @@ const BarChart = (props: Props) => {
           style={[
             {
               height: 1,
-              borderBottomWidth: 1,
-              borderColor: "gray",
-              //borderStyle: "dashed",
               width: "100%",
               position: "absolute",
               zIndex: 20,
@@ -88,12 +109,13 @@ const BarChart = (props: Props) => {
             animatedAvgLineStyle,
           ]}
         >
+          {renderDashedLine()}
           <View style={{ position: "relative" }}>
             <View
               style={{
                 position: "absolute",
-                top: 4,
-                left: 2,
+                top: 3,
+                left: 3,
                 backgroundColor: Colors.pearlWhite,
                 padding: 1,
                 borderRadius: 3,
@@ -107,7 +129,7 @@ const BarChart = (props: Props) => {
               <Text style={{ fontSize: 12, paddingHorizontal: 4 }}>
                 {avgAbsolute > 1000
                   ? (avgAbsolute / 1000).toFixed(1) + "k"
-                  : avgAbsolute.toFixed(1) + "k"}
+                  : avgAbsolute.toFixed(1)}
               </Text>
             </View>
           </View>
