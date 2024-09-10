@@ -41,7 +41,7 @@ const Button = ({
       justifyContent: "center",
       margin: 8,
       padding: 12,
-      borderRadius: 30,
+      borderRadius: 6,
       shadowColor: "#000",
       shadowOffset: {
         width: 0,

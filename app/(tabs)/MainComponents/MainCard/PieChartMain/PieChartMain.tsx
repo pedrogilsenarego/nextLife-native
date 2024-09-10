@@ -31,7 +31,7 @@ const PieChartMain = ({ businessSelected }: Props) => {
   const STROKE_WIDTH = 17;
   const OUTER_STROKE_WIDTH = 33;
   const GAP = 0.004;
-  const { dateRange } = useApp();
+  const { dateRange, categoryFilterIncomes, categoryFilterExpenses } = useApp();
   const { theme } = useTheme();
   const expenses = useExpenses();
   const incomes = useIncomes();
@@ -95,7 +95,13 @@ const PieChartMain = ({ businessSelected }: Props) => {
       generateDataExpenses();
       generateDataIncomes();
     }
-  }, [dateRange, expenses.isLoading, incomes.isLoading]);
+  }, [
+    dateRange,
+    expenses.isLoading,
+    incomes.isLoading,
+    categoryFilterIncomes,
+    categoryFilterExpenses,
+  ]);
 
   const generateDataExpenses = () => {
     const rawData = getExpensesCategoriesPercentage();

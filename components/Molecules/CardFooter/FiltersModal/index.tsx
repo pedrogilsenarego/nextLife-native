@@ -10,6 +10,8 @@ import { CategoriesFilter } from "./CategoriesFilter";
 
 import { Container } from "@/components/Atoms/Container";
 import { Colors } from "@/providers/ThemeContext";
+import Button from "@/components/button/ButtonComponent";
+import { useApp } from "@/providers/AppProvider";
 
 type Props = {
   openModal: boolean;
@@ -17,6 +19,11 @@ type Props = {
 };
 
 export const FiltersModal: React.FC<Props> = (props) => {
+  const { resetCategoryFilterExpenses, resetCategoryFilterIncomes } = useApp();
+  const handleResetFilters = () => {
+    resetCategoryFilterExpenses();
+    resetCategoryFilterIncomes();
+  };
   return (
     <BottomPopup
       title="Filters"
@@ -46,6 +53,11 @@ export const FiltersModal: React.FC<Props> = (props) => {
 
               <CategoriesFilter mode="incomes" />
             </View>
+            <Button
+              onPress={handleResetFilters}
+              label="Reset filters"
+              variant="ghost"
+            />
           </View>
         </Container>
       </BottomPopupContent>
