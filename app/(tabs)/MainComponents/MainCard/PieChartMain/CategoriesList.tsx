@@ -20,7 +20,7 @@ export const CategoriesList = (props: Props) => {
   const incomes = useIncomes();
   return (
     <>
-      <View style={{ marginTop: 6 }}>
+      <View style={{ marginTop: 6, marginBottom: 30 }}>
         <View
           style={{
             display: "flex",

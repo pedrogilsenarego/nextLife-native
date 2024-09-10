@@ -45,7 +45,7 @@ const ControlledInput = ({ variant = "default", ...props }: TextInputProps) => {
       paddingTop: 11,
       paddingBottom: 11,
       paddingLeft: 20,
-      borderRadius: 30,
+      borderRadius: 6,
       width: "100%",
       borderColor: mainColor,
     },

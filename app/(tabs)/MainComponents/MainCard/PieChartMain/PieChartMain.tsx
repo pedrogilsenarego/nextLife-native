@@ -291,27 +291,7 @@ const PieChartMain = ({ businessSelected }: Props) => {
                     color: theme === "light" ? "gray" : "whitesmoke",
                   }}
                 >
-                  did you know that this month you spend more than usual at
-                  groceries?
-                </Text>
-                <Text
-                  style={{
-                    textAlign: "right",
-                    fontSize: 12,
-                    color: theme === "light" ? "gray" : "whitesmoke",
-                  }}
-                >
-                  in average your car is more expensive than your travels
-                </Text>
-                <Text
-                  style={{
-                    textAlign: "right",
-                    fontSize: 12,
-                    color: theme === "light" ? "gray" : "whitesmoke",
-                  }}
-                >
-                  You must be a healthy person since your help expenses are
-                  bellow average for people of your age
+                  Place where some metrics about the categories will exist
                 </Text>
               </View>
             </View>

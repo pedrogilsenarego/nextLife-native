@@ -5,13 +5,15 @@ import {
 } from "@/components/BottomPopup";
 import { RangeDataChoose } from "@/components/Molecules/RangeDataChoose";
 import { View, Text } from "react-native";
-import { BusinessFilter } from "../../BusinessFilter";
+
 import { CategoriesFilter } from "./CategoriesFilter";
 
 import { Container } from "@/components/Atoms/Container";
 import { Colors } from "@/providers/ThemeContext";
 import Button from "@/components/button/ButtonComponent";
 import { useApp } from "@/providers/AppProvider";
+import { BusinessFilter } from "./BusinessFilter";
+import { Divider } from "@/components/Atoms/Divider";
 
 type Props = {
   openModal: boolean;
@@ -43,11 +45,10 @@ export const FiltersModal: React.FC<Props> = (props) => {
         <RangeDataChoose />
 
         <Container>
-          <View style={{ width: "100%", rowGap: 15 }}>
-            <View style={{ rowGap: 6 }}>
-              <Text style={{ fontWeight: 600, fontSize: 16 }}>Businesses</Text>
-              <BusinessFilter size={40} gap={6} />
-            </View>
+          <View style={{ width: "100%", rowGap: 10 }}>
+            <BusinessFilter />
+
+            <Divider />
             <View style={{ rowGap: 5 }}>
               <CategoriesFilter mode="expenses" />
 

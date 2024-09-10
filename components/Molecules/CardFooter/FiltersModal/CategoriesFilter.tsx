@@ -49,7 +49,6 @@ export const CategoriesFilter = (props: Props) => {
       : defaultCategories;
   return (
     <>
-      <Pressable onPress={() => setOpen(true)}></Pressable>
       <SelectorButton
         label={props.mode === "expenses" ? "Expenses" : "Incomes"}
         onPress={() => setOpen(true)}

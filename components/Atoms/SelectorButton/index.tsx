@@ -6,11 +6,12 @@ import { Pressable, Text } from "react-native";
 type Props = {
   onPress: () => void;
   label: string;
-  value: string[];
+  value: string[] | React.ReactNode[];
 };
 
 export const SelectorButton = (props: Props) => {
   const { mainColor } = useTheme();
+
   return (
     <Pressable onPress={props.onPress}>
       <View
@@ -41,21 +42,30 @@ export const SelectorButton = (props: Props) => {
             ) : (
               props.value.map((category, index) => {
                 return (
-                  <View
-                    key={index}
-                    style={{
-                      padding: 8,
-                      paddingVertical: 2,
-                      borderRadius: 6,
-                      backgroundColor: `${mainColor}66`,
-                    }}
-                  >
-                    <Text
-                      style={{ color: "white", textTransform: "capitalize" }}
-                    >
-                      {category}
-                    </Text>
-                  </View>
+                  <>
+                    {typeof category === "string" ? (
+                      <View
+                        key={index}
+                        style={{
+                          padding: 8,
+                          paddingVertical: 2,
+                          borderRadius: 6,
+                          backgroundColor: `${mainColor}66`,
+                        }}
+                      >
+                        <Text
+                          style={{
+                            color: "white",
+                            textTransform: "capitalize",
+                          }}
+                        >
+                          {category}
+                        </Text>
+                      </View>
+                    ) : (
+                      <View key={index}>{category}</View>
+                    )}
+                  </>
                 );
               })
             )}

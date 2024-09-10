@@ -45,11 +45,11 @@ const Button = ({
       shadowColor: "#000",
       shadowOffset: {
         width: 0,
-        height: 2,
+        height: variant === "ghost" ? 1 : 2,
       },
-      shadowOpacity: variant === "ghost" ? 0.1 : 0.25,
-      shadowRadius: variant === "ghost" ? 1.84 : 3.84,
-      elevation: variant === "ghost" ? 2 : 5, // Android only
+      shadowOpacity: 0.25,
+      shadowRadius: variant === "ghost" ? 2.84 : 3.84,
+      elevation: variant === "ghost" ? 1 : 5, // Android only
       backgroundColor:
         variant === "danger"
           ? Colors.red
