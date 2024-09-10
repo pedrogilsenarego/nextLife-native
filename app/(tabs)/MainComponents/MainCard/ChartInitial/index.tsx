@@ -14,6 +14,7 @@ import useExpenses from "@/hooks/useExpenses";
 import useIncomes from "@/hooks/useIncomes";
 import LoaderSpinner from "@/components/Atoms/LoaderSpinner";
 import { listPerDay } from "@/utils/dateFormat";
+import BarChart from "@/components/Charts/BarChart";
 
 type Props = {
   selectedStatus: "expenses" | "incomes" | "both";
@@ -126,6 +127,7 @@ const ChartInitial = ({
           />
         )}
       </View>
+      <BarChart leftLabel />
       <Subcard
         selectedStatus={selectedStatus}
         setSelectedStatus={setSelectedStatus}

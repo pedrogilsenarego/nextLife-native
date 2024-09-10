@@ -32,7 +32,7 @@ export const StateSelecter: React.FC<Props> = ({
       left: BUTTON_PADDING,
       top: BUTTON_PADDING,
       position: "absolute",
-      backgroundColor: `${mainColor}80`,
+      backgroundColor: mainColor,
       borderRadius: 13,
       height: BUTTON_WIDTH,
       width: BUTTON_WIDTH,

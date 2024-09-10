@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import ChartInitial from "../ChartInitial";
 import { SelectedTransactionProvider } from "../ExpensesTable/TransactionContext";
 import ExpensesTable from "../ExpensesTable";
+import BarChart from "@/components/Charts/BarChart";
 
 type Props = {
   selectedBusiness?: string;

@@ -44,6 +44,7 @@ export const PressableTextOption: React.FC<Props> = ({
         {helperText && (
           <Text
             style={{
+              marginTop: 2,
               fontSize: 12,
               color: validated ? "green" : Colors.steelGray,
             }}
