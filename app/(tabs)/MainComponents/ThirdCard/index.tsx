@@ -130,7 +130,7 @@ const ThirdCard = () => {
                         source={require("../../../../assets/images/pattern.png")}
                         style={{}}
                       >
-                        {/* <View
+                        <View
                           style={{
                             display: "flex",
                             flexDirection: "row",
@@ -151,7 +151,7 @@ const ThirdCard = () => {
                           <SelectedDepositProvider>
                             <DepositsScroller />
                           </SelectedDepositProvider>
-                        </View> */}
+                        </View>
                       </ImageBackground>
                       <View>
                         <DividerCTA label={"Business"} />
