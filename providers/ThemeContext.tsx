@@ -11,26 +11,38 @@ export type ColorsProp = keyof typeof Colors;
 
 interface ThemeContexType {
   mainColor: ColorsProp;
+  contrastColor: ColorsProp;
   theme: "light" | "dark";
   changeMainColor: (color: ColorsProp) => void;
+  changeContrastColor: (color: ColorsProp) => void;
   changeTheme: (theme: "light" | "dark") => void;
 }
 
 const ThemeContext = createContext<ThemeContexType | undefined>(undefined);
 
 export const Colors = {
-  orangeRed: "#FF4500",
-  black: "black",
+  lightGray: "hsl(214.3 31.8% 91.4%)",
+  orangeRed: "#f54329",
+  black: "#160D08",
+  steelGray: "#71797E",
+  gray: "#2b2b2b",
   fuchsia: "#ca2c92",
   tealc: "#009ca6",
   purple: "#800080",
   white: "#ffffff",
   saphire: "#0F52BA",
+  greenPuke: "#eaf984",
+  red: "#FF0000",
+  pearlWhite: "#F5F5F5",
+  nightBlue: "#0a2463",
 };
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
   const [mainColor, setMainColor] = useState<ColorsProp>(
     Colors.orangeRed as ColorsProp
+  );
+  const [contrastColor, setContrastColor] = useState<ColorsProp>(
+    Colors.greenPuke as ColorsProp
   );
   const [theme, setTheme] = useState<"dark" | "light">("light");
 
@@ -49,6 +61,22 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
         console.error("Error loading persisted main color:", error);
       }
     }
+    async function loadPersistedContrastColor() {
+      try {
+        const persistedContrastColor = await AsyncStorage.getItem(
+          "contrastColor"
+        );
+
+        if (
+          persistedContrastColor &&
+          Object.values(Colors).includes(persistedContrastColor)
+        ) {
+          setMainColor(persistedContrastColor as ColorsProp);
+        }
+      } catch (error) {
+        console.error("Error loading persisted contrast color:", error);
+      }
+    }
     async function loadPersistedTheme() {
       try {
         const persistedTheme = await AsyncStorage.getItem("theme");
@@ -65,6 +93,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     }
 
     loadPersistedMainColor();
+    loadPersistedContrastColor();
     loadPersistedTheme();
   }, []);
 
@@ -73,6 +102,21 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
       setMainColor(Colors[color] as ColorsProp);
       try {
         await AsyncStorage.setItem("mainColor", Colors[color] as ColorsProp);
+      } catch (error) {
+        console.error("Error saving main color to AsyncStorage:", error);
+      }
+    } else {
+      console.log("Invalid color provided", color);
+    }
+  };
+  const changeContrastColor = async (color: ColorsProp) => {
+    if (Object.keys(Colors).includes(color)) {
+      setContrastColor(Colors[color] as ColorsProp);
+      try {
+        await AsyncStorage.setItem(
+          "contrastColor",
+          Colors[color] as ColorsProp
+        );
       } catch (error) {
         console.error("Error saving main color to AsyncStorage:", error);
       }
@@ -96,7 +140,14 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <ThemeContext.Provider
-      value={{ mainColor, changeMainColor, theme, changeTheme }}
+      value={{
+        mainColor,
+        changeMainColor,
+        contrastColor,
+        changeContrastColor,
+        theme,
+        changeTheme,
+      }}
     >
       {children}
     </ThemeContext.Provider>

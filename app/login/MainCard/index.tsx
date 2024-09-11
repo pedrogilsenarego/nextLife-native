@@ -1,5 +1,4 @@
 import {
-  View,
   Text,
   ImageBackground,
   Animated,
@@ -7,12 +6,11 @@ import {
   Keyboard,
 } from "react-native";
 import Forms from "../Forms";
-import LottieView from "lottie-react-native";
 import { useRef, useState } from "react";
 import { Entypo } from "@expo/vector-icons";
-import { Colors, ColorsProp, useTheme } from "@/providers/ThemeContext";
-import SelectColorItem from "./ColorPicker/SelectColorItem";
+import { useTheme } from "@/providers/ThemeContext";
 import ColorPicker from "./ColorPicker";
+import { RecoverPassword } from "./RecoverPassword";
 
 const MainCard = () => {
   const flipAnim = useRef(new Animated.Value(0)).current;
@@ -20,7 +18,7 @@ const MainCard = () => {
   const backFadeAnim = useRef(new Animated.Value(0)).current;
 
   const [flipped, setFlipped] = useState<boolean>(false);
-  const { changeMainColor, theme } = useTheme();
+  const { theme } = useTheme();
   const flip = () => {
     Animated.timing(flipAnim, {
       toValue: flipped ? 0 : 1,
@@ -113,7 +111,7 @@ const MainCard = () => {
               },
             ]}
           >
-            <Pressable
+            {/* <Pressable
               onPress={flip}
               style={{
                 display: "flex",
@@ -130,36 +128,10 @@ const MainCard = () => {
                 color={"gray"}
               />
               <Text style={{ color: "gray" }}>Options</Text>
-            </Pressable>
+            </Pressable> */}
             <Forms />
 
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "flex-end",
-                columnGap: 10,
-              }}
-            >
-              <Text
-                style={{
-                  fontWeight: "500",
-                  color: "gray",
-                  lineHeight: 27,
-                }}
-              >
-                Forgot Password?
-              </Text>
-              <LottieView
-                autoPlay
-                style={{
-                  width: 40,
-                  aspectRatio: 1,
-                  opacity: 0.2,
-                }}
-                source={require("../../../assets/images/Initial.json")}
-              />
-            </View>
+            <RecoverPassword />
           </Animated.View>
 
           <Animated.View
@@ -176,7 +148,7 @@ const MainCard = () => {
               },
             ]}
           >
-            <ColorPicker />
+            <ColorPicker rotate />
 
             <Pressable
               onPress={flip}

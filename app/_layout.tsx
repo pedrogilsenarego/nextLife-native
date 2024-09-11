@@ -9,6 +9,9 @@ import { Session } from "@supabase/supabase-js";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ModalProvider } from "@/providers/ModalContext";
 import { ThemeProvider } from "@/providers/ThemeContext";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import Loading from "@/components/Atoms/Loading";
+import { AppProvider } from "@/providers/AppProvider";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -24,19 +27,24 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const [loading, setLoading] = useState(true);
   const [loaded, error] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,
   });
   const [session, setSession] = useState<Session | null>(null);
   const queryClient = new QueryClient();
+
   useEffect(() => {
+    setLoading(true);
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
+      setLoading(false);
     });
 
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
+      setLoading(false);
     });
   }, []);
 
@@ -54,13 +62,17 @@ export default function RootLayout() {
     return null;
   }
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
-        <ModalProvider>
-          {session ? <RootLayoutNav /> : <LoginLayout />}
-        </ModalProvider>
-      </ThemeProvider>
+      <AppProvider>
+        <ThemeProvider>
+          <ModalProvider>
+            {session ? <RootLayoutNav /> : <LoginLayout />}
+          </ModalProvider>
+        </ThemeProvider>
+      </AppProvider>
     </QueryClientProvider>
   );
 }
@@ -71,9 +83,11 @@ function LoginLayout() {
 
 function RootLayoutNav() {
   return (
-    <Stack>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="modal" options={{ presentation: "modal" }} />
-    </Stack>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+      </Stack>
+    </GestureHandlerRootView>
   );
 }
