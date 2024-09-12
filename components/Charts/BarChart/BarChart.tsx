@@ -99,7 +99,7 @@ const BarChart = (props: Props) => {
             style={{
               width: 4,
               height: 1,
-              backgroundColor: "gray",
+              backgroundColor: Colors.lightGray,
               marginRight: 2,
             }}
           />

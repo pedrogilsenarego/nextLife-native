@@ -44,8 +44,8 @@ export const DividerCTA = ({ label }: Props) => {
             style={{
               color: Colors.gray,
               textTransform: "capitalize",
-              fontSize: 20,
-              fontWeight: 800,
+              fontSize: 18,
+              fontWeight: 500,
             }}
           >
             {label}

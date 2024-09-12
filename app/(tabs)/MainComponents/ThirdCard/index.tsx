@@ -181,7 +181,7 @@ const ThirdCard = () => {
                       </View>
                     </View>
                     <View style={{ marginTop: 40 }}>
-                      <DividerCTA label={"Next Life"} />
+                      <DividerCTA label={"Zyr-o"} />
                     </View>
                     <View
                       style={{
