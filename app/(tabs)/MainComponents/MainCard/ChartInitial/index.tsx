@@ -136,6 +136,11 @@ const ChartInitial = ({
         ) : (
           <View style={{ marginTop: 20 }}>
             <BarChart
+              color={
+                selectedStatus === "incomes" || selectedStatus === "both"
+                  ? "#82ca9d"
+                  : undefined
+              }
               data={
                 selectedStatus === "expenses"
                   ? expensesPerDay

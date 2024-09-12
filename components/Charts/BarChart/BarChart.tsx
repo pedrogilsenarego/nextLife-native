@@ -17,6 +17,8 @@ type DataType = {
 type Props = {
   leftLabel?: boolean;
   height?: number;
+  color?: string;
+  color2?: string;
   data?: DataType[];
 };
 
@@ -207,6 +209,8 @@ const BarChart = (props: Props) => {
         {data2Use?.map((item, index) => {
           return (
             <Bar
+              color={props.color}
+              color2={props.color2}
               item={item}
               key={index}
               totalValues={data2Use.length}

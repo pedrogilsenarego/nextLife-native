@@ -18,6 +18,8 @@ type Props = {
   };
   totalValues: number;
   bottomLabelHeight: number;
+  color?: string;
+  color2?: string;
 };
 
 export const Bar = (props: Props) => {
@@ -111,8 +113,8 @@ export const Bar = (props: Props) => {
               {
                 backgroundColor:
                   selectedDate === props.item.label
-                    ? mainColor
-                    : `${mainColor}B3`,
+                    ? props.color || mainColor
+                    : `${props.color || mainColor}B3`,
                 borderRadius: 4,
                 bottom: 0,
               },
@@ -175,8 +177,8 @@ export const Bar = (props: Props) => {
                 {
                   backgroundColor:
                     selectedDate === props.item.label
-                      ? mainColor
-                      : `${mainColor}B3`,
+                      ? props.color2 || mainColor
+                      : `${props.color2 || mainColor}B3`,
                   borderRadius: 4,
                   bottom: 0,
                 },
