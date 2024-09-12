@@ -54,7 +54,28 @@ const ChartInitial = ({
     ? incomesTotalPerDay()
     : incomesTotalPerMonth();
 
-  const colorIncomes = theme === "dark" ? `${Colors.greenPuke}CC` : "#82ca9d";
+  type DataType = {
+    label: string;
+    value: number;
+    value2?: number;
+  };
+
+  const mergeExpensesAndIncomes = (
+    expenses: { label: string; value: number }[],
+    incomes: { label: string; value: number }[]
+  ): DataType[] => {
+    return expenses.map((expense) => {
+      const matchingIncome = incomes.find(
+        (income) => income.label === expense.label
+      );
+
+      return {
+        label: expense.label,
+        value: expense.value,
+        value2: matchingIncome ? matchingIncome.value : undefined,
+      };
+    });
+  };
 
   return (
     <View
@@ -116,7 +137,11 @@ const ChartInitial = ({
           <View style={{ marginTop: 20 }}>
             <BarChart
               data={
-                selectedStatus === "expenses" ? expensesPerDay : incomesPerDay
+                selectedStatus === "expenses"
+                  ? expensesPerDay
+                  : selectedStatus === "incomes"
+                  ? incomesPerDay
+                  : mergeExpensesAndIncomes(incomesPerDay, expensesPerDay)
               }
             />
           </View>

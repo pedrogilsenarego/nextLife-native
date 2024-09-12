@@ -23,27 +23,27 @@ export const DividerCTA = ({ label }: Props) => {
       >
         <View
           style={{
-            borderWidth: 2,
+            borderWidth: 1,
             borderRadius: 20,
             paddingVertical: 4,
             paddingHorizontal: 16,
-            borderColor: mainColor,
+            borderColor: Colors.lightGray,
             backgroundColor: Colors.pearlWhite,
             shadowColor: "#000",
             shadowOffset: {
               width: 0,
-              height: 2,
+              height: 1,
             },
 
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-            elevation: 5,
+            shadowOpacity: 0.2,
+            shadowRadius: 2,
+            elevation: 2,
           }}
         >
           <Text
             style={{
-              color: mainColor,
-              textTransform: "uppercase",
+              color: Colors.gray,
+              textTransform: "capitalize",
               fontSize: 20,
               fontWeight: 800,
             }}

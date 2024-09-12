@@ -11,6 +11,7 @@ import { Bar } from "./Bar";
 type DataType = {
   label: string;
   value: number;
+  value2?: number;
 };
 
 type Props = {
@@ -24,19 +25,35 @@ const BarChart = (props: Props) => {
   const chartHeight = props.height || 250;
   const bottomLabelHeight = 12;
 
-  const maxValue = props.data ? Math.max(...props.data.map((d) => d.value)) : 1;
+  const maxValue = props.data
+    ? Math.max(...props.data.map((d) => Math.max(d.value, d.value2 ?? 0)))
+    : 1;
+
   const data2Use =
     props.data?.map((item) => ({
       ...item,
       percentage: (item.value / maxValue) * 100,
+      percentage2: item.value2 ? (item.value2 / maxValue) * 100 : undefined,
     })) || [];
 
   const totalValue =
     props.data?.reduce((acc, item) => acc + item.value, 0) || 0;
+  const totalValue2 =
+    props.data?.reduce((acc, item) => acc + (item.value2 ?? 0), 0) || 0;
+
   const avgAbsolute = props.data?.length ? totalValue / props.data.length : 0;
+  const avgAbsolute2 = props.data?.some((item) => item.value2 !== undefined)
+    ? totalValue2 / props.data.length
+    : undefined;
   const avgPercentage = (avgAbsolute / maxValue) * 100;
+  const avgPercentage2 = avgAbsolute2
+    ? (avgAbsolute2 / maxValue) * 100
+    : undefined;
 
   const avgPosition = useSharedValue(100 - avgPercentage);
+  const avgPosition2 = useSharedValue(
+    avgPercentage2 ? 100 - avgPercentage2 : 0
+  );
 
   useEffect(() => {
     avgPosition.value = withTiming(100 - avgPercentage, {
@@ -44,9 +61,23 @@ const BarChart = (props: Props) => {
     });
   }, [avgPercentage]);
 
+  useEffect(() => {
+    if (avgPercentage2 !== undefined) {
+      avgPosition2.value = withTiming(100 - avgPercentage2, {
+        duration: 500,
+      });
+    }
+  }, [avgPercentage2]);
+
   const animatedAvgLineStyle = useAnimatedStyle(() => {
     return {
       top: `${avgPosition.value}%`,
+    };
+  });
+
+  const animatedAvgLineStyle2 = useAnimatedStyle(() => {
+    return {
+      top: `${avgPosition2.value}%`,
     };
   });
 
@@ -98,6 +129,44 @@ const BarChart = (props: Props) => {
           justifyContent: "space-between",
         }}
       >
+        {avgPosition2 && avgAbsolute2 && (
+          <Animated.View
+            style={[
+              {
+                height: 1,
+                width: "100%",
+                position: "absolute",
+                zIndex: 20,
+              },
+              animatedAvgLineStyle2,
+            ]}
+          >
+            {renderDashedLine()}
+            <View style={{ position: "relative" }}>
+              <View
+                style={{
+                  position: "absolute",
+                  top: 3,
+                  left: `${100 / data2Use.length / 2}%`,
+                  backgroundColor: Colors.pearlWhite,
+                  padding: 1,
+                  borderRadius: 3,
+                  shadowOffset: { width: 0, height: 1 },
+                  shadowColor: "#000",
+                  shadowOpacity: 0.15,
+                  shadowRadius: 2,
+                  elevation: 1,
+                }}
+              >
+                <Text style={{ fontSize: 12, paddingHorizontal: 4 }}>
+                  {avgAbsolute > 1000
+                    ? (avgAbsolute2 / 1000).toFixed(1) + "k"
+                    : avgAbsolute2.toFixed(1)}
+                </Text>
+              </View>
+            </View>
+          </Animated.View>
+        )}
         <Animated.View
           style={[
             {
