@@ -13,6 +13,7 @@ import { addDeposit } from "@/actions/depositActions";
 import useDeposits from "@/hooks/useDeposits";
 import { defaultDeposits } from "@/constants/defaultDeposits";
 import { useTheme } from "@/providers/ThemeContext";
+import { AntDesign } from "@expo/vector-icons";
 
 export const AddDeposit: React.FC = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
@@ -54,7 +55,7 @@ export const AddDeposit: React.FC = () => {
       {firstDeposit ? (
         <Pressable
           onPress={() => setOpenModal(true)}
-          style={{ display: "flex", flexDirection: "row" }}
+          style={{ display: "flex", flexDirection: "row", padding: 10 }}
         >
           <Container
             containerStyles={{
@@ -62,6 +63,7 @@ export const AddDeposit: React.FC = () => {
               alignItems: "center",
               display: "flex",
               flexDirection: "row",
+              width: "100%",
             }}
           >
             <Text style={{ fontSize: 16, fontWeight: "600" }}>
@@ -76,27 +78,21 @@ export const AddDeposit: React.FC = () => {
         >
           <Container
             containerStyles={{
-              width: width / 4 - 24,
-              height: width / 4 - 24,
-              backgroundColor: `${mainColor}`,
-              borderRadius: 50,
+              height: 100,
+              width: 170,
+              borderColor: `${mainColor}`,
+              borderWidth: 3,
+              borderRadius: 8,
+              padding: 20,
               justifyContent: "center",
               alignItems: "center",
               display: "flex",
               flexDirection: "row",
-              borderWidth: 0,
+              backgroundColor: "transparent",
+              shadowColor: "transparent",
             }}
           >
-            <Text
-              style={{
-                fontSize: 50,
-                fontWeight: "600",
-                color: "#ffffffE6",
-                lineHeight: 50,
-              }}
-            >
-              +
-            </Text>
+            <AntDesign name="plus" color={mainColor} size={46} />
           </Container>
         </Pressable>
       )}

@@ -70,7 +70,9 @@ export const signupUser = async ({
       if (error) {
         reject(error?.message);
       }
-      return resolve("Welcome to NextLife enjoy");
+      return resolve(
+        "Welcome to Zyr-o, please visit your email for confirmation"
+      );
     } catch (error: any) {
       console.error("error", error);
       reject(error.message);

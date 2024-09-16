@@ -128,9 +128,9 @@ export const DepositsScroller: React.FC = () => {
             nestedScrollEnabled
             showsHorizontalScrollIndicator={false}
           >
-            {deposits?.data.map((deposit) => (
-              <DepositItem deposit={deposit} key={deposit.id} />
-            ))}
+            {deposits?.data.map((deposit, index) => {
+              return <DepositItem deposit={deposit} key={deposit.id} />;
+            })}
             <AddDeposit />
           </ScrollView>
         )}
