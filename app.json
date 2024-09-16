@@ -17,7 +17,9 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.perrosenarego.nextLifenative"
+      "bundleIdentifier": "com.perrosenarego.nextLifenative",
+      "buildNumber": "2",
+      "version": "1.0.1"
     },
     "android": {
       "adaptiveIcon": {
@@ -46,7 +48,7 @@
         "projectId": "685efde3-c9a1-4d74-9b42-ab310a34a8ae"
       }
     },
-    "runtimeVersion": "1.0.0",
+    "runtimeVersion": "1.0.1",
     "updates": {
       "url": "https://u.expo.dev/685efde3-c9a1-4d74-9b42-ab310a34a8ae"
     }

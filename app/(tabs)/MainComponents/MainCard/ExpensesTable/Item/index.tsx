@@ -16,7 +16,7 @@ const Item = ({ expense }: Props) => {
     useSelectedTransactions();
   const { theme } = useTheme();
   const dateFormatter = (date: Date) => {
-    return moment(date).format("DD MMM HH:MM");
+    return moment(date).format("DD MMM HH:mm");
   };
 
   const handlePress = () => {

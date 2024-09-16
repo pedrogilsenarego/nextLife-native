@@ -10,7 +10,7 @@ const NumberStringSchema = z
 export const NewEntrySchema = z.object({
   amount: NumberStringSchema,
   note: z.string().optional(),
-  created_at: z.date(),
+  created_at: z.date().optional(),
   category: z.string(),
   businessId: z.string(),
   depositId: z.number().optional(),

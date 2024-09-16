@@ -35,8 +35,8 @@ export const DividerCTA = ({ label }: Props) => {
               height: 1,
             },
 
-            shadowOpacity: 0.2,
-            shadowRadius: 2,
+            shadowOpacity: 0.25,
+            shadowRadius: 1,
             elevation: 2,
           }}
         >

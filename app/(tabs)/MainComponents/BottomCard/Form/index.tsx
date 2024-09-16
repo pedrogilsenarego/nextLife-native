@@ -58,7 +58,7 @@ const Form = ({ listBusiness }: Props) => {
   const defaultValues = {
     amount: undefined,
     note: undefined,
-    created_at: new Date(),
+    created_at: undefined,
     category: defaultCategories[0].value,
     businessId: listBusiness[0]?.value || "",
     depositId: undefined,
@@ -92,7 +92,15 @@ const Form = ({ listBusiness }: Props) => {
       ...data,
       amount: Number(data.amount.replace(",", ".")),
     };
-    addExpenseMutation(newData);
+
+    if (!newData.created_at) {
+      newData.created_at = new Date();
+    }
+
+    addExpenseMutation({
+      ...newData,
+      created_at: newData.created_at as Date,
+    });
   };
 
   useEffect(() => {
@@ -223,7 +231,11 @@ const Form = ({ listBusiness }: Props) => {
           <PressableTextOption
             onPress={() => setOpenDateModal(true)}
             label="Change Date"
-            helperText={`${methods.watch("created_at").toLocaleDateString()}`}
+            helperText={
+              methods.watch("created_at")
+                ? `${methods.watch("created_at")?.toLocaleDateString()}`
+                : "Current Date"
+            }
             icon={
               <Entypo
                 name="calendar"

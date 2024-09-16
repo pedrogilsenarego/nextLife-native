@@ -31,9 +31,9 @@ const DatePicker = (props: DatePickerProps) => {
   const error = formState.errors[name];
 
   const formatDate = (date: Date) => {
-    let year = date.getFullYear();
-    let month = date.getMonth() + 1;
-    let day = date.getDate();
+    let year = date?.getFullYear();
+    let month = date?.getMonth() + 1;
+    let day = date?.getDate();
 
     const newMonth = month < 10 ? `0${month}` : month;
     const newDay = day < 10 ? `0${day}` : day;
@@ -72,7 +72,7 @@ const DatePicker = (props: DatePickerProps) => {
       {Platform.OS !== "ios" && (
         <Pressable onPress={toggleDatePicker}>
           <TextInput
-            value={formatDate(field.value)}
+            value={formatDate(field.value || new Date())}
             style={{
               padding: 10,
               backgroundColor: "transparent",
@@ -91,7 +91,7 @@ const DatePicker = (props: DatePickerProps) => {
           mode="date"
           textColor={theme === "dark" ? "white" : "black"}
           display="spinner"
-          value={field.value}
+          value={field.value || new Date()}
           onChange={onChange}
           style={{
             height: 120,
