@@ -10,7 +10,7 @@ export const HeaderMetrics = () => {
   const totalDepositsAmount = deposits?.data?.reduce((acc, deposit) => {
     return acc + (deposit.amount || 0);
   }, 0);
-  const totalPatrimony = totalDepositsAmount?.toFixed(1) || "0";
+  const totalPatrimony = totalDepositsAmount?.toFixed(0) || "0";
 
   return (
     <View

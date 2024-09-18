@@ -8,7 +8,7 @@ import { LoginSchema, LoginType } from "./validation";
 import { defaultValues } from "./constants";
 import ControlledInput from "@/components/inputs/TextField";
 import Button from "@/components/button/ButtonComponent";
-import { signinUser, signupUser } from "@/actions/userActions";
+import { signupUser } from "@/actions/userActions";
 import { useMutation } from "@tanstack/react-query";
 
 import { useModal } from "@/providers/ModalContext";

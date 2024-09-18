@@ -7,7 +7,8 @@ type Props = {
 };
 
 const SelectColorItem = ({ color }: Props) => {
-  const { changeMainColor } = useTheme();
+  const { changeMainColor, mainColor } = useTheme();
+
   return (
     <Pressable
       onPress={() => changeMainColor(color)}
@@ -16,12 +17,17 @@ const SelectColorItem = ({ color }: Props) => {
         flexDirection: "row",
         alignItems: "center",
         columnGap: 12,
+        borderWidth: 2,
+        borderColor: mainColor === Colors[color] ? "gray" : "transparent",
+        borderRadius: 59,
+        padding: 2,
       }}
     >
       <View
         style={{
-          height: 30,
-          width: 30,
+          height: 26,
+
+          width: 26,
           backgroundColor: Colors[color],
           borderRadius: 15,
         }}

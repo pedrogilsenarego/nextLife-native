@@ -15,7 +15,7 @@ import {
 import { StyleSheet } from "react-native";
 import { useTheme } from "@/providers/ThemeContext";
 
-const RADIUS = 70;
+const RADIUS = 25;
 
 const IconTheme = () => {
   const { theme } = useTheme();

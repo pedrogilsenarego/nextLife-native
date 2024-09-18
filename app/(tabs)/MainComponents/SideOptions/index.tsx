@@ -3,13 +3,14 @@ import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
 import IconTheme from "@/components/Molecules/IconTheme";
 import SwitchTheme from "@/components/Molecules/SwitchTheme";
 import { supabase } from "@/lib/supabase";
-import { useTheme } from "@/providers/ThemeContext";
+import { Colors, useTheme } from "@/providers/ThemeContext";
 import { useState } from "react";
 import { Pressable, View, Text, StyleSheet, FlatList } from "react-native";
 import { BlurView } from "expo-blur";
 import { AntDesign } from "@expo/vector-icons";
 
 import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
+import { Container } from "@/components/Atoms/Container";
 
 type Props = {
   open: boolean;
@@ -58,34 +59,62 @@ export const SideOptions = (props: Props) => {
         />
       )}
       <BottomPopup
-        fullHeight
         openModal={openSettings}
+        title="Settings"
         onClose={() => setOPenSettings(false)}
       >
         <BottomPopupContent>
-          <View style={styles.settingsContainer}>
-            <View style={styles.settingsContent}>
-              <Text
-                style={[
-                  styles.settingsText,
-                  { color: theme === "light" ? "black" : "white" },
-                ]}
+          <Container containerStyles={{ flexDirection: "column", rowGap: 10 }}>
+            <View
+              style={{
+                backgroundColor: `${Colors.pearlWhite}66`,
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                borderRadius: 4,
+                alignItems: "center",
+                paddingHorizontal: 10,
+                paddingVertical: 10,
+
+                width: "100%",
+              }}
+            >
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
               >
-                Choose a style
-              </Text>
-              <Text
-                style={[
-                  styles.settingsSubtitle,
-                  { color: theme === "light" ? "black" : "white" },
-                ]}
-              >
-                Customize your interface
-              </Text>
-              <SwitchTheme />
+                <SwitchTheme />
+              </View>
+              <IconTheme />
             </View>
-            <IconTheme />
-          </View>
-          <ColorPicker />
+
+            <View
+              style={{
+                backgroundColor: `${Colors.pearlWhite}66`,
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                borderRadius: 4,
+                alignItems: "center",
+                paddingHorizontal: 10,
+                paddingVertical: 10,
+
+                width: "100%",
+              }}
+            >
+              <Text
+                style={{
+                  fontWeight: 600,
+                  color: theme === "light" ? Colors.black : "white",
+                }}
+              >
+                Choose Main Color
+              </Text>
+              <ColorPicker />
+            </View>
+          </Container>
         </BottomPopupContent>
       </BottomPopup>
     </View>
@@ -122,22 +151,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     textTransform: "uppercase",
   },
-  settingsContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "column",
-    marginVertical: 20,
-    rowGap: 50,
-    flex: 1,
-  },
-  settingsContent: {
-    alignItems: "center",
-    flexDirection: "column",
-  },
-  settingsText: {
-    fontSize: 22,
-    fontWeight: "bold",
-  },
+
   settingsSubtitle: {
     fontSize: 16,
     marginTop: 14,

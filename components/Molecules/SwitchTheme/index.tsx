@@ -116,7 +116,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 40,
     overflow: "hidden",
-    marginTop: 20,
   },
   button: {
     flex: 1,
