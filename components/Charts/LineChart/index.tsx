@@ -1,6 +1,20 @@
 import React from "react";
-import { Canvas, Path, Skia, Paint } from "@shopify/react-native-skia";
-import { line, scaleLinear, scalePoint } from "d3";
+import {
+  Canvas,
+  Path,
+  Skia,
+  Paint,
+  Line,
+  PaintStyle,
+} from "@shopify/react-native-skia";
+import {
+  curveBasis,
+  curveLinear,
+  line,
+  scaleLinear,
+  scalePoint,
+  style,
+} from "d3";
 import { Dimensions } from "react-native";
 import Gradient from "./Gradient";
 import { useSharedValue, withDelay, withTiming } from "react-native-reanimated";
@@ -15,33 +29,54 @@ const LineChart = ({
   color,
   width,
   height,
-  gradient = false, // Add a gradient prop
+  gradient = false,
+  curveType = "linear",
+  showAverage = false, // New prop to show the average line
 }: {
   data: DataType[];
   color: string;
   width?: number;
   height?: number;
   gradient?: boolean;
+  curveType?: "linear" | "cubic";
+  showAverage?: boolean; // New prop
 }) => {
-  const CHART_MARGIN = 20;
+  const CHART_MARGIN = 0;
   const CHART_WIDTH = width || Dimensions.get("screen").width - 2 * 18;
   const CHART_HEIGHT = height || 170;
 
   const xDomain = data.map((d) => d.label);
   const xRange = [CHART_MARGIN, CHART_WIDTH - CHART_MARGIN];
+
   const x = scalePoint().domain(xDomain).range(xRange).padding(0);
-  const animationGradient = useSharedValue({ x: 0, y: 0 });
+
   const max = Math.max(...data.map((d) => d.value));
   const min = Math.min(...data.map((d) => d.value));
-  const yRange = [CHART_HEIGHT + 10, -10];
-  const y = scaleLinear().domain([min, max]).range(yRange);
+
+  const y = scaleLinear()
+    .domain([min, max])
+    .range([CHART_HEIGHT - CHART_MARGIN, CHART_MARGIN]);
+
+  const selectedCurve = curveType === "cubic" ? curveBasis : curveLinear;
+
   const curvedLine = line<DataType>()
     .x((d) => x(d.label)!)
-    .y((d) => y(d.value))(data);
+    .y((d) => y(d.value))
+    .curve(selectedCurve)(data);
 
-  // Convert the line path to Skia's path
   const linePath = Skia.Path.MakeFromSVGString(curvedLine!);
 
+  const averageValue = data.reduce((sum, d) => sum + d.value, 0) / data.length;
+
+  const averageY = y(averageValue);
+
+  const dashedPaint = Skia.Paint();
+  dashedPaint.setColor(Skia.Color(color));
+  dashedPaint.setStyle(PaintStyle.Stroke);
+  dashedPaint.setStrokeWidth(1);
+  dashedPaint.setPathEffect(Skia.PathEffect.MakeDash([4, 4], 0));
+
+  const animationGradient = useSharedValue({ x: 0, y: 0 });
   animationGradient.value = withDelay(
     1000,
     withTiming({ x: 0, y: CHART_HEIGHT - 15 }, { duration: 500 })
@@ -57,10 +92,19 @@ const LineChart = ({
       <Path
         path={linePath!}
         style={"stroke"}
-        strokeWidth={1.5}
+        strokeWidth={2}
         color={color}
         strokeCap={"round"}
       />
+
+      {showAverage && (
+        <Line
+          p1={{ x: CHART_MARGIN, y: averageY }}
+          p2={{ x: CHART_WIDTH - CHART_MARGIN, y: averageY }}
+          paint={dashedPaint}
+        />
+      )}
+
       {gradient && (
         <Gradient
           color={color}

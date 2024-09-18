@@ -24,7 +24,7 @@ const Gradient = ({
     height: number
   ) => {
     const gradientAreaSplit = Skia.Path.MakeFromSVGString(chartLine);
-
+    console.log(color);
     if (gradientAreaSplit) {
       gradientAreaSplit
 

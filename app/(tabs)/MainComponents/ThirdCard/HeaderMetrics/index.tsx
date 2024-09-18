@@ -20,9 +20,6 @@ export const HeaderMetrics = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-
-        rowGap: 1,
-        paddingLeft: 5,
       }}
     >
       <Text
@@ -30,44 +27,33 @@ export const HeaderMetrics = () => {
           fontSize: 55,
           fontWeight: "700",
           color: mainColor,
-          lineHeight: 55,
         }}
       >
         {totalPatrimony}
         <Text style={{ fontSize: 26 }}>€</Text>
       </Text>
+
       <Text
         style={{
-          marginTop: -6,
-          fontSize: 20,
-          lineHeight: 20,
+          fontSize: 18,
+          marginTop: -9,
           fontWeight: "500",
-          color: Colors.black,
+          color: "gray",
         }}
       >
-        Available Cash
+        Portefolio
       </Text>
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <View
-          style={{
-            marginTop: 10,
-            borderRadius: 20,
-            paddingVertical: 2,
-            paddingHorizontal: 10,
-            backgroundColor: Colors.lightGray,
-          }}
-        >
-          <Text style={{ color: Colors.gray }}>Metrics</Text>
-        </View>
-
+      <View style={{ marginTop: 7 }}>
         <LineChart
-          width={100}
-          height={50}
+          width={80}
+          height={10}
+          showAverage
+          gradient
           color={mainColor}
           data={[
             { label: "Jan", value: 10 },
-            { label: "Feb", value: 15 },
-            { label: "Mar", value: 8 },
+            { label: "Feb", value: 12 },
+            { label: "Mar", value: 9 },
             { label: "Apr", value: 12 },
           ]}
         />
