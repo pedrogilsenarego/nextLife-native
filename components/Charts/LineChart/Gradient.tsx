@@ -1,4 +1,3 @@
-import { useTheme } from "@/providers/ThemeContext";
 import { LinearGradient, Path, Skia } from "@shopify/react-native-skia";
 import { SharedValue } from "react-native-reanimated";
 
@@ -24,7 +23,7 @@ const Gradient = ({
     height: number
   ) => {
     const gradientAreaSplit = Skia.Path.MakeFromSVGString(chartLine);
-    console.log(color);
+
     if (gradientAreaSplit) {
       gradientAreaSplit
 

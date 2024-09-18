@@ -136,17 +136,19 @@ const ThirdCard = () => {
                             flexDirection: "row",
 
                             alignItems: "center",
-                            paddingHorizontal: 2,
 
                             justifyContent: "center",
-                            paddingTop: 190,
-                            height: 400,
+                            paddingTop: 150,
                           }}
                         >
                           <HeaderMetrics />
                         </View>
                         <View
-                          style={{ marginBottom: 60, paddingHorizontal: 14 }}
+                          style={{
+                            marginBottom: 60,
+                            marginTop: 30,
+                            paddingHorizontal: 14,
+                          }}
                         >
                           <SelectedDepositProvider>
                             <DepositsScroller />
