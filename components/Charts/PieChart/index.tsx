@@ -32,18 +32,16 @@ const PieChart = ({
       <Canvas style={styles.container}>
         {decimals.value.map((_, index) => {
           return (
-            <>
-              <PiePath
-                key={index}
-                radius={radius}
-                strokeWidth={strokeWidth}
-                outerStrokeWidth={outerStrokeWidth}
-                color={colors[index]}
-                decimals={decimals}
-                index={index}
-                gap={gap}
-              />
-            </>
+            <PiePath
+              key={index}
+              radius={radius}
+              strokeWidth={strokeWidth}
+              outerStrokeWidth={outerStrokeWidth}
+              color={colors[index]}
+              decimals={decimals}
+              index={index}
+              gap={gap}
+            />
           );
         })}
       </Canvas>
