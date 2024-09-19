@@ -84,7 +84,7 @@ export const HeaderMetrics = () => {
                 </Text>
               </View>
             </View>
-            {portefolioTime.length > 0 && (
+            {portefolioTime.length > 1 && (
               <Text style={{ color: "gray", textAlign: "right", fontSize: 14 }}>
                 {deltaPortefolioPercentage.toFixed(1)}% last month
               </Text>
@@ -92,7 +92,7 @@ export const HeaderMetrics = () => {
           </View>
         </View>
 
-        {portefolioTime.length > 0 && (
+        {portefolioTime.length > 1 && (
           <>
             <View style={{ marginTop: 25 }}>
               <LineChart

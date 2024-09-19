@@ -139,7 +139,7 @@ const ThirdCard = () => {
                             alignItems: "center",
 
                             justifyContent: "center",
-                            paddingTop: 150,
+                            paddingTop: 130,
                           }}
                         >
                           <HeaderMetrics />
