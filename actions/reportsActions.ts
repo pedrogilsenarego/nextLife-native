@@ -16,7 +16,8 @@ export const getReports = async (): Promise<ReportsQuery> => {
       const { data: businesses, error: businessesError } = await supabase
         .from("reports")
         .select("*")
-        .eq("user_id", user.id);
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: true });
 
       if (businessesError) {
         console.error("error", businessesError);

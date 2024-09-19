@@ -65,9 +65,10 @@ const ThirdCard = () => {
                 }}
               >
                 Start by adding a new{" "}
-                <Text style={{ fontWeight: 800 }}>Business</Text>, this will be
-                used to distinguish between different areas of where your{" "}
-                <Text style={{ fontWeight: 800 }}>Finances</Text> on your life.
+                <Text style={{ color: Colors.black }}>Business</Text>, this will
+                be used to distinguish between different areas of where your{" "}
+                <Text style={{ color: Colors.black }}>Finances</Text> on your
+                life.
               </Text>
               <Text
                 style={{
@@ -206,9 +207,10 @@ const ThirdCard = () => {
                       >
                         The Application has been developed to improve the
                         overall finances{" "}
-                        <Text style={{ fontWeight: 800 }}>knowledge</Text> and{" "}
-                        <Text style={{ fontWeight: 800 }}>awereness</Text> of
-                        people.
+                        <Text style={{ color: Colors.black }}>knowledge</Text>{" "}
+                        and{" "}
+                        <Text style={{ color: Colors.black }}>awereness</Text>{" "}
+                        of people.
                       </Text>
                       <Text
                         style={{

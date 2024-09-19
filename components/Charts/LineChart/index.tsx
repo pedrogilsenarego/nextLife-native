@@ -13,7 +13,7 @@ import Gradient from "./Gradient";
 import { useSharedValue, withDelay, withTiming } from "react-native-reanimated";
 import { Colors } from "@/providers/ThemeContext";
 
-type DataType = {
+export type DataType = {
   label: string;
   value: number;
 };
@@ -26,9 +26,9 @@ const LineChart = ({
   gradient = false,
   curveType = "linear",
   gridYStep = 3,
-  showAverage = false, // New prop to show the average line
+  showAverage = false,
 }: {
-  data: DataType[];
+  data: DataType[] | [] | undefined;
   color?: string;
   width?: number;
   height?: number;
@@ -37,6 +37,7 @@ const LineChart = ({
   curveType?: "linear" | "cubic";
   showAverage?: boolean; // New prop
 }) => {
+  if (!data) return;
   const CHART_MARGIN = 0;
   const CHART_WIDTH = width || Dimensions.get("screen").width - 2 * 18;
   const CHART_HEIGHT = height || 170;
@@ -69,7 +70,7 @@ const LineChart = ({
   const averageY = y(averageValue);
 
   const dashedPaint = Skia.Paint();
-  dashedPaint.setColor(Skia.Color(Colors.lightGray));
+  dashedPaint.setColor(Skia.Color(`${Colors.lightGray}66`));
   dashedPaint.setStyle(PaintStyle.Stroke);
   dashedPaint.setStrokeWidth(0.5);
   dashedPaint.setPathEffect(Skia.PathEffect.MakeDash([4, 4], 0));
