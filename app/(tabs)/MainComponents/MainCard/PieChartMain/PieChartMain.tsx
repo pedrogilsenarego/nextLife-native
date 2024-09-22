@@ -14,6 +14,7 @@ import useIncomes from "@/hooks/useIncomes";
 import LoaderSpinner from "@/components/Atoms/LoaderSpinner";
 import { SelectedCategoryProvider } from "./CategoriesContext";
 import { CategoriesList } from "./CategoriesList";
+import { ExtraStatusPieChart } from "./ExtraStatusPieChart";
 
 export type Data = {
   category: string;
@@ -232,71 +233,56 @@ const PieChartMain = ({ businessSelected }: Props) => {
           </View>
         ) : (
           <View style={{ position: "relative" }}>
-            <View style={{ flexDirection: "row", paddingHorizontal: 10 }}>
-              <View style={{ height: 233, justifyContent: "center" }}>
-                <Animated.View
-                  style={[
-                    animatedStyleIncomes,
-                    {
-                      position: "absolute",
-                      opacity: opacityInterpolate2,
-                      width: RADIUS * 2,
-                      height: RADIUS * 2,
-                    },
-                  ]}
-                >
-                  <PieChart
-                    radius={RADIUS}
-                    gap={GAP}
-                    strokeWidth={STROKE_WIDTH}
-                    outerStrokeWidth={OUTER_STROKE_WIDTH}
-                    decimals={decimalsIncomes}
-                    colors={shadesOfGreen}
-                  />
-                </Animated.View>
-                <Animated.View
-                  style={[
-                    animatedStyle,
-                    {
-                      opacity: opacityInterpolate,
-                      width: RADIUS * 2,
-                      height: RADIUS * 2,
-                    },
-                  ]}
-                >
-                  <PieChart
-                    radius={RADIUS}
-                    gap={GAP}
-                    strokeWidth={STROKE_WIDTH}
-                    outerStrokeWidth={OUTER_STROKE_WIDTH}
-                    decimals={decimalsExpenses}
-                    colors={shadesOfRed}
-                  />
-                </Animated.View>
+            <Container
+              containerStyles={{
+                flexDirection: "column",
+                paddingHorizontal: 10,
+              }}
+            >
+              <View style={{ flexDirection: "row" }}>
+                <ExtraStatusPieChart />
+                <View style={{ height: 233, justifyContent: "center" }}>
+                  <Animated.View
+                    style={[
+                      animatedStyleIncomes,
+                      {
+                        position: "absolute",
+                        opacity: opacityInterpolate2,
+                        width: RADIUS * 2,
+                        height: RADIUS * 2,
+                      },
+                    ]}
+                  >
+                    <PieChart
+                      radius={RADIUS}
+                      gap={GAP}
+                      strokeWidth={STROKE_WIDTH}
+                      outerStrokeWidth={OUTER_STROKE_WIDTH}
+                      decimals={decimalsIncomes}
+                      colors={shadesOfGreen}
+                    />
+                  </Animated.View>
+                  <Animated.View
+                    style={[
+                      animatedStyle,
+                      {
+                        opacity: opacityInterpolate,
+                        width: RADIUS * 2,
+                        height: RADIUS * 2,
+                      },
+                    ]}
+                  >
+                    <PieChart
+                      radius={RADIUS}
+                      gap={GAP}
+                      strokeWidth={STROKE_WIDTH}
+                      outerStrokeWidth={OUTER_STROKE_WIDTH}
+                      decimals={decimalsExpenses}
+                      colors={shadesOfRed}
+                    />
+                  </Animated.View>
+                </View>
               </View>
-              <View
-                style={{
-                  alignItems: "flex-end",
-                  justifyContent: "space-evenly",
-                  width: "auto",
-
-                  flex: 1,
-                  rowGap: 10,
-                }}
-              >
-                <Text
-                  style={{
-                    textAlign: "right",
-                    fontSize: 12,
-                    color: theme === "light" ? "gray" : "whitesmoke",
-                  }}
-                >
-                  Place where some metrics about the categories will exist
-                </Text>
-              </View>
-            </View>
-
-            <Container>
               <ArrayButtons
                 buttons={["expenses", "incomes"]}
                 onSelected={handleOnSelected}
