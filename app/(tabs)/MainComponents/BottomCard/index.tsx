@@ -18,13 +18,18 @@ const BottomCard = () => {
 
   return (
     <View
-      style={{ alignItems: "center", width: "100%", paddingHorizontal: 20 }}
+      style={{
+        alignItems: "center",
+
+        width: "100%",
+        paddingHorizontal: 20,
+      }}
     >
       <Text
         style={{
           fontSize: 22,
           fontWeight: "bold",
-          marginTop: 14,
+          marginTop: 10,
           color: mainColor,
         }}
       >
@@ -64,9 +69,7 @@ const BottomCard = () => {
           </Text>
         </View>
       ) : (
-        <>
-          <Form listBusiness={listBusiness} />
-        </>
+        <Form listBusiness={listBusiness} />
       )}
     </View>
   );

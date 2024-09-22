@@ -76,7 +76,7 @@ const MainLayout = ({
               animatedStyle,
 
               {
-                height: "95.8%",
+                height: "94.7%",
                 position: "relative",
               },
             ]}
@@ -89,7 +89,7 @@ const MainLayout = ({
             </View>
 
             {mainContent}
-            <View style={{ position: "absolute", bottom: 10, zIndex: 20 }}>
+            <View style={{ position: "absolute", bottom: 8, zIndex: 20 }}>
               <CardFooter
                 handleMoveCarousel={handleMoveCarousel}
                 index={index}
@@ -107,7 +107,7 @@ const MainLayout = ({
                 paddingBottom: 10,
                 width: 252,
                 right: -265,
-                height: "95.8%",
+                height: "94.7%",
                 paddingVertical: 100,
               },
             ]}
@@ -125,7 +125,7 @@ const MainLayout = ({
                 paddingBottom: 10,
                 width: deviceWidth - 50,
                 left: -deviceWidth + 50,
-                height: "95.8%",
+                height: "94.7%",
 
                 paddingVertical: 100,
               },
@@ -137,10 +137,19 @@ const MainLayout = ({
             <RnAnimated.View
               style={[
                 { transform: pan.getTranslateTransform() },
-                { zIndex: 1000, marginTop: -7 },
+                {
+                  zIndex: 1000,
+                  marginTop: 3,
+                  overflow: "visible",
+                },
               ]}
             >
-              <View {...panResponder.panHandlers} style={{ height: "100%" }}>
+              <View
+                {...panResponder.panHandlers}
+                style={{
+                  overflow: "visible",
+                }}
+              >
                 <View
                   ref={componentRef}
                   onLayout={(event) => {
@@ -151,13 +160,12 @@ const MainLayout = ({
                     backgroundColor:
                       theme === "light" ? Colors.pearlWhite : Colors.black,
                     marginHorizontal: 4,
-                    alignItems: "center",
-                    justifyContent: "center",
+
                     borderRadius: 12,
-                    shadowColor: "#000",
-                    maxHeight: "90%",
+
                     overflow: "scroll",
                     paddingBottom: 100,
+                    shadowColor: "#000",
                     shadowOffset: {
                       width: 0,
                       height: 2,

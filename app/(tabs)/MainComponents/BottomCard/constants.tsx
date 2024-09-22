@@ -1,5 +1,3 @@
-import { AntDesign } from "@expo/vector-icons";
-
 export const defaultCategories = [
   { value: "books", label: "Books", icon: "book" },
   { value: "car", label: "Car", icon: "car" },
@@ -10,8 +8,15 @@ export const defaultCategories = [
     variation: "MaterialCommunityIcons",
   },
   { value: "cloths", label: "Cloths", icon: "skin" },
+  {
+    value: "credits",
+    label: "Credits",
+    icon: "bank",
+    variation: "MaterialCommunityIcons",
+  },
   { value: "electricity", label: "Electricity", icon: "bulb1" },
   { value: "etf's", label: "Etf's", icon: "linechart" },
+  { value: "gas", label: "Gas", icon: "dashboard" },
   { value: "general", label: "General", icon: "setting" },
   { value: "gifts", label: "Gifts", icon: "gift" },
   { value: "groceries", label: "Groceries", icon: "shoppingcart" },

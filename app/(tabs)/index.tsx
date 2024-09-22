@@ -37,7 +37,6 @@ export default function TabOneScreen() {
         <Carousel
           ref={carouselRef}
           width={width}
-          style={{ paddingBottom: 10 }}
           data={[...new Array(3).keys()]}
           scrollAnimationDuration={1000}
           onScrollEnd={() => setMoving(false)}

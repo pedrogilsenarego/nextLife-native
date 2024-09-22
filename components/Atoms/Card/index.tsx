@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
   },
   card: {
     height: "100%",
+
     borderRadius: 12,
     marginHorizontal: 4,
     shadowColor: "#000",

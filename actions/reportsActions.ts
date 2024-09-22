@@ -1,8 +1,14 @@
 import { ReportsQuery } from "@/types/reportsTypes";
 import { supabase } from "@/lib/supabase";
 
-export const getReports = async (): Promise<ReportsQuery> => {
-  console.log("getingReports");
+export const getReports = async ({
+  timeRange,
+}: {
+  timeRange?: { startDate: Date; endDate: Date };
+}): Promise<ReportsQuery> => {
+  console.log(
+    `gettingReports: from: ${timeRange?.startDate.toLocaleDateString()} to: ${timeRange?.endDate.toLocaleDateString()}`
+  );
   return new Promise(async (resolve, reject) => {
     try {
       const {
@@ -13,10 +19,17 @@ export const getReports = async (): Promise<ReportsQuery> => {
         return reject(new Error("User not authenticated"));
       }
 
+      const currentDate = timeRange?.endDate || new Date();
+      const currentMonthStart =
+        timeRange?.startDate ||
+        new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+
       const { data: businesses, error: businessesError } = await supabase
         .from("reports")
         .select("*")
         .eq("user_id", user.id)
+        .gt("created_at", currentMonthStart.toISOString())
+        .lt("created_at", currentDate.toISOString())
         .order("created_at", { ascending: true });
 
       if (businessesError) {

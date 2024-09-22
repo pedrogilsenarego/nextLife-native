@@ -25,7 +25,6 @@ export const CardFooter: React.FC<Props> = ({ handleMoveCarousel, index }) => {
           justifyContent: "space-between",
           paddingHorizontal: 14,
           alignItems: "center",
-          paddingVertical: 8,
         }}
       >
         <View style={{ width: "30%" }}>

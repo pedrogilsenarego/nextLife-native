@@ -60,10 +60,29 @@ const LoginLayout = ({ mainContent, secondaryContent }: Props) => {
             <Animated.View
               style={[
                 { transform: pan.getTranslateTransform() },
-                { zIndex: 1000, marginTop: -7 },
+                {
+                  zIndex: 1000,
+                  marginTop: -20,
+                  overflow: "visible",
+                },
               ]}
             >
-              <View {...panResponder.panHandlers} style={{ height: "100%" }}>
+              <View
+                {...panResponder.panHandlers}
+                style={{
+                  height: "100%",
+                  paddingTop: 13,
+                  overflow: "visible",
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
+                  elevation: 5,
+                }}
+              >
                 <View
                   ref={componentRef}
                   onLayout={(event) => {
@@ -76,17 +95,9 @@ const LoginLayout = ({ mainContent, secondaryContent }: Props) => {
                     alignItems: "center",
                     justifyContent: "center",
                     borderRadius: 12,
-                    shadowColor: "#000",
                     maxHeight: "90%",
                     overflow: "scroll",
                     paddingBottom: 100,
-                    shadowOffset: {
-                      width: 0,
-                      height: 2,
-                    },
-                    shadowOpacity: 0.25,
-                    shadowRadius: 3.84,
-                    elevation: 5, // Android only
                   }}
                 >
                   {secondaryContent}
