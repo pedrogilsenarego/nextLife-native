@@ -136,6 +136,7 @@ const Form = ({ listBusiness }: Props) => {
             }}
           >
             <ArrayButtons
+              invertColors
               buttons={["expense", "income"]}
               onSelected={(selected) => setMode(selected)}
             />

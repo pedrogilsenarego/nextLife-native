@@ -4,7 +4,7 @@ import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 
 export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = memo(
-  ({ buttons, onSelected }) => {
+  ({ buttons, onSelected, invertColors }) => {
     const GAP_BUTTONS = 6;
     const [buttonWidth, setButtonWidth] = useState<number[]>(
       Array(buttons.length).fill(0)
@@ -15,13 +15,12 @@ export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = memo(
     const animationWidth = useRef(new Animated.Value(buttonWidth[0])).current;
 
     useEffect(() => {
-      // Update animationWidth once buttonWidth is available
       if (buttonWidth[0] !== 0) {
-        Animated.timing(animationWidth, {
+        Animated.spring(animationWidth, {
           toValue: buttonWidth[0],
-          duration: 500,
           useNativeDriver: false,
-          easing: Easing.ease,
+          speed: 1,
+          bounciness: 6,
         }).start();
       }
     }, [buttonWidth]);
@@ -31,50 +30,52 @@ export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = memo(
       newWidths[index] = event.nativeEvent.layout.width;
       setButtonWidth(newWidths);
     };
+
     const handlePress = useCallback(
       (button: any, index: number) => {
         if (onSelected) onSelected(button as typeof button);
         setSelectedStatus(button);
+
         const totalLeft = buttonWidth
           .slice(0, index)
           .reduce((acc, width) => acc + width + GAP_BUTTONS, 0);
 
-        Animated.timing(animationLeft, {
+        Animated.spring(animationLeft, {
           toValue: totalLeft,
-          duration: 200,
           useNativeDriver: false,
-          easing: Easing.ease,
+          speed: 1,
+          bounciness: 6,
         }).start();
-        Animated.timing(animationWidth, {
+
+        Animated.spring(animationWidth, {
           toValue: buttonWidth[index],
-          duration: 200,
           useNativeDriver: false,
-          easing: Easing.ease,
+          speed: 1,
+          bounciness: 6,
         }).start();
       },
       [onSelected, buttonWidth]
     );
+
     return (
       <View
         style={{
-          backgroundColor: Colors.pearlWhite,
+          backgroundColor: invertColors ? Colors.white : Colors.pearlWhite,
           position: "relative",
-          borderRadius: 7,
+          borderRadius: 5,
           flexDirection: "row",
-
-          padding: 3,
+          padding: 2,
           columnGap: GAP_BUTTONS,
         }}
       >
         <Animated.View
           style={{
-            top: 3,
-            left: 3,
-            backgroundColor: Colors.white,
+            top: 2,
+            left: 2,
+            backgroundColor: invertColors ? Colors.pearlWhite : Colors.white,
             height: 22,
             width: animationWidth,
-
-            borderRadius: 6,
+            borderRadius: 4,
             position: "absolute",
             padding: 4,
             paddingHorizontal: 8,
@@ -104,7 +105,8 @@ export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = memo(
               <Text
                 style={{
                   color: mainColor,
-                  fontSize: 12,
+                  textTransform: "capitalize",
+                  fontSize: 14,
                   lineHeight: 14,
                   opacity: selectedStatus === button ? 1 : 0.7,
                 }}

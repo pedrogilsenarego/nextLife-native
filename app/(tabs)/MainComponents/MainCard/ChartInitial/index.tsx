@@ -150,14 +150,6 @@ const ChartInitial = ({
               }
             />
           </View>
-          // <LineChartGifted
-          //   data={
-          //     selectedStatus === "expenses" ? expensesPerDay : incomesPerDay
-          //   }
-          //   data2={selectedStatus === "both" ? expensesPerDay : undefined}
-          //   color1={selectedStatus === "expenses" ? "#c80815" : colorIncomes}
-          //   color2={selectedStatus === "both" ? "#c80815" : undefined}
-          // />
         )}
       </View>
       <View style={{ marginTop: 20 }}>
