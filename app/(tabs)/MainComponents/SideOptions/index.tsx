@@ -11,6 +11,7 @@ import { AntDesign } from "@expo/vector-icons";
 
 import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
 import { Container } from "@/components/Atoms/Container";
+import { ArrayButtons } from "@/components/Molecules/ArrayButtons";
 
 type Props = {
   open: boolean;
@@ -18,7 +19,7 @@ type Props = {
 
 export const SideOptions = (props: Props) => {
   const [openSettings, setOPenSettings] = useState(false);
-  const { theme } = useTheme();
+  const { theme, changeTheme } = useTheme();
 
   const buttonData: any = [
     { name: "user", label: "User", onPress: () => {} },
@@ -85,7 +86,11 @@ export const SideOptions = (props: Props) => {
                   alignItems: "center",
                 }}
               >
-                <SwitchTheme />
+                <ArrayButtons
+                  defaultValue={theme}
+                  buttons={["light", "dark"]}
+                  onSelected={(selected) => changeTheme(selected)}
+                />
               </View>
               <IconTheme />
             </View>

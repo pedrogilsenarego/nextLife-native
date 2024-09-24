@@ -4,13 +4,15 @@ import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 
 export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = memo(
-  ({ buttons, onSelected, invertColors, textColor }) => {
+  ({ buttons, onSelected, textColor, defaultValue }) => {
     const GAP_BUTTONS = 6;
     const [buttonWidth, setButtonWidth] = useState<number[]>(
       Array(buttons.length).fill(0)
     );
-    const [selectedStatus, setSelectedStatus] = useState<string>(buttons[0]);
-    const { mainColor, contrastColor, theme } = useTheme();
+    const [selectedStatus, setSelectedStatus] = useState<string>(
+      defaultValue || buttons[0]
+    );
+    const { theme } = useTheme();
     const animationLeft = useRef(new Animated.Value(0)).current;
     const animationWidth = useRef(new Animated.Value(buttonWidth[0])).current;
 
@@ -60,7 +62,7 @@ export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = memo(
     return (
       <View
         style={{
-          backgroundColor: invertColors ? Colors.white : Colors.pearlWhite,
+          backgroundColor: theme === "dark" ? Colors.black : Colors.pearlWhite,
           position: "relative",
           borderRadius: 5,
           flexDirection: "row",
@@ -72,7 +74,7 @@ export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = memo(
           style={{
             top: 2,
             left: 2,
-            backgroundColor: invertColors ? Colors.pearlWhite : Colors.white,
+            backgroundColor: theme === "dark" ? Colors.gray : Colors.white,
             height: 30,
             width: animationWidth,
             borderRadius: 4,
@@ -109,11 +111,12 @@ export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = memo(
             >
               <Text
                 style={{
-                  color: textColor || Colors.black,
+                  color:
+                    textColor ||
+                    (theme === "dark" ? Colors.white : Colors.black),
                   textTransform: "capitalize",
                   fontSize: 14,
                   lineHeight: 14,
-                  opacity: selectedStatus === button ? 1 : 0.7,
                 }}
               >
                 {button}
