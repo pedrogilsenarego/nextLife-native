@@ -22,7 +22,7 @@ const BottomCard = () => {
         alignItems: "center",
 
         width: "100%",
-        paddingHorizontal: 20,
+        paddingHorizontal: 16,
       }}
     >
       <Text

@@ -20,9 +20,13 @@ export const PressableTextOption: React.FC<Props> = ({
     <Pressable
       style={{
         display: "flex",
+        backgroundColor: Colors.white,
         flexDirection: "row",
+        padding: 10,
+        borderRadius: 4,
         columnGap: 10,
         alignItems: "center",
+        width: "100%",
       }}
       {...props}
     >
@@ -30,7 +34,7 @@ export const PressableTextOption: React.FC<Props> = ({
       <View>
         <Text
           style={{
-            fontSize: 16,
+            fontSize: 14,
             color: validated
               ? "green"
               : theme === "dark"
@@ -44,7 +48,7 @@ export const PressableTextOption: React.FC<Props> = ({
         {helperText && (
           <Text
             style={{
-              marginTop: 2,
+              marginTop: 0,
               fontSize: 12,
               color: validated ? "green" : Colors.steelGray,
             }}

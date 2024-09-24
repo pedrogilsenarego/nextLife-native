@@ -20,7 +20,7 @@ export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = memo(
           toValue: buttonWidth[0],
           useNativeDriver: false,
           speed: 1,
-          bounciness: 6,
+          bounciness: 1,
         }).start();
       }
     }, [buttonWidth]);
@@ -44,14 +44,14 @@ export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = memo(
           toValue: totalLeft,
           useNativeDriver: false,
           speed: 1,
-          bounciness: 6,
+          bounciness: 1,
         }).start();
 
         Animated.spring(animationWidth, {
           toValue: buttonWidth[index],
           useNativeDriver: false,
           speed: 1,
-          bounciness: 6,
+          bounciness: 1,
         }).start();
       },
       [onSelected, buttonWidth]
@@ -73,13 +73,17 @@ export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = memo(
             top: 2,
             left: 2,
             backgroundColor: invertColors ? Colors.pearlWhite : Colors.white,
-            height: 22,
+            height: 30,
             width: animationWidth,
             borderRadius: 4,
             position: "absolute",
             padding: 4,
             paddingHorizontal: 8,
             justifyContent: "center",
+            shadowOffset: { width: 1, height: 1 },
+            shadowOpacity: 0.15,
+            shadowRadius: 1,
+            elevation: 2,
             transform: [
               {
                 translateX: animationLeft,
@@ -97,9 +101,10 @@ export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = memo(
               onLayout={(e) => handleLayout(e, index)}
               style={{
                 borderRadius: 20,
-                padding: 4,
+                padding: 8,
                 paddingHorizontal: 8,
                 justifyContent: "center",
+                zIndex: 1000,
               }}
             >
               <Text
