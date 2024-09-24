@@ -39,7 +39,7 @@ const Form = ({ listBusiness }: Props) => {
   const deposits = useDeposits();
   const expenses = useExpenses();
   const incomes = useIncomes();
-  const { theme } = useTheme();
+  const { theme, mainColor } = useTheme();
   const [mode, setMode] = useState<"expense" | "income">("expense");
   const {
     openNoteModal,
@@ -136,7 +136,7 @@ const Form = ({ listBusiness }: Props) => {
             }}
           >
             <ArrayButtons
-              invertColors
+              textColor={mainColor}
               buttons={["expense", "income"]}
               onSelected={(selected) => setMode(selected)}
             />

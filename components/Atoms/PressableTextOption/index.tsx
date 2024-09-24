@@ -20,7 +20,7 @@ export const PressableTextOption: React.FC<Props> = ({
     <Pressable
       style={{
         display: "flex",
-        backgroundColor: Colors.white,
+        backgroundColor: `${Colors.white}66`,
         flexDirection: "row",
         padding: 10,
         borderRadius: 4,

@@ -4,7 +4,7 @@ import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 
 export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = memo(
-  ({ buttons, onSelected, invertColors }) => {
+  ({ buttons, onSelected, invertColors, textColor }) => {
     const GAP_BUTTONS = 6;
     const [buttonWidth, setButtonWidth] = useState<number[]>(
       Array(buttons.length).fill(0)
@@ -109,7 +109,7 @@ export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = memo(
             >
               <Text
                 style={{
-                  color: mainColor,
+                  color: textColor || Colors.black,
                   textTransform: "capitalize",
                   fontSize: 14,
                   lineHeight: 14,
