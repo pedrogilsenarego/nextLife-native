@@ -1,16 +1,15 @@
 import { Container } from "@/components/Atoms/Container";
 import Skeleton from "@/components/Atoms/Skeleton";
 import LineChart from "@/components/Charts/LineChart";
-import useDeposits from "@/hooks/useDeposits";
 import { usePortefolio } from "@/hooks/usePortefolio";
-
 import { Colors, useTheme } from "@/providers/ThemeContext";
-import { View, Text, Dimensions } from "react-native";
+import { View, Dimensions, Text } from "react-native";
 
 export const HeaderMetrics = () => {
   const { mainColor } = useTheme();
   const { portefolioInTime, totalCurrentPatrimony, isLoadingPortefolio } =
     usePortefolio();
+
   const portefolioTime = portefolioInTime();
 
   const deltaPortefolio =
@@ -36,65 +35,77 @@ export const HeaderMetrics = () => {
           alignItems: "center",
         }}
       >
-        {isLoadingPortefolio ? (
+        <View
+          style={{
+            width: "100%",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
           <View>
-            <Skeleton />
+            {isLoadingPortefolio ? (
+              <Skeleton height={16} style={{ marginTop: 1.6 }} width={60} />
+            ) : (
+              <Text
+                style={{
+                  fontSize: 16,
+
+                  fontWeight: "400",
+                  color: "gray",
+                }}
+              >
+                Portefolio
+              </Text>
+            )}
+            {isLoadingPortefolio ? (
+              <Skeleton height={35} style={{ marginTop: 3.5 }} />
+            ) : (
+              <Text
+                style={{
+                  fontSize: 35,
+                  letterSpacing: 0,
+
+                  marginTop: -4,
+                  marginBottom: -5,
+                  marginLeft: -2,
+                  fontWeight: "600",
+                  color: Colors.black,
+                }}
+              >
+                {totalCurrentPatrimony}
+                <Text style={{ fontSize: 20, color: Colors.black }}>€</Text>
+              </Text>
+            )}
           </View>
-        ) : (
-          <>
-            <View
-              style={{
-                width: "100%",
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-            >
-              <View>
-                <Text
-                  style={{
-                    fontSize: 16,
-
-                    fontWeight: "400",
-                    color: "gray",
-                  }}
-                >
-                  Portefolio
-                </Text>
-
-                <Text
-                  style={{
-                    fontSize: 35,
-                    letterSpacing: 0,
-
-                    marginTop: -4,
-                    marginBottom: -5,
-                    marginLeft: -2,
-                    fontWeight: "600",
-                    color: Colors.black,
-                  }}
-                >
-                  {totalCurrentPatrimony}
-                  <Text style={{ fontSize: 20, color: Colors.black }}>€</Text>
-                </Text>
-              </View>
-              <View style={{ justifyContent: "space-between" }}>
+          <View style={{ justifyContent: "space-between" }}>
+            <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+              {!isLoadingPortefolio ? (
                 <View
-                  style={{ flexDirection: "row", justifyContent: "flex-end" }}
+                  style={{
+                    marginTop: 10,
+                    borderRadius: 20,
+                    paddingVertical: 2,
+                    paddingHorizontal: 10,
+                    backgroundColor: Colors.lightGray,
+                  }}
                 >
-                  <View
-                    style={{
-                      marginTop: 10,
-                      borderRadius: 20,
-                      paddingVertical: 2,
-                      paddingHorizontal: 10,
-                      backgroundColor: Colors.lightGray,
-                    }}
-                  >
-                    <Text style={{ color: Colors.gray, fontSize: 12 }}>
-                      Metrics
-                    </Text>
-                  </View>
+                  <Text style={{ color: Colors.gray, fontSize: 12 }}>
+                    Metrics
+                  </Text>
                 </View>
+              ) : (
+                <Skeleton
+                  height={16}
+                  style={{ marginTop: 10 }}
+                  borderRadius={20}
+                  width={50}
+                />
+              )}
+            </View>
+            {isLoadingPortefolio ? (
+              <Skeleton height={14} style={{ marginTop: 1.4 }} />
+            ) : (
+              <>
                 {portefolioTime.length > 1 && (
                   <Text
                     style={{ color: "gray", textAlign: "right", fontSize: 14 }}
@@ -102,8 +113,24 @@ export const HeaderMetrics = () => {
                     {deltaPortefolioPercentage.toFixed(1)}% last month
                   </Text>
                 )}
-              </View>
-            </View>
+              </>
+            )}
+          </View>
+        </View>
+        {isLoadingPortefolio ? (
+          <View>
+            <Skeleton
+              height={150}
+              style={{ marginTop: 25 }}
+              width={Dimensions.get("screen").width - 76}
+            />
+            <Skeleton
+              width={Dimensions.get("screen").width - 76}
+              style={{ marginTop: 20 }}
+            />
+          </View>
+        ) : (
+          <>
             {portefolioTime.length > 1 && (
               <>
                 <View style={{ marginTop: 25 }}>
