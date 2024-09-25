@@ -1,7 +1,7 @@
 import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
 import Button from "@/components/button/ButtonComponent";
 import ControlledInput from "@/components/inputs/TextField";
-import { useTheme } from "@/providers/ThemeContext";
+import { Colors, useTheme } from "@/providers/ThemeContext";
 import { View, Text, Pressable, Keyboard } from "react-native";
 
 type Props = {
@@ -14,6 +14,7 @@ export const NoteDrawer: React.FC<Props> = ({ openModal, setOpenModal }) => {
   return (
     <BottomPopup
       fullHeight
+      title="Node"
       openModal={openModal}
       onClose={() => setOpenModal(false)}
     >
@@ -28,16 +29,28 @@ export const NoteDrawer: React.FC<Props> = ({ openModal, setOpenModal }) => {
             rowGap: 50,
           }}
         >
-          <Text
-            style={{
-              color: theme === "dark" ? "white" : "black",
-              fontSize: 20,
-
-              fontWeight: "bold",
-            }}
-          >
-            Add a note to this entry
-          </Text>
+          <View>
+            <Text
+              style={{
+                color: theme === "dark" ? "white" : "black",
+                fontSize: 20,
+                textAlign: "center",
+                fontWeight: 500,
+              }}
+            >
+              Write a Note for this entry
+            </Text>
+            <Text
+              style={{
+                color: Colors.steelGray,
+                fontSize: 12,
+                textAlign: "center",
+                fontWeight: 500,
+              }}
+            >
+              Write up to 20 words
+            </Text>
+          </View>
           <ControlledInput name="note" multiline />
           <View style={{ width: "100%" }}>
             <Button label="Add" onPress={() => setOpenModal(false)} />

@@ -10,6 +10,7 @@ type DataType = {
 export const usePortefolio = () => {
   const reports = useReports();
   const deposits = useDeposits();
+  const isLoadingPortefolio = reports.isLoading || deposits.isLoading;
 
   const totalDepositsAmount = deposits?.data?.reduce((acc, deposit) => {
     return acc + (deposit.amount || 0);
@@ -36,5 +37,6 @@ export const usePortefolio = () => {
   return {
     portefolioInTime,
     totalCurrentPatrimony,
+    isLoadingPortefolio,
   };
 };

@@ -15,6 +15,7 @@ export const DateDrawer: React.FC<Props> = ({ openModal, setOpenModal }) => {
   return (
     <BottomPopup
       fullHeight
+      title="Date"
       openModal={openModal}
       onClose={() => setOpenModal(false)}
     >
@@ -35,7 +36,7 @@ export const DateDrawer: React.FC<Props> = ({ openModal, setOpenModal }) => {
                 color: theme === "dark" ? "white" : "black",
                 fontSize: 20,
                 textAlign: "center",
-                fontWeight: "bold",
+                fontWeight: 500,
               }}
             >
               Change the Date for this entry
@@ -45,7 +46,7 @@ export const DateDrawer: React.FC<Props> = ({ openModal, setOpenModal }) => {
                 color: Colors.steelGray,
                 fontSize: 12,
                 textAlign: "center",
-                fontWeight: "bold",
+                fontWeight: 500,
               }}
             >
               Dates can be chosen to the future or past

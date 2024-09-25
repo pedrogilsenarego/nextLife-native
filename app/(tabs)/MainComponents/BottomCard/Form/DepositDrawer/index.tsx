@@ -2,7 +2,7 @@ import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
 import Button from "@/components/button/ButtonComponent";
 import Select from "@/components/inputs/Select";
 
-import { useTheme } from "@/providers/ThemeContext";
+import { Colors, useTheme } from "@/providers/ThemeContext";
 import { View, Text, Pressable, Keyboard } from "react-native";
 
 type Props = {
@@ -24,6 +24,7 @@ export const DepositDrawer: React.FC<Props> = ({
     <BottomPopup
       fullHeight
       openModal={openModal}
+      title="Deposits"
       onClose={() => setOpenModal(false)}
     >
       <BottomPopupContent>
@@ -37,16 +38,28 @@ export const DepositDrawer: React.FC<Props> = ({
             rowGap: 50,
           }}
         >
-          <Text
-            style={{
-              color: theme === "dark" ? "white" : "black",
-              fontSize: 20,
-
-              fontWeight: "bold",
-            }}
-          >
-            Choose the Deposit associated with this transaction
-          </Text>
+          <View>
+            <Text
+              style={{
+                color: theme === "dark" ? "white" : "black",
+                fontSize: 20,
+                textAlign: "center",
+                fontWeight: 500,
+              }}
+            >
+              Choose the Deposit for this entry
+            </Text>
+            <Text
+              style={{
+                color: Colors.steelGray,
+                fontSize: 12,
+                textAlign: "center",
+                fontWeight: 500,
+              }}
+            >
+              This helps to track your patrimony variation
+            </Text>
+          </View>
           <View style={{ width: "100%" }}>
             <Select
               height={160}
