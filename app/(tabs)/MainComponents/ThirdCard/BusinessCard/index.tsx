@@ -1,7 +1,7 @@
 import { Container } from "@/components/Atoms/Container";
 import { IconCard } from "@/components/Atoms/IconCard";
 import { defaultBusiness } from "@/constants/defaultBusinesses";
-import { useTheme } from "@/providers/ThemeContext";
+import { Colors, useTheme } from "@/providers/ThemeContext";
 import { Business } from "@/types/businessTypes";
 import { getStatusColor } from "@/utils/business";
 import { View, Text, Pressable } from "react-native";
@@ -76,10 +76,11 @@ export const BusinessCard: React.FC<Props> = ({ businessData }) => {
             style={{
               fontWeight: "bold",
               fontSize: 24,
-              color: theme === "light" ? "black" : "white",
+              color: theme === "light" ? Colors.black : "white",
             }}
           >
-            {businessData.balance.toFixed(0)} €
+            {businessData.balance.toFixed(0)}
+            <Text style={{ fontSize: 20, color: Colors.black }}>€</Text>
           </Text>
         </View>
       </Container>
