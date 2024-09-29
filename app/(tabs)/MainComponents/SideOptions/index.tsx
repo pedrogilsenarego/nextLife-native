@@ -1,28 +1,29 @@
-import ColorPicker from "@/app/login/MainCard/ColorPicker";
 import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
-import IconTheme from "@/components/Molecules/IconTheme";
-import SwitchTheme from "@/components/Molecules/SwitchTheme";
 import { supabase } from "@/lib/supabase";
-import { Colors, useTheme } from "@/providers/ThemeContext";
 import { useState } from "react";
 import { Pressable, View, Text, StyleSheet, FlatList } from "react-native";
 import { BlurView } from "expo-blur";
 import { AntDesign } from "@expo/vector-icons";
-
 import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
-import { Container } from "@/components/Atoms/Container";
-import { ArrayButtons } from "@/components/Molecules/ArrayButtons";
+import { SettingsContent } from "./SettingsContent";
+import { ProfileContent } from "./ProfileContent";
 
 type Props = {
   open: boolean;
 };
 
 export const SideOptions = (props: Props) => {
+  const [openProfile, setOpenProfile] = useState(false);
   const [openSettings, setOPenSettings] = useState(false);
-  const { theme, changeTheme } = useTheme();
 
   const buttonData: any = [
-    { name: "user", label: "User", onPress: () => {} },
+    {
+      name: "user",
+      label: "User",
+      onPress: () => {
+        setOpenProfile(true);
+      },
+    },
     {
       name: "setting",
       label: "Settings",
@@ -50,79 +51,26 @@ export const SideOptions = (props: Props) => {
   );
 
   return (
-    <View style={styles.container}>
-      {props.open && (
-        <FlatList
-          data={buttonData}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.name}
-          contentContainerStyle={styles.listContent}
-        />
-      )}
-      <BottomPopup
-        openModal={openSettings}
-        title="Settings"
-        onClose={() => setOPenSettings(false)}
-      >
-        <BottomPopupContent>
-          <Container containerStyles={{ flexDirection: "column", rowGap: 10 }}>
-            <View
-              style={{
-                backgroundColor: `${Colors.pearlWhite}66`,
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                borderRadius: 4,
-                alignItems: "center",
-                paddingHorizontal: 10,
-                paddingVertical: 10,
-
-                width: "100%",
-              }}
-            >
-              <View
-                style={{
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <ArrayButtons
-                  defaultValue={theme}
-                  buttons={["light", "dark"]}
-                  onSelected={(selected) => changeTheme(selected)}
-                />
-              </View>
-              <IconTheme />
-            </View>
-
-            <View
-              style={{
-                backgroundColor: `${Colors.pearlWhite}66`,
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                borderRadius: 4,
-                alignItems: "center",
-                paddingHorizontal: 10,
-                paddingVertical: 10,
-
-                width: "100%",
-              }}
-            >
-              <Text
-                style={{
-                  fontWeight: 600,
-                  color: theme === "light" ? Colors.black : "white",
-                }}
-              >
-                Choose Main Color
-              </Text>
-              <ColorPicker />
-            </View>
-          </Container>
-        </BottomPopupContent>
-      </BottomPopup>
-    </View>
+    <>
+      <View style={styles.container}>
+        {props.open && (
+          <FlatList
+            data={buttonData}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.name}
+            contentContainerStyle={styles.listContent}
+          />
+        )}
+      </View>
+      <SettingsContent
+        openSettings={openSettings}
+        setOpenSettings={setOPenSettings}
+      />
+      <ProfileContent
+        openProfile={openProfile}
+        setOpenProfile={setOpenProfile}
+      />
+    </>
   );
 };
 

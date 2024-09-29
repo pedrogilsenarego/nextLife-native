@@ -79,7 +79,7 @@ export const AddDeposit: React.FC = () => {
           <Container
             containerStyles={{
               height: 100,
-              width: 170,
+              width: 200,
               borderColor: `${mainColor}`,
               borderWidth: 3,
               borderRadius: 8,

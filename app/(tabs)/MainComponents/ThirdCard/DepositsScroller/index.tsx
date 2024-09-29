@@ -7,6 +7,7 @@ import { BlurView } from "expo-blur";
 import { useSelectedDeposit } from "../DepositsContext";
 import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
 import DepositContent from "../DepositContent";
+import { defaultDeposits } from "@/constants/defaultDeposits";
 
 export const DepositsScroller: React.FC = () => {
   const { selectedDeposit, setSelectedDeposit } = useSelectedDeposit();
@@ -20,7 +21,7 @@ export const DepositsScroller: React.FC = () => {
         style={{ paddingTop: 6, paddingBottom: 30 }}
         onPress={() => setSelectedDeposit(deposit.id)}
       >
-        <BlurView intensity={5} style={{ height: 100, width: 170 }}>
+        <BlurView intensity={5} style={{ height: 100, width: 200 }}>
           <View
             style={{
               height: "100%",
@@ -34,10 +35,12 @@ export const DepositsScroller: React.FC = () => {
           >
             <Text
               style={{
-                textAlign: "center",
+                textAlign: "left",
                 color: Colors.black,
                 fontSize: 15,
               }}
+              numberOfLines={1}
+              ellipsizeMode="tail"
             >
               {deposit.depositName}
             </Text>
@@ -58,7 +61,11 @@ export const DepositsScroller: React.FC = () => {
                 fontSize: 13,
               }}
             >
-              +21.5% last Month
+              {
+                defaultDeposits.find(
+                  (depositI) => depositI.value === deposit.depositType
+                )?.label
+              }
             </Text>
           </View>
         </BlurView>

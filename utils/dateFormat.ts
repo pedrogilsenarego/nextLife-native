@@ -19,12 +19,14 @@ export const getMonthAbbreviation = (monthNumber: number) => {
   return monthAbbreviations[monthNumber - 1];
 };
 
-export const formattedDate = (date: Date) =>
-  new Date(date).toLocaleDateString("en-US", {
+export const formattedDate = (date: Date | undefined) => {
+  if (!date) return;
+  return new Date(date).toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
     day: "numeric",
   });
+};
 
 export const dateRangeList = {
   ONE_YEAR: "1year",
