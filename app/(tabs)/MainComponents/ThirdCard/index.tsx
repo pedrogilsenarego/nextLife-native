@@ -140,10 +140,15 @@ const ThirdCard = () => {
                           </SelectedDepositProvider>
                         </View>
 
-                        <View>
+                        <View style={{ zIndex: 1000 }}>
                           <DividerCTA label={"Business"} />
                         </View>
-                        <View style={{ backgroundColor: Colors.pearlWhite }}>
+                        <View
+                          style={{
+                            backgroundColor: Colors.pearlWhite,
+                            paddingBottom: 40,
+                          }}
+                        >
                           <View
                             style={{ marginTop: 60, paddingHorizontal: 14 }}
                           >
@@ -173,7 +178,7 @@ const ThirdCard = () => {
                           </View>
                         </View>
                       </View>
-                      <View style={{ marginTop: 40 }}>
+                      <View>
                         <DividerCTA label={"Zyr-o"} />
                       </View>
                       <View
