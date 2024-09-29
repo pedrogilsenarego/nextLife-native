@@ -30,12 +30,12 @@ export const DividerCTA = ({ label }: Props) => {
             backgroundColor: Colors.white,
             shadowColor: "#000",
             shadowOffset: {
-              width: 0,
+              width: 0.5,
               height: 1,
             },
 
             shadowOpacity: 0.35,
-            shadowRadius: 1,
+            shadowRadius: 0.5,
             elevation: 2,
           }}
         >

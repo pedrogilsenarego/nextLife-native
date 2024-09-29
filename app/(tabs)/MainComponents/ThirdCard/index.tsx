@@ -92,37 +92,23 @@ const ThirdCard = () => {
               <ImageBackground
                 imageStyle={{
                   opacity: theme === "light" ? 0.9 : 0,
-
                   borderWidth: 3,
                   borderColor: "white",
                 }}
                 source={require("../../../../assets/images/pattern.png")}
               >
-                <ScrollView
-                  showsVerticalScrollIndicator={false}
-                  scrollEventThrottle={16}
-                  style={{
-                    borderRadius: 12,
+                <View style={{ height: "100%" }}>
+                  <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    scrollEventThrottle={16}
+                    style={{
+                      borderRadius: 12,
 
-                    position: "relative",
-                    height: "100%",
-                  }}
-                >
-                  {businesses.isLoading ? (
-                    <View
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        height: 233,
-                        width: "100%",
-                      }}
-                    >
-                      <LoaderSpinner
-                        color={theme === "light" ? Colors.black : Colors.white}
-                      />
-                    </View>
-                  ) : (
+                      marginTop: 10,
+                      position: "relative",
+                      height: "100%",
+                    }}
+                  >
                     <Pressable>
                       <View
                         style={{
@@ -137,7 +123,7 @@ const ThirdCard = () => {
                             alignItems: "center",
 
                             justifyContent: "center",
-                            paddingTop: 130,
+                            paddingTop: 120,
                           }}
                         >
                           <HeaderMetrics />
@@ -157,30 +143,34 @@ const ThirdCard = () => {
                         <View>
                           <DividerCTA label={"Business"} />
                         </View>
-                        <View style={{ marginTop: 60, paddingHorizontal: 14 }}>
-                          <HorizontalBarChartBusiness
-                            businessData={businessData}
-                          />
-                        </View>
-                        <View
-                          style={{
-                            rowGap: 8,
-                            marginTop: 40,
-                            marginBottom: 40,
-                            paddingHorizontal: 14,
-                          }}
-                        >
-                          {businessData?.map((businessData) => {
-                            return businessFilter.includes(
-                              businessData.business.id
-                            ) ? null : (
-                              <BusinessCard businessData={businessData} />
-                            );
-                          })}
+                        <View style={{ backgroundColor: Colors.pearlWhite }}>
+                          <View
+                            style={{ marginTop: 60, paddingHorizontal: 14 }}
+                          >
+                            <HorizontalBarChartBusiness
+                              businessData={businessData}
+                            />
+                          </View>
+                          <View
+                            style={{
+                              rowGap: 8,
+                              marginTop: 40,
+                              marginBottom: 40,
+                              paddingHorizontal: 14,
+                            }}
+                          >
+                            {businessData?.map((businessData) => {
+                              return businessFilter.includes(
+                                businessData.business.id
+                              ) ? null : (
+                                <BusinessCard businessData={businessData} />
+                              );
+                            })}
 
-                          {(businesses.data?.length || 0) < 5 && (
-                            <AddBusiness />
-                          )}
+                            {(businesses.data?.length || 0) < 5 && (
+                              <AddBusiness />
+                            )}
+                          </View>
                         </View>
                       </View>
                       <View style={{ marginTop: 40 }}>
@@ -227,8 +217,8 @@ const ThirdCard = () => {
                         </Text>
                       </View>
                     </Pressable>
-                  )}
-                </ScrollView>
+                  </ScrollView>
+                </View>
               </ImageBackground>
               <ModalBusinessContent businessData={businessData} />
             </>
