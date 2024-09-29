@@ -7,7 +7,6 @@ type Props = {
 };
 
 export const DividerCTA = ({ label }: Props) => {
-  const { mainColor } = useTheme();
   return (
     <View style={{ position: "relative" }}>
       <View
@@ -28,14 +27,14 @@ export const DividerCTA = ({ label }: Props) => {
             paddingVertical: 4,
             paddingHorizontal: 16,
             borderColor: Colors.lightGray,
-            backgroundColor: Colors.pearlWhite,
+            backgroundColor: Colors.white,
             shadowColor: "#000",
             shadowOffset: {
               width: 0,
               height: 1,
             },
 
-            shadowOpacity: 0.25,
+            shadowOpacity: 0.35,
             shadowRadius: 1,
             elevation: 2,
           }}

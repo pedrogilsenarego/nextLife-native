@@ -19,22 +19,22 @@ export const Card: React.FC<Props> = ({ children, footer, paperStyles }) => {
           {
             backgroundColor:
               theme === "light" ? Colors.pearlWhite : Colors.black,
-            paddingBottom: footer ? 0 : 12,
+
+            overflow: "hidden",
           },
           paperStyles,
         ]}
       >
-        {children}
-        {footer && (
-          <View
-            style={[
-              styles.footer,
-              {
-                borderTopColor: theme === "dark" ? "transparent" : Colors.gray,
-              },
-            ]}
-          ></View>
-        )}
+        <View
+          style={{
+            marginBottom: 45,
+            borderBottomColor: theme === "dark" ? "transparent" : Colors.gray,
+            borderBottomWidth: 0.5,
+          }}
+        >
+          {children}
+        </View>
+        {footer && <View style={[styles.footer, {}]}></View>}
       </View>
     </View>
   );
@@ -60,7 +60,6 @@ const styles = StyleSheet.create({
     paddingTop: 90,
   },
   footer: {
-    borderTopWidth: 0.5,
     height: 45,
   },
 });

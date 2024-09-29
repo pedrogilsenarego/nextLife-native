@@ -41,7 +41,7 @@ const ThirdCard = () => {
     }) || [];
 
   return (
-    <Card footer paperStyles={{ paddingTop: 6 }}>
+    <Card footer paperStyles={{ paddingTop: 0 }}>
       {businesses.isLoading ? (
         <LoaderSpinner />
       ) : (
@@ -89,47 +89,45 @@ const ThirdCard = () => {
             </View>
           ) : (
             <>
-              <ScrollView
-                showsVerticalScrollIndicator={false}
-                scrollEventThrottle={16}
-                style={{
-                  borderRadius: 12,
+              <ImageBackground
+                imageStyle={{
+                  opacity: theme === "light" ? 0.9 : 0,
 
-                  position: "relative",
-                  height: "100%",
+                  borderWidth: 3,
+                  borderColor: "white",
                 }}
+                source={require("../../../../assets/images/pattern.png")}
               >
-                {businesses.isLoading ? (
-                  <View
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      height: 233,
-                      width: "100%",
-                    }}
-                  >
-                    <LoaderSpinner
-                      color={theme === "light" ? Colors.black : Colors.white}
-                    />
-                  </View>
-                ) : (
-                  <Pressable>
+                <ScrollView
+                  showsVerticalScrollIndicator={false}
+                  scrollEventThrottle={16}
+                  style={{
+                    borderRadius: 12,
+
+                    position: "relative",
+                    height: "100%",
+                  }}
+                >
+                  {businesses.isLoading ? (
                     <View
                       style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        height: 233,
                         width: "100%",
                       }}
                     >
-                      <ImageBackground
-                        imageStyle={{
-                          opacity: theme === "light" ? 0.9 : 0,
-
-                          borderWidth: 3,
-                          borderColor: "white",
-                          height: "100%",
+                      <LoaderSpinner
+                        color={theme === "light" ? Colors.black : Colors.white}
+                      />
+                    </View>
+                  ) : (
+                    <Pressable>
+                      <View
+                        style={{
+                          width: "100%",
                         }}
-                        source={require("../../../../assets/images/pattern.png")}
-                        style={{}}
                       >
                         <View
                           style={{
@@ -155,81 +153,83 @@ const ThirdCard = () => {
                             <DepositsScroller />
                           </SelectedDepositProvider>
                         </View>
-                      </ImageBackground>
-                      <View>
-                        <DividerCTA label={"Business"} />
+
+                        <View>
+                          <DividerCTA label={"Business"} />
+                        </View>
+                        <View style={{ marginTop: 60, paddingHorizontal: 14 }}>
+                          <HorizontalBarChartBusiness
+                            businessData={businessData}
+                          />
+                        </View>
+                        <View
+                          style={{
+                            rowGap: 8,
+                            marginTop: 40,
+                            marginBottom: 40,
+                            paddingHorizontal: 14,
+                          }}
+                        >
+                          {businessData?.map((businessData) => {
+                            return businessFilter.includes(
+                              businessData.business.id
+                            ) ? null : (
+                              <BusinessCard businessData={businessData} />
+                            );
+                          })}
+
+                          {(businesses.data?.length || 0) < 5 && (
+                            <AddBusiness />
+                          )}
+                        </View>
                       </View>
-                      <View style={{ marginTop: 60, paddingHorizontal: 14 }}>
-                        <HorizontalBarChartBusiness
-                          businessData={businessData}
-                        />
+                      <View style={{ marginTop: 40 }}>
+                        <DividerCTA label={"Zyr-o"} />
                       </View>
                       <View
                         style={{
-                          rowGap: 8,
                           marginTop: 40,
                           marginBottom: 40,
-                          paddingHorizontal: 14,
+                          paddingHorizontal: 20,
+                          flex: 1,
+                          justifyContent: "center",
                         }}
                       >
-                        {businessData?.map((businessData) => {
-                          return businessFilter.includes(
-                            businessData.business.id
-                          ) ? null : (
-                            <BusinessCard businessData={businessData} />
-                          );
-                        })}
+                        <Text
+                          style={{
+                            textAlign: "center",
+                            color: "gray",
+                            marginTop: 20,
 
-                        {(businesses.data?.length || 0) < 5 && <AddBusiness />}
+                            paddingTop: 10,
+                            lineHeight: 20,
+                          }}
+                        >
+                          The Application has been developed to improve the
+                          overall finances{" "}
+                          <Text style={{ color: Colors.black }}>knowledge</Text>{" "}
+                          and{" "}
+                          <Text style={{ color: Colors.black }}>awereness</Text>{" "}
+                          of people.
+                        </Text>
+                        <Text
+                          style={{
+                            textAlign: "center",
+                            color: "gray",
+                            paddingTop: 10,
+                            paddingBottom: 20,
+
+                            lineHeight: 20,
+                          }}
+                        >
+                          If you need contact pls send an email to
+                          pedrogilsenarego@gmail.com
+                        </Text>
                       </View>
-                    </View>
-                    <View style={{ marginTop: 40 }}>
-                      <DividerCTA label={"Zyr-o"} />
-                    </View>
-                    <View
-                      style={{
-                        marginTop: 40,
-                        marginBottom: 40,
-                        paddingHorizontal: 20,
-                        flex: 1,
-                        justifyContent: "center",
-                      }}
-                    >
-                      <Text
-                        style={{
-                          textAlign: "center",
-                          color: "gray",
-                          marginTop: 20,
-
-                          paddingTop: 10,
-                          lineHeight: 20,
-                        }}
-                      >
-                        The Application has been developed to improve the
-                        overall finances{" "}
-                        <Text style={{ color: Colors.black }}>knowledge</Text>{" "}
-                        and{" "}
-                        <Text style={{ color: Colors.black }}>awereness</Text>{" "}
-                        of people.
-                      </Text>
-                      <Text
-                        style={{
-                          textAlign: "center",
-                          color: "gray",
-                          paddingTop: 10,
-                          paddingBottom: 20,
-
-                          lineHeight: 20,
-                        }}
-                      >
-                        If you need contact pls send an email to
-                        pedrogilsenarego@gmail.com
-                      </Text>
-                    </View>
-                  </Pressable>
-                )}
-              </ScrollView>
-
+                    </Pressable>
+                  )}
+                </ScrollView>
+              </ImageBackground>
               <ModalBusinessContent businessData={businessData} />
             </>
           )}
