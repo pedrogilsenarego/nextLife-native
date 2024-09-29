@@ -42,192 +42,180 @@ const ThirdCard = () => {
 
   return (
     <Card footer paperStyles={{ paddingTop: 0 }}>
-      {businesses.isLoading ? (
-        <LoaderSpinner />
+      {(businesses.data?.length || 0) < 1 && !businesses.isLoading ? (
+        <View
+          style={{
+            paddingHorizontal: 20,
+            flex: 1,
+            justifyContent: "center",
+          }}
+        >
+          <Text
+            style={{
+              textAlign: "center",
+              color: "gray",
+              marginTop: 20,
+
+              paddingTop: 10,
+              lineHeight: 20,
+            }}
+          >
+            Start by adding a new{" "}
+            <Text style={{ color: Colors.black }}>Business</Text>, this will be
+            used to distinguish between different areas of where your{" "}
+            <Text style={{ color: Colors.black }}>Finances</Text> on your life.
+          </Text>
+          <Text
+            style={{
+              textAlign: "center",
+              color: "gray",
+              paddingTop: 10,
+              paddingBottom: 20,
+
+              lineHeight: 20,
+            }}
+          >
+            {" "}
+            For example you can yave your job, your freelance and a propriety to
+            be your portfolio of businesses.
+          </Text>
+
+          <AddBusiness />
+        </View>
       ) : (
         <>
-          {(businesses.data?.length || 0) < 1 ? (
-            <View
-              style={{
-                paddingHorizontal: 20,
-                flex: 1,
-                justifyContent: "center",
-              }}
-            >
-              <Text
+          <ImageBackground
+            imageStyle={{
+              opacity: theme === "light" ? 0.9 : 0,
+              borderWidth: 3,
+              borderColor: "white",
+            }}
+            source={require("../../../../assets/images/pattern.png")}
+          >
+            <View style={{ height: "100%" }}>
+              <ScrollView
+                showsVerticalScrollIndicator={false}
+                scrollEventThrottle={16}
                 style={{
-                  textAlign: "center",
-                  color: "gray",
-                  marginTop: 20,
+                  borderRadius: 12,
 
-                  paddingTop: 10,
-                  lineHeight: 20,
+                  marginTop: 10,
+                  position: "relative",
+                  height: "100%",
                 }}
               >
-                Start by adding a new{" "}
-                <Text style={{ color: Colors.black }}>Business</Text>, this will
-                be used to distinguish between different areas of where your{" "}
-                <Text style={{ color: Colors.black }}>Finances</Text> on your
-                life.
-              </Text>
-              <Text
-                style={{
-                  textAlign: "center",
-                  color: "gray",
-                  paddingTop: 10,
-                  paddingBottom: 20,
-
-                  lineHeight: 20,
-                }}
-              >
-                {" "}
-                For example you can yave your job, your freelance and a
-                propriety to be your portfolio of businesses.
-              </Text>
-
-              <AddBusiness />
-            </View>
-          ) : (
-            <>
-              <ImageBackground
-                imageStyle={{
-                  opacity: theme === "light" ? 0.9 : 0,
-                  borderWidth: 3,
-                  borderColor: "white",
-                }}
-                source={require("../../../../assets/images/pattern.png")}
-              >
-                <View style={{ height: "100%" }}>
-                  <ScrollView
-                    showsVerticalScrollIndicator={false}
-                    scrollEventThrottle={16}
+                <Pressable>
+                  <View
                     style={{
-                      borderRadius: 12,
-
-                      marginTop: 10,
-                      position: "relative",
-                      height: "100%",
+                      width: "100%",
                     }}
                   >
-                    <Pressable>
-                      <View
-                        style={{
-                          width: "100%",
-                        }}
-                      >
-                        <View
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
+                    <View
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
 
-                            alignItems: "center",
+                        alignItems: "center",
 
-                            justifyContent: "center",
-                            paddingTop: 120,
-                          }}
-                        >
-                          <HeaderMetrics />
-                        </View>
-                        <View
-                          style={{
-                            marginBottom: 60,
-                            marginTop: 30,
-                            paddingHorizontal: 14,
-                          }}
-                        >
-                          <SelectedDepositProvider>
-                            <DepositsScroller />
-                          </SelectedDepositProvider>
-                        </View>
+                        justifyContent: "center",
+                        paddingTop: 120,
+                      }}
+                    >
+                      <HeaderMetrics />
+                    </View>
+                    <View
+                      style={{
+                        marginBottom: 60,
+                        marginTop: 30,
+                        paddingHorizontal: 14,
+                      }}
+                    >
+                      <SelectedDepositProvider>
+                        <DepositsScroller />
+                      </SelectedDepositProvider>
+                    </View>
 
-                        <View style={{ zIndex: 1000 }}>
-                          <DividerCTA label={"Business"} />
-                        </View>
-                        <View
-                          style={{
-                            backgroundColor: Colors.pearlWhite,
-                            paddingBottom: 40,
-                          }}
-                        >
-                          <View
-                            style={{ marginTop: 60, paddingHorizontal: 14 }}
-                          >
-                            <HorizontalBarChartBusiness
-                              businessData={businessData}
-                            />
-                          </View>
-                          <View
-                            style={{
-                              rowGap: 8,
-                              marginTop: 40,
-                              marginBottom: 40,
-                              paddingHorizontal: 14,
-                            }}
-                          >
-                            {businessData?.map((businessData) => {
-                              return businessFilter.includes(
-                                businessData.business.id
-                              ) ? null : (
-                                <BusinessCard businessData={businessData} />
-                              );
-                            })}
-
-                            {(businesses.data?.length || 0) < 5 && (
-                              <AddBusiness />
-                            )}
-                          </View>
-                        </View>
-                      </View>
-                      <View>
-                        <DividerCTA label={"Zyr-o"} />
+                    <View style={{ zIndex: 1000 }}>
+                      <DividerCTA label={"Business"} />
+                    </View>
+                    <View
+                      style={{
+                        backgroundColor: Colors.pearlWhite,
+                        paddingBottom: 30,
+                      }}
+                    >
+                      <View style={{ marginTop: 60, paddingHorizontal: 14 }}>
+                        <HorizontalBarChartBusiness
+                          businessData={businessData}
+                        />
                       </View>
                       <View
                         style={{
+                          rowGap: 8,
                           marginTop: 40,
                           marginBottom: 40,
-                          paddingHorizontal: 20,
-                          flex: 1,
-                          justifyContent: "center",
+                          paddingHorizontal: 14,
                         }}
                       >
-                        <Text
-                          style={{
-                            textAlign: "center",
-                            color: "gray",
-                            marginTop: 20,
+                        {businessData?.map((businessData) => {
+                          return businessFilter.includes(
+                            businessData.business.id
+                          ) ? null : (
+                            <BusinessCard businessData={businessData} />
+                          );
+                        })}
 
-                            paddingTop: 10,
-                            lineHeight: 20,
-                          }}
-                        >
-                          The Application has been developed to improve the
-                          overall finances{" "}
-                          <Text style={{ color: Colors.black }}>knowledge</Text>{" "}
-                          and{" "}
-                          <Text style={{ color: Colors.black }}>awereness</Text>{" "}
-                          of people.
-                        </Text>
-                        <Text
-                          style={{
-                            textAlign: "center",
-                            color: "gray",
-                            paddingTop: 10,
-                            paddingBottom: 20,
-
-                            lineHeight: 20,
-                          }}
-                        >
-                          If you need contact pls send an email to
-                          pedrogilsenarego@gmail.com
-                        </Text>
+                        {(businesses.data?.length || 0) < 5 && <AddBusiness />}
                       </View>
-                    </Pressable>
-                  </ScrollView>
-                </View>
-              </ImageBackground>
-              <ModalBusinessContent businessData={businessData} />
-            </>
-          )}
+                    </View>
+                  </View>
+                  <View>
+                    <DividerCTA label={"Zyr-o"} />
+                  </View>
+                  <View
+                    style={{
+                      marginTop: 40,
+                      marginBottom: 40,
+                      paddingHorizontal: 20,
+                      flex: 1,
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        textAlign: "center",
+                        color: "gray",
+                        marginTop: 20,
+
+                        paddingTop: 10,
+                        lineHeight: 20,
+                      }}
+                    >
+                      The Application has been developed to improve the overall
+                      finances{" "}
+                      <Text style={{ color: Colors.black }}>knowledge</Text> and{" "}
+                      <Text style={{ color: Colors.black }}>awereness</Text> of
+                      people.
+                    </Text>
+                    <Text
+                      style={{
+                        textAlign: "center",
+                        color: "gray",
+                        paddingTop: 10,
+                        paddingBottom: 20,
+
+                        lineHeight: 20,
+                      }}
+                    >
+                      If you need contact pls send an email to
+                      pedrogilsenarego@gmail.com
+                    </Text>
+                  </View>
+                </Pressable>
+              </ScrollView>
+            </View>
+          </ImageBackground>
+          <ModalBusinessContent businessData={businessData} />
         </>
       )}
     </Card>

@@ -8,68 +8,103 @@ import { useSelectedDeposit } from "../DepositsContext";
 import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
 import DepositContent from "../DepositContent";
 import { defaultDeposits } from "@/constants/defaultDeposits";
+import Skeleton from "@/components/Atoms/Skeleton";
 
 export const DepositsScroller: React.FC = () => {
   const { selectedDeposit, setSelectedDeposit } = useSelectedDeposit();
   const deposits = useDeposits();
   const { mainColor } = useTheme();
-  const firstDeposit = !!((deposits?.data?.length || 0) < 1);
+  const firstDeposit =
+    !!((deposits?.data?.length || 0) < 1) && !deposits.isLoading;
 
-  const DepositItem = ({ deposit }: { deposit: Deposit }) => {
+  const DepositItem = ({
+    deposit,
+    loading,
+  }: {
+    deposit?: Deposit;
+    loading?: boolean;
+  }) => {
     return (
-      <Pressable
-        style={{ paddingTop: 6, paddingBottom: 30 }}
-        onPress={() => setSelectedDeposit(deposit.id)}
+      <BlurView
+        intensity={5}
+        style={{
+          height: 100,
+          width: 200,
+        }}
       >
-        <BlurView intensity={5} style={{ height: 100, width: 200 }}>
+        <Pressable
+          style={{
+            shadowOpacity: 0.1,
+            shadowOffset: { width: 1, height: 1 },
+            shadowRadius: 1,
+            elevation: 1,
+          }}
+          onPress={deposit ? () => setSelectedDeposit(deposit.id) : null}
+        >
           <View
             style={{
               height: "100%",
               display: "flex",
               backgroundColor: `${mainColor}0D`,
-              justifyContent: "center",
+              justifyContent: "space-between",
               alignItems: "flex-start",
               borderRadius: 8,
-              padding: 20,
+              padding: 15,
             }}
           >
-            <Text
-              style={{
-                textAlign: "left",
-                color: Colors.black,
-                fontSize: 15,
-              }}
-              numberOfLines={1}
-              ellipsizeMode="tail"
-            >
-              {deposit.depositName}
-            </Text>
-            <Text
-              style={{
-                marginTop: 8,
-                color: mainColor,
-                fontSize: 18,
-                fontWeight: "700",
-              }}
-            >
-              €{deposit.amount.toFixed(1)}
-            </Text>
-            <Text
-              style={{
-                textAlign: "center",
-                color: "gray",
-                fontSize: 13,
-              }}
-            >
-              {
-                defaultDeposits.find(
-                  (depositI) => depositI.value === deposit.depositType
-                )?.label
-              }
-            </Text>
+            {loading ? (
+              <Skeleton style={{ marginTop: 1.5 }} height={15 * 1.1} />
+            ) : (
+              <Text
+                style={{
+                  textAlign: "left",
+                  color: Colors.black,
+                  fontSize: 15,
+                }}
+                numberOfLines={1}
+                ellipsizeMode="tail"
+              >
+                {deposit?.depositName}
+              </Text>
+            )}
+
+            <View>
+              {loading ? (
+                <Skeleton style={{ marginTop: 1.8 }} height={18 * 1.1} />
+              ) : (
+                <Text
+                  style={{
+                    color: mainColor,
+                    fontSize: 18,
+                    fontWeight: "700",
+                  }}
+                >
+                  {deposit?.amount.toFixed(0)}
+                  <Text style={{ fontSize: 14 }}>€</Text>
+                </Text>
+              )}
+              {loading ? (
+                <Skeleton style={{ marginTop: 2.6 }} height={13} width={70} />
+              ) : (
+                <Text
+                  style={{
+                    textAlign: "center",
+                    color: "gray",
+                    marginTop: -3,
+                    fontSize: 13,
+                  }}
+                >
+                  {
+                    defaultDeposits.find(
+                      (depositI) => depositI.value === deposit?.depositType
+                    )?.label
+                  }
+                </Text>
+              )}
+            </View>
           </View>
-        </BlurView>
-      </Pressable>
+        </Pressable>
+      </BlurView>
     );
   };
 
@@ -135,10 +170,19 @@ export const DepositsScroller: React.FC = () => {
             nestedScrollEnabled
             showsHorizontalScrollIndicator={false}
           >
-            {deposits?.data.map((deposit, index) => {
-              return <DepositItem deposit={deposit} key={deposit.id} />;
-            })}
-            <AddDeposit />
+            {deposits.isLoading ? (
+              <>
+                <DepositItem loading />
+                <DepositItem loading />
+              </>
+            ) : (
+              <>
+                {deposits?.data.map((deposit, index) => {
+                  return <DepositItem deposit={deposit} key={deposit.id} />;
+                })}
+              </>
+            )}
+            {!deposits?.isLoading && <AddDeposit />}
           </ScrollView>
         )}
       </View>

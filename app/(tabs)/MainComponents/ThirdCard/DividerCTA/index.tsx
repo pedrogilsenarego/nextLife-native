@@ -12,7 +12,7 @@ export const DividerCTA = ({ label }: Props) => {
       <View
         style={{
           position: "absolute",
-          top: -18,
+          top: -17,
           width: "100%",
           display: "flex",
           justifyContent: "center",
@@ -31,7 +31,7 @@ export const DividerCTA = ({ label }: Props) => {
             shadowColor: "#000",
             shadowOffset: {
               width: 0.5,
-              height: 1,
+              height: 0.5,
             },
 
             shadowOpacity: 0.35,
