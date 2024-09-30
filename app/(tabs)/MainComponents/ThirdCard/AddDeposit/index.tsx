@@ -74,7 +74,7 @@ export const AddDeposit: React.FC = () => {
       ) : (
         <Pressable
           onPress={() => setOpenModal(true)}
-          style={{ display: "flex", flexDirection: "row", paddingVertical: 6 }}
+          style={{ display: "flex", flexDirection: "row" }}
         >
           <Container
             containerStyles={{

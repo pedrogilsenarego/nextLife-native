@@ -23,6 +23,7 @@ export type DateRangeValues =
 
 interface AppContexType {
   dateRange: DateRangeValues;
+  loadingFromPersist: boolean;
   changeDateRange: (dateRange: DateRangeValues) => void;
   selectedDate: string;
   changeSelectedDate: (selectedDate: string) => void;
@@ -44,6 +45,7 @@ const AppContext = createContext<AppContexType | undefined>(undefined);
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [dateRange, setDateRange] = useState<DateRangeValues>("currentMonth");
+  const [loadingFromPersist, setLoadingFromPersist] = useState<boolean>(true);
   const [selectedDate, setSelectedDate] = useState<string>("Total");
   const [businessFilter, setBusinessFilter] = useState<string[]>([]);
   const [categoryFilterExpenses, setCategoryFilterExpenses] = useState<
@@ -66,6 +68,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         }
       } catch (error) {
         console.error("Error loading persisted dateRange:", error);
+      } finally {
+        setLoadingFromPersist(false);
       }
     }
 
@@ -147,6 +151,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         selectedDate,
         changeSelectedDate,
         dateRange,
+        loadingFromPersist,
         changeDateRange,
         updateBusinessFilter,
         bottomCardOpen,

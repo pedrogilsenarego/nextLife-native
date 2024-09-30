@@ -11,7 +11,12 @@ type Props = {
 };
 
 const useExpenses = ({ businessSelected, selectedCategory }: Props = {}) => {
-  const { dateRange, businessFilter, categoryFilterExpenses } = useApp();
+  const {
+    dateRange,
+    businessFilter,
+    categoryFilterExpenses,
+    loadingFromPersist,
+  } = useApp();
   const datesToQuery = dateQueriesMap(dateRange);
 
   const expensesQuery = useQuery<ExpensesQuery, Error>({
@@ -23,6 +28,7 @@ const useExpenses = ({ businessSelected, selectedCategory }: Props = {}) => {
           endDate: datesToQuery.endDate,
         },
       }),
+    enabled: !loadingFromPersist,
     staleTime: Infinity,
   });
 
