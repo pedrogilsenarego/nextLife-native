@@ -164,7 +164,10 @@ const ThirdCard = () => {
                           return businessFilter.includes(
                             businessData.business.id
                           ) ? null : (
-                            <BusinessCard businessData={businessData} />
+                            <BusinessCard
+                              key={businessData.business.id}
+                              businessData={businessData}
+                            />
                           );
                         })}
 

@@ -62,87 +62,84 @@ export const CategoriesFilter = (props: Props) => {
         onClose={() => setOpen(false)}
         fullHeight
       >
-        <ScrollView>
-          <FlatList
-            data={defaultData}
-            renderItem={(category) => (
-              <Pressable
-                key={category.index}
-                onPress={() => {
-                  props.mode === "expenses"
-                    ? updateCategoryFilterExpenses(category.item.value)
-                    : updateCategoryFilterIncomes(category.item.value);
-                }}
+        <FlatList
+          data={defaultData}
+          renderItem={(category) => (
+            <Pressable
+              key={category.index}
+              onPress={() => {
+                props.mode === "expenses"
+                  ? updateCategoryFilterExpenses(category.item.value)
+                  : updateCategoryFilterIncomes(category.item.value);
+              }}
+              style={{
+                paddingVertical: 14,
+                paddingHorizontal: 10,
+                borderBottomWidth: 1,
+                borderBottomColor: Colors.lightGray,
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+                columnGap: 8,
+              }}
+            >
+              <View
                 style={{
-                  paddingVertical: 14,
-                  paddingHorizontal: 10,
-                  borderBottomWidth: 1,
-                  borderBottomColor: Colors.lightGray,
                   flexDirection: "row",
                   alignItems: "center",
-                  justifyContent: "space-between",
                   columnGap: 8,
                 }}
               >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    columnGap: 8,
-                  }}
-                >
-                  {category.item.icon && (
-                    <View
-                      style={{
-                        backgroundColor: mainColor,
-                        height: 30,
-                        width: 30,
-                        borderRadius: 30,
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      {!category.item.variation ? (
-                        <AntDesign
-                          color={Colors.white}
-                          name={category.item.icon as any}
-                          size={18}
-                        />
-                      ) : category.item.variation === "materialIcons" ? (
-                        <MaterialIcons
-                          name={category.item.icon as any}
-                          color={Colors.white}
-                          size={18}
-                        />
-                      ) : (
-                        <MaterialCommunityIcons
-                          name={category.item.icon as any}
-                          color={Colors.white}
-                          size={18}
-                        />
-                      )}
-                    </View>
-                  )}
-
-                  <Text
+                {category.item.icon && (
+                  <View
                     style={{
-                      fontSize: 18,
-                      color: Colors.gray,
-                      fontWeight: data.includes(category.item.value)
-                        ? 600
-                        : 400,
+                      backgroundColor: mainColor,
+                      height: 30,
+                      width: 30,
+                      borderRadius: 30,
+                      justifyContent: "center",
+                      alignItems: "center",
                     }}
                   >
-                    {category.item.label}
-                  </Text>
-                </View>
-                {data.includes(category.item.value) && (
-                  <AntDesign name="check" size={24} color={mainColor} />
+                    {!category.item.variation ? (
+                      <AntDesign
+                        color={Colors.white}
+                        name={category.item.icon as any}
+                        size={18}
+                      />
+                    ) : category.item.variation === "materialIcons" ? (
+                      <MaterialIcons
+                        name={category.item.icon as any}
+                        color={Colors.white}
+                        size={18}
+                      />
+                    ) : (
+                      <MaterialCommunityIcons
+                        name={category.item.icon as any}
+                        color={Colors.white}
+                        size={18}
+                      />
+                    )}
+                  </View>
                 )}
-              </Pressable>
-            )}
-          />
-        </ScrollView>
+
+                <Text
+                  style={{
+                    fontSize: 18,
+                    color: Colors.gray,
+                    fontWeight: data.includes(category.item.value) ? 600 : 400,
+                  }}
+                >
+                  {category.item.label}
+                </Text>
+              </View>
+              {data.includes(category.item.value) && (
+                <AntDesign name="check" size={24} color={mainColor} />
+              )}
+            </Pressable>
+          )}
+        />
+
         <View
           style={{
             paddingTop: 10,

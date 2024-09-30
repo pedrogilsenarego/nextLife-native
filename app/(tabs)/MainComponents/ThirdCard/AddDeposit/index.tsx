@@ -83,7 +83,7 @@ export const AddDeposit: React.FC = () => {
               borderColor: `${mainColor}`,
               borderWidth: 3,
               borderRadius: 8,
-              padding: 20,
+              padding: 15,
               justifyContent: "center",
               alignItems: "center",
               display: "flex",

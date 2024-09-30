@@ -14,6 +14,7 @@ export const DepositsScroller: React.FC = () => {
   const { selectedDeposit, setSelectedDeposit } = useSelectedDeposit();
   const deposits = useDeposits();
   const { mainColor } = useTheme();
+
   const firstDeposit =
     !!((deposits?.data?.length || 0) < 1) && !deposits.isLoading;
 

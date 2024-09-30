@@ -20,7 +20,10 @@ export const BusinessFilter = (props: Props) => {
       {businesses.data.map((business) => {
         const businessIcon = business?.iconType || 0;
         return (
-          <Pressable onPress={() => updateBusinessFilter(business.id)}>
+          <Pressable
+            key={business.id}
+            onPress={() => updateBusinessFilter(business.id)}
+          >
             <IconCard
               containerStyles={{
                 padding: 2,
