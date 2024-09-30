@@ -7,9 +7,8 @@ export const getIncomes = async ({
 }): Promise<any> => {
   return new Promise(async (resolve, reject) => {
     console.log(
-      `gettingIncomes: from: ${timeRange?.startDate.toLocaleDateString()} to: ${timeRange?.endDate.toISOString()}`
+      `gettingIncomes: from: ${timeRange?.startDate.toLocaleDateString()} to: ${timeRange?.endDate.toLocaleDateString()}`
     );
-
     try {
       const {
         data: { user },
@@ -19,10 +18,12 @@ export const getIncomes = async ({
         return reject(new Error("User not authenticated"));
       }
 
-      const currentDate = timeRange?.endDate;
+      const currentDate = timeRange?.endDate || new Date();
       const currentMonthStart =
         timeRange?.startDate ||
         new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+      const nextDay = new Date(currentDate);
+      nextDay.setDate(currentDate.getDate() + 1);
 
       const { data: expenses, error: expensesError } = await supabase
         .from("incomes")
@@ -34,8 +35,8 @@ export const getIncomes = async ({
       `
         )
         .eq("user_id", user.id)
-        .gt("created_at", currentMonthStart.toISOString())
-        .lt("created_at", currentDate.toISOString())
+        .gte("created_at", currentMonthStart.toISOString())
+        .lt("created_at", nextDay.toISOString())
         .order("created_at", { ascending: false });
 
       if (expensesError) {
