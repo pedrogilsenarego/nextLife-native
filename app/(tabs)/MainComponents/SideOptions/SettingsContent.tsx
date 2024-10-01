@@ -16,7 +16,6 @@ export const SettingsContent: React.FC<Props> = (props) => {
   const { theme, changeTheme } = useTheme();
   return (
     <BottomPopup
-      fullHeight
       openModal={props.openSettings}
       title="Settings"
       onClose={() => props.setOpenSettings(false)}

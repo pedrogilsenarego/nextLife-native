@@ -11,6 +11,7 @@ import { BlurView } from "expo-blur";
 import { AntDesign, FontAwesome5, Foundation } from "@expo/vector-icons";
 import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
 import { Colors } from "@/providers/ThemeContext";
+import { Properties } from "./Properties";
 
 const { width } = Dimensions.get("window");
 const paddingH = 0;
@@ -49,14 +50,7 @@ export const SideLeftOptions = ({ open }: Props) => {
     },
     {
       id: "3",
-      component: (
-        <Pressable>
-          <BlurView intensity={100} style={styles.blurContainer}>
-            <AntDesign color={"whitesmoke"} size={iconSize} name="home" />
-            <Text style={styles.text}>Properties</Text>
-          </BlurView>
-        </Pressable>
-      ),
+      component: <Properties />,
     },
     {
       id: "4",
@@ -122,6 +116,7 @@ export const SideLeftOptions = ({ open }: Props) => {
           keyExtractor={(item) => item.id}
           renderItem={({ item, index }) => (
             <Animated.View
+              key={index}
               style={[styles.itemContainer, { marginTop: index <= 2 ? 10 : 5 }]}
               entering={FadeInDown.delay(index * 150)}
               exiting={FadeOutDown}
