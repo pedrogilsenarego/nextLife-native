@@ -6,9 +6,12 @@ import useRealEstate from "@/hooks/useRealEstate";
 import { Container } from "@/components/Atoms/Container";
 import { ScrollView, Text, View } from "react-native";
 import { Colors } from "@/providers/ThemeContext";
+import { PropertyItem } from "./PropertyItem";
+import { PropertyContent } from "./PropertyContent";
 
 export const Properties = () => {
   const [openPopup, setOpenPopup] = useState<boolean>(false);
+
   const properties = useRealEstate();
 
   return (
@@ -24,9 +27,7 @@ export const Properties = () => {
         <BottomPopupContent
           styles={{ paddingHorizontal: 0, paddingVertical: 0 }}
         >
-          <ScrollView
-            style={{ height: "100%", borderWidth: 1, borderColor: "blue" }}
-          >
+          <ScrollView style={{ height: "100%" }}>
             <Card
               paperStyles={{
                 paddingHorizontal: 10,
@@ -68,18 +69,7 @@ export const Properties = () => {
                 </View>
               </View>
               {properties.data?.map((property) => {
-                return (
-                  <Container
-                    key={property.id}
-                    containerStyles={{ flexDirection: "column" }}
-                  >
-                    <Text>{property.address}</Text>
-                    <Text style={{ fontSize: 20, fontWeight: 600 }}>
-                      {property.marketValue}
-                      <Text style={{ fontSize: 14 }}>€</Text>
-                    </Text>
-                  </Container>
-                );
+                return <PropertyItem key={property.id} property={property} />;
               })}
             </Card>
           </ScrollView>
