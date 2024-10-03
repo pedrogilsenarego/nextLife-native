@@ -1,6 +1,7 @@
 import {
   getRealEstate,
-  getRealEstateImages,
+  getRealEstateImage,
+  getRealEstateImagesList,
 } from "@/actions/realEstateActions";
 import { queryKeys } from "@/constants/queryKeys";
 import { RealEstateQuery } from "@/types/realEstateTypes";
@@ -28,7 +29,7 @@ const useRealEstateImages = (props: RealEstateImagesProps) => {
       if (props.realEstateId === null) {
         return Promise.reject(new Error("realEstateId cannot be null"));
       }
-      return getRealEstateImages({ realEstateId: props.realEstateId });
+      return getRealEstateImagesList({ realEstateId: props.realEstateId });
     },
     enabled: props.realEstateId !== null,
   });
@@ -36,4 +37,27 @@ const useRealEstateImages = (props: RealEstateImagesProps) => {
   return realEstate;
 };
 
-export { useRealEstate, useRealEstateImages };
+type RealEstateImageProps = {
+  realEstateId: number | null;
+  imageName: string;
+};
+
+const useRealEstateImage = (props: RealEstateImageProps) => {
+  const realEstate = useQuery<string, Error>({
+    queryKey: [queryKeys.realEstateImage, props.realEstateId, props.imageName],
+    queryFn: () => {
+      if (props.realEstateId === null) {
+        return Promise.reject(new Error("realEstateId cannot be null"));
+      }
+      return getRealEstateImage({
+        realEstateId: props.realEstateId,
+        imageName: props.imageName,
+      });
+    },
+    enabled: props.realEstateId !== null,
+  });
+
+  return realEstate;
+};
+
+export { useRealEstate, useRealEstateImages, useRealEstateImage };

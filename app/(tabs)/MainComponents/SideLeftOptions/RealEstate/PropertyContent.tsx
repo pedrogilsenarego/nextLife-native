@@ -10,7 +10,7 @@ import useUser from "@/hooks/useUser";
 import { supabase } from "@/lib/supabase";
 import { decode } from "base64-arraybuffer";
 import { useRealEstate, useRealEstateImages } from "@/hooks/realEstate.hooks";
-import ImageItem from "./ImageItem";
+import { RealEstateImage } from "./RealEstateImage";
 
 type Props = {
   propertyId: number | null;
@@ -64,11 +64,10 @@ export const PropertyContent: React.FC<Props> = (props) => {
       <Text>{propertyData?.address}</Text>
       <ScrollView>
         {realEstateImages.data?.map((item, index) => (
-          <ImageItem
+          <RealEstateImage
             propertyId={props.propertyId}
             key={item.id}
             item={item}
-            userId={userData!.id}
             onRemoveImage={() => onRemoveImage(item, index)}
           />
         ))}

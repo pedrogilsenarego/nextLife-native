@@ -47,7 +47,7 @@ type RealEstatProps = {
   realEstateId: number;
 };
 
-export const getRealEstateImages = async (
+export const getRealEstateImagesList = async (
   props: RealEstatProps
 ): Promise<FileObject[]> => {
   console.log(`getingRealEstateImages_${props.realEstateId}`);
@@ -71,6 +71,42 @@ export const getRealEstateImages = async (
       }
 
       resolve(data);
+    } catch (error) {
+      console.error("error", error);
+      reject(error);
+    }
+  });
+};
+
+type RealEstateImageProps = {
+  realEstateId: number;
+  imageName: string;
+};
+
+export const getRealEstateImage = async (
+  props: RealEstateImageProps
+): Promise<string> => {
+  console.log(`getingRealEstateImage_${props.realEstateId}_${props.imageName}`);
+  return new Promise(async (resolve, reject) => {
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        return reject(new Error("User not authenticated"));
+      }
+
+      await supabase.storage
+        .from("real_estate_files")
+        .download(`${user.id}/${props.realEstateId}/${props.imageName}`)
+        .then(({ data }) => {
+          const fr = new FileReader();
+          fr.readAsDataURL(data!);
+          fr.onload = () => {
+            resolve(fr.result as string);
+          };
+        });
     } catch (error) {
       console.error("error", error);
       reject(error);
