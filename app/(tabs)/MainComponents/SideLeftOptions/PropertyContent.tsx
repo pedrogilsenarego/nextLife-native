@@ -1,4 +1,3 @@
-import useRealEstate from "@/hooks/useRealEstate";
 import { useState } from "react";
 import { View, Text, ScrollView } from "react-native";
 import { FileObject } from "@supabase/storage-js";
@@ -10,7 +9,8 @@ import * as FileSystem from "expo-file-system";
 import useUser from "@/hooks/useUser";
 import { supabase } from "@/lib/supabase";
 import { decode } from "base64-arraybuffer";
-//import ImageItem from "./ImageItem";
+import { useRealEstate, useRealEstateImages } from "@/hooks/realEstate.hooks";
+import ImageItem from "./ImageItem";
 
 type Props = {
   propertyId: number | null;
@@ -21,26 +21,20 @@ export const PropertyContent: React.FC<Props> = (props) => {
   const userData = user.data;
   const { mainColor } = useTheme();
   const properties = useRealEstate();
+  const realEstateImages = useRealEstateImages({
+    realEstateId: props.propertyId,
+  });
   const propertyData = properties?.data?.find(
     (property) => property.id === props.propertyId
   );
   const [files, setFiles] = useState<FileObject[]>([]);
 
-  //   const loadImages = async () => {
-  //     const { data } = await supabase.storage
-  //       .from("real_estate_files")
-  //       .list(userData!.id);
-  //     if (data) {
-  //       setFiles(data);
-  //     }
-  //   };
-
-  //   const onRemoveImage = async (item: FileObject, listIndex: number) => {
-  //     supabase.storage.from("files").remove([`${userData!.id}/${item.name}`]);
-  //     const newFiles = [...files];
-  //     newFiles.splice(listIndex, 1);
-  //     setFiles(newFiles);
-  //   };
+  const onRemoveImage = async (item: FileObject, listIndex: number) => {
+    supabase.storage.from("files").remove([`${userData!.id}/${item.name}`]);
+    const newFiles = [...files];
+    newFiles.splice(listIndex, 1);
+    setFiles(newFiles);
+  };
 
   const onSelectImage = async () => {
     const options: ImagePicker.ImagePickerOptions = {
@@ -62,23 +56,24 @@ export const PropertyContent: React.FC<Props> = (props) => {
       await supabase.storage
         .from("real_estate_files")
         .upload(filePath, decode(base64), { contentType });
-      //loadImages();
     }
   };
 
   return (
     <View style={{ flex: 1, borderWidth: 1 }}>
       <Text>{propertyData?.address}</Text>
-      {/* <ScrollView>
-        {files.map((item, index) => (
+      <ScrollView>
+        {realEstateImages.data?.map((item, index) => (
           <ImageItem
+            propertyId={props.propertyId}
             key={item.id}
             item={item}
             userId={userData!.id}
             onRemoveImage={() => onRemoveImage(item, index)}
           />
         ))}
-      </ScrollView> */}
+      </ScrollView>
+
       <TouchableOpacity
         onPress={onSelectImage}
         style={{

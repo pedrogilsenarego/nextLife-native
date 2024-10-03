@@ -1,6 +1,6 @@
+import { useRealEstate } from "./realEstate.hooks";
 import useCredits from "./useCredits";
 import useDeposits from "./useDeposits";
-import useRealEstate from "./useRealEstate";
 import useReports from "./useReports";
 import { format } from "date-fns";
 

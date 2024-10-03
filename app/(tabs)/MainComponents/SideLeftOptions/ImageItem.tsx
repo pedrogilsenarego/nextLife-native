@@ -4,12 +4,13 @@ import { supabase } from "@/lib/supabase";
 import { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
-// Image item component that displays the image from Supabase Storage and a delte button
 const ImageItem = ({
   item,
   userId,
   onRemoveImage,
+  propertyId,
 }: {
+  propertyId: number;
   item: FileObject;
   userId: string;
   onRemoveImage: () => void;
@@ -17,8 +18,8 @@ const ImageItem = ({
   const [image, setImage] = useState<string>("");
 
   supabase.storage
-    .from("files")
-    .download(`${userId}/${item.name}`)
+    .from("real_estate_files")
+    .download(`${userId}/${propertyId}/${item.name}`)
     .then(({ data }) => {
       const fr = new FileReader();
       fr.readAsDataURL(data!);

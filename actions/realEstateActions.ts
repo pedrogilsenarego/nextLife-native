@@ -1,5 +1,7 @@
 import { supabase } from "@/lib/supabase";
 import { RealEstateQuery } from "@/types/realEstateTypes";
+import { FileObject } from "@supabase/storage-js";
+
 export const getRealEstate = async (): Promise<RealEstateQuery> => {
   console.log("getingRealEstate");
   return new Promise(async (resolve, reject) => {
@@ -34,6 +36,41 @@ export const getRealEstate = async (): Promise<RealEstateQuery> => {
       );
 
       resolve(formattedRealEstate || []);
+    } catch (error) {
+      console.error("error", error);
+      reject(error);
+    }
+  });
+};
+
+type RealEstatProps = {
+  realEstateId: number;
+};
+
+export const getRealEstateImages = async (
+  props: RealEstatProps
+): Promise<FileObject[]> => {
+  console.log(`getingRealEstateImages_${props.realEstateId}`);
+  return new Promise(async (resolve, reject) => {
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        return reject(new Error("User not authenticated"));
+      }
+
+      const { data, error } = await supabase.storage
+        .from("real_estate_files")
+        .list(`${user!.id}/${props.realEstateId}`);
+
+      if (error) {
+        console.error("error", error);
+        return reject(error);
+      }
+
+      resolve(data);
     } catch (error) {
       console.error("error", error);
       reject(error);

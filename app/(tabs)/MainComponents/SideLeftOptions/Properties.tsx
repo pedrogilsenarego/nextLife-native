@@ -2,12 +2,10 @@ import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
 import { Button } from "./Button";
 import { useState } from "react";
 import { Card } from "@/components/Atoms/Card";
-import useRealEstate from "@/hooks/useRealEstate";
-import { Container } from "@/components/Atoms/Container";
 import { ScrollView, Text, View } from "react-native";
 import { Colors } from "@/providers/ThemeContext";
 import { PropertyItem } from "./PropertyItem";
-import { PropertyContent } from "./PropertyContent";
+import { useRealEstate } from "@/hooks/realEstate.hooks";
 
 export const Properties = () => {
   const [openPopup, setOpenPopup] = useState<boolean>(false);
