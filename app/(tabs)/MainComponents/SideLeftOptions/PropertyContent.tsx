@@ -55,9 +55,9 @@ export const PropertyContent: React.FC<Props> = (props) => {
       const base64 = await FileSystem.readAsStringAsync(img.uri, {
         encoding: "base64",
       });
-      const filePath = `${userData!.id}/${new Date().getTime()}.${
-        img.type === "image" ? "png" : "mp4"
-      }`;
+      const filePath = `${userData!.id}/${
+        props.propertyId
+      }/${new Date().getTime()}.${img.type === "image" ? "png" : "mp4"}`;
       const contentType = img.type === "image" ? "image/png" : "video/mp4";
       await supabase.storage
         .from("real_estate_files")

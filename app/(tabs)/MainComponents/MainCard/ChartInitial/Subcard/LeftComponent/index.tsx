@@ -10,18 +10,12 @@ import { SharedValue } from "react-native-reanimated";
 type Props = {
   expensesPerDay: { value: number; label: string }[];
   incomesPerDay: { value: number; label: string }[];
-  accValue: SharedValue<number>;
-  accValue2: SharedValue<number>;
-
   selectedStatus: "expenses" | "incomes" | "both";
   setSelectedStatus: (selectedStatus: "expenses" | "incomes" | "both") => void;
 };
 
 export const LeftComponent = ({
   selectedStatus,
-
-  accValue,
-  accValue2,
   expensesPerDay,
   incomesPerDay,
 }: Props) => {
@@ -46,7 +40,24 @@ export const LeftComponent = ({
     selectedStatus === "expenses"
       ? expensesPerDay?.[selectedExpenseIndex]?.value?.toFixed(0)
       : incomesPerDay?.[selectedExpenseIndex]?.value?.toFixed(0);
+
   const secondValue = expensesPerDay?.[selectedExpenseIndex]?.value?.toFixed(0);
+
+  const firstAccumulatedValue =
+    selectedStatus === "expenses"
+      ? expensesPerDay
+          ?.slice(0, selectedExpenseIndex + 1)
+          ?.reduce((acc, curr) => acc + (curr.value || 0), 0)
+          ?.toFixed(0)
+      : incomesPerDay
+          ?.slice(0, selectedExpenseIndex + 1)
+          ?.reduce((acc, curr) => acc + (curr.value || 0), 0)
+          ?.toFixed(0);
+
+  const secondAccumulatedValue = expensesPerDay
+    ?.slice(0, selectedExpenseIndex + 1)
+    ?.reduce((acc, curr) => acc + (curr.value || 0), 0)
+    ?.toFixed(0);
 
   const singleMonthValue = singleMonth(dateRange);
   const singleOrMulti = singleMonthValue ? "Day" : "Month";
@@ -147,7 +158,7 @@ export const LeftComponent = ({
                       : "#82ca9d",
                 }}
               >
-                {accValue.value.toFixed(0)}€
+                {formatAmount(firstAccumulatedValue)}€
               </Text>
               {selectedStatus === "both" && (
                 <>
@@ -159,7 +170,7 @@ export const LeftComponent = ({
                     /
                   </Text>
                   <Text style={{ color: "#c80815" }}>
-                    {accValue2.value.toFixed(0)}€
+                    {formatAmount(secondAccumulatedValue)}€€
                   </Text>
                 </>
               )}

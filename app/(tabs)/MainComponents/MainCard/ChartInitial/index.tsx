@@ -27,8 +27,6 @@ const ChartInitial = ({
   selectedCategory,
   setAmountToShow,
 }: Props) => {
-  const accValue = useSharedValue(0);
-  const accValue2 = useSharedValue(0);
   const expenses = useExpenses({
     businessSelected: selectedBusiness,
     selectedCategory,
@@ -38,7 +36,6 @@ const ChartInitial = ({
     selectedCategory,
   });
 
-  const { theme } = useTheme();
   const { dateRange, selectedDate, changeSelectedDate } = useApp();
   const {
     expensesTotalPerDay,
@@ -85,42 +82,6 @@ const ChartInitial = ({
       }}
     >
       <View>
-        {/* <Pressable
-          style={{
-            position: "absolute",
-            right: 12,
-            top: 20,
-            zIndex: 100,
-            backgroundColor: theme === "light" ? "white" : Colors.gray,
-            padding: 4,
-            borderRadius: 20,
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-            elevation: 5,
-          }}
-          onPress={() => {
-            changeSelectedDate("Total");
-          }}
-        >
-          <MaterialIcons
-            name="settings-backup-restore"
-            color={
-              selectedDate === "Total"
-                ? theme === "light"
-                  ? Colors.lightGray
-                  : "#ffffff66"
-                : theme === "light"
-                ? Colors.black
-                : "whitesmoke"
-            }
-            size={22}
-          />
-        </Pressable> */}
         {expenses.isLoading || incomes.isLoading ? (
           <View
             style={{
@@ -156,8 +117,6 @@ const ChartInitial = ({
         <Subcard
           selectedStatus={selectedStatus}
           setSelectedStatus={setSelectedStatus}
-          accValue={accValue}
-          accValue2={accValue2}
           expensesPerDay={expensesPerDay}
           incomesPerDay={incomesPerDay}
           setAmountToShow={setAmountToShow}
