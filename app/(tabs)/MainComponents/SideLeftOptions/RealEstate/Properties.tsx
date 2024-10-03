@@ -1,11 +1,6 @@
 import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
 import { Button } from "../Button";
 import { useState } from "react";
-import { Card } from "@/components/Atoms/Card";
-import { ScrollView, Text, View } from "react-native";
-import { Colors } from "@/providers/ThemeContext";
-import { useRealEstate } from "@/hooks/realEstate.hooks";
-import { PropertyItem } from "./PropertyItem";
 import { PropertiesContent } from "./PropertiesContent";
 
 export const Properties = () => {

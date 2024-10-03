@@ -4,38 +4,70 @@ import { RealEstate } from "@/types/realEstateTypes";
 import { Text, Image, View, Pressable } from "react-native";
 import { useState } from "react";
 import { PropertyContent } from "./PropertyContent";
+import { Container } from "@/components/Atoms/Container";
+import {
+  useRealEstateImage,
+  useRealEstateImages,
+} from "@/hooks/realEstate.hooks";
+import Skeleton from "@/components/Atoms/Skeleton";
 type Props = {
   property: RealEstate;
 };
 
 export const PropertyItem: React.FC<Props> = (props) => {
+  //meter isto num contexto
   const [propertySelected, setPropertySelected] = useState<number | null>(null);
+  const realEstateImagesList = useRealEstateImages({
+    realEstateId: props.property.id,
+  });
+  const image = useRealEstateImage({
+    realEstateId: props.property.id,
+    imageName: realEstateImagesList.data?.[0].name,
+  });
+
+  const isLoading = realEstateImagesList.isLoading || image.isLoading;
+
   return (
     <>
-      <Pressable onPress={() => setPropertySelected(props.property.id)}>
-        <Image
-          source={{
-            //uri: props.property.imageUrl
-            uri: "https://images.squarespace-cdn.com/content/v1/5d46f43d6cfd4b000115ce8d/1627484985371-TDP0939FPUA4ESWIBXXW/Rua+Barao+Sabrosa+176-1.jpg",
-          }}
-          style={{
-            flex: 1,
-            height: 150,
+      <View>
+        {isLoading ? (
+          <Skeleton style={{ width: "100%", height: 180 }} />
+        ) : (
+          <Pressable onPress={() => setPropertySelected(props.property.id)}>
+            <Container
+              containerStyles={{
+                flexDirection: "column",
+                flex: 1,
+                paddingHorizontal: 0,
+                paddingVertical: 0,
+                overflow: "hidden",
+              }}
+            >
+              <Image
+                source={{
+                  uri: image.data,
+                }}
+                style={{
+                  flex: 1,
+                  height: 150,
 
-            borderRadius: 10,
-            borderWidth: 1,
-            borderColor: Colors.lightGray,
-          }}
-          resizeMode="cover"
-        />
-        <View>
-          <Text>{props.property.address}</Text>
-          <Text style={{ fontSize: 16, fontWeight: 600 }}>
-            {props.property.marketValue}
-            <Text style={{ fontSize: 12 }}>€</Text>
-          </Text>
-        </View>
-      </Pressable>
+                  width: "100%",
+
+                  borderColor: Colors.lightGray,
+                }}
+                resizeMode="cover"
+              />
+              <View style={{ padding: 10 }}>
+                <Text>{props.property.address}</Text>
+                <Text style={{ fontSize: 16, fontWeight: 600 }}>
+                  {props.property.marketValue}
+                  <Text style={{ fontSize: 12 }}>€</Text>
+                </Text>
+              </View>
+            </Container>
+          </Pressable>
+        )}
+      </View>
       <BottomPopup
         fullHeight
         openModal={!!propertySelected}

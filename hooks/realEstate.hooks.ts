@@ -39,14 +39,14 @@ const useRealEstateImages = (props: RealEstateImagesProps) => {
 
 type RealEstateImageProps = {
   realEstateId: number | null;
-  imageName: string;
+  imageName: string | undefined;
 };
 
 const useRealEstateImage = (props: RealEstateImageProps) => {
   const realEstate = useQuery<string, Error>({
     queryKey: [queryKeys.realEstateImage, props.realEstateId, props.imageName],
     queryFn: () => {
-      if (props.realEstateId === null) {
+      if (props.realEstateId === null || props.imageName === undefined) {
         return Promise.reject(new Error("realEstateId cannot be null"));
       }
       return getRealEstateImage({
@@ -54,7 +54,7 @@ const useRealEstateImage = (props: RealEstateImageProps) => {
         imageName: props.imageName,
       });
     },
-    enabled: props.realEstateId !== null,
+    enabled: props.realEstateId !== null && props.imageName !== undefined,
   });
 
   return realEstate;
