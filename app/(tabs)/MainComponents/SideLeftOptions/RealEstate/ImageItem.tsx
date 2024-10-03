@@ -10,7 +10,7 @@ const ImageItem = ({
   onRemoveImage,
   propertyId,
 }: {
-  propertyId: number;
+  propertyId: number | null;
   item: FileObject;
   userId: string;
   onRemoveImage: () => void;

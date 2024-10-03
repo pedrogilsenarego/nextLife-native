@@ -11,7 +11,7 @@ import { BlurView } from "expo-blur";
 import { AntDesign, FontAwesome5, Foundation } from "@expo/vector-icons";
 import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
 import { Colors } from "@/providers/ThemeContext";
-import { Properties } from "./Properties";
+import { Properties } from "./RealEstate/Properties";
 
 const { width } = Dimensions.get("window");
 const paddingH = 0;

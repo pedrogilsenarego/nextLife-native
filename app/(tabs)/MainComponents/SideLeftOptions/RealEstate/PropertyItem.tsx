@@ -2,8 +2,8 @@ import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
 import { Colors } from "@/providers/ThemeContext";
 import { RealEstate } from "@/types/realEstateTypes";
 import { Text, Image, View, Pressable } from "react-native";
-import { PropertyContent } from "./PropertyContent";
 import { useState } from "react";
+import { PropertyContent } from "./PropertyContent";
 type Props = {
   property: RealEstate;
 };
