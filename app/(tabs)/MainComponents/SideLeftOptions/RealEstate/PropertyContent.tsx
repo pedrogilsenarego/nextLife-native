@@ -1,16 +1,16 @@
 import { useState } from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, ActivityIndicator, Alert } from "react-native";
 import { FileObject } from "@supabase/storage-js";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 import * as ImagePicker from "expo-image-picker";
-import * as FileSystem from "expo-file-system";
 import useUser from "@/hooks/useUser";
 import { supabase } from "@/lib/supabase";
-import { decode } from "base64-arraybuffer";
 import { useRealEstate, useRealEstateImages } from "@/hooks/realEstate.hooks";
 import { RealEstateImage } from "./RealEstateImage";
+import { useMutation } from "@tanstack/react-query";
+import { uploadRealEstateImage } from "@/actions/realEstateActions";
 
 type Props = {
   propertyId: number | null;
@@ -29,6 +29,20 @@ export const PropertyContent: React.FC<Props> = (props) => {
   );
   const [files, setFiles] = useState<FileObject[]>([]);
 
+  const requestPermissions = async () => {
+    const { status: mediaLibraryStatus } =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (mediaLibraryStatus !== "granted") {
+      Alert.alert(
+        "Permission Denied",
+        "We need access to your photo library to select images."
+      );
+      return false;
+    }
+
+    return true;
+  };
+
   const onRemoveImage = async (item: FileObject, listIndex: number) => {
     supabase.storage.from("files").remove([`${userData!.id}/${item.name}`]);
     const newFiles = [...files];
@@ -36,7 +50,22 @@ export const PropertyContent: React.FC<Props> = (props) => {
     setFiles(newFiles);
   };
 
+  const { mutate: uploadImageMutation, isPending } = useMutation({
+    mutationFn: uploadRealEstateImage,
+    onError: (error: any) => {
+      console.log("error", error);
+    },
+    onSuccess: (data: any) => {
+      realEstateImages.refetch();
+    },
+    onSettled: async () => {},
+  });
+
   const onSelectImage = async () => {
+    if (!props.propertyId || isPending) return;
+    const hasPermission = await requestPermissions();
+    if (!hasPermission) return;
+
     const options: ImagePicker.ImagePickerOptions = {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
@@ -46,16 +75,10 @@ export const PropertyContent: React.FC<Props> = (props) => {
 
     if (!result.canceled) {
       const img = result.assets[0];
-      const base64 = await FileSystem.readAsStringAsync(img.uri, {
-        encoding: "base64",
+      uploadImageMutation({
+        realEstateId: props.propertyId,
+        img,
       });
-      const filePath = `${userData!.id}/${
-        props.propertyId
-      }/${new Date().getTime()}.${img.type === "image" ? "png" : "mp4"}`;
-      const contentType = img.type === "image" ? "image/png" : "video/mp4";
-      await supabase.storage
-        .from("real_estate_files")
-        .upload(filePath, decode(base64), { contentType });
     }
   };
 
@@ -87,7 +110,11 @@ export const PropertyContent: React.FC<Props> = (props) => {
           borderRadius: 100,
         }}
       >
-        <Ionicons name="camera" size={30} color={Colors.pearlWhite} />
+        {isPending ? (
+          <ActivityIndicator size="large" color={Colors.pearlWhite} />
+        ) : (
+          <Ionicons name="camera" size={30} color={Colors.pearlWhite} />
+        )}
       </TouchableOpacity>
     </View>
   );

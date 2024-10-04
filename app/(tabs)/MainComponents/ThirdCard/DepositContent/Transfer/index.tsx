@@ -1,8 +1,6 @@
-import { Colors, useTheme } from "@/providers/ThemeContext";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import { useSelectedDeposit } from "../../DepositsContext";
 import useDeposits from "@/hooks/useDeposits";
-import { AntDesign } from "@expo/vector-icons";
 import Button from "@/components/button/ButtonComponent";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { TransferSchema, TransferType } from "./validation";
@@ -12,7 +10,11 @@ import { TransferInput } from "./TransferInput";
 import { useMutation } from "@tanstack/react-query";
 import { transferMoneyDepositToDeposit } from "@/actions/depositActions";
 
-export const Transfer = () => {
+type Props = {
+  setOpenTransferModal: (signal: boolean) => void;
+};
+
+export const Transfer: React.FC<Props> = (props) => {
   const deposits = useDeposits();
   const { selectedDeposit } = useSelectedDeposit();
   if (!deposits?.data) return;
@@ -38,6 +40,7 @@ export const Transfer = () => {
     onSuccess: (data: any) => {
       methods.reset();
       deposits.refetch();
+      props.setOpenTransferModal(false);
     },
     onSettled: async () => {},
   });

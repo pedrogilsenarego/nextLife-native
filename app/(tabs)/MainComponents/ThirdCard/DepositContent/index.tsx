@@ -65,7 +65,7 @@ export const DepositContent: React.FC = () => {
         onClose={() => setOpenTransferModal(false)}
       >
         <BottomPopupContent>
-          <Transfer />
+          <Transfer setOpenTransferModal={setOpenTransferModal} />
         </BottomPopupContent>
       </BottomPopup>
       <BottomPopup

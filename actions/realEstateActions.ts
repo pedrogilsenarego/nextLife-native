@@ -1,6 +1,9 @@
 import { supabase } from "@/lib/supabase";
 import { RealEstateQuery } from "@/types/realEstateTypes";
 import { FileObject } from "@supabase/storage-js";
+import * as ImagePicker from "expo-image-picker";
+import * as FileSystem from "expo-file-system";
+import { decode } from "base64-arraybuffer";
 
 export const getRealEstate = async (): Promise<RealEstateQuery> => {
   console.log("getingRealEstate");
@@ -107,6 +110,49 @@ export const getRealEstateImage = async (
             resolve(fr.result as string);
           };
         });
+    } catch (error) {
+      console.error("error", error);
+      reject(error);
+    }
+  });
+};
+
+type UploadRealEstateImageProps = {
+  realEstateId: number;
+  img: ImagePicker.ImagePickerAsset;
+};
+
+export const uploadRealEstateImage = async (
+  props: UploadRealEstateImageProps
+): Promise<void> => {
+  console.log(`uploadingRealEstateImage_${props.realEstateId}`);
+  return new Promise(async (resolve, reject) => {
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        return reject(new Error("User not authenticated"));
+      }
+
+      const imgUri = props.img.uri;
+      const imgType = props.img.type === "image" ? "image" : "video";
+
+      const base64 = await FileSystem.readAsStringAsync(imgUri, {
+        encoding: "base64",
+      });
+
+      const filePath = `${user!.id}/${
+        props.realEstateId
+      }/${new Date().getTime()}.${imgType === "image" ? "png" : "mp4"}`;
+
+      const contentType = imgType === "image" ? "image/png" : "video/mp4";
+
+      await supabase.storage
+        .from("real_estate_files")
+        .upload(filePath, decode(base64), { contentType });
+      resolve();
     } catch (error) {
       console.error("error", error);
       reject(error);
