@@ -34,8 +34,8 @@ export const PropertyItem: React.FC<Props> = (props) => {
           <Skeleton style={{ width: "100%", height: 180 }} />
         ) : (
           <Pressable onPress={() => setPropertySelected(props.property.id)}>
-            <Container
-              containerStyles={{
+            <View
+              style={{
                 flexDirection: "column",
                 flex: 1,
                 paddingHorizontal: 0,
@@ -64,7 +64,7 @@ export const PropertyItem: React.FC<Props> = (props) => {
                   <Text style={{ fontSize: 12 }}>€</Text>
                 </Text>
               </View>
-            </Container>
+            </View>
           </Pressable>
         )}
       </View>
