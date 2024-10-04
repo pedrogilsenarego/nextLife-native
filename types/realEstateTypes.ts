@@ -5,4 +5,5 @@ export type RealEstate = {
   marketValue: number;
   size: number;
   address: string;
+  equityValue: number;
 };

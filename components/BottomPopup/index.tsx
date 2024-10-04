@@ -26,6 +26,7 @@ interface IProps {
   subtitle?: string;
   subtitleColor?: string;
   bgColor?: boolean;
+  customBgColor?: string;
   rightHeaderComponent?: React.ReactNode;
 }
 
@@ -39,15 +40,18 @@ const BottomPopup = ({
   subtitle,
   subtitleColor,
   bgColor,
+  customBgColor,
 }: IProps) => {
   const { theme, mainColor } = useTheme();
 
   const backgroundColor = bgColor
     ? useDerivedValue(() => {
-        return theme === "light" ? mainColor : Colors.gray;
+        return theme === "light" ? customBgColor || mainColor : Colors.gray;
       }, [theme])
     : useDerivedValue(() => {
-        return theme === "light" ? Colors.pearlWhite : Colors.gray;
+        return theme === "light"
+          ? customBgColor || Colors.pearlWhite
+          : Colors.gray;
       }, [theme]);
 
   const handlePressOutside = () => {

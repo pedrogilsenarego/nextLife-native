@@ -10,7 +10,7 @@ export const PropertiesContent = () => {
     <View
       style={{
         flex: 1,
-        backgroundColor: Colors.pearlWhite,
+        backgroundColor: Colors.white,
       }}
     >
       {!properties.isLoading ? (

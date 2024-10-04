@@ -11,6 +11,9 @@ import { useRealEstate, useRealEstateImages } from "@/hooks/realEstate.hooks";
 import { RealEstateImage } from "./RealEstateImage";
 import { useMutation } from "@tanstack/react-query";
 import { uploadRealEstateImage } from "@/actions/realEstateActions";
+import { TextContainer } from "@/components/Atoms/TextContainer";
+import { Divider } from "@/components/Atoms/Divider";
+import { calculateIMI, calculateIMISchedule } from "@/utils/realEstate";
 
 type Props = {
   propertyId: number | null;
@@ -28,7 +31,9 @@ export const PropertyContent: React.FC<Props> = (props) => {
     (property) => property.id === props.propertyId
   );
   const [files, setFiles] = useState<FileObject[]>([]);
-
+  const totalIMI = propertyData?.equityValue
+    ? calculateIMI(propertyData?.equityValue)
+    : null;
   const requestPermissions = async () => {
     const { status: mediaLibraryStatus } =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -83,7 +88,7 @@ export const PropertyContent: React.FC<Props> = (props) => {
   };
 
   return (
-    <View style={{ flex: 1, borderWidth: 1 }}>
+    <View style={{ flex: 1 }}>
       <Text>{propertyData?.address}</Text>
       <ScrollView>
         {realEstateImages.data?.map((item, index) => (
@@ -94,6 +99,51 @@ export const PropertyContent: React.FC<Props> = (props) => {
             onRemoveImage={() => onRemoveImage(item, index)}
           />
         ))}
+        {totalIMI && (
+          <TextContainer style={{ flexDirection: "column", rowGap: 5 }}>
+            <View
+              style={{
+                flexDirection: "row",
+
+                width: "100%",
+                justifyContent: "space-between",
+              }}
+            >
+              <Text>Equity Value</Text>
+              <Text>{propertyData?.equityValue}</Text>
+            </View>
+            <Divider />
+            <View
+              style={{
+                flexDirection: "row",
+
+                width: "100%",
+                justifyContent: "space-between",
+              }}
+            >
+              <Text>IMI total</Text>
+              <Text>{totalIMI}</Text>
+            </View>
+            <View>
+              {calculateIMISchedule(totalIMI).map((dataImi, index) => {
+                return (
+                  <View
+                    key={index}
+                    style={{
+                      flexDirection: "row",
+
+                      width: "100%",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Text style={{ marginLeft: 10 }}>{dataImi.month}</Text>
+                    <Text>{dataImi.value}</Text>
+                  </View>
+                );
+              })}
+            </View>
+          </TextContainer>
+        )}
       </ScrollView>
 
       <TouchableOpacity
@@ -102,9 +152,7 @@ export const PropertyContent: React.FC<Props> = (props) => {
           alignItems: "center",
           justifyContent: "center",
           width: 70,
-          //position: "absolute",
-          //   bottom: 40,
-          //   right: 30,
+
           height: 70,
           backgroundColor: mainColor,
           borderRadius: 100,

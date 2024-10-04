@@ -70,6 +70,7 @@ export const PropertyItem: React.FC<Props> = (props) => {
       </View>
       <BottomPopup
         fullHeight
+        customBgColor={Colors.white}
         openModal={!!propertySelected}
         onClose={() => setPropertySelected(null)}
       >

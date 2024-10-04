@@ -35,6 +35,7 @@ export const getRealEstate = async (): Promise<RealEstateQuery> => {
           address: deposit.address,
           createdAt: deposit.created_at,
           marketValue: deposit.market_value,
+          equityValue: deposit.equity_value,
         })
       );
 
