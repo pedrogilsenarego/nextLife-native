@@ -1,16 +1,15 @@
 import useMetrics from "@/hooks/useMetrics";
 import useUser from "@/hooks/useUser";
 import { Colors, useTheme } from "@/providers/ThemeContext";
-import { AntDesign, Entypo, Ionicons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { View, Text, Dimensions, Pressable } from "react-native";
-import { StateSelecter } from "./StateSelecter";
-import { SharedValue } from "react-native-reanimated";
 import useExpenses from "@/hooks/useExpenses";
 import useIncomes from "@/hooks/useIncomes";
 import { dateRangeLabel } from "@/mappers/dateRange";
 import { useApp } from "@/providers/AppProvider";
 import { useMemo } from "react";
 import Skeleton from "@/components/Atoms/Skeleton";
+import { isLoading } from "expo-font";
 
 type Props = {
   setSideMenu: (sideMenu: boolean) => void;
@@ -41,8 +40,8 @@ export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
       style={{
         flexDirection: "column",
         justifyContent: "space-between",
-        paddingHorizontal: 4,
-        paddingVertical: 4,
+        // paddingHorizontal: 4,
+        // paddingVertical: 4,
         marginHorizontal: 10,
 
         backgroundColor: mainColor,
@@ -70,7 +69,8 @@ export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
         <Pressable
           onPress={() => setSideLeftMenu(true)}
           style={{
-            borderRadius: 4,
+            borderTopLeftRadius: 4,
+            borderBottomLeftRadius: 4,
             justifyContent: "center",
 
             zIndex: 10,
@@ -97,16 +97,27 @@ export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
             }}
           >
             <View style={{ rowGap: 2 }}>
-              <Text
-                style={{
-                  color: "white",
-                  fontSize: 18,
-                  fontWeight: "bold",
-                  textTransform: "capitalize",
-                }}
-              >
-                {userQuery?.data?.username}
-              </Text>
+              {!loading ? (
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 18,
+                    fontWeight: "bold",
+                    textTransform: "capitalize",
+                  }}
+                >
+                  {userQuery?.data?.username}
+                </Text>
+              ) : (
+                <Skeleton
+                  height={18}
+                  style={{
+                    marginTop: 1.8,
+                    backgroundColor: `${Colors.pearlWhite}66`,
+                  }}
+                  width={130}
+                />
+              )}
             </View>
             <Text
               style={{
@@ -118,14 +129,25 @@ export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
             </Text>
           </View>
           <View>
-            <Text
-              style={{
-                fontSize: 12,
-                color: "whitesmoke",
-              }}
-            >
-              Your {dateRangeLabel(dateRange)} balance
-            </Text>
+            {!loading ? (
+              <Text
+                style={{
+                  fontSize: 12,
+                  color: "whitesmoke",
+                }}
+              >
+                Your {dateRangeLabel(dateRange)} balance
+              </Text>
+            ) : (
+              <Skeleton
+                height={12}
+                style={{
+                  marginTop: 1.2,
+                  backgroundColor: `${Colors.pearlWhite}66`,
+                }}
+                width={90}
+              />
+            )}
             {!loading ? (
               <Text
                 style={{
@@ -152,9 +174,9 @@ export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
         <Pressable
           onPress={() => setSideMenu(true)}
           style={{
-            borderRadius: 4,
+            borderTopRightRadius: 4,
+            borderBottomRightRadius: 4,
             justifyContent: "center",
-
             zIndex: 10,
             backgroundColor: mainColor,
             shadowColor: "#000",
