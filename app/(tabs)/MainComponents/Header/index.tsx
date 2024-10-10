@@ -9,7 +9,6 @@ import { dateRangeLabel } from "@/mappers/dateRange";
 import { useApp } from "@/providers/AppProvider";
 import { useMemo } from "react";
 import Skeleton from "@/components/Atoms/Skeleton";
-import { isLoading } from "expo-font";
 
 type Props = {
   setSideMenu: (sideMenu: boolean) => void;
@@ -40,8 +39,8 @@ export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
       style={{
         flexDirection: "column",
         justifyContent: "space-between",
-        // paddingHorizontal: 4,
-        // paddingVertical: 4,
+        paddingHorizontal: 4,
+        paddingVertical: 4,
         marginHorizontal: 10,
 
         backgroundColor: mainColor,
@@ -75,15 +74,6 @@ export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
 
             zIndex: 10,
             backgroundColor: mainColor,
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-            elevation: 5,
           }}
         >
           <Ionicons size={25} name="chevron-back" color={Colors.pearlWhite} />
@@ -177,17 +167,9 @@ export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
             borderTopRightRadius: 4,
             borderBottomRightRadius: 4,
             justifyContent: "center",
+
             zIndex: 10,
             backgroundColor: mainColor,
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-            elevation: 5,
           }}
         >
           <Ionicons
