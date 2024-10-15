@@ -91,7 +91,7 @@ export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
                 <Text
                   style={{
                     color: "white",
-                    fontSize: 18,
+                    fontSize: 19,
                     fontWeight: "bold",
                     textTransform: "capitalize",
                   }}
@@ -102,7 +102,7 @@ export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
                 <Skeleton
                   height={18}
                   style={{
-                    marginTop: 1.8,
+                    marginTop: 3.8,
                     backgroundColor: `${Colors.pearlWhite}66`,
                   }}
                   width={130}
@@ -118,8 +118,8 @@ export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
               {formattedDate}
             </Text>
           </View>
-          <View>
-            {!loading ? (
+          {!loading ? (
+            <View>
               <Text
                 style={{
                   fontSize: 12,
@@ -128,17 +128,6 @@ export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
               >
                 Your {dateRangeLabel(dateRange)} balance
               </Text>
-            ) : (
-              <Skeleton
-                height={12}
-                style={{
-                  marginTop: 1.2,
-                  backgroundColor: `${Colors.pearlWhite}66`,
-                }}
-                width={90}
-              />
-            )}
-            {!loading ? (
               <Text
                 style={{
                   color: "white",
@@ -149,17 +138,17 @@ export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
                 {balance}
                 <Text style={{ fontSize: 14 }}>Є</Text>
               </Text>
-            ) : (
-              <Skeleton
-                height={18}
-                style={{
-                  marginTop: 1.8,
-                  backgroundColor: `${Colors.pearlWhite}66`,
-                }}
-                width={70}
-              />
-            )}
-          </View>
+            </View>
+          ) : (
+            <Skeleton
+              height={39}
+              style={{
+                marginTop: 2,
+                backgroundColor: `${Colors.pearlWhite}66`,
+              }}
+              width={90}
+            />
+          )}
         </View>
         <Pressable
           onPress={() => setSideMenu(true)}
