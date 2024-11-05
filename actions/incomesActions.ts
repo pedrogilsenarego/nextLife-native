@@ -259,7 +259,7 @@ export const updateIncome = async ({
       // Update the income
       const { error: incomeError } = await supabase
         .from("incomes")
-        .update({ deposit_id: newDepositId, amount: newAmount })
+        .update(updatedFields)
         .eq("id", transactionId);
 
       if (incomeError) {

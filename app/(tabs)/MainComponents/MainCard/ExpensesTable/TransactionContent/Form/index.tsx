@@ -1,18 +1,15 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 
-import { View, Text, Pressable } from "react-native";
+import { View } from "react-native";
 import ControlledInput from "@/components/inputs/TextField";
 import Select from "@/components/inputs/Select";
-import DatePicker from "@/components/inputs/DateTimePicker";
 import Button from "@/components/button/ButtonComponent";
 import { useMutation } from "@tanstack/react-query";
-import { addExpense, updateExpense } from "@/actions/expensesActions";
+import { updateExpense } from "@/actions/expensesActions";
 import useExpenses from "@/hooks/useExpenses";
-import { ArrayButtons } from "@/components/Molecules/ArrayButtons";
 import { Colors, useTheme } from "@/providers/ThemeContext";
-import { useEffect, useState } from "react";
-import { addIncome, updateIncome } from "@/actions/incomesActions";
+import { updateIncome } from "@/actions/incomesActions";
 import useIncomes from "@/hooks/useIncomes";
 import { PressableTextOption } from "@/components/Atoms/PressableTextOption";
 import {
@@ -21,8 +18,6 @@ import {
   FontAwesome,
   FontAwesome5,
 } from "@expo/vector-icons";
-
-import { useApp } from "@/providers/AppProvider";
 
 import { Divider } from "@/components/Atoms/Divider";
 import { useForme } from "./useForme";
@@ -37,6 +32,7 @@ import { Income } from "@/types/incomesTypes";
 import { NoteDrawer } from "@/app/(tabs)/MainComponents/BottomCard/Form/NoteDrawer";
 import { DateDrawer } from "@/app/(tabs)/MainComponents/BottomCard/Form/DateDrawer";
 import { DepositDrawer } from "@/app/(tabs)/MainComponents/BottomCard/Form/DepositDrawer";
+import useDeposits from "@/hooks/useDeposits";
 
 type Props = {
   transaction: Income | undefined;
@@ -45,6 +41,7 @@ type Props = {
 const Form = ({ transaction }: Props) => {
   const { selectedMode, setSelectedTransactionId } = useSelectedTransactions();
   const business = useBusinesses();
+  const deposits = useDeposits();
   const listBusiness = business?.data?.map((business) => {
     const list = {
       label: business.businessName,
@@ -89,6 +86,7 @@ const Form = ({ transaction }: Props) => {
     },
     onSuccess: (data: any) => {
       selectedMode === "expense" ? expenses.refetch() : incomes.refetch();
+      deposits.refetch();
       setSelectedTransactionId(null);
     },
     onSettled: async () => {},
