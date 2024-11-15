@@ -32,6 +32,8 @@ export const LeftComponent = ({
     .reduce((acc, value) => acc + value.value, 0)
     .toFixed(0);
 
+  const totalDifference = parseInt(totalIncomes) - parseInt(totalExpenses);
+
   const selectedExpenseIndex = expensesPerDay?.findIndex(
     (expense) => expense.label === selectedDate
   );
@@ -69,24 +71,96 @@ export const LeftComponent = ({
 
   return (
     <View>
-      <>
-        <View
+      {selectedStatus === "expenses" && (
+        <Text
           style={{
-            flexDirection: "row",
-
-            columnGap: 5,
-
-            alignItems: "center",
+            color: theme === "light" ? Colors.black : "whitesmoke",
           }}
         >
-          <Text
+          {singleMonthValue ? monthName : "Total"}: &#931;{" "}
+          {formatAmount(totalExpenses)} ~{" "}
+          {formatAmount(
+            (parseFloat(totalExpenses) / expensesPerDay.length).toString()
+          )}{" "}
+          €
+        </Text>
+      )}
+      {selectedStatus === "incomes" && (
+        <Text
+          style={{
+            color: theme === "light" ? Colors.black : "whitesmoke",
+          }}
+        >
+          {singleMonthValue ? monthName : "Total"}: &#931;{" "}
+          {formatAmount(totalIncomes)} ~{" "}
+          {formatAmount(
+            (parseFloat(totalIncomes) / incomesPerDay.length).toString()
+          )}{" "}
+          €
+        </Text>
+      )}
+      {selectedStatus === "both" && (
+        <View>
+          <View style={{ flexDirection: "row" }}>
+            <Text>{totalDifference > 0 ? "Profit" : "Loss"}: </Text>
+            <Text
+              style={{
+                color: totalDifference > 0 ? "#82ca9d" : "red",
+              }}
+            >
+              &#931; {formatAmount(totalDifference.toFixed(0))} ~{" "}
+              {formatAmount(
+                (totalDifference / expensesPerDay.length).toString()
+              )}{" "}
+              €
+            </Text>
+          </View>
+          <View style={{ flexDirection: "row" }}>
+            <Text>{singleMonthValue ? monthName : "Total"}: </Text>
+            <Text style={{ color: "#82ca9d" }}>
+              &#931; {formatAmount(totalIncomes)} ~{" "}
+              {formatAmount(
+                (parseFloat(totalIncomes) / expensesPerDay.length).toString()
+              )}{" "}
+              €
+            </Text>
+            <Text
+              style={{
+                color: theme === "light" ? Colors.black : "whitesmoke",
+              }}
+            >
+              {" "}
+              /{" "}
+            </Text>
+            <Text style={{ color: "#c80815" }}>
+              {formatAmount(totalExpenses)} ~{" "}
+              {formatAmount(
+                (parseFloat(totalExpenses) / incomesPerDay.length).toString()
+              )}{" "}
+              €
+            </Text>
+          </View>
+        </View>
+      )}
+      {selectedDate !== "Total" && (
+        <>
+          <View
             style={{
-              color: theme === "light" ? Colors.black : "whitesmoke",
+              flexDirection: "row",
+
+              columnGap: 5,
+
+              alignItems: "center",
             }}
           >
-            {singleValue}
-          </Text>
-          {selectedDate !== "Total" ? (
+            <Text
+              style={{
+                color: theme === "light" ? Colors.black : "whitesmoke",
+              }}
+            >
+              {singleValue}
+            </Text>
+
             <View
               style={{
                 flexDirection: "row",
@@ -122,31 +196,21 @@ export const LeftComponent = ({
                 </>
               )}
             </View>
-          ) : (
-            <Text
-              style={{
-                color: theme === "light" ? Colors.black : "whitesmoke",
-              }}
-            >
-              {" "}
-              -
-            </Text>
-          )}
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
 
-            columnGap: 5,
-            alignItems: "center",
-          }}
-        >
-          <Text
-            style={{ color: theme === "light" ? Colors.black : "whitesmoke" }}
+              columnGap: 5,
+              alignItems: "center",
+            }}
           >
-            Acc:
-          </Text>
-          {selectedDate !== "Total" ? (
+            <Text
+              style={{ color: theme === "light" ? Colors.black : "whitesmoke" }}
+            >
+              Acc:
+            </Text>
+
             <>
               <Text
                 style={{
@@ -175,86 +239,8 @@ export const LeftComponent = ({
                 </>
               )}
             </>
-          ) : (
-            <Text
-              style={{
-                color: theme === "light" ? Colors.black : "whitesmoke",
-              }}
-            >
-              {" "}
-              -
-            </Text>
-          )}
-        </View>
-      </>
-
-      {selectedStatus === "expenses" && (
-        <Text
-          style={{
-            color: theme === "light" ? Colors.black : "whitesmoke",
-            fontWeight: "600",
-            marginTop: 8,
-          }}
-        >
-          {singleMonthValue ? monthName : `Last ${dateRangeLabel(dateRange)}`}:
-          &#931; {formatAmount(totalExpenses)} ~{" "}
-          {formatAmount(
-            (parseFloat(totalExpenses) / expensesPerDay.length).toString()
-          )}{" "}
-          €
-        </Text>
-      )}
-      {selectedStatus === "incomes" && (
-        <Text
-          style={{
-            color: theme === "light" ? Colors.black : "whitesmoke",
-            fontWeight: "600",
-            marginTop: 8,
-          }}
-        >
-          {singleMonthValue ? monthName : `Last ${dateRangeLabel(dateRange)}`}:
-          &#931; {formatAmount(totalIncomes)} ~{" "}
-          {formatAmount(
-            (parseFloat(totalIncomes) / incomesPerDay.length).toString()
-          )}{" "}
-          €
-        </Text>
-      )}
-      {selectedStatus === "both" && (
-        <View style={{ flexDirection: "row", marginTop: 8 }}>
-          <Text
-            style={{
-              color: theme === "light" ? Colors.black : "whitesmoke",
-              fontWeight: "600",
-            }}
-          >
-            {singleMonthValue ? monthName : `Last ${dateRangeLabel(dateRange)}`}
-            :{" "}
-          </Text>
-          <Text style={{ color: "#82ca9d", fontWeight: "600" }}>
-            {singleMonthValue ? monthName : "Total"}: &#931;{" "}
-            {formatAmount(totalIncomes)} ~{" "}
-            {formatAmount(
-              (parseFloat(totalIncomes) / expensesPerDay.length).toString()
-            )}{" "}
-            €
-          </Text>
-          <Text
-            style={{
-              color: theme === "light" ? Colors.black : "whitesmoke",
-            }}
-          >
-            {" "}
-            /{" "}
-          </Text>
-          <Text style={{ color: "#c80815", fontWeight: "600" }}>
-            {formatAmount(totalExpenses)} ~{" "}
-            {formatAmount(
-              (parseFloat(totalExpenses) / incomesPerDay.length).toString()
-            )}{" "}
-            €
-          </Text>
-        </View>
+          </View>
+        </>
       )}
     </View>
   );

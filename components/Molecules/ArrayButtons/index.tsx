@@ -1,14 +1,13 @@
 import { Pressable, View, Text, Animated } from "react-native";
-import { ArrayButtonsProps } from "./arrayButtons.type";
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { Colors, useTheme } from "@/providers/ThemeContext";
+import { ArrayButtonsProps } from "./arrayButtons.type";
+import React from "react";
 
 export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = memo(
   ({ buttons, onSelected, textColor, defaultValue }) => {
     const GAP_BUTTONS = 6;
-    const [buttonWidth, setButtonWidth] = useState<number[]>(
-      Array(buttons.length).fill(0)
-    );
+    const buttonRefs = useRef<Array<any>>(buttons.map(() => React.createRef())); // Array of refs
     const [selectedStatus, setSelectedStatus] = useState<string>(
       defaultValue || buttons[0]
     );
@@ -16,65 +15,50 @@ export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = memo(
     const animationLeft = useRef(new Animated.Value(0)).current;
     const animationWidth = useRef(new Animated.Value(0)).current;
 
-    // UseEffect for initial mount only
     useEffect(() => {
-      if (buttonWidth[0] !== 0) {
+      const buttonWidths = buttonRefs.current.map((ref) =>
+        ref?.current?.measure
+          ? new Promise<number>((resolve) =>
+              ref.current.measure((x: any, y: any, width: any) =>
+                resolve(width)
+              )
+            )
+          : Promise.resolve(0)
+      );
+
+      Promise.all(buttonWidths).then((widths) => {
         const selectedIndex = buttons.findIndex(
           (button) => button === selectedStatus
         );
 
-        if (buttonWidth[selectedIndex] !== undefined) {
-          const totalLeft = buttonWidth
+        if (widths[selectedIndex] !== undefined) {
+          const totalLeft = widths
             .slice(0, selectedIndex)
             .reduce((acc, width) => acc + width + GAP_BUTTONS, 0);
 
-          // Set initial position and width
-          animationLeft.setValue(totalLeft);
-          animationWidth.setValue(buttonWidth[selectedIndex]);
-        }
-      }
-    }, [buttonWidth]);
-
-    // UseEffect for handling updates after mount (user interaction)
-    useEffect(() => {
-      if (buttonWidth[0] !== 0) {
-        const selectedIndex = buttons.findIndex(
-          (button) => button === selectedStatus
-        );
-
-        if (buttonWidth[selectedIndex] !== undefined) {
-          const totalLeft = buttonWidth
-            .slice(0, selectedIndex)
-            .reduce((acc, width) => acc + width + GAP_BUTTONS, 0);
-
-          // Animate position and width on button change
+          // Animate left position
           Animated.spring(animationLeft, {
             toValue: totalLeft,
             useNativeDriver: false,
-            speed: 1,
-            bounciness: 1,
+            speed: 15, // Speed of animation
+            bounciness: 10, // Bouncing effect
           }).start();
 
+          // Animate width
           Animated.spring(animationWidth, {
-            toValue: buttonWidth[selectedIndex],
+            toValue: widths[selectedIndex],
             useNativeDriver: false,
-            speed: 1,
-            bounciness: 1,
+            speed: 15,
+            bounciness: 10,
           }).start();
         }
-      }
+      });
     }, [selectedStatus]);
-
-    const handleLayout = (event: any, index: number) => {
-      const newWidths = [...buttonWidth];
-      newWidths[index] = event.nativeEvent.layout.width;
-      setButtonWidth(newWidths);
-    };
 
     const handlePress = useCallback(
       (button: any, index: number) => {
         if (onSelected) onSelected(button);
-        setSelectedStatus(button); // Set selected status to trigger the animation
+        setSelectedStatus(button); // Update selected status
       },
       [onSelected]
     );
@@ -117,10 +101,8 @@ export const ArrayButtons: React.FC<ArrayButtonsProps<any>> = memo(
           return (
             <Pressable
               key={index}
-              onPress={() => {
-                handlePress(button, index);
-              }}
-              onLayout={(e) => handleLayout(e, index)}
+              onPress={() => handlePress(button, index)}
+              ref={buttonRefs.current[index]} // Assign ref to each Pressable
               style={{
                 borderRadius: 20,
                 padding: 8,

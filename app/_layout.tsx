@@ -12,6 +12,7 @@ import { ThemeProvider } from "@/providers/ThemeContext";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Loading from "@/components/Atoms/Loading";
 import { AppProvider } from "@/providers/AppProvider";
+import TabOneScreen from "./(tabs)";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -82,12 +83,5 @@ function LoginLayout() {
 }
 
 function RootLayoutNav() {
-  return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: "modal" }} />
-      </Stack>
-    </GestureHandlerRootView>
-  );
+  return <TabOneScreen />;
 }
