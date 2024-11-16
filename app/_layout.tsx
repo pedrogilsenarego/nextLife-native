@@ -13,6 +13,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Loading from "@/components/Atoms/Loading";
 import { AppProvider } from "@/providers/AppProvider";
 import TabOneScreen from "./(tabs)";
+import { StatusBar } from "expo-status-bar";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -70,6 +71,7 @@ export default function RootLayout() {
       <AppProvider>
         <ThemeProvider>
           <ModalProvider>
+            <StatusBar style="light" />
             {session ? <RootLayoutNav /> : <LoginLayout />}
           </ModalProvider>
         </ThemeProvider>
