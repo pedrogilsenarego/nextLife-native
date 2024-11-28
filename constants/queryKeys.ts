@@ -12,4 +12,5 @@ export const queryKeys = {
   monthExpenses: "monthExpenses",
   incomes: "incomes",
   monthIncomes: "monthIncomes",
+  watches: "watches",
 };
