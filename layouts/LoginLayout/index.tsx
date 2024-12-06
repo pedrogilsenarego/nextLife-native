@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import React from "react";
 import useMainLayout from "./useMainLayout";
-import { Header } from "@/app/(tabs)/MainComponents/Header";
 
 type Props = {
   mainContent: React.ReactNode;

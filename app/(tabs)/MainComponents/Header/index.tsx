@@ -9,25 +9,21 @@ import { dateRangeLabel } from "@/mappers/dateRange";
 import { useApp } from "@/providers/AppProvider";
 import { useMemo } from "react";
 import Skeleton from "@/components/Atoms/Skeleton";
+import DateCalendar from "./DateCalendar/DateCalendar";
 
 type Props = {
   setSideMenu: (sideMenu: boolean) => void;
   setSideLeftMenu: (sideMenu: boolean) => void;
 };
 
-export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
+const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
   const { mainColor } = useTheme();
   const userQuery = useUser();
   const expenses = useExpenses();
   const incomes = useIncomes();
   const { dateRange } = useApp();
-  const currentDate = new Date();
-  const monthInLetters = currentDate.toLocaleString("default", {
-    month: "long",
-  });
   const { totalExpenses, totalIncomes } = useMetrics();
 
-  const formattedDate = `${currentDate.getDate()}, ${monthInLetters} ${currentDate.getFullYear()}`;
   const width = Dimensions.get("screen").width;
   const loading = expenses.isLoading || incomes.isLoading;
   const balance = useMemo(() => {
@@ -109,14 +105,7 @@ export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
                 />
               )}
             </View>
-            <Text
-              style={{
-                marginTop: 6,
-                color: "whitesmoke",
-              }}
-            >
-              {formattedDate}
-            </Text>
+            <DateCalendar />
           </View>
           {!loading ? (
             <View>
@@ -171,3 +160,5 @@ export const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
     </View>
   );
 };
+
+export default Header;
