@@ -30,6 +30,7 @@ export const getCars = async (): Promise<CarsQuery> => {
         model: deposit.model,
         createdAt: deposit.created_at,
         value: deposit.value,
+        licenseDate: deposit.license_date,
       }));
 
       resolve(formattedWatches || []);

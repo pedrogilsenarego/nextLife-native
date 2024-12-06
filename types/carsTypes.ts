@@ -7,4 +7,5 @@ export type Car = {
   value: number;
   brand: string;
   model: string;
+  licenseDate: string;
 };
