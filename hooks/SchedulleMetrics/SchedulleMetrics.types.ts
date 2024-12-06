@@ -7,7 +7,7 @@ export type MonthGroup = {
 
 export type SchedulleEvent = {
   title: string;
-  value?: number;
+  value?: number | null;
   category?: string;
   date: Date;
 };

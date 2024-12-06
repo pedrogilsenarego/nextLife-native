@@ -31,9 +31,34 @@ const CalendarDialog: React.FC<Props> = (props) => {
                   <View style={{ marginTop: 10 }}>
                     {month.events.map((event, index) => {
                       return (
-                        <Container key={index}>
-                          <Text>{event.title}</Text>
-                          <Text>{event.date.toDateString()}</Text>
+                        <Container
+                          key={index}
+                          containerStyles={{ flexDirection: "column" }}
+                        >
+                          <View
+                            style={{
+                              flexDirection: "row",
+                              justifyContent: "space-between",
+                              width: "100%",
+                            }}
+                          >
+                            <Text style={{ fontWeight: 600 }}>
+                              {event.category}
+                            </Text>
+                            <Text style={{ fontWeight: 600 }}>
+                              {event.value} €
+                            </Text>
+                          </View>
+                          <View
+                            style={{
+                              flexDirection: "row",
+                              justifyContent: "space-between",
+                              width: "100%",
+                            }}
+                          >
+                            <Text>{event.title}</Text>
+                            <Text>{event.date.toDateString()}</Text>
+                          </View>
                         </Container>
                       );
                     })}

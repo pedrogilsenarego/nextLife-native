@@ -8,4 +8,9 @@ export type Car = {
   brand: string;
   model: string;
   licenseDate: string;
+  cc: number;
+  typeFuel: FuelType;
+  co2: number;
 };
+
+export type FuelType = "gasoline" | "diesel" | "hybrid" | "electric";

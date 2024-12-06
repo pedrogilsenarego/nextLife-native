@@ -1,4 +1,5 @@
-import { useCars } from "../cars.hooks copy";
+import { useCars } from "../Cars/cars.hooks";
+import { calculateIUC } from "../Cars/cars.utils";
 import { MonthGroup } from "./SchedulleMetrics.types";
 
 export const useSchedulleMetrics = () => {
@@ -6,7 +7,9 @@ export const useSchedulleMetrics = () => {
   const getIUCs = () =>
     cars.data?.map((car) => ({
       iucPayment: new Date(car.licenseDate),
+      ...car,
     }));
+
   const getMonthEvents = () => {
     const monthsToShow = 12;
     const currentDate = new Date();
@@ -32,27 +35,43 @@ export const useSchedulleMetrics = () => {
 
     const iucs = getIUCs();
     if (iucs) {
-      iucs.forEach(({ iucPayment }) => {
-        const eventMonth = iucPayment.getMonth();
-        const currentMonth = currentDate.getMonth();
-        const currentYear = currentDate.getFullYear();
-        const eventDay = iucPayment.getDate();
+      iucs.forEach(
+        ({ iucPayment, brand, model, licenseDate, cc, typeFuel, co2 }) => {
+          const eventMonth = iucPayment.getMonth();
+          const currentMonth = currentDate.getMonth();
+          const currentYear = currentDate.getFullYear();
+          const eventDay = iucPayment.getDate();
 
-        let monthDiff = eventMonth - currentMonth;
-        let eventYear = currentYear;
+          let monthDiff = eventMonth - currentMonth;
+          let eventYear = currentYear;
 
-        if (monthDiff < 0) {
-          monthDiff += 12;
+          if (monthDiff < 0) {
+            monthDiff += 12;
+            eventYear += 1;
+          }
+
+          if (monthDiff >= 0 && monthDiff < monthsToShow) {
+            const adjustedEventDate = new Date(eventYear, eventMonth, eventDay);
+            const value = calculateIUC(
+              {
+                firstLicense: new Date(licenseDate),
+                cc,
+                typeFuel,
+                co2,
+                emissionStandard: "WLTP",
+              },
+              eventYear
+            );
+
+            monthEvents[monthDiff].events.push({
+              title: `${brand} - ${model}`,
+              category: "IUC",
+              date: adjustedEventDate,
+              value,
+            });
+          }
         }
-
-        if (monthDiff >= 0 && monthDiff < monthsToShow) {
-          const adjustedEventDate = new Date(eventYear, eventMonth, eventDay);
-          monthEvents[monthDiff].events.push({
-            title: "IUC Payment",
-            date: adjustedEventDate,
-          });
-        }
-      });
+      );
     }
     return monthEvents;
   };

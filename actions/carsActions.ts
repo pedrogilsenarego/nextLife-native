@@ -31,6 +31,9 @@ export const getCars = async (): Promise<CarsQuery> => {
         createdAt: deposit.created_at,
         value: deposit.value,
         licenseDate: deposit.license_date,
+        cc: deposit.cc,
+        typeFuel: deposit.type_fuel,
+        co2: deposit.co2,
       }));
 
       resolve(formattedWatches || []);
