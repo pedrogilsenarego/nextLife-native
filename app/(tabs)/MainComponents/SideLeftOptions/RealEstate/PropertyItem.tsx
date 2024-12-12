@@ -8,7 +8,7 @@ import { Container } from "@/components/Atoms/Container";
 import {
   useRealEstateImage,
   useRealEstateImages,
-} from "@/hooks/realEstate.hooks";
+} from "@/hooks/RealEstate/realEstate.hooks";
 import Skeleton from "@/components/Atoms/Skeleton";
 type Props = {
   property: RealEstate;

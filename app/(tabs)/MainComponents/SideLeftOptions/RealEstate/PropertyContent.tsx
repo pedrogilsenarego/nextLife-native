@@ -7,7 +7,10 @@ import { Colors, useTheme } from "@/providers/ThemeContext";
 import * as ImagePicker from "expo-image-picker";
 import useUser from "@/hooks/useUser";
 import { supabase } from "@/lib/supabase";
-import { useRealEstate, useRealEstateImages } from "@/hooks/realEstate.hooks";
+import {
+  useRealEstate,
+  useRealEstateImages,
+} from "@/hooks/RealEstate/realEstate.hooks";
 import { RealEstateImage } from "./RealEstateImage";
 import { useMutation } from "@tanstack/react-query";
 import { uploadRealEstateImage } from "@/actions/realEstateActions";
@@ -31,9 +34,7 @@ export const PropertyContent: React.FC<Props> = (props) => {
     (property) => property.id === props.propertyId
   );
   const [files, setFiles] = useState<FileObject[]>([]);
-  const totalIMI = propertyData?.equityValue
-    ? calculateIMI(propertyData?.equityValue)
-    : null;
+  const totalIMI = propertyData?.vpt ? calculateIMI(propertyData?.vpt) : null;
   const requestPermissions = async () => {
     const { status: mediaLibraryStatus } =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -110,7 +111,7 @@ export const PropertyContent: React.FC<Props> = (props) => {
               }}
             >
               <Text>Equity Value</Text>
-              <Text>{propertyData?.equityValue}</Text>
+              <Text>{propertyData?.vpt}</Text>
             </View>
             <Divider />
             <View

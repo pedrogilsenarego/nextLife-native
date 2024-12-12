@@ -1,3 +1,8 @@
+import {
+  OwnershipType,
+  PropertyType,
+} from "@/hooks/RealEstate/realEstate.utils";
+
 export type RealEstateQuery = RealEstate[];
 
 export type RealEstate = {
@@ -5,5 +10,8 @@ export type RealEstate = {
   marketValue: number;
   size: number;
   address: string;
-  equityValue: number;
+  vpt: number;
+  ownershipType: OwnershipType;
+  propertyType: PropertyType;
+  municipality: string;
 };

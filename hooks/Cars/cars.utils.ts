@@ -71,7 +71,6 @@ const tablesForA: Record<
   },
   2025: {
     gas: [
-      // Updated 2025 values for Gasoline (as provided)
       { limit: 1000, post1995: 19.9, y1990to1995: 12.2, y1981to1989: 8.8 },
       { limit: 1300, post1995: 39.95, y1990to1995: 22.45, y1981to1989: 12.55 },
       { limit: 1750, post1995: 62.4, y1990to1995: 34.87, y1981to1989: 17.49 },
@@ -90,8 +89,7 @@ const tablesForA: Record<
       },
     ],
     diesel: [
-      // Updated 2025 values for Diesel (as provided)
-      { limit: 1500, post1995: 22.48, y1990to1995: 14.18, y1981to1989: 10.19 }, // (includes diesel surcharge now)
+      { limit: 1500, post1995: 22.48, y1990to1995: 14.18, y1981to1989: 10.19 },
       { limit: 2000, post1995: 45.13, y1990to1995: 25.37, y1981to1989: 14.18 },
       { limit: 3000, post1995: 70.5, y1990to1995: 39.4, y1981to1989: 19.76 },
       {

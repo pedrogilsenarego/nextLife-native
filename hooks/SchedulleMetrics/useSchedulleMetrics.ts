@@ -1,14 +1,39 @@
+import { useEffect } from "react";
 import { useCars } from "../Cars/cars.hooks";
 import { calculateIUC } from "../Cars/cars.utils";
+import { useRealEstate } from "../RealEstate/realEstate.hooks";
 import { MonthGroup } from "./SchedulleMetrics.types";
+import {
+  calculateIMI,
+  IMICalculationInput,
+  OwnershipType,
+  PropertyType,
+} from "../RealEstate/realEstate.utils";
 
 export const useSchedulleMetrics = () => {
   const cars = useCars();
+  const realEstate = useRealEstate();
+
   const getIUCs = () =>
     cars.data?.map((car) => ({
       iucPayment: new Date(car.licenseDate),
       ...car,
     }));
+
+  const getIMIs = () =>
+    realEstate.data?.map((realEstate) => {
+      const imiInput: IMICalculationInput = {
+        vpt: realEstate.vpt,
+        propertyType: realEstate.propertyType,
+        ownershipType: realEstate.ownershipType,
+        municipality: realEstate.municipality,
+      };
+      console.log(calculateIMI(imiInput));
+    });
+
+  useEffect(() => {
+    getIMIs();
+  }, []);
 
   const getMonthEvents = () => {
     const monthsToShow = 12;

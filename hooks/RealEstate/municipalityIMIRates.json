@@ -1,0 +1,14 @@
+[
+  {
+    "municipality": "Lisboa",
+    "urbanRate": 0.3,
+    "rusticRate": 0.8,
+    "taxHavenRate": 7.5
+  },
+  {
+    "municipality": "Porto",
+    "urbanRate": 0.35,
+    "rusticRate": 0.8,
+    "taxHavenRate": 7.5
+  }
+]

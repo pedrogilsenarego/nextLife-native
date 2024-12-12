@@ -1,4 +1,4 @@
-import { useRealEstate } from "./realEstate.hooks";
+import { useRealEstate } from "./RealEstate/realEstate.hooks";
 import useCredits from "./useCredits";
 import useDeposits from "./useDeposits";
 import useReports from "./useReports";

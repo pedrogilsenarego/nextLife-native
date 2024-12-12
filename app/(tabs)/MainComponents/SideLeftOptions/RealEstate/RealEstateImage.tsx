@@ -1,7 +1,7 @@
 import { FileObject } from "@supabase/storage-js";
 import { Image, View, Text, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useRealEstateImage } from "@/hooks/realEstate.hooks";
+import { useRealEstateImage } from "@/hooks/RealEstate/realEstate.hooks";
 
 export const RealEstateImage = ({
   item,

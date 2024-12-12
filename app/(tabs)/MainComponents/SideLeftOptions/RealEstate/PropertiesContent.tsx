@@ -1,4 +1,4 @@
-import { useRealEstate } from "@/hooks/realEstate.hooks";
+import { useRealEstate } from "@/hooks/RealEstate/realEstate.hooks";
 import { View, FlatList, Text } from "react-native";
 import { PropertyItem } from "./PropertyItem";
 import { Colors } from "@/providers/ThemeContext";

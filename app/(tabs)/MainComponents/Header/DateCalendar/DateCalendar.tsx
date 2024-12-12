@@ -11,13 +11,10 @@ const DateCalendar: React.FC = () => {
   const formattedDate = `${currentDate.getDate()}, ${monthInLetters} ${currentDate.getFullYear()}`;
   return (
     <>
-      <Pressable
-        onPress={() => setOpenCalendar(true)}
-        style={{ paddingBottom: 30, borderWidth: 2 }}
-      >
+      <Pressable onPress={() => setOpenCalendar(true)}>
         <Text
           style={{
-            marginTop: 6,
+            marginTop: 60,
             color: "whitesmoke",
           }}
         >
