@@ -10,7 +10,15 @@ const useBusinesses = () => {
     queryFn: getBusinesses,
   });
 
-  return businesses;
+  const getHasBusinessType = () => {
+    let hasBusinessType = false;
+    businesses.data?.forEach((business) => {
+      if (business.type === 1) hasBusinessType = true;
+    });
+    return hasBusinessType;
+  };
+
+  return { ...businesses, getHasBusinessType };
 };
 
 export default useBusinesses;

@@ -14,7 +14,7 @@ const DateCalendar: React.FC = () => {
       <Pressable onPress={() => setOpenCalendar(true)}>
         <Text
           style={{
-            marginTop: 6,
+            marginTop: 60,
             color: "whitesmoke",
           }}
         >

@@ -6,13 +6,13 @@ import { MonthGroup } from "./SchedulleMetrics.types";
 import {
   calculateIMI,
   IMICalculationInput,
-  OwnershipType,
-  PropertyType,
 } from "../RealEstate/realEstate.utils";
+import useBusinesses from "../useBusinesses";
 
 export const useSchedulleMetrics = () => {
   const cars = useCars();
   const realEstate = useRealEstate();
+  const { getHasBusinessType } = useBusinesses();
 
   const getIUCs = () =>
     cars.data?.map((car) => ({
@@ -157,6 +157,16 @@ export const useSchedulleMetrics = () => {
           }
         });
       });
+
+      if (getHasBusinessType()) {
+        monthEvents[11].events.push({
+          title: "teste",
+          category: "Iva",
+          date: new Date(),
+          endDate: new Date(),
+          value: 1337,
+        });
+      }
 
       return monthEvents;
     }
