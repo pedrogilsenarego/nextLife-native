@@ -176,14 +176,14 @@ export function calculateIMI(input: IMICalculationInput): number {
   }
 
   if (input.isInRuins) {
-    imi += imi * 0.15; // 15% increase for properties in ruins
+    imi += imi * 0.3;
   }
 
   if (input.isPartiallyDevolved) {
     imi += imi * 0.05; // 5% increase for partially devoluted properties
   }
 
-  return imi;
+  return Math.round(imi * 10) / 10;
 }
 
 /**

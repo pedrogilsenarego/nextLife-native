@@ -14,4 +14,5 @@ export type RealEstate = {
   ownershipType: OwnershipType;
   propertyType: PropertyType;
   municipality: string;
+  isInRuins: boolean;
 };

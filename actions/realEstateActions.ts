@@ -39,6 +39,7 @@ export const getRealEstate = async (): Promise<RealEstateQuery> => {
           ownershipType: deposit.ownership_type,
           propertyType: deposit.property_type,
           municipality: deposit.municipality,
+          isInRuins: deposit.is_in_ruins,
         })
       );
 

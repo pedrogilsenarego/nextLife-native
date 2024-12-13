@@ -27,6 +27,7 @@ export const useSchedulleMetrics = () => {
         propertyType: realEstate.propertyType,
         ownershipType: realEstate.ownershipType,
         municipality: realEstate.municipality,
+        isInRuins: realEstate.isInRuins,
       };
       console.log(calculateIMI(imiInput));
     });
