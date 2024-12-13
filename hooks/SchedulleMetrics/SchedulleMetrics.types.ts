@@ -10,4 +10,5 @@ export type SchedulleEvent = {
   value?: number | null;
   category?: string;
   date: Date;
+  endDate?: Date;
 };

@@ -21,7 +21,7 @@ const CalendarDialog: React.FC<Props> = (props) => {
       <BottomPopupContent>
         <View style={{ marginTop: 15 }}>
           <View style={{ flexDirection: "column", gap: 10 }}>
-            {getMonthEvents().map((month, index) => {
+            {getMonthEvents()?.map((month, index) => {
               if (month.events.length <= 0) return;
               return (
                 <View key={index}>
@@ -57,7 +57,24 @@ const CalendarDialog: React.FC<Props> = (props) => {
                             }}
                           >
                             <Text>{event.title}</Text>
-                            <Text>{event.date.toDateString()}</Text>
+                            <View style={{ flexDirection: "row" }}>
+                              <Text>
+                                {event.date.toLocaleDateString("en-En", {
+                                  month: "short",
+                                  day: "numeric",
+                                })}
+                              </Text>
+                              {event.endDate && (
+                                <Text>
+                                  {" "}
+                                  -{" "}
+                                  {event.endDate?.toLocaleDateString("en-En", {
+                                    month: "short",
+                                    day: "numeric",
+                                  })}
+                                </Text>
+                              )}
+                            </View>
                           </View>
                         </Container>
                       );
