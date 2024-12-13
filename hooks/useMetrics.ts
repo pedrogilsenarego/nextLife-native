@@ -7,6 +7,8 @@ import { Income } from "@/types/incomesTypes";
 import { useApp } from "@/providers/AppProvider";
 import { dateQueriesMap, getMonthAbbreviation } from "@/utils/dateFormat";
 import { differenceInMonths, endOfMonth, startOfMonth } from "date-fns";
+import { IVA_RATE } from "@/constants/taxes";
+import { useEffect } from "react";
 
 type Props = {
   businessSelected?: string;
@@ -17,6 +19,7 @@ const useMetrics = ({ businessSelected, selectedCategory }: Props = {}) => {
   const expenses = useExpenses({ businessSelected, selectedCategory });
   const incomes = useIncomes({ businessSelected, selectedCategory });
   const { dateRange } = useApp();
+
   const totalExpenses = () =>
     expenses?.data?.reduce((acc, item) => {
       return acc + item.amount;
@@ -26,6 +29,49 @@ const useMetrics = ({ businessSelected, selectedCategory }: Props = {}) => {
     incomes?.data?.reduce((acc, item) => {
       return acc + item.amount;
     }, 0) ?? 0;
+
+  interface GetIVACalculationInput {
+    dateStart?: Date;
+    dateEnd?: Date;
+  }
+
+  const getIncomesIVA = ({
+    dateStart,
+    dateEnd,
+  }: GetIVACalculationInput): number => {
+    const totalIVA =
+      incomes?.data
+        ?.filter((item) => {
+          if (item.business.type !== 1 || item.is_iva_isent) {
+            return false;
+          }
+
+          if (dateStart && dateEnd) {
+            const itemDate = new Date(item.created_at);
+            if (isNaN(itemDate.getTime())) {
+              return false;
+            }
+            return itemDate >= dateStart && itemDate <= dateEnd;
+          }
+          return true;
+        })
+        .reduce((acc, item) => {
+          const iva = item.amount * (IVA_RATE / (1 + IVA_RATE));
+          return acc + iva;
+        }, 0) ?? 0;
+
+    return Math.round(totalIVA * 10) / 10;
+  };
+
+  // useEffect(() => {
+  //   console.log(
+  //     "IVA",
+  //     getIncomesIVA({
+  //       dateStart: new Date("2024-11-02"),
+  //       dateEnd: new Date("2024-11-30"),
+  //     })
+  //   );
+  // }, []);
 
   const valueTotalPerDay = (data: Expense[] | Income[] | undefined) => {
     const today = dateQueriesMap(dateRange).endDate;
@@ -234,6 +280,7 @@ const useMetrics = ({ businessSelected, selectedCategory }: Props = {}) => {
     getExpensesPerBusiness,
     getIncomesPerBusiness,
     getNumberOfDifferentMonths,
+    getIncomesIVA,
   };
 };
 

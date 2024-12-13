@@ -6,10 +6,12 @@ export type Income = {
   id: string;
   category: string;
   amount: number;
+  is_iva_isent: boolean;
   deposit_id: number;
   business: {
     icon_type: number;
     business_name: string;
+    type: number;
   };
   deposits: {
     deposit_name: string;
