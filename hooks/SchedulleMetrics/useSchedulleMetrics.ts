@@ -8,6 +8,7 @@ import {
   IMICalculationInput,
 } from "../RealEstate/realEstate.utils";
 import useBusinesses from "../useBusinesses";
+import { IVA_PAYMENT_DATES } from "@/constants/taxes";
 
 export const useSchedulleMetrics = () => {
   const cars = useCars();
@@ -157,19 +158,42 @@ export const useSchedulleMetrics = () => {
           }
         });
       });
-
-      if (getHasBusinessType()) {
-        monthEvents[11].events.push({
-          title: "teste",
-          category: "Iva",
-          date: new Date(),
-          endDate: new Date(),
-          value: 1337,
-        });
-      }
-
-      return monthEvents;
     }
+
+    if (getHasBusinessType()) {
+      IVA_PAYMENT_DATES.forEach(({ month, day }) => {
+        // Determinar o ano do pagamento
+        let paymentYear = currentDate.getFullYear();
+        if (month < currentDate.getMonth()) {
+          paymentYear += 1;
+        }
+
+        // Verificar se o pagamento está dentro dos próximos 12 meses
+        const paymentDate = new Date(paymentYear, month, day);
+        const diffInMonths =
+          (paymentYear - currentDate.getFullYear()) * 12 +
+          (month - currentDate.getMonth());
+
+        if (diffInMonths >= 0 && diffInMonths < monthsToShow) {
+          // Encontrar o índice do mês no monthEvents
+          const monthIndex = monthEvents.findIndex(
+            (group) => group.month === month && group.year === paymentYear
+          );
+
+          if (monthIndex !== -1) {
+            monthEvents[monthIndex].events.push({
+              title: "Pagamento IVA",
+              category: "IVA",
+              date: paymentDate,
+              endDate: new Date(paymentYear, month + 1, 0),
+              value: 200,
+            });
+          }
+        }
+      });
+    }
+
+    return monthEvents;
   };
 
   return { getMonthEvents };

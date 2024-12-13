@@ -28,7 +28,7 @@ const CalendarDialog: React.FC<Props> = (props) => {
                   <Text key={index} style={{ fontWeight: "600" }}>
                     {month.monthLabel} - {month.year}
                   </Text>
-                  <View style={{ marginTop: 10 }}>
+                  <View style={{ marginTop: 10, rowGap: 6 }}>
                     {month.events.map((event, index) => {
                       return (
                         <Container
