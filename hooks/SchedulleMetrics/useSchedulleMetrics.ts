@@ -161,7 +161,7 @@ export const useSchedulleMetrics = () => {
     }
 
     if (getHasBusinessType()) {
-      IVA_PAYMENT_DATES.forEach(({ month, day }) => {
+      IVA_PAYMENT_DATES.forEach(({ month, day }, index) => {
         // Determinar o ano do pagamento
         let paymentYear = currentDate.getFullYear();
         if (month < currentDate.getMonth()) {
@@ -186,7 +186,7 @@ export const useSchedulleMetrics = () => {
               category: "IVA",
               date: paymentDate,
               endDate: new Date(paymentYear, month + 1, 0),
-              value: 200,
+              value: index > 0 ? undefined : 200,
             });
           }
         }

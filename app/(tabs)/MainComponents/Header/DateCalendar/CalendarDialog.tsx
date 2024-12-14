@@ -46,7 +46,7 @@ const CalendarDialog: React.FC<Props> = (props) => {
                               {event.category}
                             </Text>
                             <Text style={{ fontWeight: 600 }}>
-                              {event.value} €
+                              {event.value || "-"} €
                             </Text>
                           </View>
                           <View
