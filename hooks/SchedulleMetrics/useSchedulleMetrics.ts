@@ -8,11 +8,13 @@ import {
   IMICalculationInput,
 } from "../RealEstate/realEstate.utils";
 import useBusinesses from "../useBusinesses";
-import { IVA_PAYMENT_DATES } from "@/constants/taxes";
+import { getFiscalPeriod, IVA_PAYMENT_DATES } from "@/constants/taxes";
+import useIncomes from "../useIncomes";
 
 export const useSchedulleMetrics = () => {
   const cars = useCars();
   const realEstate = useRealEstate();
+  const { getIncomesIVA } = useIncomes();
   const { getHasBusinessType } = useBusinesses();
 
   const getIUCs = () =>
@@ -161,36 +163,68 @@ export const useSchedulleMetrics = () => {
     }
 
     if (getHasBusinessType()) {
-      IVA_PAYMENT_DATES.forEach(({ month, day }, index) => {
-        // Determinar o ano do pagamento
-        let paymentYear = currentDate.getFullYear();
-        if (month < currentDate.getMonth()) {
-          paymentYear += 1;
-        }
+      IVA_PAYMENT_DATES.forEach(
+        (
+          {
+            paymentMonth,
+            paymentDay,
+            periodEndMonth,
+            periodEndYearOffset,
+            periodStartMonth,
+            periodStartYearOffset,
+          },
+          index
+        ) => {
+          let paymentYear = currentDate.getFullYear();
+          if (paymentMonth < currentDate.getMonth()) {
+            paymentYear += 1;
+          }
 
-        // Verificar se o pagamento está dentro dos próximos 12 meses
-        const paymentDate = new Date(paymentYear, month, day);
-        const diffInMonths =
-          (paymentYear - currentDate.getFullYear()) * 12 +
-          (month - currentDate.getMonth());
+          const paymentDate = new Date(paymentYear, paymentMonth, paymentDay);
+          const diffInMonths =
+            (paymentYear - currentDate.getFullYear()) * 12 +
+            (paymentMonth - currentDate.getMonth());
 
-        if (diffInMonths >= 0 && diffInMonths < monthsToShow) {
-          // Encontrar o índice do mês no monthEvents
-          const monthIndex = monthEvents.findIndex(
-            (group) => group.month === month && group.year === paymentYear
-          );
+          if (diffInMonths >= 0 && diffInMonths < monthsToShow) {
+            // Encontrar o índice do mês no monthEvents
+            const monthIndex = monthEvents.findIndex(
+              (group) =>
+                group.month === paymentMonth && group.year === paymentYear
+            );
 
-          if (monthIndex !== -1) {
-            monthEvents[monthIndex].events.push({
-              title: "Pagamento IVA",
-              category: "IVA",
-              date: paymentDate,
-              endDate: new Date(paymentYear, month + 1, 0),
-              value: index > 0 ? undefined : 200,
-            });
+            let value = undefined;
+
+            if (index === 0) {
+              const fiscalPeriod = getFiscalPeriod(
+                {
+                  paymentMonth,
+                  paymentDay,
+                  periodStartMonth,
+                  periodStartYearOffset,
+                  periodEndMonth,
+                  periodEndYearOffset,
+                },
+                paymentDate.getFullYear()
+              );
+
+              value = getIncomesIVA({
+                dateStart: fiscalPeriod.startDate,
+                dateEnd: fiscalPeriod.endDate,
+              });
+            }
+
+            if (monthIndex !== -1) {
+              monthEvents[monthIndex].events.push({
+                title: "Pagamento IVA",
+                category: "IVA",
+                date: paymentDate,
+                endDate: new Date(paymentYear, paymentMonth + 1, 0),
+                value,
+              });
+            }
           }
         }
-      });
+      );
     }
 
     return monthEvents;
