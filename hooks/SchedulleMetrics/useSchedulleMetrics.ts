@@ -10,10 +10,13 @@ import {
 import useBusinesses from "../useBusinesses";
 import { getFiscalPeriod, IVA_PAYMENT_DATES } from "@/constants/taxes";
 import useIncomes from "../useIncomes";
+import { useApp } from "@/providers/AppProvider";
+import { singleMonth } from "@/utils/dateRange";
 
 export const useSchedulleMetrics = () => {
   const cars = useCars();
   const realEstate = useRealEstate();
+  const { dateRange } = useApp();
   const { getIncomesIVA } = useIncomes();
   const { getHasBusinessType } = useBusinesses();
 
@@ -167,7 +170,8 @@ export const useSchedulleMetrics = () => {
         (
           {
             paymentMonth,
-            paymentDay,
+            paymentStartDay,
+            paymentEndDay,
             periodEndMonth,
             periodEndYearOffset,
             periodStartMonth,
@@ -180,7 +184,16 @@ export const useSchedulleMetrics = () => {
             paymentYear += 1;
           }
 
-          const paymentDate = new Date(paymentYear, paymentMonth, paymentDay);
+          const paymentStartDate = new Date(
+            paymentYear,
+            paymentMonth,
+            paymentStartDay
+          );
+          const paymentEndDate = new Date(
+            paymentYear,
+            paymentMonth,
+            paymentEndDay
+          );
           const diffInMonths =
             (paymentYear - currentDate.getFullYear()) * 12 +
             (paymentMonth - currentDate.getMonth());
@@ -193,18 +206,19 @@ export const useSchedulleMetrics = () => {
             );
 
             let value = undefined;
-
-            if (index === 0) {
+            //needs better condition for know if can calculate the IVA
+            if (index === 0 && !singleMonth(dateRange)) {
               const fiscalPeriod = getFiscalPeriod(
                 {
                   paymentMonth,
-                  paymentDay,
+                  paymentStartDay,
+                  paymentEndDay,
                   periodStartMonth,
                   periodStartYearOffset,
                   periodEndMonth,
                   periodEndYearOffset,
                 },
-                paymentDate.getFullYear()
+                paymentEndDate.getFullYear()
               );
 
               value = getIncomesIVA({
@@ -217,8 +231,8 @@ export const useSchedulleMetrics = () => {
               monthEvents[monthIndex].events.push({
                 title: "Pagamento IVA",
                 category: "IVA",
-                date: paymentDate,
-                endDate: new Date(paymentYear, paymentMonth + 1, 0),
+                date: paymentStartDate,
+                endDate: paymentEndDate,
                 value,
               });
             }
