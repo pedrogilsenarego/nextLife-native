@@ -9,6 +9,7 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
 } from "react-native-reanimated";
+import { CalendarDialogItem } from "./CalendarDialogItem";
 
 type Props = {
   onClose: () => void;
@@ -16,25 +17,6 @@ type Props = {
 
 const CalendarDialog: React.FC<Props> = (props) => {
   const { getMonthEvents } = useSchedulleMetrics();
-  const [showContent, setShowContent] = useState<boolean>(false);
-
-  const contentHeight = useSharedValue(0);
-  const [measuredHeight, setMeasuredHeight] = useState(0);
-
-  // Animate height when showContent changes
-  useEffect(() => {
-    // Animate height from 0 to the measured content height (or back)
-    contentHeight.value = withTiming(showContent ? measuredHeight : 0, {
-      duration: 300,
-    });
-  }, [showContent, measuredHeight]);
-
-  const animatedStyle = useAnimatedStyle(() => ({
-    height: contentHeight.value,
-    overflow: "hidden",
-  }));
-
-  let contentToMeasure: any = null;
 
   return (
     <BottomPopup
@@ -57,75 +39,8 @@ const CalendarDialog: React.FC<Props> = (props) => {
                     <View style={{ marginTop: 10, rowGap: 6 }}>
                       {month.events.map((event, i) => {
                         // We'll measure the content once
-                        if (!contentToMeasure && event.content) {
-                          contentToMeasure = event.content;
-                        }
-                        return (
-                          <Pressable
-                            key={i}
-                            onPress={() => setShowContent(!showContent)}
-                          >
-                            <Container
-                              containerStyles={{ flexDirection: "column" }}
-                            >
-                              <View
-                                style={{
-                                  flexDirection: "row",
-                                  justifyContent: "space-between",
-                                  width: "100%",
-                                }}
-                              >
-                                <Text style={{ fontWeight: "600" }}>
-                                  {event.category}
-                                </Text>
-                                <Text style={{ fontWeight: "600" }}>
-                                  {event.value || "-"} €
-                                </Text>
-                              </View>
-                              <View
-                                style={{
-                                  flexDirection: "row",
-                                  justifyContent: "space-between",
-                                  width: "100%",
-                                }}
-                              >
-                                <Text>{event.title}</Text>
-                                <View style={{ flexDirection: "row" }}>
-                                  <Text>
-                                    {event.date.toLocaleDateString("en-En", {
-                                      month: "short",
-                                      day: "numeric",
-                                    })}
-                                  </Text>
-                                  {event.endDate && (
-                                    <Text>
-                                      {" "}
-                                      -{" "}
-                                      {event.endDate?.toLocaleDateString(
-                                        "en-En",
-                                        {
-                                          month: "short",
-                                          day: "numeric",
-                                        }
-                                      )}
-                                    </Text>
-                                  )}
-                                </View>
-                              </View>
-                              {/* Animated container for the event content */}
-                              {event.content && (
-                                <Animated.View
-                                  style={[
-                                    animatedStyle,
-                                    { width: "100%", overflow: "hidden" },
-                                  ]}
-                                >
-                                  {event.content}
-                                </Animated.View>
-                              )}
-                            </Container>
-                          </Pressable>
-                        );
+
+                        return <CalendarDialogItem event={event} i={i} />;
                       })}
                     </View>
                   </View>
@@ -133,20 +48,6 @@ const CalendarDialog: React.FC<Props> = (props) => {
               );
             })}
           </View>
-
-          {/* Hidden view to measure content height */}
-          {contentToMeasure && (
-            <View
-              style={{
-                position: "absolute",
-                top: -9999,
-                left: -9999,
-              }}
-              onLayout={(e) => setMeasuredHeight(e.nativeEvent.layout.height)}
-            >
-              {contentToMeasure}
-            </View>
-          )}
         </View>
       </BottomPopupContent>
     </BottomPopup>
