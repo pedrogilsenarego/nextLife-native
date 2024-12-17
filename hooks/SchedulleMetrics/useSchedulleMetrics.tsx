@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useCars } from "../Cars/cars.hooks";
 import { calculateIUC } from "../Cars/cars.utils";
 import { useRealEstate } from "../RealEstate/realEstate.hooks";
@@ -12,12 +11,16 @@ import { getFiscalPeriod, IVA_PAYMENT_DATES } from "@/constants/taxes";
 import useIncomes from "../useIncomes";
 import { useApp } from "@/providers/AppProvider";
 import { singleMonth } from "@/utils/dateRange";
+import useExpenses from "../useExpenses";
+import { View, Text } from "react-native";
+import { Divider } from "@/components/Atoms/Divider";
 
 export const useSchedulleMetrics = () => {
   const cars = useCars();
   const realEstate = useRealEstate();
   const { dateRange } = useApp();
   const { getIncomesIVA } = useIncomes();
+  const { getExpensesIVAAmortization } = useExpenses();
   const { getHasBusinessType } = useBusinesses();
 
   const getIUCs = () =>
@@ -206,6 +209,7 @@ export const useSchedulleMetrics = () => {
             );
 
             let value = undefined;
+            let content = undefined;
             //needs better condition for know if can calculate the IVA
             if (index === 0 && !singleMonth(dateRange)) {
               const fiscalPeriod = getFiscalPeriod(
@@ -221,10 +225,51 @@ export const useSchedulleMetrics = () => {
                 paymentEndDate.getFullYear()
               );
 
-              value = getIncomesIVA({
+              const incomesIva = getIncomesIVA({
                 dateStart: fiscalPeriod.startDate,
                 dateEnd: fiscalPeriod.endDate,
               });
+
+              const expensesIva = getExpensesIVAAmortization({
+                dateStart: fiscalPeriod.startDate,
+                dateEnd: fiscalPeriod.endDate,
+              });
+
+              value = incomesIva - expensesIva.total;
+
+              content = (
+                <View
+                  style={{
+                    marginTop: 10,
+                    borderWidth: 2,
+                    borderColor: "transparent",
+                    width: "100%",
+                  }}
+                >
+                  {Object.entries(expensesIva).map(([category, amount]) => {
+                    return (
+                      <>
+                        <View
+                          key={category}
+                          style={{
+                            paddingVertical: 2,
+                            flexDirection: "row",
+                            borderWidth: 2,
+                            borderColor: "transparent",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <Text style={{ textTransform: "capitalize" }}>
+                            {category}
+                          </Text>
+                          <Text>- {amount}€</Text>
+                        </View>
+                        {category === "total" && <Divider />}
+                      </>
+                    );
+                  })}
+                </View>
+              );
             }
 
             if (monthIndex !== -1) {
@@ -234,6 +279,7 @@ export const useSchedulleMetrics = () => {
                 date: paymentStartDate,
                 endDate: paymentEndDate,
                 value,
+                content,
               });
             }
           }

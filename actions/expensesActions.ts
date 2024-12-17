@@ -30,7 +30,7 @@ export const getExpenses = async ({
         .select(
           `
         *,
-        business:businessId (icon_type, business_name),
+        business:businessId (icon_type, business_name, type),
         deposits:deposit_id (deposit_name)
       `
         )

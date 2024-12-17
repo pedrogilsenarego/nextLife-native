@@ -1,4 +1,12 @@
+import { Categories } from "./categories";
+
 export const IVA_RATE = 0.23;
+
+export const categoriesToUseForIva: Categories[] = [Categories.GAS];
+
+export const ivaCategories: Partial<Record<Categories, number>> = {
+  [Categories.GAS]: 0.5,
+};
 
 export interface IVAPaymentDate {
   paymentMonth: number; // Mês do pagamento (0-based: 0 = Janeiro)
@@ -62,7 +70,7 @@ export const getFiscalPeriod = (
   const endYear = currentYear + paymentDate.periodEndYearOffset;
 
   const startDate = new Date(startYear, paymentDate.periodStartMonth, 1);
-  const endDate = new Date(endYear, paymentDate.periodEndMonth + 1, 0); // Último dia do mês
+  const endDate = new Date(endYear, paymentDate.periodEndMonth + 1, 0);
 
   return { startDate, endDate };
 };

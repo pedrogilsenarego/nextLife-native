@@ -7,8 +7,9 @@ export type MonthGroup = {
 
 export type SchedulleEvent = {
   title: string;
-  value?: number | null;
+  value?: number | null | string;
   category?: string;
   date: Date;
   endDate?: Date;
+  content?: React.ReactNode;
 };
