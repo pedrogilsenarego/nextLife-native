@@ -1,5 +1,6 @@
 export const queryKeys = {
   businesses: "businesses",
+  businessesInvestmentParcels: "businesses-investment-parcels",
   reports: "reports",
   deposits: "deposits",
   realEstate: "real-estate",

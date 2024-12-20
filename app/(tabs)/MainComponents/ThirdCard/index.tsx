@@ -1,5 +1,4 @@
 import { Card } from "@/components/Atoms/Card";
-import LoaderSpinner from "@/components/Atoms/LoaderSpinner";
 import useBusinesses from "@/hooks/useBusinesses";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 import {
@@ -10,8 +9,6 @@ import {
   ImageBackground,
 } from "react-native";
 import { BusinessCard } from "./BusinessCard";
-import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
-
 import { ModalBusinessContent } from "./ModalBusinessContent";
 import { AddBusiness } from "./AddBusiness";
 
@@ -24,6 +21,7 @@ import { useApp } from "@/providers/AppProvider";
 import { SelectedDepositProvider } from "./DepositsContext";
 import { DepositsScroller } from "./DepositsScroller";
 import { HeaderMetrics } from "./HeaderMetrics";
+import React from "react";
 
 const ThirdCard = () => {
   const businesses = useBusinesses();
@@ -79,7 +77,7 @@ const ThirdCard = () => {
                     paddingTop: 120,
                   }}
                 >
-                  <HeaderMetrics />
+                  {/* <HeaderMetrics /> */}
                 </View>
                 <View
                   style={{
@@ -88,9 +86,9 @@ const ThirdCard = () => {
                     paddingHorizontal: 14,
                   }}
                 >
-                  <SelectedDepositProvider>
+                  {/* <SelectedDepositProvider>
                     <DepositsScroller />
-                  </SelectedDepositProvider>
+                  </SelectedDepositProvider> */}
                 </View>
 
                 <View style={{ zIndex: 1000 }}>
@@ -147,11 +145,11 @@ const ThirdCard = () => {
                     </View>
                   ) : (
                     <>
-                      <View style={{ marginTop: 60, paddingHorizontal: 14 }}>
+                      {/* <View style={{ marginTop: 60, paddingHorizontal: 14 }}>
                         <HorizontalBarChartBusiness
                           businessData={businessData}
                         />
-                      </View>
+                      </View> */}
                       <View
                         style={{
                           rowGap: 8,

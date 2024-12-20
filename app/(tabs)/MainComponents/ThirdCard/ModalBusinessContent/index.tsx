@@ -186,6 +186,7 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
                     <Settings
                       businessId={business.id}
                       businessName={business.businessName}
+                      businessType={business.type}
                     />
                   </ScrollView>
                 </Pressable>
