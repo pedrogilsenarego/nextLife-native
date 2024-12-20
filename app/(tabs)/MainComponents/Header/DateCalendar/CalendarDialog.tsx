@@ -1,14 +1,6 @@
-import { Card } from "@/components/Atoms/Card";
-import { Container } from "@/components/Atoms/Container";
 import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
 import { useSchedulleMetrics } from "@/hooks/SchedulleMetrics/useSchedulleMetrics";
-import { useState, useEffect, useRef } from "react";
 import { Pressable, Text, View } from "react-native";
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withTiming,
-} from "react-native-reanimated";
 import { CalendarDialogItem } from "./CalendarDialogItem";
 
 type Props = {

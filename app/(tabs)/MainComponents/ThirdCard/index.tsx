@@ -22,6 +22,7 @@ import { useApp } from "@/providers/AppProvider";
 import { SelectedDepositProvider } from "./DepositsContext";
 import { DepositsScroller } from "./DepositsScroller";
 import { HeaderMetrics } from "./HeaderMetrics";
+import React from "react";
 
 const ThirdCard = () => {
   const businesses = useBusinesses();
