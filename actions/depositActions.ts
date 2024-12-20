@@ -154,3 +154,33 @@ export const transferMoneyDepositToDeposit = async ({
     }
   });
 };
+
+export const deleteDeposit = async (depositId: number): Promise<string> => {
+  return new Promise(async (resolve, reject) => {
+    console.log("Deleting deposit with ID:", depositId);
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        return reject(new Error("User not authenticated"));
+      }
+
+      const { error: deleteError } = await supabase
+        .from("deposits")
+        .delete()
+        .eq("id", depositId);
+
+      if (deleteError) {
+        console.error("Error deleting deposit:", deleteError);
+        return reject(deleteError.message);
+      }
+
+      resolve("Deposit deleted successfully");
+    } catch (error) {
+      console.error("Error deleting deposit:", error);
+      reject(error);
+    }
+  });
+};

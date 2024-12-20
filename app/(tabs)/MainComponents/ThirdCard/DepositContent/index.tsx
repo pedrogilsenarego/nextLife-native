@@ -8,9 +8,12 @@ import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
 import { Transfer } from "./Transfer";
 import { useState } from "react";
 import { UpdateAmount } from "./UpdateAmount";
+import React from "react";
+import { useDepositContent } from "./useDepositContent";
 
 export const DepositContent: React.FC = () => {
   const { selectedDeposit } = useSelectedDeposit();
+  const { handleDeleteDeposit, isPending } = useDepositContent();
   const [openTransferModal, setOpenTransferModal] = useState<boolean>(false);
   const [openUpdateAmountModal, setOpenUpdateAmountModal] =
     useState<boolean>(false);
@@ -57,7 +60,12 @@ export const DepositContent: React.FC = () => {
           label="Transfer Money"
           onPress={() => setOpenTransferModal(true)}
         />
-        <Button variant="danger" label="Delete" />
+        <Button
+          variant="danger"
+          isLoading={isPending}
+          label="Delete"
+          onPress={handleDeleteDeposit}
+        />
       </View>
       <BottomPopup
         fullHeight

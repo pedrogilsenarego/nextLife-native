@@ -1,5 +1,6 @@
 import { Container } from "@/components/Atoms/Container";
 import { SchedulleEvent } from "@/hooks/SchedulleMetrics/SchedulleMetrics.types";
+import React from "react";
 
 import { useEffect, useState } from "react";
 import { Pressable, View, Text } from "react-native";

@@ -9,6 +9,7 @@ import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
 import DepositContent from "../DepositContent";
 import { defaultDeposits } from "@/constants/defaultDeposits";
 import Skeleton from "@/components/Atoms/Skeleton";
+import React from "react";
 
 export const DepositsScroller: React.FC = () => {
   const { selectedDeposit, setSelectedDeposit } = useSelectedDeposit();
