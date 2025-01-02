@@ -240,7 +240,7 @@ const PieChartMain = ({ businessSelected }: Props) => {
               }}
             >
               <View style={{ flexDirection: "row" }}>
-                <ExtraStatusPieChart />
+                {/* <ExtraStatusPieChart /> */}
                 <View style={{ height: 233, justifyContent: "center" }}>
                   <Animated.View
                     style={[

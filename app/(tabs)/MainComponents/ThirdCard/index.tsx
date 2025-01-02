@@ -78,7 +78,7 @@ const ThirdCard = () => {
                     paddingTop: 120,
                   }}
                 >
-                  <HeaderMetrics />
+                  {/* <HeaderMetrics /> */}
                 </View>
                 <View
                   style={{
@@ -147,9 +147,9 @@ const ThirdCard = () => {
                   ) : (
                     <>
                       <View style={{ marginTop: 60, paddingHorizontal: 14 }}>
-                        <HorizontalBarChartBusiness
+                        {/* <HorizontalBarChartBusiness
                           businessData={businessData}
-                        />
+                        /> */}
                       </View>
                       <View
                         style={{

@@ -10,11 +10,15 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 type SelectedBusinessContextProps = {
   selectedBusiness: string | null;
   setSelectedBusiness: (business: string | null) => void;
+  openBusinessModal: boolean;
+  setOpenBusinessModal: (signal: boolean) => void;
 };
 
 const SelectedBusinessContext = createContext<SelectedBusinessContextProps>({
   selectedBusiness: null,
   setSelectedBusiness: () => {},
+  openBusinessModal: false,
+  setOpenBusinessModal: () => {},
 });
 
 export const SelectedBusinessProvider = ({
@@ -23,6 +27,7 @@ export const SelectedBusinessProvider = ({
   children: ReactNode;
 }) => {
   const [selectedBusiness, setSelectedBusiness] = useState<string | null>(null);
+  const [openBusinessModal, setOpenBusinessModal] = useState<boolean>(false);
 
   useEffect(() => {
     async function loadPersistedBusiness() {
@@ -59,7 +64,12 @@ export const SelectedBusinessProvider = ({
 
   return (
     <SelectedBusinessContext.Provider
-      value={{ selectedBusiness, setSelectedBusiness }}
+      value={{
+        selectedBusiness,
+        setSelectedBusiness,
+        openBusinessModal,
+        setOpenBusinessModal,
+      }}
     >
       {children}
     </SelectedBusinessContext.Provider>

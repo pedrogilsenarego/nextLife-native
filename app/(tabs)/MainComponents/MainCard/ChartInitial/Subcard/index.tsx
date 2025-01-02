@@ -4,6 +4,7 @@ import { LeftComponent } from "./LeftComponent";
 import { RightComponent } from "./RightComponent";
 import { View, Text } from "react-native";
 import { Divider } from "@/components/Atoms/Divider";
+import React from "react";
 
 type Props = {
   expensesPerDay: { value: number; label: string }[];

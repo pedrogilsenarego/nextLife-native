@@ -36,7 +36,7 @@ const ChartInitial = ({
     selectedCategory,
   });
 
-  const { dateRange, selectedDate, changeSelectedDate } = useApp();
+  const { dateRange } = useApp();
   const {
     expensesTotalPerDay,
     expensesTotalPerMonth,

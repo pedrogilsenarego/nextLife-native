@@ -1,11 +1,9 @@
-import { dateRangeLabel } from "@/mappers/dateRange";
 import { useApp } from "@/providers/AppProvider";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 import { dateQueriesMap } from "@/utils/dateFormat";
 import { singleMonth } from "@/utils/dateRange";
 import { formatAmount } from "@/utils/money";
 import { View, Text } from "react-native";
-import { SharedValue } from "react-native-reanimated";
 
 type Props = {
   expensesPerDay: { value: number; label: string }[];

@@ -14,7 +14,7 @@ type Props = {
 
 export const BusinessCard: React.FC<Props> = ({ businessData }) => {
   const { theme } = useTheme();
-  const { setSelectedBusiness } = useSelectedBusiness();
+  const { setSelectedBusiness, setOpenBusinessModal } = useSelectedBusiness();
   const businessLabel = defaultBusiness.find(
     (item) => item.value === businessData.business.type
   )?.label;
@@ -23,7 +23,12 @@ export const BusinessCard: React.FC<Props> = ({ businessData }) => {
   const businessIcons = useBusinessIcons({ size: 24 });
   const icon = () => businessIcons[businessIcon || 0].icon;
   return (
-    <Pressable onPress={() => setSelectedBusiness(businessData.business.id)}>
+    <Pressable
+      onPress={() => {
+        setSelectedBusiness(businessData.business.id);
+        setOpenBusinessModal(true);
+      }}
+    >
       <Container
         status={getStatusColor(businessData.balance)}
         key={businessData.business.id}

@@ -29,7 +29,8 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
   const expenses = useExpenses();
   const incomes = useIncomes();
   const businesses = useBusinesses();
-  const { setSelectedBusiness, selectedBusiness } = useSelectedBusiness();
+  const { selectedBusiness, openBusinessModal, setOpenBusinessModal } =
+    useSelectedBusiness();
   const [moving, setMoving] = useState(false);
   const currentIndex = useSharedValue<number>(0);
 
@@ -70,8 +71,8 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
           (business) => business.business.id === selectedBusiness
         )?.business.businessName
       }
-      openModal={!!selectedBusiness}
-      onClose={() => setSelectedBusiness(null)}
+      openModal={openBusinessModal}
+      onClose={() => setOpenBusinessModal(false)}
     >
       <BottomPopupContent
         styles={{
@@ -187,6 +188,7 @@ export const ModalBusinessContent: React.FC<Props> = (props) => {
                       businessId={business.id}
                       businessName={business.businessName}
                       businessType={business.type}
+                      selectedBusiness={selectedBusiness}
                     />
                   </ScrollView>
                 </Pressable>
