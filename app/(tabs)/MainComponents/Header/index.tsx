@@ -9,6 +9,7 @@ import { useMemo } from "react";
 import Skeleton from "@/components/Atoms/Skeleton";
 import DateCalendar from "./DateCalendar/DateCalendar";
 import { formatAmount } from "@/utils/money";
+import { BlurView } from "expo-blur";
 
 type Props = {
   setSideMenu: (sideMenu: boolean) => void;
@@ -30,21 +31,62 @@ const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
   return (
     <View
       style={{
-        flexDirection: "column",
+        flexDirection: "row",
         justifyContent: "space-between",
-        paddingHorizontal: 4,
-        paddingVertical: 4,
-        marginHorizontal: 10,
+        paddingHorizontal: 8,
 
-        width: width - 20,
+        marginHorizontal: 0,
+
+        width,
       }}
     >
       <View
         style={{
+          flexDirection: "column",
+        }}
+      >
+        {!loading ? (
+          <Text
+            style={{
+              color: "white",
+              fontSize: 19,
+              fontWeight: "bold",
+              textTransform: "capitalize",
+            }}
+          >
+            {userQuery?.data?.username}
+            {" - "}
+            <Text
+              style={{
+                color: "white",
+                fontSize: 14,
+                fontWeight: "bold",
+              }}
+            >
+              {formatAmount(balance)}
+              <Text style={{ fontSize: 12 }}>Є</Text>
+            </Text>
+          </Text>
+        ) : (
+          <Skeleton
+            height={18}
+            style={{
+              marginTop: 3.8,
+              backgroundColor: `${Colors.pearlWhite}66`,
+            }}
+            width={130}
+          />
+        )}
+
+        <DateCalendar />
+      </View>
+
+      <View
+        style={{
           display: "flex",
           flexDirection: "row",
-          columnGap: 6,
-          justifyContent: "space-between",
+
+          columnGap: 4,
         }}
       >
         <Pressable
@@ -52,81 +94,28 @@ const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
           style={{
             justifyContent: "center",
 
+            borderRadius: 4,
+            overflow: "hidden",
             zIndex: 10,
           }}
         >
-          <Ionicons size={25} name="chevron-back" color={Colors.pearlWhite} />
+          <BlurView intensity={100} style={{ padding: 2 }}>
+            <Ionicons size={25} name="menu" color={Colors.pearlWhite} />
+          </BlurView>
         </Pressable>
-        <View style={{ flex: 1 }}>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "baseline",
-            }}
-          >
-            <View style={{ rowGap: 2 }}>
-              {!loading ? (
-                <Text
-                  style={{
-                    color: "white",
-                    fontSize: 19,
-                    fontWeight: "bold",
-                    textTransform: "capitalize",
-                  }}
-                >
-                  {userQuery?.data?.username}
-                </Text>
-              ) : (
-                <Skeleton
-                  height={18}
-                  style={{
-                    marginTop: 3.8,
-                    backgroundColor: `${Colors.pearlWhite}66`,
-                  }}
-                  width={130}
-                />
-              )}
-            </View>
-            <DateCalendar />
-          </View>
-          {!loading ? (
-            <View>
-              <Text
-                style={{
-                  color: "white",
-                  fontSize: 14,
-                  fontWeight: "bold",
-                }}
-              >
-                {formatAmount(balance)}
-                <Text style={{ fontSize: 12 }}>Є</Text>
-              </Text>
-            </View>
-          ) : (
-            <Skeleton
-              height={39}
-              style={{
-                marginTop: 2,
-                backgroundColor: `${Colors.pearlWhite}66`,
-              }}
-              width={90}
-            />
-          )}
-        </View>
         <Pressable
           onPress={() => setSideMenu(true)}
           style={{
             justifyContent: "center",
 
+            borderRadius: 4,
+            overflow: "hidden",
             zIndex: 10,
           }}
         >
-          <Ionicons
-            size={25}
-            name="chevron-forward"
-            color={Colors.pearlWhite}
-          />
+          <BlurView intensity={100} style={{ padding: 2 }}>
+            <Ionicons size={25} name="settings" color={Colors.pearlWhite} />
+          </BlurView>
         </Pressable>
       </View>
     </View>

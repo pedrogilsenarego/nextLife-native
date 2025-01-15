@@ -77,11 +77,11 @@ const MainLayout = ({
               {
                 height: "94.7%",
                 position: "relative",
-                paddingTop: 64,
+                paddingTop: 58,
               },
             ]}
           >
-            <View style={{ position: "absolute", top: 6, zIndex: 20 }}>
+            <View style={{ position: "absolute", top: 0, zIndex: 20 }}>
               <Header
                 setSideMenu={setSideMenu}
                 setSideLeftMenu={setSideLeftMenu}
