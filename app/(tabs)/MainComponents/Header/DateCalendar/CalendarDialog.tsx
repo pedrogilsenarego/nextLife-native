@@ -2,14 +2,14 @@ import { BottomPopup, BottomPopupContent } from "@/components/BottomPopup";
 import { useSchedulleMetrics } from "@/hooks/SchedulleMetrics/useSchedulleMetrics";
 import { Pressable, Text, View } from "react-native";
 import { CalendarDialogItem } from "./CalendarDialogItem";
+import { MonthGroup } from "@/hooks/SchedulleMetrics/SchedulleMetrics.types";
 
 type Props = {
   onClose: () => void;
+  monthEvents: MonthGroup[];
 };
 
 const CalendarDialog: React.FC<Props> = (props) => {
-  const { getMonthEvents } = useSchedulleMetrics();
-
   return (
     <BottomPopup
       fullHeight
@@ -20,7 +20,7 @@ const CalendarDialog: React.FC<Props> = (props) => {
       <BottomPopupContent>
         <View style={{ marginTop: 15 }}>
           <View style={{ flexDirection: "column", gap: 10 }}>
-            {getMonthEvents()?.map((month, index) => {
+            {props.monthEvents?.map((month, index) => {
               if (month.events.length <= 0) return null;
               return (
                 <Pressable key={index}>
@@ -30,8 +30,6 @@ const CalendarDialog: React.FC<Props> = (props) => {
                     </Text>
                     <View style={{ marginTop: 10, rowGap: 6 }}>
                       {month.events.map((event, i) => {
-                        // We'll measure the content once
-
                         return <CalendarDialogItem event={event} i={i} />;
                       })}
                     </View>
