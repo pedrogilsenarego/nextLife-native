@@ -77,7 +77,7 @@ const MainLayout = ({
               {
                 height: "94.7%",
                 position: "relative",
-                paddingTop: 68,
+                paddingTop: 64,
               },
             ]}
           >

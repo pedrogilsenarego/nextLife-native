@@ -3,6 +3,7 @@ import { Dimensions, Keyboard, Pressable, Text, View } from "react-native";
 import MainCard from "./MainCard";
 import Info from "./Info";
 import LoginLayout from "@/layouts/LoginLayout";
+import React from "react";
 
 const Login = () => {
   const width = Dimensions.get("window").width;
