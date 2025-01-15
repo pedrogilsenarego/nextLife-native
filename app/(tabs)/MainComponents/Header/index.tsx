@@ -33,6 +33,7 @@ const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
       style={{
         flexDirection: "row",
         justifyContent: "space-between",
+        alignItems: "center",
         paddingHorizontal: 8,
 
         marginHorizontal: 0,
@@ -89,32 +90,20 @@ const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
           columnGap: 4,
         }}
       >
-        <Pressable
-          onPress={() => setSideLeftMenu(true)}
-          style={{
-            justifyContent: "center",
-
-            borderRadius: 4,
-            overflow: "hidden",
-            zIndex: 10,
-          }}
-        >
-          <BlurView intensity={100} style={{ padding: 2 }}>
-            <Ionicons size={25} name="menu" color={Colors.pearlWhite} />
+        <Pressable onPress={() => setSideLeftMenu(true)}>
+          <BlurView
+            intensity={50}
+            style={{ padding: 6, overflow: "hidden", borderRadius: 6 }}
+          >
+            <Ionicons size={20} name="menu" color={Colors.white} />
           </BlurView>
         </Pressable>
-        <Pressable
-          onPress={() => setSideMenu(true)}
-          style={{
-            justifyContent: "center",
-
-            borderRadius: 4,
-            overflow: "hidden",
-            zIndex: 10,
-          }}
-        >
-          <BlurView intensity={100} style={{ padding: 2 }}>
-            <Ionicons size={25} name="settings" color={Colors.pearlWhite} />
+        <Pressable onPress={() => setSideMenu(true)}>
+          <BlurView
+            intensity={50}
+            style={{ padding: 6, overflow: "hidden", borderRadius: 6 }}
+          >
+            <Ionicons size={20} name="settings" color={Colors.white} />
           </BlurView>
         </Pressable>
       </View>
