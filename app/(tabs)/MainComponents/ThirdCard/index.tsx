@@ -22,13 +22,23 @@ import { useApp } from "@/providers/AppProvider";
 import { SelectedDepositProvider } from "./DepositsContext";
 import { DepositsScroller } from "./DepositsScroller";
 import { HeaderMetrics } from "./HeaderMetrics";
-import React from "react";
+import React, { useMemo } from "react";
+import { formatAmount } from "@/utils/money";
 
 const ThirdCard = () => {
   const businesses = useBusinesses();
   const { theme } = useTheme();
 
-  const { getExpensesPerBusiness, getIncomesPerBusiness } = useMetrics();
+  const {
+    getExpensesPerBusiness,
+    getIncomesPerBusiness,
+    totalExpenses,
+    totalIncomes,
+  } = useMetrics();
+
+  const balance = useMemo(() => {
+    return (totalIncomes() - totalExpenses()).toFixed(0);
+  }, [totalIncomes, totalExpenses]);
 
   const { businessFilter } = useApp();
   const businessData =
@@ -146,7 +156,42 @@ const ThirdCard = () => {
                     </View>
                   ) : (
                     <>
-                      <View style={{ marginTop: 60, paddingHorizontal: 14 }}>
+                      <View
+                        style={{
+                          marginTop: 30,
+                          paddingHorizontal: 14,
+                          display: "flex",
+                          flexDirection: "column",
+                          rowGap: 20,
+                        }}
+                      >
+                        <View style={{ marginLeft: 20 }}>
+                          <Text
+                            style={{
+                              fontSize: 16,
+                              fontWeight: "400",
+                              color: "gray",
+                            }}
+                          >
+                            Profit
+                          </Text>
+                          <Text
+                            style={{
+                              fontSize: 32,
+                              letterSpacing: 0,
+                              marginTop: -4,
+                              marginBottom: -5,
+                              marginLeft: -2,
+                              fontWeight: "600",
+                              color: Colors.black,
+                            }}
+                          >
+                            {formatAmount(balance)}
+                            <Text style={{ fontSize: 20, color: Colors.black }}>
+                              €
+                            </Text>
+                          </Text>
+                        </View>
                         <HorizontalBarChartBusiness
                           businessData={businessData}
                         />

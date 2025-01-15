@@ -3,6 +3,7 @@ import Skeleton from "@/components/Atoms/Skeleton";
 import LineChart from "@/components/Charts/LineChart";
 import { usePortefolio } from "@/hooks/usePortefolio";
 import { Colors, useTheme } from "@/providers/ThemeContext";
+import { formatAmount } from "@/utils/money";
 import { View, Dimensions, Text } from "react-native";
 
 export const HeaderMetrics = () => {
@@ -62,7 +63,7 @@ export const HeaderMetrics = () => {
             ) : (
               <Text
                 style={{
-                  fontSize: 35,
+                  fontSize: 32,
                   letterSpacing: 0,
 
                   marginTop: -4,
@@ -72,7 +73,7 @@ export const HeaderMetrics = () => {
                   color: Colors.black,
                 }}
               >
-                {totalCurrentPatrimony}
+                {formatAmount(totalCurrentPatrimony.toFixed(1))}
                 <Text style={{ fontSize: 20, color: Colors.black }}>€</Text>
               </Text>
             )}

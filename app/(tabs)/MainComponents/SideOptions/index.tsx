@@ -7,6 +7,7 @@ import { AntDesign } from "@expo/vector-icons";
 import Animated, { FadeInDown, FadeOutDown } from "react-native-reanimated";
 import { SettingsContent } from "./SettingsContent";
 import { ProfileContent } from "./ProfileContent";
+import React from "react";
 
 type Props = {
   open: boolean;
