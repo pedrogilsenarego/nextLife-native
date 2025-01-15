@@ -93,7 +93,7 @@ const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
         <Pressable onPress={() => setSideLeftMenu(true)}>
           <BlurView
             intensity={50}
-            style={{ padding: 6, overflow: "hidden", borderRadius: 6 }}
+            style={{ padding: 8, overflow: "hidden", borderRadius: 6 }}
           >
             <Ionicons size={20} name="menu" color={Colors.white} />
           </BlurView>
@@ -101,7 +101,7 @@ const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
         <Pressable onPress={() => setSideMenu(true)}>
           <BlurView
             intensity={50}
-            style={{ padding: 6, overflow: "hidden", borderRadius: 6 }}
+            style={{ padding: 8, overflow: "hidden", borderRadius: 6 }}
           >
             <Ionicons size={20} name="settings" color={Colors.white} />
           </BlurView>
