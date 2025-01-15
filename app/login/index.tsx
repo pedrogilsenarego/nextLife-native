@@ -1,5 +1,4 @@
 import Carousel from "react-native-reanimated-carousel";
-import MainLayout from "../../layouts/MainLayout";
 import { Dimensions, Keyboard, Pressable, Text, View } from "react-native";
 import MainCard from "./MainCard";
 import Info from "./Info";

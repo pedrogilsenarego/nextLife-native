@@ -74,10 +74,10 @@ const MainLayout = ({
           <RnAnimated.View
             style={[
               animatedStyle,
-
               {
                 height: "94.7%",
                 position: "relative",
+                paddingTop: 68,
               },
             ]}
           >

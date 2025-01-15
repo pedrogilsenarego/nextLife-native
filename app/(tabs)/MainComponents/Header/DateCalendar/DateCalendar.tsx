@@ -31,7 +31,7 @@ const DateCalendar: React.FC = () => {
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
-          columnGap: 2,
+          columnGap: 3,
         }}
         onPress={() => setOpenCalendar(true)}
       >

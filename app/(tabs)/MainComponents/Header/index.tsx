@@ -5,11 +5,10 @@ import { Ionicons } from "@expo/vector-icons";
 import { View, Text, Dimensions, Pressable } from "react-native";
 import useExpenses from "@/hooks/useExpenses";
 import useIncomes from "@/hooks/useIncomes";
-import { dateRangeLabel } from "@/mappers/dateRange";
-import { useApp } from "@/providers/AppProvider";
 import { useMemo } from "react";
 import Skeleton from "@/components/Atoms/Skeleton";
 import DateCalendar from "./DateCalendar/DateCalendar";
+import { formatAmount } from "@/utils/money";
 
 type Props = {
   setSideMenu: (sideMenu: boolean) => void;
@@ -17,11 +16,9 @@ type Props = {
 };
 
 const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
-  const { mainColor } = useTheme();
   const userQuery = useUser();
   const expenses = useExpenses();
   const incomes = useIncomes();
-  const { dateRange } = useApp();
   const { totalExpenses, totalIncomes } = useMetrics();
 
   const width = Dimensions.get("screen").width;
@@ -39,18 +36,7 @@ const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
         paddingVertical: 4,
         marginHorizontal: 10,
 
-        backgroundColor: mainColor,
-        borderRadius: 7,
         width: width - 20,
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },
-
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
       }}
     >
       <View
@@ -64,12 +50,9 @@ const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
         <Pressable
           onPress={() => setSideLeftMenu(true)}
           style={{
-            borderTopLeftRadius: 4,
-            borderBottomLeftRadius: 4,
             justifyContent: "center",
 
             zIndex: 10,
-            backgroundColor: mainColor,
           }}
         >
           <Ionicons size={25} name="chevron-back" color={Colors.pearlWhite} />
@@ -111,21 +94,13 @@ const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
             <View>
               <Text
                 style={{
-                  fontSize: 12,
-                  color: "whitesmoke",
-                }}
-              >
-                Your {dateRangeLabel(dateRange)} balance
-              </Text>
-              <Text
-                style={{
                   color: "white",
-                  fontSize: 18,
+                  fontSize: 14,
                   fontWeight: "bold",
                 }}
               >
-                {balance}
-                <Text style={{ fontSize: 14 }}>Є</Text>
+                {formatAmount(balance)}
+                <Text style={{ fontSize: 12 }}>Є</Text>
               </Text>
             </View>
           ) : (
@@ -142,12 +117,9 @@ const Header = ({ setSideMenu, setSideLeftMenu }: Props) => {
         <Pressable
           onPress={() => setSideMenu(true)}
           style={{
-            borderTopRightRadius: 4,
-            borderBottomRightRadius: 4,
             justifyContent: "center",
 
             zIndex: 10,
-            backgroundColor: mainColor,
           }}
         >
           <Ionicons
