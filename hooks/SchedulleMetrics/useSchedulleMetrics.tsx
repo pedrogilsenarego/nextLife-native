@@ -14,6 +14,7 @@ import { singleMonth } from "@/utils/dateRange";
 import useExpenses from "../useExpenses";
 import { View, Text } from "react-native";
 import { Divider } from "@/components/Atoms/Divider";
+import React from "react";
 
 export const useSchedulleMetrics = () => {
   const cars = useCars();
@@ -136,7 +137,6 @@ export const useSchedulleMetrics = () => {
           const paymentDate = new Date(paymentYear, paymentMonth, 1);
           const endPaymentDate = new Date(paymentYear, paymentMonth + 1, 0);
 
-          // Find the index of the payment month in monthEvents
           const monthIndex = monthEvents.findIndex(
             (group) =>
               group.month === paymentMonth && group.year === paymentYear
@@ -155,7 +155,6 @@ export const useSchedulleMetrics = () => {
 
             installmentAmount = Math.round(installmentAmount * 10) / 10;
 
-            // Add the IMI payment event
             monthEvents[monthIndex].events.push({
               title: address,
               category: "IMI",
@@ -235,7 +234,7 @@ export const useSchedulleMetrics = () => {
                 dateEnd: fiscalPeriod.endDate,
               });
 
-              value = incomesIva - expensesIva.total;
+              value = (incomesIva - expensesIva.total).toFixed(1);
 
               content = (
                 <View

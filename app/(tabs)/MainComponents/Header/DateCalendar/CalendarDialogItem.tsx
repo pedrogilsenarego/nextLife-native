@@ -1,7 +1,6 @@
 import { Container } from "@/components/Atoms/Container";
 import { SchedulleEvent } from "@/hooks/SchedulleMetrics/SchedulleMetrics.types";
 import React from "react";
-
 import { useEffect, useState } from "react";
 import { Pressable, View, Text } from "react-native";
 import Animated, {
@@ -21,9 +20,7 @@ export const CalendarDialogItem: React.FC<Props> = (props) => {
   const contentHeight = useSharedValue(0);
   const [measuredHeight, setMeasuredHeight] = useState(0);
 
-  // Animate height when showContent changes
   useEffect(() => {
-    // Animate height from 0 to the measured content height (or back)
     contentHeight.value = withTiming(showContent ? measuredHeight : 0, {
       duration: 300,
     });
@@ -52,7 +49,7 @@ export const CalendarDialogItem: React.FC<Props> = (props) => {
           >
             <Text style={{ fontWeight: "600" }}>{props.event.category}</Text>
             <Text style={{ fontWeight: "600" }}>
-              {props.event.value || "-"} €
+              {props.event.value || "N.A."} €
             </Text>
           </View>
           <View

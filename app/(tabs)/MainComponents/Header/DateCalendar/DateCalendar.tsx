@@ -45,19 +45,16 @@ const DateCalendar: React.FC = () => {
         >
           {formattedDate}
         </Text>
-        {!hasEventsForCurrentMonth && (
-          <View
-            style={{
-              backgroundColor: "red",
-              marginTop: 7,
-              borderWidth: 1,
-              borderColor: Colors.lightGray,
-              borderRadius: 50,
-              width: 7,
-              height: 7,
-            }}
-          />
-        )}
+        <View
+          style={{
+            opacity: hasEventsForCurrentMonth ? 1 : 0,
+            backgroundColor: "red",
+            marginTop: 7,
+            borderRadius: 50,
+            width: 7,
+            height: 7,
+          }}
+        />
       </Pressable>
       {openCalendar && (
         <CalendarDialog
