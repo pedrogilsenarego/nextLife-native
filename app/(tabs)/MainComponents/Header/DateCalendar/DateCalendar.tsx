@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import CalendarDialog from "./CalendarDialog";
 import React from "react";
-import { Colors } from "@/providers/ThemeContext";
 import { useSchedulleMetrics } from "@/hooks/SchedulleMetrics/useSchedulleMetrics";
 
 const DateCalendar: React.FC = () => {
@@ -29,7 +28,6 @@ const DateCalendar: React.FC = () => {
     <>
       <Pressable
         style={{
-          marginTop: 30,
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
