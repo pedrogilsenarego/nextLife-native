@@ -162,10 +162,10 @@ const ThirdCard = () => {
                           paddingHorizontal: 14,
                           display: "flex",
                           flexDirection: "column",
-                          rowGap: 20,
+                          rowGap: 16,
                         }}
                       >
-                        <View style={{ marginLeft: 20 }}>
+                        <View style={{ marginLeft: 26 }}>
                           <Text
                             style={{
                               fontSize: 16,

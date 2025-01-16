@@ -1,6 +1,5 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
 import Login from "./login";
@@ -9,7 +8,6 @@ import { Session } from "@supabase/supabase-js";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ModalProvider } from "@/providers/ModalContext";
 import { ThemeProvider } from "@/providers/ThemeContext";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Loading from "@/components/Atoms/Loading";
 import { AppProvider } from "@/providers/AppProvider";
 import TabOneScreen from "./(tabs)";
