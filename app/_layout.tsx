@@ -11,7 +11,8 @@ import { ThemeProvider } from "@/providers/ThemeContext";
 import Loading from "@/components/Atoms/Loading";
 import { AppProvider } from "@/providers/AppProvider";
 import TabOneScreen from "./(tabs)";
-import { StatusBar } from "expo-status-bar";
+import { setStatusBarStyle, StatusBar } from "expo-status-bar";
+import { AppState } from "react-native";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -33,7 +34,22 @@ export default function RootLayout() {
     ...FontAwesome.font,
   });
   const [session, setSession] = useState<Session | null>(null);
+  const [appState, setAppState] = useState(AppState.currentState);
   const queryClient = new QueryClient();
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener("change", (nextAppState) => {
+      if (appState.match(/inactive|background/) && nextAppState === "active") {
+        setStatusBarStyle("light");
+      }
+      setAppState(nextAppState);
+    });
+
+    return () => {
+      // Cleanup listener on unmount
+      subscription.remove();
+    };
+  }, [appState]);
 
   useEffect(() => {
     setLoading(true);

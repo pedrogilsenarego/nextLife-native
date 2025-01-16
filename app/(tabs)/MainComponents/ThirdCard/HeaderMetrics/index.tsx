@@ -4,6 +4,7 @@ import LineChart from "@/components/Charts/LineChart";
 import { usePortefolio } from "@/hooks/usePortefolio";
 import { Colors, useTheme } from "@/providers/ThemeContext";
 import { formatAmount } from "@/utils/money";
+import React from "react";
 import { View, Dimensions, Text } from "react-native";
 
 export const HeaderMetrics = () => {
