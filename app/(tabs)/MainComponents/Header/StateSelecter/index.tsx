@@ -107,7 +107,7 @@ export const StateSelecter: React.FC<Props> = ({
         }}
       >
         <AntDesign
-          name="dotchart"
+          name="dot-chart"
           color={
             theme === "light"
               ? index.value === 1
@@ -129,7 +129,7 @@ export const StateSelecter: React.FC<Props> = ({
         }}
       >
         <AntDesign
-          name="piechart"
+          name="pie-chart"
           color={
             theme === "light"
               ? index.value === 2

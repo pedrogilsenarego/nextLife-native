@@ -42,7 +42,7 @@ export const SideLeftOptions = ({ open }: Props) => {
       component: (
         <Pressable>
           <BlurView intensity={100} style={styles.blurContainer}>
-            <AntDesign color={"whitesmoke"} size={iconSize} name="adduser" />
+            <AntDesign color={"whitesmoke"} size={iconSize} name="user-add" />
             <Text style={styles.text}>Friends</Text>
           </BlurView>
         </Pressable>

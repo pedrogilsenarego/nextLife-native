@@ -106,7 +106,7 @@ export const TransferInput: React.FC = () => {
               ?.depositName || ""}
           </Text>
         </Pressable>
-        <AntDesign name="arrowright" size={30} />
+        <AntDesign name="arrow-right" size={30} />
         <Pressable
           onPress={() => setOpenInputModal(true)}
           style={{

@@ -29,7 +29,7 @@ export const useBusinessIcons = ({ size, dColor }: Props) => {
     },
     {
       value: 4,
-      icon: <AntDesign size={size} name="CodeSandbox" color={color} />,
+      icon: <AntDesign size={size} name="code-sandbox" color={color} />,
     },
     {
       value: 5,
@@ -49,7 +49,7 @@ export const useBusinessIcons = ({ size, dColor }: Props) => {
     },
     {
       value: 9,
-      icon: <AntDesign size={size} name="medicinebox" color={color} />,
+      icon: <AntDesign size={size} name="medicine-box" color={color} />,
     },
     {
       value: 10,
@@ -57,7 +57,7 @@ export const useBusinessIcons = ({ size, dColor }: Props) => {
     },
     {
       value: 11,
-      icon: <AntDesign size={size} name="iconfontdesktop" color={color} />,
+      icon: <AntDesign size={size} name="desktop" color={color} />,
     },
   ];
 };

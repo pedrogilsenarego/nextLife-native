@@ -149,7 +149,7 @@ const BottomPopup = ({
                         }}
                       >
                         <AntDesign
-                          name="closecircle"
+                          name="close-circle"
                           size={22}
                           color={bgColor ? Colors.white : mainColor}
                         />
@@ -259,7 +259,7 @@ const BottomPopupNotification: React.FC<Props> = (props) => {
             columnGap: 10,
           }}
         >
-          <AntDesign name="infocirlce" color={Colors.white} size={16} />
+          <AntDesign name="info-circle" color={Colors.white} size={16} />
           <Text
             style={{
               color: Colors.white,
