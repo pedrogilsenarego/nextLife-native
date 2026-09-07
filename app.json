@@ -14,7 +14,10 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.perrosenarego.nextLifenative",
       "buildNumber": "6",
-      "version": "1.2.0"
+      "version": "1.2.0",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
